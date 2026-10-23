@@ -1,9 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Right to Walk</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Khand:wght@500;600;700&family=Mukta:wght@400;500;700&display=swap">
+<meta name="description" content="Check the footpath on your street in two minutes, see what the Supreme Court and the road standards say it should be, and send the notice to whoever owns the road. A Crashfree India prototype for Gurugram.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FFC72C">
+<link rel="canonical" href="https://righttowalk.life/">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Right to Walk">
+<meta property="og:title" content="Right to Walk">
+<meta property="og:description" content="Check the footpath on your street in two minutes, see what the Supreme Court and the road standards say it should be, and send the notice to whoever owns the road. A Crashfree India prototype for Gurugram.">
+<meta property="og:url" content="https://righttowalk.life/">
+<meta property="og:image" content="https://righttowalk.life/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Right to Walk">
+<meta name="twitter:description" content="Check the footpath on your street in two minutes, see what the Supreme Court and the road standards say it should be, and send the notice to whoever owns the road. A Crashfree India prototype for Gurugram.">
+<meta name="twitter:image" content="https://righttowalk.life/og.png">
 <style>
+@font-face{font-family:'Khand';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/khand-500-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF4, U+1CF7-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B0A}
+@font-face{font-family:'Khand';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/khand-500-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Khand';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/khand-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Khand';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/khand-600-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF4, U+1CF7-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B0A}
+@font-face{font-family:'Khand';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/khand-600-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Khand';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/khand-600-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Khand';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/khand-700-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF4, U+1CF7-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B0A}
+@font-face{font-family:'Khand';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/khand-700-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Khand';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/khand-700-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/mukta-400-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF4, U+1CF7-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B0A}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/mukta-400-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/mukta-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/mukta-500-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF4, U+1CF7-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B0A}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/mukta-500-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/mukta-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/mukta-700-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF4, U+1CF7-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B0A}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/mukta-700-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/mukta-700-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+
 /* Footpath Check. Direction: "Kerb and chalk". The street's own materials: concrete pavers, black-and-yellow kerb paint,
    tactile yellow, chalk survey marks, the pedestrian signal. One phone-first column; the stretch you are checking is drawn
    live at the top of the walk and becomes the result. Khand (condensed, signage) + Mukta (humanist), both Latin + Devanagari. */
@@ -193,7 +234,7 @@ footer .wrap{padding-block:18px;font-size:13.5px;color:var(--ink-2);display:grid
 .badge{position:absolute;top:-8px;right:-6px;min-width:26px;height:26px;padding:0 7px;border-radius:999px;background:var(--ink);color:var(--bg);border:2px solid var(--bg);font-family:var(--head);font-weight:700;font-size:15px;display:grid;place-items:center;pointer-events:none}
 .badge.pop{animation:pop .3s ease-out}
 @keyframes pop{0%{transform:scale(.5)}60%{transform:scale(1.35)}100%{transform:scale(1)}}
-.minus{position:absolute;bottom:-8px;right:-6px;width:28px;height:28px;border-radius:999px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);font-family:var(--head);font-weight:700;font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
+.minus{position:absolute;bottom:-10px;right:-8px;width:36px;height:36px;border-radius:999px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);font-family:var(--head);font-weight:700;font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
 .palsum{font-size:14px;color:var(--ink-2)}
 .palsum b{color:var(--ink)}
 .autonote{font-size:13.5px;color:var(--ink-2);font-style:italic}
@@ -264,7 +305,14 @@ details.why p{margin-top:6px}
 .ask .t span{min-width:0}
 .ask .t span:first-child{white-space:normal}
 
+button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+@media (min-width:900px){.wrap{max-width:760px}.palette{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}}
+
 </style>
+</head>
+<body>
+<noscript><p style="margin:16px;font:17px/1.5 system-ui">Right to Walk needs JavaScript to draw your street and write the notice. Please enable it, or open the page in another browser.</p></noscript>
+<script>if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.hidden=true}}</script>
 <header class="top">
   <div class="wrap">
     <a class="mark" href="#learn" data-s="mark">Right to Walk</a>
@@ -948,3 +996,5 @@ applyStrings();route();startDemo();setTop();
 
 })();
 </script>
+</body>
+</html>

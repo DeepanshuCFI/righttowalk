@@ -187,7 +187,7 @@ footer .wrap{padding-block:18px;font-size:13.5px;color:var(--ink-2);display:grid
 .badge{position:absolute;top:-8px;right:-6px;min-width:26px;height:26px;padding:0 7px;border-radius:999px;background:var(--ink);color:var(--bg);border:2px solid var(--bg);font-family:var(--head);font-weight:700;font-size:15px;display:grid;place-items:center;pointer-events:none}
 .badge.pop{animation:pop .3s ease-out}
 @keyframes pop{0%{transform:scale(.5)}60%{transform:scale(1.35)}100%{transform:scale(1)}}
-.minus{position:absolute;bottom:-8px;right:-6px;width:28px;height:28px;border-radius:999px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);font-family:var(--head);font-weight:700;font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
+.minus{position:absolute;bottom:-10px;right:-8px;width:36px;height:36px;border-radius:999px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);font-family:var(--head);font-weight:700;font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
 .palsum{font-size:14px;color:var(--ink-2)}
 .palsum b{color:var(--ink)}
 .autonote{font-size:13.5px;color:var(--ink-2);font-style:italic}
@@ -257,3 +257,6 @@ details.why p{margin-top:6px}
 .ask p.who b{color:var(--ink)}
 .ask .t span{min-width:0}
 .ask .t span:first-child{white-space:normal}
+
+button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+@media (min-width:900px){.wrap{max-width:760px}.palette{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}}
