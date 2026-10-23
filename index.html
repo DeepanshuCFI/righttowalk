@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Right to Walk</title>
 <meta name="description" content="Check the footpath on your street in two minutes, see what the Supreme Court and the road standards say it should be, and send the notice to whoever owns the road. A Crashfree India prototype for Gurugram.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://tile.openstreetmap.org; connect-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#FFC72C">
@@ -102,6 +102,7 @@ p{margin:0}
 .kicker b{color:var(--ink)}
 section.v .wrap{padding-block:24px 40px;display:grid;gap:26px}
 .block{display:grid;gap:12px}
+section.v .wrap>*,.block>*{min-width:0}
 .paper{background:var(--paper);border:2px solid var(--ink);border-radius:14px;padding:18px;display:grid;gap:10px;min-width:0}
 .paper.soft{border-color:var(--line)}
 .tag{display:inline-block;font-family:var(--head);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid var(--ink-2);color:var(--ink-2);border-radius:6px;padding:1px 7px;vertical-align:middle;white-space:nowrap}
@@ -329,10 +330,26 @@ button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlig
 .legend span{display:inline-flex;align-items:center;gap:6px}
 .legend i{display:inline-block;width:14px;height:14px;border-radius:3px;border:1.5px solid var(--ink-2)}
 
+/* ---------- Phase 1: record, share, counter ---------- */
+.counter{gap:12px}
+.cnt{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px 22px}
+.cntn{display:grid;gap:2px}
+.cntn .n{font-family:var(--head);font-weight:700;font-size:clamp(44px,9vw,64px);line-height:.95;font-variant-numeric:tabular-nums;color:var(--ink)}
+.cntn .n.r{color:var(--red)}
+.cntn .l{font-size:14px;color:var(--ink-2);line-height:1.3}
+.submit{border-style:dashed}
+.submit.done{border-style:solid;background:var(--plot)}
+label.f.check{grid-template-columns:auto 1fr;align-items:start;gap:10px;font-size:15px;color:var(--ink-2)}
+label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink)}
+.sharecard{position:relative;max-width:360px;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:var(--paper);aspect-ratio:4/5}
+.sharecard img{display:block;width:100%;height:auto}
+.sharewait{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+
+
 </style>
 </head>
 <body>
-<noscript><p style="margin:16px;font:17px/1.5 system-ui">Right to Walk needs JavaScript to draw your street and write the notice. Please enable it, or open the page in another browser.</p></noscript>
+<noscript><p style="margin:16px;font:17px/1.5 system-ui">Right to Walk needs JavaScript for this page. Please enable it, or open the page in another browser.</p></noscript>
 <script>if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.hidden=true}}</script>
 <header class="top">
   <div class="wrap">
@@ -340,6 +357,7 @@ button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlig
     <nav>
       <a href="#learn" id="nav-learn" data-s="nav_learn">Learn</a>
       <a href="#check" id="nav-check" data-s="nav_check">Check a street</a>
+      <a href="map.html" id="nav-map" data-s="nav_map">Map</a>
       <a href="#saved" id="nav-saved" data-s="nav_saved">Saved</a>
       <button class="lang" id="langbtn" type="button" aria-label="Switch language">हिंदी</button>
     </nav>
@@ -362,6 +380,7 @@ button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlig
     <div class="paper">
       <div class="bigstat"><div class="n">36,526</div><div class="l">pedestrians were killed on Indian roads in 2024 (provisional), about a hundred a day. Haryana: 866. Ministry of Road Transport and Highways, Rajya Sabha answer, 18 March 2026.</div></div>
     </div>
+    <div class="paper counter" id="counter" hidden></div>
     <div class="block">
       <div class="demo-cap"><span class="kicker" id="demo-cap"><b>A typical sector road</b> · as found</span><div class="toggle" id="demo-toggle"><button type="button" data-m="found" aria-pressed="true" data-s="found">As found</button><button type="button" data-m="standard" aria-pressed="false" data-s="standard">To standard</button></div></div>
       <div class="street" id="demo-street"></div>
@@ -434,6 +453,7 @@ button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlig
         <li><strong>Walk.</strong> One gate question (can you walk 100 m without stepping onto the road), ten yes/no items with a photo each, and one question only you can answer. Your stretch draws itself at the top as you go.</li>
         <li><strong>Result.</strong> A score out of 100 at the weakest point of the stretch, one of three bands, your street as found and to standard, and the three heaviest things to ask for. Weights are printed; this is method v1.0.</li>
         <li><strong>Notice.</strong> A ready letter to the owning agency quoting the Court, with a reply-by date 21 days out. You copy it and send it through the agency's own channel. This page never files anything for you.</li>
+        <li><strong>Record.</strong> If you choose, the check joins the public Gurugram record: a moderator reads it, then it appears on the <a href="map.html">map</a>, in the <a href="report.html">report</a> and in the open dataset. The record is the evidence; the Supreme Court's open case on the right to walk is where it is headed.</li>
       </ul>
     </div>
     </div>
@@ -448,7 +468,7 @@ button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlig
       </ul>
     </div>
 
-    <div class="note">Photos stay on your phone; nothing is uploaded. A check you save is stored only in this browser. Every number and legal line above carries its source.</div>
+    <div class="note">Nothing leaves your phone unless you choose to add a check to the Gurugram record; a moderator looks at every entry before it is published, and your name is never published. A check you save is stored only in this browser. Every number and legal line above carries its source.</div>
   </div>
 </section>
 
@@ -489,6 +509,8 @@ button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlig
       <div class="block"><h3 id="asks-h"></h3><div class="asks" id="asks"></div></div>
       <div class="block" id="anchorout"></div>
       <div class="block" id="photosout" hidden><h3 data-s="card_photos"></h3><div class="thumbs" id="thumbs"></div></div>
+      <div class="block" id="submitout" hidden></div>
+      <div class="block" id="shareout" hidden></div>
       <div class="btnrow"><button class="btn" id="back-audit" type="button" data-s="back"></button><button class="btn yellow" id="to-notice" type="button" data-s="notice"></button><button class="btn" id="save-check" type="button" data-s="save"></button><button class="btn" id="copy-json" type="button" data-s="copyrec"></button></div>
       <div class="small" id="card-note"></div>
     </div>
@@ -524,7 +546,7 @@ button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlig
 <div class="kerb thin"></div>
 <footer><div class="wrap">
   <p>Right to Walk (righttowalk.life) is a Crashfree India prototype: the Footpath Check, Phase 0, Gurugram, method v1.0, 23 October 2026. Weights: footpath 20, clear 15, crossing 15, speed 12, width 8, ramps 8, surface 7, lighting 7, kerb and continuity 4, buffer 4. The score is taken at the weakest point of the stretch.</p>
-  <p>Legal lines are quoted from the signed judgment and orders; IRC figures carry their edition. This page files nothing on your behalf and stores nothing outside your browser.</p>
+  <p>Legal lines are quoted from the signed judgment and orders; IRC figures carry their edition. This page files nothing on your behalf. A check is stored outside your browser only when you add it to the record, and then only after you tick the consent box. <a href="map.html">Map</a> · <a href="report.html">Gurugram report</a> · <a href="dataset.html">Open data</a></p>
 </div></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -718,6 +740,106 @@ function obsGlyph(id,x,b){b=b||150;
 // stand-alone icon with a slice of footpath and kerb under it
 function obsIcon(id,cls){return `<svg class="${cls||'obicon'}" viewBox="0 30 100 140" aria-hidden="true"><rect x="0" y="30" width="100" height="120" style="fill:var(--s-paver)"/><path d="M0 70H100M0 110H100M50 30V70M25 70V110M75 70V110M50 110V150" style="stroke:var(--s-line);stroke-width:1.5"/>${obsGlyph(id,50,150)}<rect x="0" y="150" width="50" height="12" style="fill:var(--s-yellow)"/><rect x="50" y="150" width="50" height="12" style="fill:var(--s-ink)"/><rect x="0" y="162" width="100" height="8" style="fill:var(--s-asphalt)"/></svg>`}
 
+// ---------- Phase 1 connection (public values; the anon key is meant to ship to browsers) ----------
+// Fill in after the Supabase project exists. Leave url empty to run the site without submissions, map or report.
+const RTW={
+ url:'',
+ anon:'',
+ site:'https://righttowalk.life/',
+ tiles:'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+ tilesAttr:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+ center:[28.4595,77.0266], zoom:12
+};
+const RTW_ON=()=>!!(RTW.url&&RTW.anon);
+
+const SECTORS=["Sector 1", "Sector 2", "Sector 3", "Sector 4", "Sector 5", "Sector 6", "Sector 7", "Sector 8", "Sector 9", "Sector 10", "Sector 11", "Sector 12", "Sector 13", "Sector 14", "Sector 15", "Sector 16", "Sector 17", "Sector 18", "Sector 19", "Sector 20", "Sector 21", "Sector 22", "Sector 23", "Sector 24", "Sector 25", "Sector 26", "Sector 27", "Sector 28", "Sector 29", "Sector 30", "Sector 31", "Sector 32", "Sector 33", "Sector 34", "Sector 35", "Sector 36", "Sector 37", "Sector 38", "Sector 39", "Sector 40", "Sector 41", "Sector 42", "Sector 43", "Sector 44", "Sector 45", "Sector 46", "Sector 47", "Sector 48", "Sector 49", "Sector 50", "Sector 51", "Sector 52", "Sector 53", "Sector 54", "Sector 55", "Sector 56", "Sector 57", "Sector 58", "Sector 59", "Sector 60", "Sector 61", "Sector 62", "Sector 63", "Sector 64", "Sector 65", "Sector 66", "Sector 67", "Sector 68", "Sector 69", "Sector 70", "Sector 71", "Sector 72", "Sector 73", "Sector 74", "Sector 75", "Sector 76", "Sector 77", "Sector 78", "Sector 79", "Sector 80", "Sector 81", "Sector 82", "Sector 83", "Sector 84", "Sector 85", "Sector 86", "Sector 87", "Sector 88", "Sector 89", "Sector 90", "Sector 91", "Sector 92", "Sector 93", "Sector 94", "Sector 95", "Sector 96", "Sector 97", "Sector 98", "Sector 99", "Sector 100", "Sector 101", "Sector 102", "Sector 103", "Sector 104", "Sector 105", "Sector 106", "Sector 107", "Sector 108", "Sector 109", "Sector 110", "Sector 111", "Sector 112", "Sector 113", "Sector 114", "Sector 115", "DLF Phase 1", "DLF Phase 2", "DLF Phase 3", "DLF Phase 4", "DLF Phase 5", "Sushant Lok 1", "Sushant Lok 2", "Sushant Lok 3", "South City 1", "South City 2", "Palam Vihar", "Old Gurugram (Sadar, Jacobpura, Civil Lines)", "Sohna Road", "Golf Course Road", "Golf Course Extension Road", "MG Road", "Udyog Vihar", "Manesar", "Dwarka Expressway", "Other / not sure"];
+
+// ---------- Phase 1 shared client: plain fetch against PostgREST, Storage and GoTrue; no SDK ----------
+// Every page gets this after config.js. Nothing here runs unless RTW_ON().
+function rtwLS(fn){try{return fn()}catch(e){return null}}
+function rtwHeaders(tok,extra){return Object.assign({apikey:RTW.anon,Authorization:'Bearer '+(tok||RTW.anon)},extra||{})}
+async function rtwFetch(path,opt,tok){opt=opt||{};const r=await fetch(RTW.url+path,Object.assign({},opt,{headers:rtwHeaders(tok,opt.headers)}));
+ if(!r.ok){let msg='';try{const j=await r.json();msg=j.message||j.msg||j.error_description||j.error||''}catch(e){}const err=new Error(msg||('HTTP '+r.status));err.status=r.status;throw err}return r}
+async function rtwJSON(path,opt,tok){const r=await rtwFetch(path,opt,tok);if(r.status===204)return null;const t=await r.text();return t?JSON.parse(t):null}
+function rtwStats(){return rtwJSON('/rest/v1/rpc/public_stats')}
+async function rtwRows(path,tok){let out=[],from=0;for(;;){const r=await rtwFetch(path,{headers:{Range:`${from}-${from+999}`,'Range-Unit':'items'}},tok);const rows=await r.json();out=out.concat(rows);if(rows.length<1000)break;from+=1000}return out}
+function rtwPublished(){return rtwRows('/rest/v1/public_checks?select=*&order=created_at.desc')}
+function rtwSectorStats(){return rtwJSON('/rest/v1/public_sector_stats?select=*&order=checks.desc')}
+function rtwOwnerStats(){return rtwJSON('/rest/v1/public_owner_stats?select=*&order=checks.desc')}
+function rtwPhotoList(folder,tok){return rtwJSON('/storage/v1/object/list/photos',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prefix:folder,limit:20,offset:0,sortBy:{column:'name',order:'asc'}})},tok)}
+async function rtwPhotoURL(path,tok){const r=await rtwFetch('/storage/v1/object/authenticated/photos/'+path,{},tok);return URL.createObjectURL(await r.blob())}
+function rtwClientId(){let id=rtwLS(()=>localStorage.getItem('rtw_cid'));if(!id){id=(crypto.randomUUID?crypto.randomUUID():('c'+Date.now().toString(36)+Math.random().toString(36).slice(2,10)));rtwLS(()=>localStorage.setItem('rtw_cid',id))}return id}
+function rtwUUID(){if(crypto.randomUUID)return crypto.randomUUID();const b=crypto.getRandomValues(new Uint8Array(16));b[6]=(b[6]&15)|64;b[8]=(b[8]&63)|128;const h=[...b].map(x=>x.toString(16).padStart(2,'0')).join('');return `${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20)}`}
+// shrink a photo to a JPEG no wider than max px (also strips EXIF, including any GPS tag)
+function rtwShrink(file,max){return new Promise(res=>{const img=new Image();const u=URL.createObjectURL(file);
+ img.onload=()=>{try{const k=Math.min(1,(max||1600)/Math.max(img.naturalWidth,img.naturalHeight));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.naturalWidth*k));c.height=Math.max(1,Math.round(img.naturalHeight*k));c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>res(b),'image/jpeg',.82)}catch(e){URL.revokeObjectURL(u);res(null)}};
+ img.onerror=()=>{URL.revokeObjectURL(u);res(null)};img.src=u})}
+async function rtwUpload(path,blob){return rtwFetch('/storage/v1/object/photos/'+path,{method:'POST',headers:{'Content-Type':blob.type||'image/jpeg','x-upsert':'false','Cache-Control':'3600'},body:blob})}
+// ---------- formatting shared by the map, the report and the moderation page ----------
+const RTW_OWNER_SHORT={gmda:'GMDA',mcg:'MCG',hsvp:'HSVP',dtcp:'DTCP / coloniser',nhai:'NHAI',pwd:'PWD (B&R)',unknown:'Not sure'};
+function rtwEsc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function rtwDate(iso){try{return new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}catch(e){return ''}}
+function rtwPlace(r){return r.road||(r.lat!=null?`${(+r.lat).toFixed(4)}, ${(+r.lon).toFixed(4)}`:'Unnamed stretch')}
+function rtwObsEntries(obs){return Object.entries(obs||{}).filter(([id,n])=>OBS_BY[id]&&n>0).sort((a,b)=>b[1]-a[1])}
+function rtwObsText(obs,lang){return rtwObsEntries(obs).map(([id,n])=>`${lang==='hi'?OBS_BY[id].hi:OBS_BY[id].en}${n>1?' ×'+n:''}`).join(', ')}
+function rtwBandText(b){return b==='g'?'Walkable, keep it':(b==='a'?'Walkable with repairs':(b==='r'?'Not walkable':''))}
+function rtwPct(a,b){return b?Math.round(a/b*100):null}
+function rtwOSM(r){return `https://www.openstreetmap.org/?mlat=${r.lat}&mlon=${r.lon}#map=18/${r.lat}/${r.lon}`}
+function rtwShort(id){return String(id||'').slice(0,8).toUpperCase()}
+
+// ---------- share card: a 1080×1350 picture of one check for WhatsApp, drawn on a canvas ----------
+// Uses the street strip (SVG rendered to an image with the daylight palette and the self-hosted fonts embedded) plus canvas text.
+const SHARE_S={
+ en:{kick:'RIGHT TO WALK · GURUGRAM',l1_fail:'THIS FOOTPATH',l2_fail:'FAILS THE 100 M TEST',l1_pass:'THIS FOOTPATH',l2_pass:'CAN BE WALKED',l1_prob:'PROBLEMS',l2_prob:'ON ONE FOOTPATH',l1_score:'SCORE',found:'Found here:',quote:'“If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers.”',cite:'Supreme Court of India, Maniyar Iliyaz v. P. Ayyappan, 19 June 2026',cta:'Check your street in two minutes',walk:'100 m on this side without stepping onto the road:',yes:'yes',no:'no'},
+ hi:{kick:'राइट टू वॉक · गुरुग्राम',l1_fail:'यह फुटपाथ',l2_fail:'100 मीटर की कसौटी पर फ़ेल',l1_pass:'इस फुटपाथ पर',l2_pass:'चला जा सकता है',l1_prob:'समस्याएँ',l2_prob:'एक ही फुटपाथ पर',l1_score:'स्कोर',found:'यहाँ मिला:',quote:'“अगर सड़क है, तो चलने वालों के लिए चिह्नित और सँभाले हुए फुटपाथ सुनिश्चित करना एक कर्तव्य है।”',cite:'सुप्रीम कोर्ट, मनियार इलियाज़ बनाम पी. अय्यप्पन, 19 जून 2026',cta:'दो मिनट में अपनी सड़क जाँचें',walk:'इस तरफ़ 100 मीटर सड़क पर उतरे बिना:',yes:'हाँ',no:'नहीं'}
+};
+const SHARE_TOK={paver:'#E6E1D6',line:'#CFC9BC',ink:'#1C1E21',ink2:'#5B5A54',plot:'#F6F3EC',plot2:'#CFC7B8',asphalt:'#2B2E33',chalk:'#FFFFFF',dirt:'#C9B08A',dirt2:'#B39A74',tree:'#6E8B3D',glow:'#FFD24D',water:'#8DB9DA',yellow:'#FFC72C','yellow-ink':'#1C1E21',red:'#DE3A2F',amber:'#EE8B22',green:'#1FAE5A',bg:'#EFEBE3'};
+let shareFontCSS=null;
+async function shareFonts(hi){if(shareFontCSS!==null)return shareFontCSS;const files=[['Khand',600,'khand-600-latin'],['Khand',700,'khand-700-latin']];if(hi)files.push(['Khand',600,'khand-600-devanagari'],['Khand',700,'khand-700-devanagari']);
+ const parts=[];for(const [fam,w,f] of files){try{const r=await fetch(`fonts/${f}.woff2`);if(!r.ok)continue;const b=await r.blob();const b64=await new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.readAsDataURL(b)});parts.push(`@font-face{font-family:'${fam}';font-weight:${w};src:url(${b64}) format('woff2')}`)}catch(e){}}
+ shareFontCSS=parts.join('');return shareFontCSS}
+async function stripImage(svg,hi){const css=await shareFonts(hi);let s=svg.replace(/var\(--s-([a-z0-9-]+)\)/g,(m,k)=>SHARE_TOK[k]||'#000').replace(/var\(--head\)/g,"'Khand',sans-serif").replace(/class="lbl"/g,'class="lbl" style="font-family:Khand,sans-serif;font-weight:600;letter-spacing:.04em;text-transform:uppercase"');
+ s=s.replace('<defs>',`<defs><style>${css}</style>`);s=s.replace(/<svg /,'<svg width="1000" height="260" ');
+ const url='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s);return new Promise(res=>{const img=new Image();img.onload=()=>res(img);img.onerror=()=>res(null);img.src=url})}
+function wrapText(ctx,text,maxW){const words=String(text).split(/\s+/);const lines=[];let cur='';for(const w of words){const t=cur?cur+' '+w:w;if(ctx.measureText(t).width>maxW&&cur){lines.push(cur);cur=w}else cur=t}if(cur)lines.push(cur);return lines}
+function rr(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function fitFont(ctx,text,maxW,px,min,weight,fam){for(let s=px;s>=min;s-=4){ctx.font=`${weight} ${s}px ${fam}`;if(ctx.measureText(text).width<=maxW)return s}return min}
+// state: the live check `st`; returns a Blob (PNG)
+async function renderShareCard(stt,lang,opts){opts=opts||{};const L=SHARE_S[lang]||SHARE_S.en;const hi=lang==='hi';const W=1080,H=1350;const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
+ const HEAD=`'Khand','Mukta',sans-serif`,BODY=`'Mukta',sans-serif`;
+ try{await Promise.all([document.fonts.load(`700 100px Khand`),document.fonts.load(`600 40px Khand`),document.fonts.load(`500 40px Mukta`),document.fonts.load(`400 34px Mukta`)])}catch(e){}
+ // paper
+ ctx.fillStyle=SHARE_TOK.bg;ctx.fillRect(0,0,W,H);
+ // kerb stripe
+ ctx.save();ctx.beginPath();ctx.rect(0,0,W,26);ctx.clip();for(let x=-40;x<W+40;x+=52){ctx.fillStyle=SHARE_TOK.yellow;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x+26,0);ctx.lineTo(x+26+26,26);ctx.lineTo(x+26,26);ctx.closePath();ctx.fill();ctx.fillStyle=SHARE_TOK.ink;ctx.beginPath();ctx.moveTo(x+26,0);ctx.lineTo(x+52,0);ctx.lineTo(x+78,26);ctx.lineTo(x+52,26);ctx.closePath();ctx.fill()}ctx.restore();
+ const q=stt.mode==='quick';const a=stt.answers||{};const gate=q?stt.quick.gate:a.gate;const obsC=obsCounts(stt.obs||[]);const nObs=(stt.obs||[]).length;
+ const d=new Date(stt.meta.date);const dateTxt=d.toLocaleDateString(hi?'hi-IN':'en-IN',{day:'numeric',month:'long',year:'numeric'});
+ // kicker
+ ctx.fillStyle=SHARE_TOK.ink2;ctx.font=`600 32px ${HEAD}`;if('letterSpacing' in ctx)ctx.letterSpacing='4px';ctx.textBaseline='alphabetic';ctx.fillText(`${L.kick} · ${dateTxt.toUpperCase()}`,60,96);if('letterSpacing' in ctx)ctx.letterSpacing='0px';
+ // headline: line 1 plain, line 2 in a box
+ let l1,l2,boxBg,boxFg;
+ if(!q){const r=scoreOf(a);l1=`${L.l1_score} ${r.s==null?'—':r.s} / 100`;l2=rtwBandText(r.band)||'';if(hi)l2=r.band==='g'?S.hi.band_g:(r.band==='a'?S.hi.band_a:S.hi.band_r);boxBg=r.band==='g'?SHARE_TOK.green:(r.band==='a'?SHARE_TOK.amber:SHARE_TOK.red);boxFg=SHARE_TOK.chalk}
+ else if(gate==='no'){l1=L.l1_fail;l2=L.l2_fail;boxBg=SHARE_TOK.red;boxFg=SHARE_TOK.chalk}
+ else if(gate==='yes'){l1=L.l1_pass;l2=L.l2_pass;boxBg=SHARE_TOK.green;boxFg=SHARE_TOK.chalk}
+ else{l1=hi?`${nObs} ${L.l1_prob}`:`${nObs} ${nObs===1?'PROBLEM':L.l1_prob}`;l2=L.l2_prob;boxBg=SHARE_TOK.yellow;boxFg=SHARE_TOK.ink}
+ let y=150;ctx.fillStyle=SHARE_TOK.ink;let s1=fitFont(ctx,l1.toUpperCase(),960,104,56,700,HEAD);ctx.font=`700 ${s1}px ${HEAD}`;ctx.fillText(l1.toUpperCase(),60,y+s1*0.82);y+=s1*0.98+14;
+ const t2=l2.toUpperCase();let s2=fitFont(ctx,t2,920,104,48,700,HEAD);ctx.font=`700 ${s2}px ${HEAD}`;const w2=ctx.measureText(t2).width;ctx.fillStyle=boxBg;rr(ctx,60,y,w2+40,s2*1.06,10);ctx.fill();ctx.fillStyle=boxFg;ctx.fillText(t2,80,y+s2*0.84);y+=s2*1.06+28;
+ // place line
+ const sector=stt.locate.area||stt.meta.sector||'';let place=(stt.locate.road||'').trim();if(!place&&stt.loc.start)place=`${stt.loc.start.lat.toFixed(4)}, ${stt.loc.start.lon.toFixed(4)}`;const placeLine=[place,sector].filter(Boolean).join(' · ')||(hi?'गुरुग्राम':'Gurugram');
+ ctx.fillStyle=SHARE_TOK.ink;ctx.font=`500 40px ${BODY}`;const pl=wrapText(ctx,placeLine,960).slice(0,2);for(const ln of pl){ctx.fillText(ln,60,y+38);y+=50}y+=14;
+ // the street strip
+ const svg=stripSVG(Object.assign({},a,q?{gate:gate||undefined,i1:'yes'}:{}),'found',{id:'sh',obs:stt.obs||[],labels:true,lblScale:1.5});
+ const img=await stripImage(svg,hi);const sx=60,sw=960,shh=Math.round(sw*0.26);
+ ctx.save();rr(ctx,sx,y,sw,shh,18);ctx.clip();ctx.fillStyle=SHARE_TOK.asphalt;ctx.fillRect(sx,y,sw,shh);if(img)ctx.drawImage(img,sx,y,sw,shh);ctx.restore();ctx.lineWidth=4;ctx.strokeStyle=SHARE_TOK.ink;rr(ctx,sx,y,sw,shh,18);ctx.stroke();y+=shh+30;
+ // what was found
+ const ents=Object.entries(obsC).sort((x,z)=>z[1]-x[1]);if(ents.length){const txt=L.found+' '+ents.map(([id,n])=>`${(hi?OBS_BY[id].hi:OBS_BY[id].en).toLowerCase()}${n>1?' ×'+n:''}`).join(', ');ctx.fillStyle=SHARE_TOK.ink2;ctx.font=`400 33px ${BODY}`;const lines=wrapText(ctx,txt,960).slice(0,3);for(const ln of lines){ctx.fillText(ln,60,y+30);y+=42}y+=8}
+ if(!q&&gate){ctx.fillStyle=gate==='no'?SHARE_TOK.red:SHARE_TOK.green;ctx.font=`600 33px ${HEAD}`;ctx.fillText(`${L.walk} ${gate==='no'?L.no.toUpperCase():L.yes.toUpperCase()}`,60,y+30);y+=52}
+ // quote, bottom-anchored above the footer
+ const footTop=H-190;ctx.fillStyle=SHARE_TOK.ink;ctx.font=`600 36px ${HEAD}`;const ql=wrapText(ctx,L.quote,940);let qy=footTop-40-ql.length*44-32;if(qy<y+10)qy=y+10;ctx.fillStyle=SHARE_TOK.yellow;ctx.fillRect(60,qy-8,8,ql.length*44+40);ctx.fillStyle=SHARE_TOK.ink;for(const ln of ql){ctx.fillText(ln,90,qy+30);qy+=44}ctx.fillStyle=SHARE_TOK.ink2;ctx.font=`400 26px ${BODY}`;ctx.fillText(L.cite,90,qy+30);
+ // footer
+ ctx.fillStyle=SHARE_TOK.yellow;ctx.fillRect(0,footTop,W,190);ctx.fillStyle=SHARE_TOK.ink;ctx.font=`600 38px ${HEAD}`;ctx.fillText(L.cta,60,footTop+72);ctx.font=`700 72px ${HEAD}`;ctx.fillText('righttowalk.life',60,footTop+150);
+ return new Promise(res=>c.toBlob(b=>res(b),'image/png'))}
+
 // ---------- extra strings for this skin ----------
 Object.assign(S.en,{mark:'Right to Walk',how:'How it works',found:'As found',standard:'To standard',aud_live:'Your stretch so far',res_cap_found:'Your stretch · as found',res_cap_std:'Your stretch · to IRC standard',demo_found:'A typical sector road · as found',demo_std:'A typical sector road · to standard',nofp:'NO FOOTPATH',onroad:'had to step onto the road',dim:'2.0 m',
  pal_h:'Tap everything you found on the footpath',pal_p:'Tap once for each one you passed. Tap again for another of the same. They land on your stretch above.',pal_pq:'Tap once for each thing at this spot. Tap again for another of the same.',pal_none:'Nothing tapped yet',pal_more:'More kinds',pal_less:'Fewer kinds',pal_sum:'On this stretch',pal_sumq:'At this spot',pal_auto:'Answer suggested from what you tapped; change it if you disagree.',rm:'remove one',
@@ -733,7 +855,11 @@ Object.assign(S.en,{mark:'Right to Walk',how:'How it works',found:'As found',sta
  why:'Why it matters',scoring_h:'How is this scored?',scoring_p:'Each item has a weight (footpath 20, clear 15, crossing 15, speed 12, width 8, ramps 8, surface 7, lighting 7, kerb and continuity 4, buffer 4). Yes earns the full weight, no earns none, partly earns half. The score is scaled over the items you could judge, and a stretch that fails the 100 m gate is not walkable whatever it scores.',
  quick_h:'What is on the footpath here?',quick_gate:'Can you walk past this spot without stepping onto the road?',quick_photo:'Add a photo of this spot',quick_res:'Spot report',quick_ask:'What to ask for',quick_none:'Nothing recorded at this spot.',quick_pass:'Can walk past',quick_fail:'Has to step onto the road',
  err_loc:'Take your location or name the road, pick which footpath, and answer the four road questions.',err_loc_q:'Take your location or name the road, and pick which footpath.',err_quick:'Tap at least one problem, or answer the question.',
- st2q:'Spot',st3q:'Report',at:'at'});
+ st2q:'Spot',st3q:'Report',at:'at',
+ nav_map:'Map',cnt_h:'Gurugram so far',cnt_n:'checks sent in so far',cnt_pub:'on the public map',cnt_fail:'of tested stretches fail the 100 m test',cnt_map:'See the map',cnt_report:'Gurugram report',
+ sub_h:'Add this to the Gurugram record',sub_p:'Your check joins the public map and the count once a moderator has looked at it. Published: the road, the location rounded to about 10 m, your answers and your photos. Not published: your name. Nothing else is collected.',sub_sector:'Sector or area',sub_sector_none:'Choose…',sub_name:'Your first name (optional, never published)',sub_name_ph:'optional',
+ sub_consent:'I walked this myself and agree that this check may be published under the CC BY 4.0 licence.',sub_need:'Tick the box to add it.',sub_btn:'Add to the record',sub_busy:'Sending…',sub_done:'Added to the record',sub_done_h:'On the record',sub_done_p:'A moderator checks every entry before it appears on the map, usually within a day or two. Thank you for walking it.',sub_ref:'Reference',sub_photo:'photo sent',sub_photos:'photos sent',sub_err:'Could not send. Check your connection and try again.',sub_photofail:'Record added; some photos could not be sent.',
+ share_h:'Share it',share_p:'A picture of this check for WhatsApp, with the street drawn as found.',share_btn:'Share',share_dl:'Download image',share_busy:'Drawing the card…',share_err:'Could not draw the card in this browser.',share_cta:'Check your street in two minutes:'});
 Object.assign(S.hi,{mark:'राइट टू वॉक',how:'कैसे काम करता है',found:'जैसा मिला',standard:'मानक के अनुसार',aud_live:'अब तक आपका हिस्सा',res_cap_found:'आपका हिस्सा · जैसा मिला',res_cap_std:'आपका हिस्सा · IRC मानक पर',demo_found:'एक आम सेक्टर रोड · जैसी मिली',demo_std:'एक आम सेक्टर रोड · मानक पर',nofp:'फुटपाथ नहीं',onroad:'सड़क पर उतरना पड़ा',dim:'2.0 मी',
  pal_h:'फुटपाथ पर जो भी मिला, उसे दबाएँ',pal_p:'जो भी चीज़ रास्ते में मिली, उसके लिए एक बार दबाएँ। वही चीज़ फिर मिले तो फिर दबाएँ। वे ऊपर आपके हिस्से पर उतर जाएँगी।',pal_pq:'इस जगह जो भी है, उसके लिए एक बार दबाएँ। वही चीज़ फिर हो तो फिर दबाएँ।',pal_none:'अभी कुछ नहीं दबाया',pal_more:'और तरह की',pal_less:'कम दिखाएँ',pal_sum:'इस हिस्से पर',pal_sumq:'इस जगह पर',pal_auto:'जवाब आपके दबाए हुए से सुझाया गया है; असहमत हों तो बदल दें।',rm:'एक हटाएँ',
  gl_h:'गुरुग्राम के फुटपाथों पर क्या-क्या है',gl_p:'किसी समस्या को दबाकर देखें कि वह क्या करती है, कौन सा नियम तोड़ती है, और किसे ठीक करना है। चलते समय आप यही टाइलें दबाएँगे।',gl_sev:'असर',gl_rule:'क्या तोड़ती है',gl_who:'कौन ठीक करे',gl_fix:'क्या माँगें',
@@ -748,7 +874,11 @@ Object.assign(S.hi,{mark:'राइट टू वॉक',how:'कैसे क�
  why:'यह क्यों ज़रूरी है',scoring_h:'स्कोर कैसे बनता है?',scoring_p:'हर सवाल का एक वज़न है (फुटपाथ 20, खाली 15, क्रॉसिंग 15, रफ़्तार 12, चौड़ाई 8, रैम्प 8, सतह 7, रोशनी 7, कर्ब और निरंतरता 4, बफ़र 4)। हाँ पर पूरा वज़न, नहीं पर शून्य, कुछ हद तक पर आधा। स्कोर उन्हीं सवालों पर है जिन्हें आप आँक सके; 100 मीटर की कसौटी पर फ़ेल हिस्सा स्कोर चाहे जो हो, चलने लायक नहीं है।',
  quick_h:'यहाँ फुटपाथ पर क्या है?',quick_gate:'क्या आप इस जगह से सड़क पर उतरे बिना निकल सकते हैं?',quick_photo:'इस जगह की फ़ोटो जोड़ें',quick_res:'जगह की रिपोर्ट',quick_ask:'क्या माँगें',quick_none:'इस जगह कुछ दर्ज नहीं हुआ।',quick_pass:'निकल सकते हैं',quick_fail:'सड़क पर उतरना पड़ता है',
  err_loc:'लोकेशन लें या सड़क का नाम लिखें, फुटपाथ चुनें, और सड़क के चारों सवाल दें।',err_loc_q:'लोकेशन लें या सड़क का नाम लिखें, और फुटपाथ चुनें।',err_quick:'कम से कम एक समस्या दबाएँ, या सवाल का जवाब दें।',
- st2q:'जगह',st3q:'रिपोर्ट',at:'पर'});
+ st2q:'जगह',st3q:'रिपोर्ट',at:'पर',
+ nav_map:'नक़्शा',cnt_h:'गुरुग्राम अब तक',cnt_n:'अब तक भेजी गई जाँचें',cnt_pub:'सार्वजनिक नक़्शे पर',cnt_fail:'जाँचे गए हिस्सों में 100 मीटर की कसौटी पर फ़ेल',cnt_map:'नक़्शा देखें',cnt_report:'गुरुग्राम रिपोर्ट',
+ sub_h:'इसे गुरुग्राम के रिकॉर्ड में जोड़ें',sub_p:'एक मॉडरेटर के देखने के बाद आपकी जाँच सार्वजनिक नक़्शे और गिनती में जुड़ जाती है। प्रकाशित होता है: सड़क, लगभग 10 मीटर तक गोल की गई लोकेशन, आपके जवाब और फ़ोटो। प्रकाशित नहीं होता: आपका नाम। और कुछ नहीं लिया जाता।',sub_sector:'सेक्टर या इलाक़ा',sub_sector_none:'चुनें…',sub_name:'आपका पहला नाम (वैकल्पिक, कभी प्रकाशित नहीं)',sub_name_ph:'वैकल्पिक',
+ sub_consent:'मैं ख़ुद यहाँ चला/चली और इस जाँच को CC BY 4.0 लाइसेंस के तहत प्रकाशित करने की सहमति देता/देती हूँ।',sub_need:'जोड़ने के लिए बॉक्स पर टिक करें।',sub_btn:'रिकॉर्ड में जोड़ें',sub_busy:'भेजा जा रहा है…',sub_done:'रिकॉर्ड में जुड़ गया',sub_done_h:'रिकॉर्ड में',sub_done_p:'नक़्शे पर दिखने से पहले एक मॉडरेटर हर प्रविष्टि देखता है, आमतौर पर एक-दो दिन में। चलने के लिए धन्यवाद।',sub_ref:'संदर्भ',sub_photo:'फ़ोटो भेजी',sub_photos:'फ़ोटो भेजीं',sub_err:'भेजा नहीं जा सका। कनेक्शन देखकर फिर कोशिश करें।',sub_photofail:'रिकॉर्ड जुड़ गया; कुछ फ़ोटो नहीं भेजी जा सकीं।',
+ share_h:'साझा करें',share_p:'WhatsApp के लिए इस जाँच की तस्वीर, सड़क जैसी मिली वैसी बनी हुई।',share_btn:'साझा करें',share_dl:'तस्वीर डाउनलोड करें',share_busy:'कार्ड बन रहा है…',share_err:'इस ब्राउज़र में कार्ड नहीं बन सका।',share_cta:'दो मिनट में अपनी सड़क जाँचें:'});
 
 // ---------- state ----------
 let lang='en';
@@ -757,6 +887,7 @@ let photos={};
 let step=0;
 let resMode='found', demoMode='found', demoTimer=null, glossSel='parked';
 let palMore=false, locBusy=false, locFail=false;
+let shareBlob=null, shareURL=null, shareBusy=false, statsCache=null, statsAt=0;
 const DEMO={gate:'no',i1:'yes',i2:'partly',i3:'no',i4:'no',i5:'yes',i6:'no',i7:'partly',i8:'no',i9:'no',i10:'yes'};
 const DEMO_OBS=['parked','electric','vendor','manhole','parked'];
 function blank(){return {mode:null,locate:{road:'',area:'',from:'',to:'',side:'',divider:null,lanes:null,through:null,gates:null,land:'homes',count:''},loc:{start:null,end:null},quick:{gate:null},answers:{},obs:[],auto:{},meta:{date:new Date().toISOString()},owner:'unknown',name:'',org:'',hhrc:true}}
@@ -942,7 +1073,37 @@ function renderCard(){const l=st.locate;const d=new Date(st.meta.date);const q=i
   const an=st.answers.anchor;
   $('anchorout').innerHTML=(obsKeys.length?`<div class="paper soft"><span class="kicker">${esc(T('obs_line'))}</span><div class="obsrow">${obsKeys.map(id=>`<div class="obchip">${obsIcon(id,'obicon sm')}<span>${esc(nm(OBS_BY[id]))}${c2[id]>1?' ×'+c2[id]:''}</span></div>`).join('')}</div></div>`:'')+(an!=null?`<div class="paper soft"><span class="kicker">${esc(T('anchor_lbl'))}</span><p>${esc(lang==='hi'?ITEMS[11].lbl_hi:ITEMS[11].lbl_en)}: <strong>${esc(S[lang].anchors[an])}</strong></p></div>`:'');
   $('card-note').innerHTML=`<details class="why"><summary>${esc(T('scoring_h'))}</summary><p>${esc(T('scoring_p'))}</p></details>`}
- const ph=Object.keys(photos);$('photosout').hidden=!ph.length;$('thumbs').innerHTML=ph.map(k=>`<img src="${photos[k].url}" alt="">`).join('')}
+ const ph=Object.keys(photos);$('photosout').hidden=!ph.length;$('thumbs').innerHTML=ph.map(k=>`<img src="${photos[k].url}" alt="">`).join('');renderSubmit();renderShare()}
+
+// ---------- Phase 1: add to the record, share card, counter ----------
+function submitRow(id){const l=st.locate,a=st.answers,q=isQuick();const s=st.loc.start,e=st.loc.end;const r=q?null:scoreOf(a);const c=q?null:roadClass(l);
+ return {id,mode:q?'quick':'full',method:'footpath-check-v1.2',lat:s?s.lat:null,lon:s?s.lon:null,acc_m:s&&s.acc?Math.min(5000,Math.round(s.acc)):null,end_lat:e?e.lat:null,end_lon:e?e.lon:null,length_m:stretchLen(),side:l.side||null,road:(l.road||'').trim().slice(0,160)||null,sector:(l.area||'').slice(0,60)||null,land:q?null:l.land,road_class:c,owner:st.owner||'unknown',gate:q?(st.quick.gate||null):(a.gate||null),answers:q?{}:a,obs:obsCounts(st.obs),score:r?r.s:null,band:r?r.band:null,anchor:(!q&&a.anchor!=null)?a.anchor:null,ped_count:(!q&&l.count!=='')?Math.min(10000,Math.max(0,parseInt(l.count,10)||0)):null,lang,first_name:(st.meta.first||'').trim().slice(0,40)||null,consent:true,client_id:rtwClientId(),photo_count:Object.keys(photos).filter(k=>photos[k].file).length,ua:navigator.userAgent.slice(0,300),status:'pending'}}
+function renderSubmit(){const box=$('submitout');if(!box)return;if(typeof RTW_ON!=='function'||!RTW_ON()){box.hidden=true;box.innerHTML='';return}box.hidden=false;const sub=st.meta.sub;
+ if(sub){box.innerHTML=`<div class="paper submit done"><span class="kicker"><b>${esc(T('sub_done_h'))}</b></span><p>${esc(T('sub_done_p'))}</p><p class="small">${esc(T('sub_ref'))} <b>${esc(rtwShort(sub.id))}</b> · ${esc(fmt(new Date(sub.at)))}${sub.photos?` · ${sub.photos} ${esc(sub.photos===1?T('sub_photo'):T('sub_photos'))}`:''}</p><div class="btnrow"><a class="btn small" href="map.html">${esc(T('cnt_map'))}</a></div></div>`;return}
+ box.innerHTML=`<div class="paper submit"><span class="kicker"><b>${esc(T('sub_h'))}</b></span><p class="small">${esc(T('sub_p'))}</p>
+ <div class="grid2"><label class="f"><span>${esc(T('sub_sector'))}</span><select id="sub-sector"><option value="">${esc(T('sub_sector_none'))}</option>${SECTORS.map(s=>`<option value="${esc(s)}"${s===st.locate.area?' selected':''}>${esc(s)}</option>`).join('')}</select></label>
+ <label class="f"><span>${esc(T('not_owner'))}</span><select id="sub-owner">${OWNERS.map(o=>`<option value="${o.id}"${o.id===st.owner?' selected':''}>${esc(o.name)}</option>`).join('')}</select></label></div>
+ <label class="f"><span>${esc(T('sub_name'))}</span><input type="text" id="sub-name" maxlength="40" autocomplete="given-name" value="${esc(st.meta.first||'')}" placeholder="${esc(T('sub_name_ph'))}"></label>
+ <label class="f check"><input type="checkbox" id="sub-consent"><span>${esc(T('sub_consent'))}</span></label>
+ <div class="btnrow"><button type="button" class="btn yellow" id="sub-btn">${esc(T('sub_btn'))}</button></div><p class="err" id="sub-err" hidden></p></div>`}
+async function doSubmit(){const err=$('sub-err');err.hidden=true;if(!$('sub-consent').checked){err.hidden=false;err.textContent=T('sub_need');return}
+ const b=$('sub-btn');b.disabled=true;b.textContent=T('sub_busy');const id=rtwUUID();const row=submitRow(id);
+ try{await rtwFetch('/rest/v1/checks',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(row)})}
+ catch(e){b.disabled=false;b.textContent=T('sub_btn');err.hidden=false;err.textContent=T('sub_err')+(e.message?` (${e.message})`:'');return}
+ let ok=0,fail=0;for(const k of Object.keys(photos)){const p=photos[k];if(!p.file)continue;let blob=await rtwShrink(p.file,1600);if(!blob&&p.file.size<=3145728&&/^image\/(jpeg|png|webp|heic|heif)$/.test(p.file.type))blob=p.file;if(!blob){fail++;continue}
+  const ext={'image/png':'png','image/webp':'webp','image/heic':'heic','image/heif':'heif'}[blob.type]||'jpg';try{await rtwUpload(`pending/${id}/${k}.${ext}`,blob);ok++}catch(e){fail++}}
+ st.meta.sub={id,at:new Date().toISOString(),photos:ok};saveDraft();renderSubmit();toast(fail?T('sub_photofail'):T('sub_done'))}
+function shareText(){const q=isQuick();const g=q?st.quick.gate:st.answers.gate;const place=placeText()||'Gurugram';let v;if(!q){const r=scoreOf(st.answers);v=`${r.s==null?'':r.s+' / 100, '}${bandText(r.band).toLowerCase()}`}else v=g==='no'?T('quick_fail').toLowerCase():(g==='yes'?T('quick_pass').toLowerCase():`${(st.obs||[]).length} ${lang==='hi'?'समस्याएँ':'problems'}`);return `${lang==='hi'?'फुटपाथ':'Footpath'}, ${place}: ${v}. ${T('share_cta')} https://righttowalk.life`}
+function renderShare(){const box=$('shareout');if(!box)return;if(typeof renderShareCard!=='function'||!document.createElement('canvas').getContext){box.hidden=true;return}box.hidden=false;
+ box.innerHTML=`<h3>${esc(T('share_h'))}</h3><p class="small">${esc(T('share_p'))}</p><div class="sharecard"><img id="share-img" alt="" hidden><div class="sharewait" id="share-wait">${esc(T('share_busy'))}</div></div><div class="btnrow"><button type="button" class="btn yellow" id="share-btn" disabled>${esc(T('share_btn'))}</button><button type="button" class="btn" id="share-dl" disabled>${esc(T('share_dl'))}</button></div>`;makeShare()}
+async function makeShare(){if(shareBusy)return;shareBusy=true;try{const b=await renderShareCard(st,lang);shareBlob=b;if(shareURL)URL.revokeObjectURL(shareURL);shareURL=URL.createObjectURL(b);const im=$('share-img');if(im){im.src=shareURL;im.hidden=false;$('share-wait').hidden=true;$('share-btn').disabled=false;$('share-dl').disabled=false}}catch(e){const w=$('share-wait');if(w)w.textContent=T('share_err')}shareBusy=false}
+async function doShare(){if(!shareBlob)return;const file=new File([shareBlob],'right-to-walk.png',{type:'image/png'});const text=shareText();
+ if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:'Right to Walk',text});return}catch(e){if(e&&e.name==='AbortError')return}}downloadShare()}
+function downloadShare(){if(!shareURL)return;const a=document.createElement('a');a.href=shareURL;a.download='right-to-walk-'+(st.meta.sub?rtwShort(st.meta.sub.id).toLowerCase():'check')+'.png';document.body.appendChild(a);a.click();a.remove()}
+async function renderCounter(){const box=$('counter');if(!box)return;if(typeof RTW_ON!=='function'||!RTW_ON()){box.hidden=true;return}
+ try{if(!statsCache||Date.now()-statsAt>60000){statsCache=await rtwStats();statsAt=Date.now()}const s=statsCache;const pct=rtwPct(s.gate_tested-s.gate_pass,s.gate_tested);
+  box.hidden=false;box.innerHTML=`<span class="kicker"><b>${esc(T('cnt_h'))}</b></span><div class="cnt"><div class="cntn"><span class="n">${s.submitted}</span><span class="l">${esc(T('cnt_n'))}</span></div><div class="cntn"><span class="n">${s.published}</span><span class="l">${esc(T('cnt_pub'))}</span></div>${pct!=null?`<div class="cntn"><span class="n r">${pct}%</span><span class="l">${esc(T('cnt_fail'))}</span></div>`:''}</div><div class="btnrow"><a class="btn small" href="map.html">${esc(T('cnt_map'))}</a><a class="btn small" href="report.html">${esc(T('cnt_report'))}</a></div>`}
+ catch(e){box.hidden=true}}
 
 // ---------- notice ----------
 function renderNotice(){const sel=$('f-owner');sel.innerHTML=OWNERS.map(o=>`<option value="${o.id}">${esc(o.name)}</option>`).join('');sel.value=st.owner;$('f-name').value=st.name;$('f-org').value=st.org;$('f-hhrc').checked=st.hhrc;updateNotice()}
@@ -979,7 +1140,7 @@ function renderGloss(){const g=$('gloss');if(!g)return;g.innerHTML=OBS.map(o=>`<
 
 // ---------- navigation ----------
 function showStep(i){step=i;const q=isQuick();$('s-locate').hidden=i!==0;$('s-audit').hidden=!(i===1&&!q);$('s-quick').hidden=!(i===1&&q);$('s-card').hidden=i!==2;$('s-notice').hidden=i!==3;renderSteps(i);if(i===0)renderLocate();if(i===1){if(q)renderQuick();else renderItems()}if(i===2)renderCard();if(i===3)renderNotice();window.scrollTo({top:0})}
-function route(){let h=(location.hash||'#learn').replace('#','');if(h==='how'){h='learn'}if(!['learn','check','saved'].includes(h))h='learn';['learn','check','saved'].forEach(v=>{$('v-'+v).hidden=v!==h;const a=$('nav-'+v);if(v===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});if(h==='learn'){renderDemo();renderGloss()}if(h==='check')showStep(step);if(h==='saved')renderSaved();if(location.hash==='#how'){const el=$('how');if(el)el.scrollIntoView()}}
+function route(){let h=(location.hash||'#learn').replace('#','');if(h==='how'){h='learn'}if(!['learn','check','saved'].includes(h))h='learn';['learn','check','saved'].forEach(v=>{$('v-'+v).hidden=v!==h;const a=$('nav-'+v);if(v===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});if(h==='learn'){renderDemo();renderGloss();renderCounter()}if(h==='check')showStep(step);if(h==='saved')renderSaved();if(location.hash==='#how'){const el=$('how');if(el)el.scrollIntoView()}}
 function afterObsChange(lastIdx){suggestFromObs();saveDraft();refreshPalette();if(!isQuick())renderLive(false,{redraw:true,lastObs:lastIdx})}
 
 // ---------- events ----------
@@ -1011,14 +1172,17 @@ document.addEventListener('click',e=>{
  if(b.id==='save-check'){const list=ls(()=>JSON.parse(localStorage.getItem('fc_saved')||'[]'))||[];const rec=JSON.parse(JSON.stringify(st));rec.meta.saved=new Date().toISOString();rec.meta.photos=Object.keys(photos).length;list.unshift(rec);if(ls(()=>localStorage.setItem('fc_saved',JSON.stringify(list)))===null&&!ls(()=>localStorage.getItem('fc_saved'))){toast('Could not save in this browser');return}toast(T('saved_ok'));return}
  if(b.id==='copy-json'){const rec=JSON.parse(JSON.stringify(st));rec.meta.photos=Object.keys(photos).length;if(!isQuick()){rec.result=scoreOf(st.answers);delete rec.result.fails}rec.obstructions=obsCounts(st.obs);rec.length_m=stretchLen();rec.method='footpath-check-v1.2';copyText(JSON.stringify(rec,null,1));return}
  if(b.id==='copy-notice'){copyText($('f-notice').value);return}
- if(b.id==='new-check'){st=blank();photos={};locFail=false;ls(()=>localStorage.removeItem('fc_draft'));showStep(0);return}
+ if(b.id==='sub-btn'){doSubmit();return}
+ if(b.id==='share-btn'){doShare();return}
+ if(b.id==='share-dl'){downloadShare();return}
+ if(b.id==='new-check'){st=blank();photos={};locFail=false;shareBlob=null;ls(()=>localStorage.removeItem('fc_draft'));showStep(0);return}
  if(b.dataset.open!=null){const list=ls(()=>JSON.parse(localStorage.getItem('fc_saved')||'[]'))||[];st=normalise(list[+b.dataset.open]);photos={};step=2;location.hash='#check';if(location.hash==='#check')route();return}
  if(b.dataset.copy!=null){const list=ls(()=>JSON.parse(localStorage.getItem('fc_saved')||'[]'))||[];const rec=normalise(list[+b.dataset.copy]);if(rec.mode!=='quick'){rec.result=scoreOf(rec.answers);delete rec.result.fails}rec.obstructions=obsCounts(rec.obs);rec.method='footpath-check-v1.2';copyText(JSON.stringify(rec,null,1));return}
  if(b.dataset.del!=null){if(b.dataset.armed==='0'){b.dataset.armed='1';b.textContent=T('del_sure');return}const list=ls(()=>JSON.parse(localStorage.getItem('fc_saved')||'[]'))||[];list.splice(+b.dataset.del,1);ls(()=>localStorage.setItem('fc_saved',JSON.stringify(list)));renderSaved();return}
 });
-document.addEventListener('input',e=>{const t=e.target;if(t.id==='f-road'){st.locate.road=t.value;saveDraft()}if(t.id==='f-count'){st.locate.count=t.value;saveDraft()}if(t.id==='f-name'){st.name=t.value;updateNotice()}if(t.id==='f-org'){st.org=t.value;updateNotice()}});
+document.addEventListener('input',e=>{const t=e.target;if(t.id==='f-road'){st.locate.road=t.value;saveDraft()}if(t.id==='f-count'){st.locate.count=t.value;saveDraft()}if(t.id==='f-name'){st.name=t.value;updateNotice()}if(t.id==='f-org'){st.org=t.value;updateNotice()}if(t.id==='sub-name'){st.meta.first=t.value;saveDraft()}});
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='f-coords'){e.preventDefault();const b=$('loc-use');if(b)b.click()}});
-document.addEventListener('change',e=>{const t=e.target;if(t.id==='f-land'){st.locate.land=t.value;renderClassOut();saveDraft()}if(t.id==='f-owner'){st.owner=t.value;updateNotice()}if(t.id==='f-hhrc'){st.hhrc=t.checked;updateNotice()}if(t.dataset.ph){const f=t.files&&t.files[0];if(f){if(photos[t.dataset.ph])URL.revokeObjectURL(photos[t.dataset.ph].url);photos[t.dataset.ph]={url:URL.createObjectURL(f),name:f.name};if(isQuick())renderQuick();else renderItems()}}});
+document.addEventListener('change',e=>{const t=e.target;if(t.id==='f-land'){st.locate.land=t.value;renderClassOut();saveDraft()}if(t.id==='f-owner'){st.owner=t.value;updateNotice()}if(t.id==='f-hhrc'){st.hhrc=t.checked;updateNotice()}if(t.id==='sub-sector'){st.locate.area=t.value;saveDraft()}if(t.id==='sub-owner'){st.owner=t.value;saveDraft()}if(t.dataset.ph){const f=t.files&&t.files[0];if(f){if(photos[t.dataset.ph])URL.revokeObjectURL(photos[t.dataset.ph].url);photos[t.dataset.ph]={url:URL.createObjectURL(f),name:f.name,file:f};if(isQuick())renderQuick();else renderItems()}}});
 window.addEventListener('hashchange',route);
 function setTop(){const h=document.querySelector('header.top');if(h)document.documentElement.style.setProperty('--toph',h.offsetHeight+'px')}
 let _rz;window.addEventListener('resize',()=>{setTop();clearTimeout(_rz);_rz=setTimeout(()=>{if(!$('v-learn').hidden)renderDemo();if(!$('s-card').hidden)renderResStreet()},250)});window.addEventListener('load',setTop);

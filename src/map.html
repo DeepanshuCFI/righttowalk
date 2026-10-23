@@ -1,0 +1,38 @@
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html">Right to Walk</a>
+    <nav>
+      <a href="index.html#learn">Learn</a>
+      <a href="index.html#check">Check a street</a>
+      <a href="map.html" aria-current="page">Map</a>
+      <a href="report.html">Report</a>
+    </nav>
+  </div>
+  <div class="kerb"></div>
+</header>
+<main class="mapmain">
+  <div class="mapbar"><div class="wrap">
+    <div class="mapstat"><span class="n" id="m-pub">–</span><span class="l">checks on the public map</span></div>
+    <div class="mapstat"><span class="n r" id="m-fail">–</span><span class="l">of tested stretches fail the 100 m test</span></div>
+    <div class="chips" id="m-filters" role="group" aria-label="Filter pins">
+      <button type="button" class="chip" data-f="all" aria-pressed="true">All</button>
+      <button type="button" class="chip" data-f="fail" aria-pressed="false">Fails 100 m</button>
+      <button type="button" class="chip" data-f="pass" aria-pressed="false">Passes</button>
+      <button type="button" class="chip" data-f="full" aria-pressed="false">Full stretches</button>
+      <button type="button" class="chip" data-f="verified" aria-pressed="false">Verified</button>
+    </div>
+    <a class="btn small" href="report.html">Gurugram report</a>
+  </div></div>
+  <div style="position:relative">
+    <div id="map" class="map" role="region" aria-label="Map of checked footpaths in Gurugram"></div>
+    <div class="mapempty" id="m-empty" hidden><div id="m-empty-text"></div></div>
+  </div>
+  <div class="mapfoot"><div class="wrap">
+    <div class="legend"><span><i style="background:#DE3A2F;border-color:#DE3A2F"></i>fails the 100 m test</span><span><i style="background:#EE8B22;border-color:#EE8B22"></i>walkable with repairs</span><span><i style="background:#1FAE5A;border-color:#1FAE5A"></i>passes</span><span><i style="background:#5B5A54;border-color:#5B5A54"></i>spot report, test not answered</span></div>
+    <p class="small">Every pin is a check a citizen walked and a moderator read. Pins are rounded to about 10 m. "Verified" pins were re-walked by a trained volunteer. Pins that fail the 100 m test are stretches where a walker could not go 100 m on the footpath without stepping onto the road: the Supreme Court's own test for a footpath that exists (Maniyar Iliyaz, 19 June 2026, para 20(b)).</p>
+    <p class="small">The record is open data (CC BY 4.0): <a href="data/checks.csv">checks.csv</a> · <a href="data/checks.json">checks.json</a> · <a href="dataset.html">about the dataset</a>. Map tiles from the <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">OpenStreetMap</a> community servers; loading them tells that server your IP address and the tiles you view, nothing else.</p>
+  </div></div>
+</main>
+<div class="kerb thin"></div>
+<footer><div class="wrap"><p>Right to Walk (righttowalk.life) is a Crashfree India prototype: the Footpath Check, Gurugram, method v1.0.</p></div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>

@@ -4,6 +4,7 @@
     <nav>
       <a href="#learn" id="nav-learn" data-s="nav_learn">Learn</a>
       <a href="#check" id="nav-check" data-s="nav_check">Check a street</a>
+      <a href="map.html" id="nav-map" data-s="nav_map">Map</a>
       <a href="#saved" id="nav-saved" data-s="nav_saved">Saved</a>
       <button class="lang" id="langbtn" type="button" aria-label="Switch language">हिंदी</button>
     </nav>
@@ -26,6 +27,7 @@
     <div class="paper">
       <div class="bigstat"><div class="n">36,526</div><div class="l">pedestrians were killed on Indian roads in 2024 (provisional), about a hundred a day. Haryana: 866. Ministry of Road Transport and Highways, Rajya Sabha answer, 18 March 2026.</div></div>
     </div>
+    <div class="paper counter" id="counter" hidden></div>
     <div class="block">
       <div class="demo-cap"><span class="kicker" id="demo-cap"><b>A typical sector road</b> · as found</span><div class="toggle" id="demo-toggle"><button type="button" data-m="found" aria-pressed="true" data-s="found">As found</button><button type="button" data-m="standard" aria-pressed="false" data-s="standard">To standard</button></div></div>
       <div class="street" id="demo-street"></div>
@@ -98,6 +100,7 @@
         <li><strong>Walk.</strong> One gate question (can you walk 100 m without stepping onto the road), ten yes/no items with a photo each, and one question only you can answer. Your stretch draws itself at the top as you go.</li>
         <li><strong>Result.</strong> A score out of 100 at the weakest point of the stretch, one of three bands, your street as found and to standard, and the three heaviest things to ask for. Weights are printed; this is method v1.0.</li>
         <li><strong>Notice.</strong> A ready letter to the owning agency quoting the Court, with a reply-by date 21 days out. You copy it and send it through the agency's own channel. This page never files anything for you.</li>
+        <li><strong>Record.</strong> If you choose, the check joins the public Gurugram record: a moderator reads it, then it appears on the <a href="map.html">map</a>, in the <a href="report.html">report</a> and in the open dataset. The record is the evidence; the Supreme Court's open case on the right to walk is where it is headed.</li>
       </ul>
     </div>
     </div>
@@ -112,7 +115,7 @@
       </ul>
     </div>
 
-    <div class="note">Photos stay on your phone; nothing is uploaded. A check you save is stored only in this browser. Every number and legal line above carries its source.</div>
+    <div class="note">Nothing leaves your phone unless you choose to add a check to the Gurugram record; a moderator looks at every entry before it is published, and your name is never published. A check you save is stored only in this browser. Every number and legal line above carries its source.</div>
   </div>
 </section>
 
@@ -153,6 +156,8 @@
       <div class="block"><h3 id="asks-h"></h3><div class="asks" id="asks"></div></div>
       <div class="block" id="anchorout"></div>
       <div class="block" id="photosout" hidden><h3 data-s="card_photos"></h3><div class="thumbs" id="thumbs"></div></div>
+      <div class="block" id="submitout" hidden></div>
+      <div class="block" id="shareout" hidden></div>
       <div class="btnrow"><button class="btn" id="back-audit" type="button" data-s="back"></button><button class="btn yellow" id="to-notice" type="button" data-s="notice"></button><button class="btn" id="save-check" type="button" data-s="save"></button><button class="btn" id="copy-json" type="button" data-s="copyrec"></button></div>
       <div class="small" id="card-note"></div>
     </div>
@@ -188,6 +193,6 @@
 <div class="kerb thin"></div>
 <footer><div class="wrap">
   <p>Right to Walk (righttowalk.life) is a Crashfree India prototype: the Footpath Check, Phase 0, Gurugram, method v1.0, 23 October 2026. Weights: footpath 20, clear 15, crossing 15, speed 12, width 8, ramps 8, surface 7, lighting 7, kerb and continuity 4, buffer 4. The score is taken at the weakest point of the stretch.</p>
-  <p>Legal lines are quoted from the signed judgment and orders; IRC figures carry their edition. This page files nothing on your behalf and stores nothing outside your browser.</p>
+  <p>Legal lines are quoted from the signed judgment and orders; IRC figures carry their edition. This page files nothing on your behalf. A check is stored outside your browser only when you add it to the record, and then only after you tick the consent box. <a href="map.html">Map</a> · <a href="report.html">Gurugram report</a> · <a href="dataset.html">Open data</a></p>
 </div></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>

@@ -1,6 +1,6 @@
 # Security notes for righttowalk.life
 
-Reviewed 23 October 2026 with Crashfree India's app-security-review method, tier T1 (public, read-only, no login, no server).
+Reviewed 23 October 2026 with Crashfree India's app-security-review method. Phase 0 (the check itself) is tier T1: public, read-only, no login, no server. Phase 1 (the record: submissions, photos, map, report, moderation) moves the site to tier T2; its controls are in the second half of this file. Phase 1 is inert until `src/config.js` carries a project URL; until then every page behaves as in Phase 0.
 
 ## What this is and what an attacker could gain
 
@@ -28,6 +28,20 @@ A static site on GitHub Pages. There is no backend, no database, no account, no 
 - Saved checks live only in the visitor's browser and are lost if the browser clears site data. This is deliberate for the prototype (no server, no personal data held by us).
 - The page is public source; nothing in it is confidential.
 
-## Re-run this review when
+## Phase 1: the record (tier T2)
 
-A backend, map tiles, accounts, uploads to a server, analytics, or any third-party script is added. Each of those moves the site to tier T2.
+### What is added
+A Supabase project (DeepanshuCFI's Org) holds one table of citizen checks, one table of moderator emails, three public views, one stats function and one private storage bucket. The pages call it directly from the browser with the public anon key; there is no server of ours in between. Moderators sign in with a Supabase Auth magic link (implicit flow; the session lives in `sessionStorage` for the tab and renews with the refresh token). Map tiles are loaded from the OpenStreetMap community servers.
+
+### Threats and controls
+- **Reading what should not be public.** Row-level security is on for both tables; the anon role has no `select` grant on `checks` at all. The public reads only the views `public_checks`, `public_sector_stats`, `public_owner_stats` (owner-rights views that filter `status = 'published'` and omit `first_name`, `client_id`, `ua`, status and moderation columns) and the function `public_stats()`. Pending and rejected rows and their photos are invisible without a moderator JWT. Verified by `tools/probe.py` (23 outside-in checks) against the mock on 23 Oct 2026; to be re-run against the live project the day it is created.
+- **Writing what should not be written.** Anon may insert only rows with `status in ('pending','test')`, `consent = true`, `verified = false`, `moderated_at is null`; check constraints bound every column (India bounding box, lengths, enumerations, JSON sizes). Anon has no `update` or `delete` grant. Moderators (emails in `moderators`, checked by `is_moderator()` on the JWT email) may update only five columns and delete only test and rejected rows. Updates are sent with `Prefer: return=representation` and an empty result is treated as failure, so a non-moderator cannot be fooled into thinking an action worked.
+- **Photos.** Private bucket, 3 MB, image MIME types only. Anon may upload only under `pending/`; anyone may read only under `published/`; moderators move a check's photos from `pending/<id>/` to `published/<id>/` when they publish, and delete on reject. Paths are UUID-based. Photos are resized and re-encoded on the phone (`rtwShrink`) before upload, which strips EXIF including GPS.
+- **Injection.** Every string from the record passes through `rtwEsc()` before `innerHTML` on the map, the report and the moderation page; the notice stays a textarea value.
+- **CSP.** `connect-src 'self' https://<project>.supabase.co` is generated at build time from `src/config.js`; `img-src` adds the OSM tile host; nothing else changed. Leaflet is vendored (`vendor/leaflet`, 1.9.4) so no third-party script host is allowed.
+- **Secrets.** The anon key is public by design and lives in `src/config.js`. The `service_role` key, the database password and the Supabase access token are never used by this site, its tools or its GitHub Action (the snapshot uses the anon key only). Nothing secret is in the repository.
+- **Abuse.** No CAPTCHA yet; moderation is the gate, and nothing is public until a moderator acts. If spam appears: Cloudflare Turnstile in front of the submit button, and a Postgres rate-limit trigger on `client_id`.
+- **Account hygiene.** Supabase project in DeepanshuCFI's Org with 2FA; moderators are whitelisted by email; magic links expire in an hour; sessions are per tab.
+
+### Re-run this review when
+A CAPTCHA, a server-side function, payments, exports of personal data, more than one Supabase project, or any third-party script is added; or before Phase 2 (owner layer, re-audit loop).

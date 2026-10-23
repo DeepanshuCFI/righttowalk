@@ -1,0 +1,65 @@
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html">Right to Walk</a>
+    <nav>
+      <a href="index.html#learn">Learn</a>
+      <a href="index.html#check">Check a street</a>
+      <a href="map.html">Map</a>
+      <a href="report.html">Report</a>
+    </nav>
+  </div>
+  <div class="kerb"></div>
+</header>
+<main>
+<section class="v">
+  <div class="wrap">
+    <div class="pagehead">
+      <span class="kicker"><b>Open data</b> · CC BY 4.0</span>
+      <h1>The Gurugram footpath record</h1>
+      <p class="lead">Every published check, as a file you can open in a spreadsheet or a script. Names are never in it. Locations are rounded to about 10 m. Nothing appears here until a moderator has read it.</p>
+    </div>
+    <div class="paper">
+      <h3>Files</h3>
+      <ul class="plain">
+        <li><strong><a href="data/checks.csv">checks.csv</a></strong>: one row per published check, flat columns (below). Opens in Excel, Sheets, QGIS.</li>
+        <li><strong><a href="data/checks.json">checks.json</a></strong>: the same rows with answers and problem counts as nested objects, plus the snapshot time.</li>
+        <li><strong><a href="data/stats.json">stats.json</a></strong>: the headline counts and the by-sector and by-owner tables.</li>
+      </ul>
+      <p class="small">Snapshots are taken once a day at about 03:00 IST by a GitHub Action in the public repository <a href="https://github.com/DeepanshuCFI/righttowalk" rel="noopener" target="_blank">DeepanshuCFI/righttowalk</a>; the <a href="map.html">map</a> and <a href="report.html">report</a> read the live record. The live JSON endpoints are public and read-only: <code id="d-api"></code></p>
+    </div>
+    <div class="block">
+      <h2>Columns</h2>
+      <div class="tbl"><table>
+        <thead><tr><th>Column</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td class="fg">id</td><td>Random identifier of the check (UUID). The first eight characters are the reference shown to the walker.</td></tr>
+          <tr><td class="fg">created_at</td><td>When the check was sent in (UTC, ISO 8601).</td></tr>
+          <tr><td class="fg">mode</td><td><code>quick</code> (one spot, about two minutes) or <code>full</code> (a stretch of about 500 m, eleven questions).</td></tr>
+          <tr><td class="fg">method</td><td>Method tag, <code>footpath-check-v1.2</code>: method v1.0 weights with problem types recorded.</td></tr>
+          <tr><td class="fg">lat, lon</td><td>Where the check started, rounded to four decimals (about 10 m). Empty when the walker named the road instead.</td></tr>
+          <tr><td class="fg">length_m</td><td>Straight-line distance between the start and end fixes of a full check, metres; empty for a quick check or when no end fix was taken.</td></tr>
+          <tr><td class="fg">side</td><td><code>left</code> or <code>right</code>: the footpath on the walker's left or right as they walked.</td></tr>
+          <tr><td class="fg">road, sector</td><td>As typed and chosen by the walker. Free text; not geocoded.</td></tr>
+          <tr><td class="fg">land</td><td>What sits beside the stretch: <code>homes</code>, <code>shops</code>, <code>city</code> (city commercial street), <code>sensitive</code> (school, hospital, bus stop or market within the stretch). Sets the IRC:103-2022 walking-zone width that applies.</td></tr>
+          <tr><td class="fg">road_class</td><td>Derived from four questions: <code>arterial</code>, <code>subarterial</code>, <code>collector</code>, <code>local</code>.</td></tr>
+          <tr><td class="fg">owner</td><td>The agency the walker believes maintains the road: <code>gmda</code>, <code>mcg</code>, <code>hsvp</code>, <code>dtcp</code>, <code>nhai</code>, <code>pwd</code>, <code>unknown</code>. A guess; verified re-walks correct it.</td></tr>
+          <tr><td class="fg">gate</td><td>The Court's test. <code>yes</code>: the walker could go 100 m on this side without stepping onto the road; <code>no</code>: could not; empty: not answered (quick checks may skip it).</td></tr>
+          <tr><td class="fg">i1 to i10</td><td>The ten items of a full check: footpath present, clear of obstructions, a real crossing, slow enough to cross, wide enough for two, ramps and tactile tiles, level surface, lit at night, kerb height and continuity, buffer and shade. Values <code>yes</code>, <code>no</code>, <code>partly</code> (items 2, 3, 7), <code>cant</code> (item 8). When i1 is <code>no</code>, items 2, 5, 6, 7, 9 and 10 fail automatically.</td></tr>
+          <tr><td class="fg">score, band</td><td>Full checks only. Score 0 to 100 over the items the walker could judge; band <code>g</code> walkable, <code>a</code> walkable with repairs, <code>r</code> not walkable. A failed gate is always <code>r</code>.</td></tr>
+          <tr><td class="fg">anchor</td><td>Full checks: would you let a 10-year-old or your grandmother walk this alone, 0 (definitely) to 4 (never). Reported, never scored.</td></tr>
+          <tr><td class="fg">obs_*</td><td>How many times each problem type was tapped: <code>obs_parked</code>, <code>obs_vendor</code>, <code>obs_shop</code>, <code>obs_ramp</code>, <code>obs_electric</code>, <code>obs_green</code>, <code>obs_manhole</code>, <code>obs_slab</code>, <code>obs_dug</code>, <code>obs_waste</code>, <code>obs_furniture</code>, <code>obs_water</code>, <code>obs_riding</code>, <code>obs_cattle</code>, <code>obs_shrine</code>.</td></tr>
+          <tr><td class="fg">photo_count</td><td>Photos the walker sent. Photos are published with the pin on the map, not in these files.</td></tr>
+          <tr><td class="fg">verified</td><td><code>true</code> when a trained volunteer re-walked the stretch and a moderator confirmed the record.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="paper soft">
+      <h3>Licence and citation</h3>
+      <p class="small">Creative Commons Attribution 4.0 (CC BY 4.0). Use it, map it, publish it; say where it came from. Cite as: Crashfree India, Right to Walk: Gurugram footpath record, righttowalk.life, snapshot of the date in the file. Each walker consented to publication under this licence when they added their check.</p>
+      <p class="small">Not in the record, by design: names, email addresses, phone numbers, device identifiers, exact coordinates, and anything a moderator did not publish. Photos go through a moderator before they can be seen, and they are resized and stripped of camera metadata on the walker's phone before upload.</p>
+    </div>
+  </div>
+</section>
+</main>
+<div class="kerb thin"></div>
+<footer><div class="wrap"><p>Right to Walk (righttowalk.life) is a Crashfree India prototype: the Footpath Check, Gurugram, method v1.0.</p></div></footer>

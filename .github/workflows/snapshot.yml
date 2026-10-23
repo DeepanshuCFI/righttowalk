@@ -1,0 +1,27 @@
+name: Daily data snapshot
+# Writes the published record to data/ once a day (about 03:00 IST). Uses only the public anon key in src/config.js; no secrets.
+on:
+  schedule:
+    - cron: '30 21 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: snapshot
+  cancel-in-progress: false
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Snapshot the public record
+        run: python3 tools/snapshot.py
+      - name: Commit if the data changed
+        run: |
+          git config user.name 'rtw-snapshot'
+          git config user.email 'snapshot@righttowalk.life'
+          git add data
+          if git diff --cached --quiet; then echo "no change"; else git commit -m "data: snapshot $(date -u +%F)" && git push; fi

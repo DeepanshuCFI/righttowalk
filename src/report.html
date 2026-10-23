@@ -1,0 +1,81 @@
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html">Right to Walk</a>
+    <nav>
+      <a href="index.html#learn">Learn</a>
+      <a href="index.html#check">Check a street</a>
+      <a href="map.html">Map</a>
+      <a href="report.html" aria-current="page">Report</a>
+    </nav>
+  </div>
+  <div class="kerb"></div>
+</header>
+<main>
+<section class="v" id="report">
+  <div class="wrap">
+    <div class="pagehead">
+      <span class="kicker"><b>Gurugram report</b> · live from the public record · <span id="r-when">—</span></span>
+      <h1>How far is Gurugram from the Right to Walk?</h1>
+      <p class="lead" id="r-lead">Loading the record…</p>
+    </div>
+
+    <div class="paper" id="r-head">
+      <div class="bigstat"><div class="n" id="r-pct">—</div><div class="l" id="r-pct-l">of the footpath stretches citizens have tested fail the Supreme Court's 100 m test: a walker could not go 100 m without stepping onto the road.</div></div>
+    </div>
+
+    <div class="tiles4" id="r-tiles"></div>
+
+    <div class="paper soft">
+      <h3>What this number is, and is not</h3>
+      <ul class="plain">
+        <li><strong>It counts stretches, not kilometres.</strong> Each check is one side of one stretch of road, walked by one person on one day. Two checks of the same stretch count twice.</li>
+        <li><strong>The sample chose itself.</strong> People check the footpaths they walk and the ones that annoy them. Until the 100 roads in Haryana's own audit list have each been checked, the share above describes the record, not the city.</li>
+        <li><strong>"Verified" means re-walked.</strong> A trained volunteer re-walks a share of the record; the verified share is shown above. Where the re-walk disagrees, the verified result stands.</li>
+        <li><strong>The test is the Court's.</strong> "If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers" (Maniyar Iliyaz v. P. Ayyappan, 2026 INSC 647, para 20(b)). A footpath you cannot stay on for 100 m is not that.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h2>By sector</h2>
+      <p class="muted">Sectors and colonies as the person who walked reported them. Sorted by the number of checks.</p>
+      <div id="r-sectors"></div>
+    </div>
+
+    <div class="block">
+      <h2>By road owner</h2>
+      <p class="muted">The agency the walker thought maintains the road. No public map says which road is whose; this column is the walkers' best guess and the first thing a verified re-walk corrects.</p>
+      <div id="r-owners"></div>
+    </div>
+
+    <div class="block">
+      <h2>What is on the footpaths</h2>
+      <p class="muted">Everything tapped on the palette across every published check, counted once per tap.</p>
+      <div id="r-obs"></div>
+    </div>
+
+    <div class="block">
+      <h2>Ten stretches to start with</h2>
+      <p class="muted">The lowest-scoring full checks on the record. A place for an agency, a councillor or a reporter to begin.</p>
+      <div id="r-worst"></div>
+    </div>
+
+    <div class="block">
+      <h2>What we are asking for</h2>
+      <ul class="plain">
+        <li><strong>Name Gurugram as one of the five pilot towns</strong> the Supreme Court asked the Union to identify on 5 October 2026 in Re: Fundamental Right to Walk and Footpath, W.P.(C) 844/2026. This record is the baseline a pilot needs.</li>
+        <li><strong>Publish the footpath audit</strong> that the Court ordered road-owning agencies to carry out on 7 October 2025 (S. Rajaseekaran, 2025 INSC 1189): width, height, surface and encroachment hotspots, road by road, so that citizens' checks and the agencies' own can be laid side by side.</li>
+        <li><strong>Adopt one footpath standard for the city</strong> (IRC:103-2022, the code the Court named) and say which agency owns which road, so that a notice from a resident reaches the right desk the first time.</li>
+      </ul>
+    </div>
+
+    <div class="paper soft">
+      <h3>Method and data</h3>
+      <p class="small">Footpath Check method v1.0 (record tag v1.2). Gate: 100 m on the footpath without stepping onto the road. Ten weighted items for a full check (footpath 20, clear 15, crossing 15, speed 12, width 8, ramps 8, surface 7, lighting 7, kerb and continuity 4, buffer 4); a quick check records one spot, the problems on it and the gate. Locations are rounded to four decimals (about 10 m). Every published row was read by a moderator; names are never published.</p>
+      <p class="small">Open data, CC BY 4.0: <a href="data/checks.csv">checks.csv</a> · <a href="data/checks.json">checks.json</a> · <a href="data/stats.json">stats.json</a> · <a href="dataset.html">field guide</a>. Snapshots are taken daily; the figures on this page are live. Cite as: Crashfree India, Right to Walk: Gurugram footpath record, righttowalk.life, accessed <span id="r-cite-date"></span>.</p>
+      <div class="btnrow noprint"><button type="button" class="btn small" id="r-print">Print or save as PDF</button><a class="btn small" href="map.html">See the map</a></div>
+    </div>
+  </div>
+</section>
+</main>
+<div class="kerb thin"></div>
+<footer><div class="wrap"><p>Right to Walk (righttowalk.life) is a Crashfree India prototype: the Footpath Check, Gurugram, method v1.0.</p></div></footer>
