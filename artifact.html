@@ -352,6 +352,7 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
       <div class="bigstat"><div class="n">36,526</div><div class="l" data-s="stat_l">pedestrians were killed on Indian roads in 2024 (provisional), about a hundred a day. Haryana: 866. Ministry of Road Transport and Highways, Rajya Sabha answer, 18 March 2026.</div></div>
     </div>
     <div class="paper counter" id="counter" hidden></div>
+    <div class="paper" id="deaths-note" hidden></div>
     <div class="block">
       <div class="demo-cap"><span class="kicker" id="demo-cap"><b>A typical sector road</b> · as found</span><div class="toggle" id="demo-toggle"><button type="button" data-m="found" aria-pressed="true" data-s="found">As found</button><button type="button" data-m="standard" aria-pressed="false" data-s="standard">To standard</button></div></div>
       <div class="street" id="demo-street"></div>
@@ -1306,6 +1307,10 @@ async function makeShare(){if(shareBusy)return;shareBusy=true;try{const b=await 
 async function doShare(){if(!shareBlob)return;const file=new File([shareBlob],'right-to-walk.png',{type:'image/png'});const text=shareText();
  if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:'Right to Walk',text});return}catch(e){if(e&&e.name==='AbortError')return}}downloadShare()}
 function downloadShare(){if(!shareURL)return;const a=document.createElement('a');a.href=shareURL;a.download='right-to-walk-'+(st.meta.sub?rtwShort(st.meta.sub.id).toLowerCase():'check')+'.png';document.body.appendChild(a);a.click();a.remove()}
+function renderDeathsNote(){const box=$('deaths-note');if(!box||typeof rtwDeaths!=='function')return;const cs=rtwDeaths();if(!cs.length){box.hidden=true;return}const sm=rtwDeathsSummary(rtwDeathsMatch([]));const y=sm.first?new Date(sm.first).getFullYear():'';box.hidden=false;
+ const en=`<span class="kicker"><b>On the record</b></span><p>${sm.total} pedestrian ${sm.total===1?'death':'deaths'} in Gurugram${y?` since ${y}`:''} ${sm.total===1?'is':'are'} on the public record at a place where the record itself says what the road lacked: ${sm.children} ${sm.children===1?'child or teenager':'children or teenagers'}, ${sm.elderly} elderly. Each entry quotes its source and blames no one. Each is a stretch you can walk.</p><div class="btnrow"><a class="btn small" href="https://righttowalk.life/map.html">See them on the map</a><a class="btn small" href="report.html#r-deaths-block">The record</a></div>`;
+ const hi=`<span class="kicker"><b>रिकॉर्ड पर</b></span><p>गुरुग्राम में${y?` ${y} से`:''} ${sm.total} पैदल चलने वालों की मौत सार्वजनिक रिकॉर्ड पर है, हर एक ऐसी जगह जहाँ रिकॉर्ड खुद बताता है कि सड़क में क्या नहीं था: ${sm.children} बच्चे या किशोर, ${sm.elderly} बुज़ुर्ग। हर प्रविष्टि अपना स्रोत बताती है और किसी को दोष नहीं देती। हर जगह एक ऐसा हिस्सा है जिस पर आप चल सकते हैं।</p><div class="btnrow"><a class="btn small" href="https://righttowalk.life/map.html">नक़्शे पर देखें</a><a class="btn small" href="report.html#r-deaths-block">रिकॉर्ड</a></div>`;
+ box.innerHTML=lang==='hi'?hi:en}
 async function renderCounter(){const box=$('counter');if(!box)return;if(typeof RTW_ON!=='function'||!RTW_ON()){box.hidden=true;return}
  try{if(!statsCache||Date.now()-statsAt>60000){statsCache=await rtwStats();statsAt=Date.now()}const s=statsCache;const pct=rtwPct(s.gate_tested-s.gate_pass,s.gate_tested);
   box.hidden=false;box.innerHTML=`<span class="kicker"><b>${esc(T('cnt_h'))}</b></span><div class="cnt"><div class="cntn"><span class="n">${s.submitted}</span><span class="l">${esc(T('cnt_n'))}</span></div><div class="cntn"><span class="n">${s.published}</span><span class="l">${esc(T('cnt_pub'))}</span></div>${pct!=null?`<div class="cntn"><span class="n r">${pct}%</span><span class="l">${esc(T('cnt_fail'))}</span></div>`:''}</div><div class="btnrow"><a class="btn small" href="https://righttowalk.life/map.html">${esc(T('cnt_map'))}</a><a class="btn small" href="https://righttowalk.life/report.html">${esc(T('cnt_report'))}</a></div>`}
@@ -1349,7 +1354,7 @@ function glossPlace(g,det){const cols=Math.max(1,(getComputedStyle(g).gridTempla
 
 // ---------- navigation ----------
 function showStep(i){step=i;const q=isQuick();$('s-locate').hidden=i!==0;$('s-audit').hidden=!(i===1&&!q);$('s-quick').hidden=!(i===1&&q);$('s-card').hidden=i!==2;$('s-notice').hidden=i!==3;renderSteps(i);if(i===0)renderLocate();if(i===1){if(q)renderQuick();else renderItems()}if(i===2)renderCard();if(i===3)renderNotice();window.scrollTo({top:0})}
-function route(){let h=(location.hash||'#learn').replace('#','');if(h==='how'){h='learn'}if(!['learn','check','saved'].includes(h))h='learn';['learn','check','saved'].forEach(v=>{$('v-'+v).hidden=v!==h;const a=$('nav-'+v);if(v===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});if(h==='learn'){renderDemo();renderGloss();renderCounter();renderCards()}if(h==='check')showStep(step);if(h==='saved')renderSaved();if(location.hash==='#how'){const el=$('how');if(el)el.scrollIntoView()}}
+function route(){let h=(location.hash||'#learn').replace('#','');if(h==='how'){h='learn'}if(!['learn','check','saved'].includes(h))h='learn';['learn','check','saved'].forEach(v=>{$('v-'+v).hidden=v!==h;const a=$('nav-'+v);if(v===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});if(h==='learn'){renderDemo();renderGloss();renderCounter();renderCards();renderDeathsNote()}if(h==='check')showStep(step);if(h==='saved')renderSaved();if(location.hash==='#how'){const el=$('how');if(el)el.scrollIntoView()}}
 function afterObsChange(lastIdx){suggestFromObs();saveDraft();refreshPalette();if(!isQuick())renderLive(false,{redraw:true,lastObs:lastIdx})}
 
 // ---------- events ----------
@@ -1402,6 +1407,8 @@ let _rz;window.addEventListener('resize',()=>{setTop();clearTimeout(_rz);_rz=set
 document.querySelectorAll('[data-s],[data-sh]').forEach(el=>{const k=el.dataset.s||el.dataset.sh;if(S.en[k]==null)S.en[k]=el.dataset.sh?el.innerHTML:el.textContent.trim()});
 lang=ls(()=>localStorage.getItem('fc_lang'))||'en';if(!S[lang])lang='en';
 const d=loadDraft();if(d&&d.locate&&d.answers){st=normalise(d);$('resume').hidden=false;$('resume').textContent=T('resume')}
+// a link from a death on the map or the report pre-fills the spot: index.html?at=lat,lon&road=…#check
+try{const q=new URLSearchParams(location.search);const at=parseCoords(q.get('at')||'');if(at){st.loc.start=at;if(q.get('road'))st.locate.road=String(q.get('road')).slice(0,160);saveDraft();history.replaceState(null,'',location.pathname+(location.hash||'#check'))}}catch(e){}
 applyStrings();route();startDemo();setTop();
 
 })();

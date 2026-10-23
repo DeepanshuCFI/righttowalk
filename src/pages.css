@@ -88,3 +88,12 @@
 
 /* long unbreakable strings (endpoint URLs in code) must wrap on phones */
 code{overflow-wrap:anywhere}
+
+/* deaths on record */
+.legend i.dot.death{background:#1C1E21;border:2px solid #F3EFE6;box-shadow:0 0 0 1.5px #1C1E21;border-radius:999px}
+.pop.death p{margin:0}
+.pop.death .btn.small{min-height:36px}
+.map .death{cursor:pointer}
+#r-deaths td.q{font-style:italic;color:var(--ink);min-width:220px}
+#r-deaths td{vertical-align:top}
+#r-deaths td:nth-child(3){min-width:170px}

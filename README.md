@@ -39,5 +39,8 @@ After the result, a visitor may **add the check to the Gurugram record**: sector
 
 Local development: `preview_start footpath-mock` (or `python3 tools/mock_backend.py`) and a mock build; the mock prints magic links to its console.
 
+## Deaths on record
+`src/deaths.json` (published as `data/deaths.json`, inlined into the learn page, the map and the report as `DEATHS`) lists pedestrians killed in Gurugram at places where a public record states what the road lacked. Rules of entry, also printed on the report page: a date and a place to about 100 m; age band and activity as reported, a minor's name only where the family has spoken publicly, never a photograph; the infrastructure fact quoted from the record, never inferred; two independent reports or one plus an official record; other factors recorded as reported, no blame added; live cases marked. `src/deaths.js` matches each case to published checks within 60 m (walked, failing). The map draws them as black marks with a chalk ring (`#d=<id>` deep-links one); the report carries the line under the headline and the table; "walk it" opens `index.html?at=lat,lon&road=…#check`, which pre-fills the spot.
+
 ## Not in Phase 1
 Owner layer from GMDA's master-road list, photos attached to the notice, sent/acknowledged/fixed loop with re-audit, costed asks from the Haryana PWD schedule of rates, CAPTCHA, reverse geocoding, OSM-based road-class suggestion.

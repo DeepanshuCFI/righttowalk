@@ -24,6 +24,7 @@
         <li><strong><a href="data/checks.csv">checks.csv</a></strong>: one row per published check, flat columns (below). Opens in Excel, Sheets, QGIS.</li>
         <li><strong><a href="data/checks.json">checks.json</a></strong>: the same rows with answers and problem counts as nested objects, plus the snapshot time.</li>
         <li><strong><a href="data/stats.json">stats.json</a></strong>: the headline counts and the by-sector and by-owner tables.</li>
+        <li><strong><a href="data/deaths.json">deaths.json</a></strong>: the deaths on record, pedestrians killed in Gurugram at places where a public record states what the road lacked, each with its sources and the rules of entry. Kept by hand, not by the nightly snapshot.</li>
       </ul>
       <p class="small">Snapshots are taken once a day at about 03:00 IST by a GitHub Action in the public repository <a href="https://github.com/DeepanshuCFI/righttowalk" rel="noopener" target="_blank">DeepanshuCFI/righttowalk</a>; the <a href="map.html">map</a> and <a href="report.html">report</a> read the live record. The live JSON endpoints are public and read-only: <code id="d-api"></code></p>
     </div>

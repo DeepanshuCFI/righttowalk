@@ -1,0 +1,271 @@
+{
+ "title": "Deaths on record: pedestrians killed in Gurugram where a public record states what the road lacked",
+ "updated": "2026-10-24",
+ "licence": "CC BY 4.0 for this compilation; each source is cited and remains its publisher's",
+ "rules": [
+  "A date, and a place as close as the record allows: to about 100 m where a landmark is named, otherwise the named road and village, marked approximate. The point is rounded to four decimals.",
+  "The person's age band and what they were doing, as reported. A minor's name only where the family has spoken publicly; never a photograph of the victim. Adults are not named either unless the family asks.",
+  "An infrastructure fact stated by the record itself (no footpath, walking on the carriageway, no crossing, open drain or manhole, a cable on a waterlogged footpath, a dark stretch), quoted, never inferred.",
+  "An official record (a tribunal award, a court or commission order, an FIR reported by the police, a departmental inquiry), or two independent press reports.",
+  "Other reported factors (speed, drink, a fleeing driver) are recorded as reported; no blame is added. The entry says what the road lacked, not who was at fault.",
+  "Where a case is before a court or tribunal, the entry says so and quotes nothing beyond the record. Where reports disagree on what happened, the case stays out."
+ ],
+ "fields": {
+  "id": "stable id",
+  "date": "ISO date of the death",
+  "lat": "rounded to 4 decimals",
+  "lon": "rounded to 4 decimals",
+  "acc": "exact | about 100 m | about 500 m",
+  "place": "road and landmark",
+  "sector": "sector or area",
+  "age": "child | teen | adult | elderly | unknown",
+  "age_text": "as reported, e.g. a 13-year-old student",
+  "doing": "as reported, e.g. walking home from school",
+  "how": "as reported, e.g. was hit by a truck on the carriageway",
+  "fact": "the infrastructure fact, quoted from the source",
+  "fact_source": "index into sources of the quote",
+  "factors": "other reported factors",
+  "sources": "[{outlet, date, url}]",
+  "record": "official record, if any",
+  "record_url": "its link",
+  "status": "live case | closed | unknown",
+  "name": "only where the family has spoken publicly",
+  "road": "id in roads.json when within 60 m",
+  "count": "deaths in this entry when one incident killed more than one person (default 1)"
+ },
+ "cases": [
+  {
+   "id": "2022-12-31-dhunela",
+   "date": "2022-12-31",
+   "lat": 28.299,
+   "lon": 77.056,
+   "acc": "about 500 m",
+   "place": "Gurugram–Sohna Road near Dhunela village",
+   "sector": "Sohna Road",
+   "age": "adult",
+   "age_text": "A 38-year-old man",
+   "doing": "crossing the road on foot after getting out of a taxi, about 2 am",
+   "how": "was hit by a vehicle",
+   "fact": "it being an Expressway, there was no zebra crossing at the place where deceased was crossing the road",
+   "fact_source": 0,
+   "factors": "",
+   "sources": [
+    {
+     "outlet": "Motor Accident Claims Tribunal, Gurugram, award in MACP 113/2023 (CNR HRGR010045012023)",
+     "date": "2024-02-01",
+     "url": "https://services.ecourts.gov.in/ecourtindia_v6/"
+    }
+   ],
+   "record": "MACT Gurugram award of 1 Feb 2024, Rs 16,18,500; FIR 338 of 31 Dec 2022, PS Bhondsi",
+   "record_url": "https://services.ecourts.gov.in/ecourtindia_v6/",
+   "status": "closed"
+  },
+  {
+   "id": "2023-09-08-medanta-underpass",
+   "date": "2023-09-08",
+   "lat": 28.44,
+   "lon": 77.039,
+   "acc": "about 500 m",
+   "place": "Underpass near Medanta hospital, towards Rajiv Chowk",
+   "sector": "Sector 38",
+   "age": "adult",
+   "age_text": "A 29-year-old man",
+   "doing": "walking out of the underpass towards Rajiv Chowk, about 2 am",
+   "how": "was hit from behind by a vehicle and fell on the footpath",
+   "fact": "there was darkness on the spot, but there was light in the underpass",
+   "fact_source": 0,
+   "factors": "a witness's words recorded in the award; the claim was dismissed for want of proof against the respondent, the death and the route are on record",
+   "sources": [
+    {
+     "outlet": "Motor Accident Claims Tribunal, Gurugram, order in MACP 62/2024 (CNR HRGR010015042024)",
+     "date": "2026-08-14",
+     "url": "https://services.ecourts.gov.in/ecourtindia_v6/"
+    }
+   ],
+   "record": "MACT Gurugram, MACP 62/2024, decided 14 Aug 2026; FIR 555 of 8 Sep 2023, PS Sadar",
+   "record_url": "https://services.ecourts.gov.in/ecourtindia_v6/",
+   "status": "closed"
+  },
+  {
+   "id": "2024-04-03-sihi-manhole",
+   "date": "2024-04-03",
+   "lat": 28.4116,
+   "lon": 76.9711,
+   "acc": "village, approximate",
+   "place": "Sihi village, Sector 37, beside the family's tea stall",
+   "sector": "Sector 37",
+   "age": "child",
+   "age_text": "A two-year-old boy",
+   "doing": "playing beside an open sewer manhole",
+   "how": "fell in and died",
+   "fact": "falling into a 12-feet deep uncovered manhole in Sector 37 of Gurugram",
+   "fact_source": 0,
+   "factors": "",
+   "sources": [
+    {
+     "outlet": "National Human Rights Commission, press release",
+     "date": "2024-04-09",
+     "url": "https://nhrc.nic.in/media/press-release/nhrc-takes-suo-motu-cognizance-the-reported-death-a-2-year-old-boy-after-falling-into-an-uncovered-manhole-in-gurugram-haryana"
+    },
+    {
+     "outlet": "The Tribune",
+     "date": "2024-04-05",
+     "url": "https://www.tribuneindia.com/news/haryana/2-year-old-falls-into-manhole-in-gurugram-dies-607665"
+    }
+   ],
+   "record": "NHRC suo motu notice to the MCG Commissioner and the Commissioner of Police, Gurugram, 9 Apr 2024; FIR under ss. 283 and 304A IPC, PS Sector 37, 4 Apr 2024",
+   "record_url": "https://nhrc.nic.in/media/press-release/nhrc-takes-suo-motu-cognizance-the-reported-death-a-2-year-old-boy-after-falling-into-an-uncovered-manhole-in-gurugram-haryana",
+   "status": "unknown"
+  },
+  {
+   "id": "2024-07-31-iffco-chowk-footpath",
+   "date": "2024-07-31",
+   "count": 3,
+   "lat": 28.4723,
+   "lon": 77.0724,
+   "acc": "about 100 m",
+   "place": "Footpath near IFFCO Chowk metro station",
+   "sector": "Sector 29",
+   "age": "adult",
+   "age_text": "Three men, aged 55, 34 and 34,",
+   "doing": "walking on a waterlogged footpath at night in heavy rain",
+   "how": "were electrocuted by a streetlight cable lying in the water",
+   "fact": "were walking on a waterlogged footpath when the accident occurred … an uprooted tree and a power cable meant to supply power to streetlights were also lying submerged",
+   "fact_source": 0,
+   "factors": "the DHBVN inquiry found the streetlight supply had been installed overhead instead of underground",
+   "sources": [
+    {
+     "outlet": "Business Standard, quoting the SHO, Sector 29",
+     "date": "2024-08-01",
+     "url": "https://www.business-standard.com/india-news/gurgaon-rains-3-pedestrians-electrocuted-near-iffco-chowk-metro-station-124080100770_1.html"
+    },
+    {
+     "outlet": "The Tribune",
+     "date": "2024-08-02",
+     "url": "https://www.tribuneindia.com/news/haryana/electrocution-deaths-negligence-case-filed-against-streetlight-firm"
+    },
+    {
+     "outlet": "The Tribune",
+     "date": "2024-10-27",
+     "url": "https://www.tribuneindia.com/news/haryana/10-l-compensation-to-3-electrocution-victims-kin/amp"
+    }
+   ],
+   "record": "FIR under s. 106 BNS, PS Sector 29, against the MCG's streetlight maintenance contractor; DHBVN and MCG inquiries; MCG sanctioned Rs 10 lakh to each family",
+   "record_url": "https://www.tribuneindia.com/news/haryana/10-l-compensation-to-3-electrocution-victims-kin/amp",
+   "status": "live case"
+  },
+  {
+   "id": "2024-05-08-sohna-nirankari",
+   "date": "2024-05-08",
+   "lat": 28.24,
+   "lon": 77.07,
+   "acc": "about 500 m",
+   "place": "Sohna–Nuh road in front of Nirankari College, Sohna",
+   "sector": "Sohna",
+   "age": "adult",
+   "age_text": "A woman in her thirties",
+   "doing": "crossing the road on foot, returning from work, about 8.30 pm",
+   "how": "was hit by a vehicle",
+   "fact": "There was no zebra crossing or red light on the road",
+   "fact_source": 0,
+   "factors": "the insurer argued that the site is a highway where pedestrians are not expected to cross at will, as recorded in the award",
+   "sources": [
+    {
+     "outlet": "Motor Accident Claims Tribunal, Gurugram, award in MACP 311/2024 (CNR HRGR010082832024)",
+     "date": "2025-12-08",
+     "url": "https://services.ecourts.gov.in/ecourtindia_v6/"
+    }
+   ],
+   "record": "MACT Gurugram award of 8 Dec 2025, Rs 22,31,600; FIR 168 of 9 May 2024, PS City Sohna",
+   "record_url": "https://services.ecourts.gov.in/ecourtindia_v6/",
+   "status": "closed"
+  },
+  {
+   "id": "2025-07-09-hamilton-court-drain",
+   "date": "2025-07-09",
+   "lat": 28.468,
+   "lon": 77.0778,
+   "acc": "about 500 m",
+   "place": "Hamilton Court Road near August Kranti Marg, Sushant Lok 1; an under-construction GMDA storm drain",
+   "sector": "Sushant Lok 1",
+   "age": "adult",
+   "age_text": "A 22-year-old man",
+   "doing": "walking home from work in heavy rain",
+   "how": "fell into the open drain beside the flooded road and drowned; his body was found three days later",
+   "fact": "There was no barricading or fencing done to secure the road",
+   "fact_source": 0,
+   "factors": "about two feet of standing water hid the edge of the road; 133 mm of rain fell that night, as reported",
+   "sources": [
+    {
+     "outlet": "Hindustan Times, quoting the police",
+     "date": "2025-07-17",
+     "url": "https://www.hindustantimes.com/cities/gurugram-news/body-of-missing-man-found-in-gmda-drain-101752690959027.html"
+    },
+    {
+     "outlet": "The Times of India",
+     "date": "2025-07-18",
+     "url": "https://timesofindia.indiatimes.com/city/gurgaon/youth-lay-dead-in-drain-he-fell-into-on-flooded-road-in-gurgaon-as-father-searched-for-3-days/articleshow/122676987.cms"
+    },
+    {
+     "outlet": "The Times of India",
+     "date": "2026-05-07",
+     "url": "https://timesofindia.indiatimes.com/city/gurgaon/gmda-nod-to-prosecute-3-engineers-for-death-of-youth-on-flooded-gurgaon-road/articleshow/130868710.cms"
+    }
+   ],
+   "record": "FIR of 13 Jul 2025 under ss. 106 and 3(5) BNS, PS DLF Sector 29, against GMDA personnel and the contractor; in May 2026 the GMDA CEO sanctioned prosecution of three engineers",
+   "record_url": "https://timesofindia.indiatimes.com/city/gurgaon/gmda-nod-to-prosecute-3-engineers-for-death-of-youth-on-flooded-gurgaon-road/articleshow/130868710.cms",
+   "status": "live case"
+  },
+  {
+   "id": "2026-03-27-khor-lokra",
+   "date": "2026-03-27",
+   "count": 3,
+   "breakdown": {
+    "elderly": 1,
+    "child": 2
+   },
+   "lat": null,
+   "lon": null,
+   "acc": "village road, not yet placed",
+   "place": "Khor–Lokra road, Khor village, Pataudi",
+   "sector": "Pataudi",
+   "age": "elderly",
+   "age_text": "A 60-year-old man and his grandsons, aged 10 and 8,",
+   "doing": "walking home along the edge of the road at night",
+   "how": "were hit from behind by a car and killed",
+   "fact": "ploughed into them on a dark stretch in Pataudi",
+   "fact_source": 0,
+   "factors": "the car was reported at 80 to 100 km/h; the driver fled and was arrested on CCTV",
+   "sources": [
+    {
+     "outlet": "The Times of India",
+     "date": "2026-03-29",
+     "url": "https://timesofindia.indiatimes.com/city/gurgaon/man-2-grandsons-walking-home-die-after-thar-rams-them/articleshow/129877330.cms"
+    },
+    {
+     "outlet": "NDTV / PTI",
+     "date": "2026-03-29",
+     "url": "https://www.ndtv.com/india-news/speeding-thar-kills-2-children-their-grandfather-in-gurugram-11280303"
+    },
+    {
+     "outlet": "The Tribune",
+     "date": "2026-03-29",
+     "url": "https://www.tribuneindia.com/news/delhi/7-killed-in-accidents-in-gurugram-in-24-hours/"
+    }
+   ],
+   "record": "FIR for rash driving and death by negligence, PS Pataudi; driver arrested, vehicle seized",
+   "record_url": "",
+   "status": "live case"
+  }
+ ],
+ "pending": [
+  "21 Sep 2025, Golf Course Road outside La Lagune, Sector 54: a woman crossing the road was killed by a speeding car. The reports state the crossing, not what the road lacked at that point; the police's own statement that Golf Course Road has no foot overbridges is from a separate report. Enters when a record ties the two.",
+  "27 Oct 2025, Dinokri village, Pataudi: a six-year-old crossing the road with her father to board the school bus was hit by a tractor and then by the bus. The reports do not state what the road lacked at the pick-up point.",
+  "9 Oct 2026, Hero Honda Chowk: a woman crossing from the bus stop towards Subhash Chowk on her way to work was hit from behind by a crane. The reports state the crossing, not the absence of a crossing facility.",
+  "11 Oct 2026, NH-48 before Manesar bus stand: a 24-year-old woman crossing the highway after getting off a bus was killed in a hit-and-run. The reports do not state what the highway lacked at that point.",
+  "9 Jul 2025, Sispal Vihar Gate 2, Sector 49: a 27-year-old fell into an open sewer during waterlogging. Reports disagree on whether he was on foot or in his vehicle.",
+  "9 Jul 2025, Sector 18 near Genpact Chowk: a 26-year-old delivery worker on foot was electrocuted beside a submerged pole. Reports differ on the place and on what he touched.",
+  "11 Oct 2026, pavement near Airia Mall, Sohna Road: a 63-year-old woman sleeping on the footpath was killed when a car mounted the pavement. The footpath was present; she was not walking.",
+  "About 11 Feb 2026, Ullawas Road, Sector 61: a 42-year-old woman on the footpath was killed when a garbage pick-up veered off the road. One report only so far."
+ ]
+}

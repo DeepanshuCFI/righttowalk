@@ -34,6 +34,13 @@ cfg += "\nconst SECTORS=" + json.dumps(json.loads(read("sectors.json")), ensure_
 cfg_off = re.sub(r"url:'[^']*'", "url:''", cfg, 1)
 # the sampling frame (Haryana's own road list with baked-in OSM lines) only goes to the pages that draw it
 cfg_roads = cfg + "const ROADS=" + json.dumps(json.loads(read("roads.json")), ensure_ascii=False, separators=(",", ":")) + ";\n"
+# deaths on record (src/deaths.json): a small file, inlined for the learn page, the map and the report, and published as open data
+deaths = json.loads(read("deaths.json"))
+DEATHS_JS = "const DEATHS=" + json.dumps(deaths, ensure_ascii=False, separators=(",", ":")) + ";\n"
+cfg_index = cfg + DEATHS_JS
+cfg_roads += DEATHS_JS
+(ROOT / "data").mkdir(exist_ok=True)
+(ROOT / "data" / "deaths.json").write_text(json.dumps(deaths, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
 connect = "'self'" + (f" {SUPA}" if SUPA else "")
 CSP = ("default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; "
@@ -95,15 +102,15 @@ def document(fname, title, desc, body, scripts, extra_head="", extra_css="", pre
     print(f"built {fname:14s} {len(html.encode('utf-8')):7d} bytes")
 
 body = read("body.html")
-document("index.html", TITLE, DESC, body, ["data.js", "obs.js", "learn.js", "config.js", "rtw.js", "share.js", "cards.js", "app.js"])
+document("index.html", TITLE, DESC, body, ["data.js", "obs.js", "learn.js", "config.js", "rtw.js", "deaths.js", "share.js", "cards.js", "app.js"], config=cfg_index)
 document("map.html", "Gurugram footpath map · Right to Walk",
          "Every footpath a citizen has checked in Gurugram, on one map: where a walker could not go 100 m without stepping onto the road.",
-         read("map.html"), ["data.js", "obs.js", "config.js", "rtw.js", "frame.js", "map.js"],
+         read("map.html"), ["data.js", "obs.js", "config.js", "rtw.js", "frame.js", "deaths.js", "map.js"],
          extra_head='<link rel="stylesheet" href="vendor/leaflet/leaflet.css">\n', extra_css=pages_css,
          pre_script='<script src="vendor/leaflet/leaflet.js"></script>\n', config=cfg_roads)
 document("report.html", "Gurugram report · Right to Walk",
          "How far is Gurugram from the Right to Walk? The share of checked footpaths that fail the Supreme Court's 100 m test, by sector and by road owner, live from the public record.",
-         read("report.html"), ["data.js", "obs.js", "config.js", "rtw.js", "frame.js", "report.js"], extra_css=pages_css, config=cfg_roads)
+         read("report.html"), ["data.js", "obs.js", "config.js", "rtw.js", "frame.js", "deaths.js", "report.js"], extra_css=pages_css, config=cfg_roads)
 document("roads.html", "Roads to walk · Right to Walk",
          "Haryana's own list of 100 Gurugram roads to be upgraded by 7 November 2026, as an assignment sheet: which have been walked, which fail the Supreme Court's 100 m test, and room to divide the rest between volunteers.",
          read("roads.html"), ["data.js", "obs.js", "config.js", "rtw.js", "frame.js", "roads.js"], extra_css=pages_css + "\n" + roads_css, config=cfg_roads)
