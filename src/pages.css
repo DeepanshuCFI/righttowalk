@@ -85,3 +85,6 @@
 .roadtbl td.blank.wide,.roadtbl th.blank.wide{min-width:170px}
 .roadtbl td.blank.tick,.roadtbl th.blank.tick{min-width:70px;text-align:center}
 .roadtbl tr.hl td{background:var(--yellow);color:var(--yellow-ink)}
+
+/* long unbreakable strings (endpoint URLs in code) must wrap on phones */
+code{overflow-wrap:anywhere}

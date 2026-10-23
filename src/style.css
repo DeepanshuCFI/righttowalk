@@ -36,7 +36,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .top .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 14px;padding-block:10px 8px}
 .mark{font-family:var(--head);font-weight:700;font-size:26px;line-height:1;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);text-decoration:none;display:inline-flex;align-items:baseline;gap:8px}
 .mark small{font-family:var(--body);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
-.top nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.top nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto}
+@media (max-width:640px){.top .wrap{justify-content:flex-start}.top .lang{margin-left:auto;order:2}.top nav{order:3;flex-basis:100%;margin-left:0}}
 .top nav a{white-space:nowrap;font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.04em;text-transform:uppercase;padding:6px 12px;border-radius:999px;border:2px solid transparent;color:var(--ink-2);text-decoration:none;min-height:36px;display:inline-flex;align-items:center}
 .top nav a[aria-current="page"]{border-color:var(--ink);color:var(--ink)}
 .lang{border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:4px 12px;font-family:var(--head);font-weight:600;font-size:16px;cursor:pointer;min-height:36px}
@@ -312,3 +313,6 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
 :lang(hi) .quote p{line-height:1.35}
 .quote .gloss{font-size:16px;color:var(--ink-2);line-height:1.5}
 :lang(hi) .tbl table{min-width:560px}
+
+/* glossary detail lives inside the palette grid, under the tapped row */
+.palette>#gloss-detail{grid-column:1 / -1;margin:2px 0 6px}
