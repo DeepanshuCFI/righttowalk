@@ -1,0 +1,23 @@
+{
+ "generated": "2026-10-23T17:20:29Z",
+ "licence": "CC BY 4.0",
+ "source": "https://righttowalk.life",
+ "citation": "Crashfree India, Right to Walk: Gurugram footpath record, righttowalk.life",
+ "method": "footpath-check-v1.2",
+ "field_guide": "https://righttowalk.life/dataset.html",
+ "stats": {
+  "submitted": 0,
+  "published": 0,
+  "pending": 0,
+  "people": 0,
+  "gate_tested": 0,
+  "gate_pass": 0,
+  "with_footpath": 0,
+  "full": 0,
+  "verified": 0,
+  "first": null,
+  "last": null
+ },
+ "by_sector": [],
+ "by_owner": []
+}
