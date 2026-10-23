@@ -5,6 +5,7 @@
   map.html       the public map of published checks (Leaflet from vendor/, CARTO tiles)
   report.html    the Gurugram report, rendered live from the public views
   dataset.html   the open-data field guide
+  roads.html     the assignment sheet for Haryana's own road list (src/roads.json, built by tools/roads_geocode.py)
   moderate.html  the moderation page (noindex; Supabase Auth magic link)
   artifact.html  index as claude.ai artifact content (no document wrapper, Google Fonts, record switched off)
 
@@ -31,6 +32,8 @@ if local:
 SUPA = re.search(r"url:'([^']*)'", cfg).group(1)
 cfg += "\nconst SECTORS=" + json.dumps(json.loads(read("sectors.json")), ensure_ascii=False) + ";\n"
 cfg_off = re.sub(r"url:'[^']*'", "url:''", cfg, 1)
+# the sampling frame (Haryana's own road list with baked-in OSM lines) only goes to the pages that draw it
+cfg_roads = cfg + "const ROADS=" + json.dumps(json.loads(read("roads.json")), ensure_ascii=False, separators=(",", ":")) + ";\n"
 
 connect = "'self'" + (f" {SUPA}" if SUPA else "")
 CSP = ("default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; "
@@ -40,13 +43,14 @@ CSP = ("default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 
 fonts_css = (ROOT / "fonts" / "fonts.css").read_text(encoding="utf-8")
 style = read("style.css")
 pages_css = read("pages.css")
+roads_css = read("roads.css")
 FRAME_BUSTER = "<script>if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.hidden=true}}</script>"
 
 def wrap_script(files, config):
     parts = [config if f == "config.js" else read(f) for f in files]
     return "\n<script>\n(function(){\n'use strict';\n" + "\n".join(parts) + "\n})();\n</script>\n"
 
-def document(fname, title, desc, body, scripts, extra_head="", extra_css="", pre_script="", noindex=False):
+def document(fname, title, desc, body, scripts, extra_head="", extra_css="", pre_script="", noindex=False, config=None):
     url = SITE + ("" if fname == "index.html" else fname)
     robots = '<meta name="robots" content="noindex, nofollow">\n' if noindex else ""
     head = f"""<!doctype html>
@@ -86,7 +90,7 @@ def document(fname, title, desc, body, scripts, extra_head="", extra_css="", pre
 <noscript><p style="margin:16px;font:17px/1.5 system-ui">Right to Walk needs JavaScript for this page. Please enable it, or open the page in another browser.</p></noscript>
 {FRAME_BUSTER}
 """
-    html = head + body + pre_script + wrap_script(scripts, cfg) + "</body>\n</html>\n"
+    html = head + body + pre_script + wrap_script(scripts, config or cfg) + "</body>\n</html>\n"
     (ROOT / fname).write_text(html, encoding="utf-8")
     print(f"built {fname:14s} {len(html.encode('utf-8')):7d} bytes")
 
@@ -94,12 +98,15 @@ body = read("body.html")
 document("index.html", TITLE, DESC, body, ["data.js", "obs.js", "config.js", "rtw.js", "share.js", "app.js"])
 document("map.html", "Gurugram footpath map · Right to Walk",
          "Every footpath a citizen has checked in Gurugram, on one map: where a walker could not go 100 m without stepping onto the road.",
-         read("map.html"), ["data.js", "obs.js", "config.js", "rtw.js", "map.js"],
+         read("map.html"), ["data.js", "obs.js", "config.js", "rtw.js", "frame.js", "map.js"],
          extra_head='<link rel="stylesheet" href="vendor/leaflet/leaflet.css">\n', extra_css=pages_css,
-         pre_script='<script src="vendor/leaflet/leaflet.js"></script>\n')
+         pre_script='<script src="vendor/leaflet/leaflet.js"></script>\n', config=cfg_roads)
 document("report.html", "Gurugram report · Right to Walk",
          "How far is Gurugram from the Right to Walk? The share of checked footpaths that fail the Supreme Court's 100 m test, by sector and by road owner, live from the public record.",
-         read("report.html"), ["data.js", "obs.js", "config.js", "rtw.js", "report.js"], extra_css=pages_css)
+         read("report.html"), ["data.js", "obs.js", "config.js", "rtw.js", "frame.js", "report.js"], extra_css=pages_css, config=cfg_roads)
+document("roads.html", "Roads to walk · Right to Walk",
+         "Haryana's own list of 100 Gurugram roads to be upgraded by 7 November 2026, as an assignment sheet: which have been walked, which fail the Supreme Court's 100 m test, and room to divide the rest between volunteers.",
+         read("roads.html"), ["data.js", "obs.js", "config.js", "rtw.js", "frame.js", "roads.js"], extra_css=pages_css + "\n" + roads_css, config=cfg_roads)
 document("dataset.html", "Open data · Right to Walk",
          "The Gurugram footpath record as open data (CC BY 4.0): every published check as CSV and JSON, with a field guide.",
          read("dataset.html"), ["data.js", "obs.js", "config.js", "rtw.js", "dataset.js"], extra_css=pages_css)

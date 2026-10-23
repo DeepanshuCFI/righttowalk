@@ -1,0 +1,65 @@
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html">Right to Walk</a>
+    <nav>
+      <a href="index.html#learn">Learn</a>
+      <a href="index.html#check">Check a street</a>
+      <a href="map.html">Map</a>
+      <a href="report.html">Report</a>
+    </nav>
+  </div>
+  <div class="kerb"></div>
+</header>
+<main>
+<section class="v" id="roads">
+  <div class="wrap wide">
+    <div class="pagehead">
+      <span class="kicker"><b>Roads to walk</b> · Haryana's own list · assignment sheet</span>
+      <h1>Walk the government's <span class="y">100 roads</span> before 7 November</h1>
+      <p class="lead">On 8 October 2026 the Haryana government gave GMDA, MCG and HSVP thirty days to upgrade 100 Gurugram roads, footpaths included, with a QR-coded board on each road naming the officer responsible. This sheet lists every road on that list that has been made public, so that residents' associations and Rakshak students can divide the work and walk each one with the Footpath Check.</p>
+    </div>
+
+    <div class="paper" id="rd-status">
+      <div class="tiles4">
+        <div class="stattile"><span class="n" id="rd-listed">—</span><span class="l">roads on the public list (of <span id="rd-total">100</span>)</span></div>
+        <div class="stattile"><span class="n" id="rd-walked">—</span><span class="l">walked at least once</span></div>
+        <div class="stattile"><span class="n r" id="rd-fail">—</span><span class="l">fail the Court's 100 m test</span></div>
+        <div class="stattile"><span class="n" id="rd-stretches">—</span><span class="l">500 m stretches to cover</span></div>
+      </div>
+      <p class="small" id="rd-live">Loading the record…</p>
+    </div>
+
+    <div class="paper soft noprint">
+      <h3>How to use this sheet</h3>
+      <ul class="plain">
+        <li><strong>Two people per road.</strong> Write both names against the road; one walks the left-hand footpath, the other the right-hand one, so each stretch is checked on both sides.</li>
+        <li><strong>One Full stretch check per 500 m.</strong> Start the check at the beginning of the stretch, walk, tap "End here" at 500 m, then start the next one. A short road is one stretch.</li>
+        <li><strong>Add every check to the record.</strong> A check that is added lands on the map within a day and counts towards the number on the report. Photos help a moderator read it.</li>
+        <li><strong>Note the board.</strong> If the road has its QR-coded board up, photograph it; the officer named on it is who the notice goes to.</li>
+      </ul>
+      <div class="btnrow"><button type="button" class="btn small" id="rd-print">Print the sheet</button><a class="btn small" href="map.html">See the roads on the map</a><a class="btn small" href="index.html#check">Start a check</a></div>
+    </div>
+
+    <div class="block">
+      <h2>The roads</h2>
+      <p class="muted">Each road as the agency named it. Lengths are read from OpenStreetMap and are approximate; the ends of several stretches were not stated by the source, so walk the road as it is signed on the ground. Status is live from the public record.</p>
+      <div id="rd-roads"></div>
+    </div>
+
+    <div class="block" id="rd-sheet-block">
+      <h2>Stretch sheet</h2>
+      <p class="muted">One line per 500 m stretch, with room to write who walks it. Print this part and divide it at a meeting; tick the last column when both checks are in the record.</p>
+      <div id="rd-sheet"></div>
+    </div>
+
+    <div class="paper soft">
+      <h3>Where this list comes from</h3>
+      <ul class="plain small" id="rd-sources"></ul>
+      <p class="small" id="rd-geo"></p>
+      <p class="small"><strong>Still to verify.</strong> The MCG and HSVP shares of the 100 roads, which have not been published; which road "Sanath Road" is; the exact ends of the stretches whose ends the source did not state; and whether the QR-coded boards and the Saturday scorecards have appeared. Roads are added to this sheet as they are published; the record keeps counting either way.</p>
+    </div>
+  </div>
+</section>
+</main>
+<div class="kerb thin"></div>
+<footer><div class="wrap"><p>Right to Walk (righttowalk.life) is a Crashfree India prototype: the Footpath Check, Gurugram, method v1.0.</p></div></footer>

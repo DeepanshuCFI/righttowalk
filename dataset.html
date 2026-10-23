@@ -418,6 +418,20 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
 .st.pending{color:var(--amber)} .st.published{color:var(--green)} .st.rejected{color:var(--red)} .st.test{color:var(--ink-2)}
 .btn.danger{border-color:var(--red);color:var(--red)}
 .btn.ok{border-color:var(--green);color:var(--green)}
+/* roads to walk: the sampling frame on the map, the report and the assignment sheet */
+.roadsline{font-family:var(--head);font-weight:600;font-size:clamp(19px,3.4vw,24px);line-height:1.2;margin-top:2px;text-wrap:balance}
+.roadsline .small{display:block;font-family:var(--body);font-weight:400;margin-top:4px}
+.legend i.ln{width:24px;height:5px;border-radius:3px;border:0;background:var(--ink-2)}
+.legend i.ln.dash{background:repeating-linear-gradient(90deg,var(--ink-2) 0 3px,transparent 3px 8px)}
+.chip.alt[aria-pressed="true"]{background:var(--yellow);color:var(--yellow-ink);border-color:var(--ink)}
+.map .road{cursor:pointer}
+.wrap.wide{max-width:1080px}
+.roadtbl td.k{font-family:var(--head);font-weight:700;color:var(--ink-2)}
+.roadtbl td.fg .small{display:block;font-weight:400;max-width:34ch}
+.roadtbl th.blank,.roadtbl td.blank{min-width:112px;background:var(--plot)}
+.roadtbl td.blank.wide,.roadtbl th.blank.wide{min-width:170px}
+.roadtbl td.blank.tick,.roadtbl th.blank.tick{min-width:70px;text-align:center}
+.roadtbl tr.hl td{background:var(--yellow);color:var(--yellow-ink)}
 
 </style>
 </head>

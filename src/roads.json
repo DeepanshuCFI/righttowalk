@@ -1,0 +1,1148 @@
+{
+ "frame": {
+  "title": "Haryana's 30-day challenge: 100 Gurugram roads by 7 November 2026",
+  "total": 100,
+  "listed": 27,
+  "deadline": "2026-11-07",
+  "what": "On 8 October 2026 Rajesh Khullar, Chief Principal Secretary to the Chief Minister, directed GMDA, MCG and HSVP to identify 100 roads of at least 500 m each in poor condition and upgrade them by 7 November 2026 (recarpeting, end-to-end paving, streetlights, lane marking, footpaths, signage, encroachment removal), with a QR-coded board on each road naming the department, the officer and the dates, and a signed weekly scorecard in the newspapers every Saturday. Ten of the roads are to be 'iconic'.",
+  "status": "As of 23 October 2026 only GMDA's share is public: 27 stretches (20 master roads, 7 iconic roads) reported by the Hindustan Times on 12 October. The MCG and HSVP shares, the QR boards and the weekly scorecards could not be found in any public source.",
+  "sources": [
+   "Directions of Rajesh Khullar, Chief Principal Secretary to the Chief Minister, meeting with GMDA, MCG and HSVP at the PWD Rest House, Gurugram, 8 Oct 2026 (DIPRO Gurugram press note; reported by HT, ToI, Tribune, Jagran, Bhaskar on 8 and 9 Oct 2026)",
+   "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "GMDA tenders page (gmda.gov.in/tenders.html), read 23 Oct 2026: special-repair tenders for several listed roads, e.g. 'Special repair of master road dividing sector 32/39' (2026_HRY_555082_1, DNIT 17 Oct 2026)"
+  ],
+  "geometry": "OpenStreetMap (ODbL) via Nominatim, Overpass and the OSRM demo router, looked up once at build time on 23 Oct 2026 by tools/roads_geocode.py; lines are approximate (about 10 m) and the ends of several stretches were not stated by the source. Each road carries a 'geo' field saying how its line was made.",
+  "built": "2026-10-23"
+ },
+ "roads": [
+  {
+   "id": "gmda-m01",
+   "name": "Golf Course Road to Ghata",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "route",
+   "length_m": 3647,
+   "pts": [
+    [
+     28.424,
+     77.105
+    ],
+    [
+     28.4245,
+     77.105
+    ],
+    [
+     28.4245,
+     77.1051
+    ],
+    [
+     28.4281,
+     77.1052
+    ],
+    [
+     28.4282,
+     77.1055
+    ],
+    [
+     28.425,
+     77.1054
+    ],
+    [
+     28.425,
+     77.1056
+    ],
+    [
+     28.4231,
+     77.1055
+    ],
+    [
+     28.4231,
+     77.107
+    ],
+    [
+     28.4217,
+     77.1099
+    ],
+    [
+     28.4214,
+     77.1096
+    ],
+    [
+     28.4212,
+     77.1097
+    ],
+    [
+     28.4208,
+     77.1095
+    ],
+    [
+     28.4201,
+     77.1104
+    ],
+    [
+     28.4197,
+     77.1113
+    ],
+    [
+     28.4193,
+     77.1123
+    ],
+    [
+     28.4189,
+     77.1126
+    ],
+    [
+     28.4188,
+     77.1135
+    ],
+    [
+     28.4187,
+     77.1138
+    ],
+    [
+     28.4189,
+     77.114
+    ],
+    [
+     28.419,
+     77.1145
+    ],
+    [
+     28.4193,
+     77.1147
+    ],
+    [
+     28.4193,
+     77.1153
+    ],
+    [
+     28.4195,
+     77.1155
+    ],
+    [
+     28.4194,
+     77.1159
+    ],
+    [
+     28.4193,
+     77.1202
+    ],
+    [
+     28.4193,
+     77.1228
+    ],
+    [
+     28.4243,
+     77.1233
+    ]
+   ],
+   "note": "Read as the master road east from the end of Golf Course Road (Sector 55-56 metro station) to Ghata on the Gurugram-Faridabad road; the exact ends were not stated."
+  },
+  {
+   "id": "gmda-m02",
+   "name": "Medicity Road",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "way",
+   "length_m": 1155,
+   "pts": [
+    [
+     28.4433,
+     77.0377
+    ],
+    [
+     28.4374,
+     77.0456
+    ],
+    [
+     28.4366,
+     77.0466
+    ],
+    [
+     28.4366,
+     77.0465
+    ]
+   ],
+   "note": "OSM names the road past Medanta The Medicity 'Chowdhury Baktawar Singh Road'; taken as the whole named road."
+  },
+  {
+   "id": "gmda-m03",
+   "name": "Sector 75/76 dividing road",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "none",
+   "length_m": null,
+   "pts": [],
+   "note": "Sectors 75 and 76 have no boundary in OpenStreetMap and no road between them could be picked out with confidence, so no line is drawn; walk it as signed on the ground."
+  },
+  {
+   "id": "gmda-m04",
+   "name": "Ardee City to Ambedkar Road",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "route",
+   "length_m": 1647,
+   "pts": [
+    [
+     28.4411,
+     77.0791
+    ],
+    [
+     28.4397,
+     77.078
+    ],
+    [
+     28.44,
+     77.0777
+    ],
+    [
+     28.441,
+     77.0767
+    ],
+    [
+     28.4409,
+     77.0766
+    ],
+    [
+     28.4409,
+     77.0765
+    ],
+    [
+     28.4409,
+     77.075
+    ],
+    [
+     28.4414,
+     77.075
+    ],
+    [
+     28.4413,
+     77.0723
+    ],
+    [
+     28.4417,
+     77.0717
+    ],
+    [
+     28.4383,
+     77.0684
+    ],
+    [
+     28.4372,
+     77.0675
+    ],
+    [
+     28.4369,
+     77.0672
+    ],
+    [
+     28.4369,
+     77.0672
+    ],
+    [
+     28.4369,
+     77.0673
+    ]
+   ],
+   "note": "Routed from Ardee City (Sector 52) to Dr Ambedkar Chowk on Vikas Marg."
+  },
+  {
+   "id": "gmda-m05",
+   "name": "Ambedkar Road to Mayfield Garden",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "route",
+   "length_m": 2029,
+   "pts": [
+    [
+     28.4369,
+     77.0673
+    ],
+    [
+     28.4287,
+     77.0594
+    ],
+    [
+     28.4266,
+     77.0572
+    ],
+    [
+     28.4254,
+     77.0587
+    ],
+    [
+     28.4255,
+     77.0588
+    ],
+    [
+     28.4255,
+     77.059
+    ],
+    [
+     28.4272,
+     77.0607
+    ],
+    [
+     28.4275,
+     77.0607
+    ]
+   ],
+   "note": "Routed from Dr Ambedkar Chowk to Mayfield Garden (Sector 51)."
+  },
+  {
+   "id": "gmda-m06",
+   "name": "Sector 50/51 dividing road",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "boundary",
+   "length_m": 991,
+   "pts": [
+    [
+     28.4205,
+     77.0648
+    ],
+    [
+     28.4265,
+     77.0573
+    ]
+   ]
+  },
+  {
+   "id": "gmda-m07",
+   "name": "Sector 65/66 dividing road",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html; GMDA tenders 'along dividing road of Sec 65/66 and 66/67' (2026_HRY_554050_1, DNIT 13 Oct 2026)",
+   "geo": "boundary",
+   "length_m": 1558,
+   "pts": [
+    [
+     28.4066,
+     77.059
+    ],
+    [
+     28.394,
+     77.066
+    ]
+   ]
+  },
+  {
+   "id": "gmda-m08",
+   "name": "Sector 51/57 dividing road",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html; GMDA tender 'Special repair of service road along the sector 51/57 dividing master road' (2026_HRY_513741_1, DNIT 8 Apr 2026)",
+   "geo": "boundary",
+   "length_m": 1534,
+   "pts": [
+    [
+     28.4205,
+     77.0648
+    ],
+    [
+     28.4306,
+     77.0755
+    ]
+   ]
+  },
+  {
+   "id": "gmda-m09",
+   "name": "Rezang La Chowk to the Delhi border",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "route",
+   "length_m": 1353,
+   "pts": [
+    [
+     28.5104,
+     77.0418
+    ],
+    [
+     28.5139,
+     77.0449
+    ],
+    [
+     28.5166,
+     77.046
+    ],
+    [
+     28.5201,
+     77.0476
+    ],
+    [
+     28.5204,
+     77.0479
+    ],
+    [
+     28.521,
+     77.0483
+    ]
+   ],
+   "note": "The road north from Rezang La Chowk (Sector 23 / Palam Vihar) to the Delhi border towards Dwarka, cut at the state boundary."
+  },
+  {
+   "id": "gmda-m10",
+   "name": "Sector 30/31 dividing road",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "boundary",
+   "length_m": 748,
+   "pts": [
+    [
+     28.4596,
+     77.0498
+    ],
+    [
+     28.457,
+     77.0531
+    ],
+    [
+     28.4563,
+     77.0552
+    ],
+    [
+     28.4558,
+     77.056
+    ]
+   ]
+  },
+  {
+   "id": "gmda-m11",
+   "name": "Sector 32/39 dividing road",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html; GMDA tender 'Special repair of master road dividing sector 32/39' (2026_HRY_555082_1, DNIT 17 Oct 2026)",
+   "geo": "boundary",
+   "length_m": 882,
+   "pts": [
+    [
+     28.4405,
+     77.0415
+    ],
+    [
+     28.4461,
+     77.0471
+    ],
+    [
+     28.4463,
+     77.0476
+    ]
+   ]
+  },
+  {
+   "id": "gmda-m12",
+   "name": "Sector 39/40 dividing road",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "boundary",
+   "length_m": 949,
+   "pts": [
+    [
+     28.4439,
+     77.0582
+    ],
+    [
+     28.4447,
+     77.0571
+    ],
+    [
+     28.4462,
+     77.0561
+    ],
+    [
+     28.4466,
+     77.0542
+    ],
+    [
+     28.4491,
+     77.0509
+    ]
+   ]
+  },
+  {
+   "id": "gmda-m13",
+   "name": "Sector 30/41 dividing road",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "boundary",
+   "length_m": 1201,
+   "pts": [
+    [
+     28.4558,
+     77.056
+    ],
+    [
+     28.464,
+     77.064
+    ]
+   ]
+  },
+  {
+   "id": "gmda-m14",
+   "name": "Sector 45/46 dividing road",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "boundary",
+   "length_m": 1181,
+   "pts": [
+    [
+     28.4439,
+     77.0582
+    ],
+    [
+     28.4408,
+     77.0623
+    ],
+    [
+     28.4369,
+     77.0673
+    ]
+   ]
+  },
+  {
+   "id": "gmda-m15",
+   "name": "Sector 46/47 dividing road",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "boundary",
+   "length_m": 1205,
+   "pts": [
+    [
+     28.4347,
+     77.0493
+    ],
+    [
+     28.4279,
+     77.058
+    ],
+    [
+     28.4277,
+     77.0584
+    ],
+    [
+     28.4278,
+     77.0586
+    ]
+   ]
+  },
+  {
+   "id": "gmda-m16",
+   "name": "Sector 21/22 road",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "boundary",
+   "length_m": 724,
+   "pts": [
+    [
+     28.5115,
+     77.0664
+    ],
+    [
+     28.5087,
+     77.0691
+    ],
+    [
+     28.5068,
+     77.0715
+    ]
+   ]
+  },
+  {
+   "id": "gmda-m17",
+   "name": "Signature Tower Chowk to Atul Kataria Chowk, first half",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "route",
+   "length_m": 1792,
+   "pts": [
+    [
+     28.467,
+     77.0602
+    ],
+    [
+     28.4678,
+     77.0587
+    ],
+    [
+     28.4682,
+     77.0578
+    ],
+    [
+     28.4688,
+     77.0572
+    ],
+    [
+     28.4692,
+     77.0571
+    ],
+    [
+     28.471,
+     77.0568
+    ],
+    [
+     28.4719,
+     77.0565
+    ],
+    [
+     28.4737,
+     77.0551
+    ],
+    [
+     28.4799,
+     77.0502
+    ]
+   ],
+   "note": "HT lists 'Signature Chowk to Atul Kataria Chowk (in two parts)'; the parts were not described, so the routed road is split at half its length."
+  },
+  {
+   "id": "gmda-m18",
+   "name": "Signature Tower Chowk to Atul Kataria Chowk, second half",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "route",
+   "length_m": 1761,
+   "pts": [
+    [
+     28.4799,
+     77.0502
+    ],
+    [
+     28.481,
+     77.0492
+    ],
+    [
+     28.4815,
+     77.0487
+    ],
+    [
+     28.4817,
+     77.0483
+    ],
+    [
+     28.4817,
+     77.048
+    ],
+    [
+     28.4815,
+     77.0467
+    ],
+    [
+     28.4806,
+     77.0422
+    ],
+    [
+     28.4792,
+     77.039
+    ],
+    [
+     28.4785,
+     77.0355
+    ],
+    [
+     28.4786,
+     77.0337
+    ]
+   ],
+   "note": "Second part of 'Signature Chowk to Atul Kataria Chowk', split at half its length."
+  },
+  {
+   "id": "gmda-m19",
+   "name": "Rampura Road (Sectors 85 and 86)",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "boundary",
+   "length_m": 1418,
+   "pts": [
+    [
+     28.4073,
+     76.9454
+    ],
+    [
+     28.4072,
+     76.9454
+    ],
+    [
+     28.3955,
+     76.9509
+    ]
+   ],
+   "note": "Taken as the Sector 85/86 dividing road, which leads to Rampura village."
+  },
+  {
+   "id": "gmda-m20",
+   "name": "Sector 75/75A dividing road",
+   "agency": "gmda",
+   "kind": "master",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "facing",
+   "length_m": 1204,
+   "pts": [
+    [
+     28.3915,
+     76.999
+    ],
+    [
+     28.4023,
+     77.0
+    ]
+   ],
+   "note": "Sector 75 has no boundary in OSM; the line is the edge of Sector 75A that faces Sector 75. HT's list ends with 'dividing roads in Sectors 75/75A and 75/76'; 75/76 is counted once."
+  },
+  {
+   "id": "gmda-i01",
+   "name": "MG Road, IFFCO Chowk to Sikanderpur Metro",
+   "agency": "gmda",
+   "kind": "iconic",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "route",
+   "length_m": 2727,
+   "pts": [
+    [
+     28.4723,
+     77.0724
+    ],
+    [
+     28.4777,
+     77.0715
+    ],
+    [
+     28.4781,
+     77.0716
+    ],
+    [
+     28.4783,
+     77.0719
+    ],
+    [
+     28.4791,
+     77.076
+    ],
+    [
+     28.4808,
+     77.0866
+    ],
+    [
+     28.4809,
+     77.0873
+    ],
+    [
+     28.4808,
+     77.0893
+    ],
+    [
+     28.4814,
+     77.0924
+    ]
+   ]
+  },
+  {
+   "id": "gmda-i02",
+   "name": "Sector 27/28 dividing road",
+   "agency": "gmda",
+   "kind": "iconic",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "facing",
+   "length_m": 2072,
+   "pts": [
+    [
+     28.4679,
+     77.0731
+    ],
+    [
+     28.468,
+     77.0861
+    ],
+    [
+     28.468,
+     77.0943
+    ]
+   ],
+   "note": "Sector 27 has no boundary in OSM; the line is the edge of Sector 28 that faces Sector 27."
+  },
+  {
+   "id": "gmda-i03",
+   "name": "Sector 27/43 dividing road",
+   "agency": "gmda",
+   "kind": "iconic",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html; GMDA tender 'along master road between Sector 27/43' (2026_HRY_553815_1, DNIT 12 Oct 2026)",
+   "geo": "facing",
+   "length_m": 1101,
+   "pts": [
+    [
+     28.4632,
+     77.0953
+    ],
+    [
+     28.4624,
+     77.0902
+    ],
+    [
+     28.4611,
+     77.0843
+    ]
+   ],
+   "note": "Sector 27 has no boundary in OSM; the line is the edge of Sector 43 that faces Sector 27."
+  },
+  {
+   "id": "gmda-i04",
+   "name": "Signature Tower to Millennium City Centre",
+   "agency": "gmda",
+   "kind": "iconic",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "route",
+   "length_m": 2471,
+   "pts": [
+    [
+     28.467,
+     77.0602
+    ],
+    [
+     28.4657,
+     77.0619
+    ],
+    [
+     28.4648,
+     77.0633
+    ],
+    [
+     28.4644,
+     77.0638
+    ],
+    [
+     28.4641,
+     77.064
+    ],
+    [
+     28.4623,
+     77.0662
+    ],
+    [
+     28.4581,
+     77.0717
+    ],
+    [
+     28.4589,
+     77.074
+    ],
+    [
+     28.4589,
+     77.0742
+    ],
+    [
+     28.4562,
+     77.0743
+    ],
+    [
+     28.4563,
+     77.0741
+    ],
+    [
+     28.4587,
+     77.074
+    ],
+    [
+     28.4587,
+     77.0739
+    ],
+    [
+     28.4584,
+     77.0732
+    ],
+    [
+     28.4587,
+     77.0731
+    ]
+   ]
+  },
+  {
+   "id": "gmda-i05",
+   "name": "Sanath Road",
+   "agency": "gmda",
+   "kind": "iconic",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "none",
+   "length_m": null,
+   "pts": [],
+   "note": "No road of this name could be found in OpenStreetMap or Nominatim (also tried 'Sanat'). Ask GMDA which road this is before assigning it."
+  },
+  {
+   "id": "gmda-i06",
+   "name": "AIT Chowk to Sikanderpur Metro (Golf Course Road)",
+   "agency": "gmda",
+   "kind": "iconic",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "route",
+   "length_m": 7239,
+   "pts": [
+    [
+     28.4316,
+     77.1054
+    ],
+    [
+     28.4314,
+     77.1056
+    ],
+    [
+     28.4312,
+     77.1056
+    ],
+    [
+     28.431,
+     77.1055
+    ],
+    [
+     28.4309,
+     77.1052
+    ],
+    [
+     28.4311,
+     77.105
+    ],
+    [
+     28.4312,
+     77.1049
+    ],
+    [
+     28.4315,
+     77.1049
+    ],
+    [
+     28.4316,
+     77.1051
+    ],
+    [
+     28.432,
+     77.1051
+    ],
+    [
+     28.4373,
+     77.1035
+    ],
+    [
+     28.4438,
+     77.1011
+    ],
+    [
+     28.4489,
+     77.0996
+    ],
+    [
+     28.4536,
+     77.0979
+    ],
+    [
+     28.4627,
+     77.0953
+    ],
+    [
+     28.47,
+     77.0939
+    ],
+    [
+     28.4744,
+     77.0938
+    ],
+    [
+     28.4746,
+     77.0937
+    ],
+    [
+     28.479,
+     77.0937
+    ],
+    [
+     28.4806,
+     77.0914
+    ],
+    [
+     28.4807,
+     77.091
+    ],
+    [
+     28.4807,
+     77.0908
+    ],
+    [
+     28.4805,
+     77.0891
+    ],
+    [
+     28.4806,
+     77.0877
+    ],
+    [
+     28.4803,
+     77.0853
+    ],
+    [
+     28.4804,
+     77.0853
+    ],
+    [
+     28.4807,
+     77.0871
+    ],
+    [
+     28.4806,
+     77.089
+    ],
+    [
+     28.4807,
+     77.0896
+    ],
+    [
+     28.4811,
+     77.0916
+    ],
+    [
+     28.4812,
+     77.0916
+    ],
+    [
+     28.4814,
+     77.0924
+    ]
+   ]
+  },
+  {
+   "id": "gmda-i07",
+   "name": "Sikanderpur Metro to Cyber Hub",
+   "agency": "gmda",
+   "kind": "iconic",
+   "source": "Hindustan Times, 12 Oct 2026, 'GMDA identifies 27 roads for repair under 30-day challenge' (Abhishek Behl; quoting Amit Godara, Executive Engineer, GMDA), https://www.hindustantimes.com/cities/gurugram-news/gmda-identifies-27-roads-for-repair-under-30-day-challenge-101791746544459.html",
+   "geo": "route",
+   "length_m": 3282,
+   "pts": [
+    [
+     28.4814,
+     77.0924
+    ],
+    [
+     28.4817,
+     77.0943
+    ],
+    [
+     28.482,
+     77.0945
+    ],
+    [
+     28.4843,
+     77.0949
+    ],
+    [
+     28.4858,
+     77.0949
+    ],
+    [
+     28.4864,
+     77.0944
+    ],
+    [
+     28.4876,
+     77.0925
+    ],
+    [
+     28.4878,
+     77.0924
+    ],
+    [
+     28.489,
+     77.0901
+    ],
+    [
+     28.4892,
+     77.0898
+    ],
+    [
+     28.4897,
+     77.0896
+    ],
+    [
+     28.4901,
+     77.0897
+    ],
+    [
+     28.4929,
+     77.091
+    ],
+    [
+     28.4952,
+     77.0924
+    ],
+    [
+     28.4956,
+     77.0924
+    ],
+    [
+     28.4958,
+     77.0923
+    ],
+    [
+     28.4968,
+     77.0906
+    ],
+    [
+     28.4957,
+     77.09
+    ],
+    [
+     28.4949,
+     77.0898
+    ],
+    [
+     28.4931,
+     77.0888
+    ],
+    [
+     28.4929,
+     77.0884
+    ],
+    [
+     28.493,
+     77.0881
+    ],
+    [
+     28.4947,
+     77.0866
+    ],
+    [
+     28.4954,
+     77.0873
+    ],
+    [
+     28.4955,
+     77.0873
+    ],
+    [
+     28.4951,
+     77.0877
+    ],
+    [
+     28.4951,
+     77.0879
+    ],
+    [
+     28.4954,
+     77.0881
+    ]
+   ],
+   "note": "Runs along DLF Phase 2/3 frontage; part of the carriageway may be the coloniser's. Agency per HT is GMDA."
+  }
+ ]
+}
