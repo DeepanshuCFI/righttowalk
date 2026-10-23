@@ -9,10 +9,11 @@ Design direction "kerb and chalk": the street's own materials (concrete pavers, 
 - `src/style.css` tokens (light and dark) and components
 - `src/body.html` markup for the learn, check and saved views
 - `src/data.js` strings (EN/HI), the eleven items with Court heading, IRC standard and ask text, the Gurugram owner list
+- `src/learn.js` the Hindi learn page. The English learn copy is written in `body.html` and read into `S.en` at boot from the `data-s` / `data-sh` elements; `learn.js` holds the Hindi for the same keys (court quotes stay in English with a Hindi gloss line; agency names, IRC numbers and case names stay in Latin script; status tags are short Hindi labels)
 - `src/obs.js` the footpath problem types and their SVG glyphs, reconciled on 23 Oct 2026 against `research_notes/Right to walk auditor India/footpath_problem_taxonomy.md` (21-row taxonomy, 91 sources): twelve first-screen types (parked vehicles; vendor cart, kiosk or tin shed; shop or house spilling onto it; private ramp or fence; electric pole, box or transformer; tree or bushes; open manhole or drain; broken or missing tiles; dug up and left; malba or garbage; signboard, bus stop or furniture; waterlogged) plus three behind "More kinds" (two-wheelers riding on it, stray cattle or dogs, shrine or statue). Absence, discontinuity, height and darkness are audit items, not tiles. Hindi names follow MCG's own posts and Gurugram press; each type carries the clause (IRC:103-2012 numbering, Rules of the Road, Street Vendors Act, HMC Act s.408, IS 1726/12592, SC 2009 shrines order) and the usual Gurugram agency. Old ids from earlier saved checks are migrated on load.
 - `src/app.js` state, scoring, the street-strip and signal drawings, notice builder, routing
 - `src/config.js` the Phase 1 connection (project URL, public anon key, tile URL) and `src/sectors.json` the Gurugram sector list
-- `src/rtw.js` the shared Phase 1 client (plain fetch against PostgREST, Storage and GoTrue; no SDK), `src/share.js` the WhatsApp share card (canvas)
+- `src/rtw.js` the shared Phase 1 client (plain fetch against PostgREST, Storage and GoTrue; no SDK), `src/share.js` the WhatsApp share card (canvas), `src/cards.js` the four awareness cards on the learn page ("Share the right": the right, the 36,526 number, the 100 m test, the vendor nuance; 1080×1350 PNG each, drawn on the device in the page language, Web Share or download)
 - `src/map.html` + `map.js`, `src/report.html` + `report.js`, `src/dataset.html` + `dataset.js`, `src/moderate.html` + `moderate.js`, `src/pages.css` the secondary pages
 - `sql/001_phase1.sql` the whole backend: tables, RLS, views, stats function, storage policies (idempotent; run in the Supabase SQL editor)
 - `tools/snapshot.py` daily open-data snapshot (GitHub Action), `tools/probe.py` outside-in security probes, `tools/mock_backend.py` a local stand-in for development
@@ -38,4 +39,4 @@ After the result, a visitor may **add the check to the Gurugram record**: sector
 Local development: `preview_start footpath-mock` (or `python3 tools/mock_backend.py`) and a mock build; the mock prints magic links to its console.
 
 ## Not in Phase 1
-Owner layer from GMDA's master-road list, photos attached to the notice, sent/acknowledged/fixed loop with re-audit, Hindi learn page, costed asks from the Haryana PWD schedule of rates, CAPTCHA, reverse geocoding, OSM-based road-class suggestion.
+Owner layer from GMDA's master-road list, photos attached to the notice, sent/acknowledged/fixed loop with re-audit, costed asks from the Haryana PWD schedule of rates, CAPTCHA, reverse geocoding, OSM-based road-class suggestion.

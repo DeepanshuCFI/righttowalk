@@ -345,6 +345,21 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
 .sharecard{position:relative;max-width:360px;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:var(--paper);aspect-ratio:4/5}
 .sharecard img{display:block;width:100%;height:auto}
 .sharewait{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+/* ---------- awareness cards on the learn page ---------- */
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (min-width:700px){.cards{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.cardw{display:grid;gap:8px;min-width:0;align-content:start}
+.cardw .sharecard{max-width:none}
+.cardw .kicker{font-size:14px;letter-spacing:.1em}
+.cardw .btnrow{gap:6px}
+.cardw .btn.small{min-height:38px;font-size:15px;padding:0 12px;flex:1 1 auto}
+/* Hindi: Devanagari needs no tracking, and its matras need a little more room in the highlight and the condensed lines */
+:lang(hi) .kicker,:lang(hi) .tag,:lang(hi) .btn,:lang(hi) .top nav a,:lang(hi) .lang,:lang(hi) .tile,:lang(hi) .toggle button,:lang(hi) .steps div,:lang(hi) .scorepill,:lang(hi) .gatechip,:lang(hi) .mark,:lang(hi) .cardw .kicker{letter-spacing:.01em}
+:lang(hi) h1,:lang(hi) h2{line-height:1.12}
+:lang(hi) h1 .y{padding:.04em .12em .08em;line-height:1.12}
+:lang(hi) .quote p{line-height:1.35}
+.quote .gloss{font-size:16px;color:var(--ink-2);line-height:1.5}
+:lang(hi) .tbl table{min-width:560px}
 
 /* ---------- secondary pages: map, report, moderation ---------- */
 .pagehead{display:grid;gap:8px}

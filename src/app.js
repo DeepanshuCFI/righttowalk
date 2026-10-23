@@ -161,7 +161,7 @@ function signalSVG(band){const lit=(b)=>band===b;const lamp=(cy,color,on,fig)=>`
  return `<svg class="signal" viewBox="0 0 100 280" role="img" aria-label="Pedestrian signal"><rect x="4" y="4" width="92" height="272" rx="14" style="fill:#1C1E21"/><rect x="44" y="276" width="12" height="4" style="fill:#1C1E21"/>${lamp(50,'var(--s-red)',lit('r'),standing)}${lamp(140,'var(--s-amber)',lit('a'),standing)}${lamp(230,'var(--s-green)',lit('g'),walking)}</svg>`}
 
 // ---------- render: shared ----------
-function applyStrings(){document.querySelectorAll('[data-s]').forEach(el=>{const v=T(el.dataset.s);if(v!=null)el.textContent=v});$('langbtn').textContent=lang==='en'?'हिंदी':'English';document.documentElement.lang=lang==='hi'?'hi':'en'}
+function applyStrings(){document.querySelectorAll('[data-s]').forEach(el=>{const v=T(el.dataset.s);if(v!=null)el.textContent=v});document.querySelectorAll('[data-sh]').forEach(el=>{const v=T(el.dataset.sh);if(v!=null)el.innerHTML=v});document.querySelectorAll('[data-hi]').forEach(el=>{const v=S.hi[el.dataset.hi];el.hidden=lang!=='hi'||v==null;if(v!=null)el.textContent=v});$('langbtn').textContent=lang==='en'?'हिंदी':'English';document.documentElement.lang=lang==='hi'?'hi':'en'}
 function renderSteps(cur){const names=isQuick()?[T('st1'),T('st2q'),T('st3q'),T('st4')]:[T('st1'),T('st2'),T('st3'),T('st4')];$('steps').innerHTML=names.map((n,i)=>`<div class="${i===cur?'on':(i<cur?'done':'')}">${esc(n)}</div>`).join('')}
 function tileHTML(v,label,pressed,attr){const ic=ICON[v]||'';return `<button type="button" class="tile" ${attr} aria-pressed="${String(pressed)}">${ic}<span>${esc(label)}</span></button>`}
 function segHTML(field,opts,val,labels){return `<div class="tiles" data-field="${field}">${opts.map(o=>tileHTML(field==='side'?o:(field==='lanes'?'':o),labels?labels[o]:segLabel(field,o),val===o,`data-v="${o}"`)).join('')}</div>`}
@@ -298,7 +298,7 @@ function renderGloss(){const g=$('gloss');if(!g)return;g.innerHTML=OBS.map(o=>`<
 
 // ---------- navigation ----------
 function showStep(i){step=i;const q=isQuick();$('s-locate').hidden=i!==0;$('s-audit').hidden=!(i===1&&!q);$('s-quick').hidden=!(i===1&&q);$('s-card').hidden=i!==2;$('s-notice').hidden=i!==3;renderSteps(i);if(i===0)renderLocate();if(i===1){if(q)renderQuick();else renderItems()}if(i===2)renderCard();if(i===3)renderNotice();window.scrollTo({top:0})}
-function route(){let h=(location.hash||'#learn').replace('#','');if(h==='how'){h='learn'}if(!['learn','check','saved'].includes(h))h='learn';['learn','check','saved'].forEach(v=>{$('v-'+v).hidden=v!==h;const a=$('nav-'+v);if(v===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});if(h==='learn'){renderDemo();renderGloss();renderCounter()}if(h==='check')showStep(step);if(h==='saved')renderSaved();if(location.hash==='#how'){const el=$('how');if(el)el.scrollIntoView()}}
+function route(){let h=(location.hash||'#learn').replace('#','');if(h==='how'){h='learn'}if(!['learn','check','saved'].includes(h))h='learn';['learn','check','saved'].forEach(v=>{$('v-'+v).hidden=v!==h;const a=$('nav-'+v);if(v===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});if(h==='learn'){renderDemo();renderGloss();renderCounter();renderCards()}if(h==='check')showStep(step);if(h==='saved')renderSaved();if(location.hash==='#how'){const el=$('how');if(el)el.scrollIntoView()}}
 function afterObsChange(lastIdx){suggestFromObs();saveDraft();refreshPalette();if(!isQuick())renderLive(false,{redraw:true,lastObs:lastIdx})}
 
 // ---------- events ----------
@@ -333,6 +333,8 @@ document.addEventListener('click',e=>{
  if(b.id==='sub-btn'){doSubmit();return}
  if(b.id==='share-btn'){doShare();return}
  if(b.id==='share-dl'){downloadShare();return}
+ if(b.dataset.cardShare){cardShare(b.dataset.cardShare);return}
+ if(b.dataset.cardDl){cardDownload(b.dataset.cardDl);return}
  if(b.id==='new-check'){st=blank();photos={};locFail=false;shareBlob=null;ls(()=>localStorage.removeItem('fc_draft'));showStep(0);return}
  if(b.dataset.open!=null){const list=ls(()=>JSON.parse(localStorage.getItem('fc_saved')||'[]'))||[];st=normalise(list[+b.dataset.open]);photos={};step=2;location.hash='#check';if(location.hash==='#check')route();return}
  if(b.dataset.copy!=null){const list=ls(()=>JSON.parse(localStorage.getItem('fc_saved')||'[]'))||[];const rec=normalise(list[+b.dataset.copy]);if(rec.mode!=='quick'){rec.result=scoreOf(rec.answers);delete rec.result.fails}rec.obstructions=obsCounts(rec.obs);rec.method='footpath-check-v1.2';copyText(JSON.stringify(rec,null,1));return}
@@ -346,6 +348,7 @@ function setTop(){const h=document.querySelector('header.top');if(h)document.doc
 let _rz;window.addEventListener('resize',()=>{setTop();clearTimeout(_rz);_rz=setTimeout(()=>{if(!$('v-learn').hidden)renderDemo();if(!$('s-card').hidden)renderResStreet()},250)});window.addEventListener('load',setTop);
 
 // ---------- boot ----------
+document.querySelectorAll('[data-s],[data-sh]').forEach(el=>{const k=el.dataset.s||el.dataset.sh;if(S.en[k]==null)S.en[k]=el.dataset.sh?el.innerHTML:el.textContent.trim()});
 lang=ls(()=>localStorage.getItem('fc_lang'))||'en';if(!S[lang])lang='en';
 const d=loadDraft();if(d&&d.locate&&d.answers){st=normalise(d);$('resume').hidden=false;$('resume').textContent=T('resume')}
 applyStrings();route();startDemo();setTop();
