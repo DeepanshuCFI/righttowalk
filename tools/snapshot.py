@@ -5,9 +5,18 @@ Needs nothing secret: it reads the project URL and the public anon key from src/
 read-only views the map and the report use. Writes data/checks.json, data/checks.csv and data/stats.json, and
 leaves the files untouched when the rows have not changed (so the Action does not commit every day for nothing).
 """
-import csv, datetime, hashlib, io, json, os, pathlib, re, sys, urllib.request
+import csv, datetime, hashlib, io, json, os, pathlib, re, ssl, sys, urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+
+def _ctx():
+    try:
+        import certifi
+        return ssl.create_default_context(cafile=certifi.where())
+    except Exception:
+        return ssl.create_default_context()
+_CTX = _ctx()
+
 cfg = (ROOT / "src" / "config.js").read_text(encoding="utf-8")
 URL = os.environ.get("RTW_URL") or re.search(r"url:'([^']*)'", cfg).group(1)
 ANON = os.environ.get("RTW_ANON") or re.search(r"anon:'([^']*)'", cfg).group(1)
@@ -21,7 +30,7 @@ ITEM_IDS = [f"i{i}" for i in range(1, 11)]
 
 def get(path, headers=None):
     req = urllib.request.Request(URL + path, headers={"apikey": ANON, "Authorization": "Bearer " + ANON, **(headers or {})})
-    with urllib.request.urlopen(req, timeout=60) as r:
+    with urllib.request.urlopen(req, timeout=60, context=_CTX) as r:
         return json.loads(r.read().decode("utf-8"))
 
 rows, start = [], 0

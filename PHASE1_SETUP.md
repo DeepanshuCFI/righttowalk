@@ -1,5 +1,7 @@
 # Phase 1 set-up: the record behind righttowalk.life
 
+**Status 23 Oct 2026, 23:00 IST:** steps 1 to 3 are done. Project `righttowalk` (ref `qeiqfkzugpipcvolvhjw`) exists, both SQL files ran, `src/config.js` carries the URL and anon key, `main` is deployed with the Phase 1 pages, the daily snapshot Action has run once, and the 23 probes pass against the live project. Still open: Deep's first moderator sign-in (the confirmation email from Supabase is in his inbox) and the first moderation pass, which also deletes the probes' test rows from the Test tab.
+
 Everything in the code is built and tested against a local stand-in. Three things need Deep's hands, because they happen inside the Supabase dashboard and I never sign in there. About twenty minutes.
 
 ## 1. Create the project (Deep, dashboard)

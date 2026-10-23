@@ -7,9 +7,18 @@
 Every probe states what an anonymous visitor must NOT be able to do, and checks it. Writes one row with status='test'
 (moderators can delete it from the Test tab) and one tiny photo under pending/<that id>/.
 """
-import json, re, sys, urllib.error, urllib.request, uuid, pathlib
+import json, re, ssl, sys, urllib.error, urllib.request, uuid, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+
+def _ctx():
+    try:
+        import certifi
+        return ssl.create_default_context(cafile=certifi.where())
+    except Exception:
+        return ssl.create_default_context()
+_CTX = _ctx()
+
 if len(sys.argv) >= 3:
     URL, ANON = sys.argv[1], sys.argv[2]
 else:
@@ -30,7 +39,7 @@ def call(method, path, body=None, headers=None, raw=None):
     h.update(headers or {})
     req = urllib.request.Request(URL + path, data=data, method=method, headers=h)
     try:
-        with urllib.request.urlopen(req, timeout=30) as r:
+        with urllib.request.urlopen(req, timeout=30, context=_CTX) as r:
             txt = r.read().decode("utf-8", "replace")
             try: return r.status, json.loads(txt) if txt else None
             except Exception: return r.status, txt
