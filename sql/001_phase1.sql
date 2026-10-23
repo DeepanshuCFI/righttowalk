@@ -93,6 +93,9 @@ create policy "moderators see the list" on public.moderators
 
 -- explicit grants (new tables are not exposed to the Data API by default from 30 Oct 2026)
 grant usage on schema public to anon, authenticated;
+revoke select, update, delete on public.checks from anon;     -- Supabase default privileges grant these; take them back
+revoke all on public.moderators from anon;
+revoke execute on function public.is_moderator() from anon;
 grant insert on public.checks to anon;
 grant select on public.checks to authenticated;
 grant update (status, verified, moderated_at, moderated_by, mod_note) on public.checks to authenticated;
