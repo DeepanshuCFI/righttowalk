@@ -5,10 +5,10 @@ const SHARE_S={
  hi:{kick:'राइट टू वॉक · गुरुग्राम',l1_fail:'यह फुटपाथ',l2_fail:'100 मीटर की कसौटी पर फ़ेल',l1_pass:'इस फुटपाथ पर',l2_pass:'चला जा सकता है',l1_prob:'समस्याएँ',l2_prob:'एक ही फुटपाथ पर',l1_score:'स्कोर',found:'यहाँ मिला:',quote:'“अगर सड़क है, तो चलने वालों के लिए चिह्नित और सँभाले हुए फुटपाथ सुनिश्चित करना एक कर्तव्य है।”',cite:'सुप्रीम कोर्ट, मनियार इलियाज़ बनाम पी. अय्यप्पन, 19 जून 2026',cta:'दो मिनट में अपनी सड़क जाँचें',walk:'इस तरफ़ 100 मीटर सड़क पर उतरे बिना:',yes:'हाँ',no:'नहीं'}
 };
 const SHARE_TOK={paver:'#E6E1D6',line:'#CFC9BC',ink:'#1C1E21',ink2:'#5B5A54',plot:'#F6F3EC',plot2:'#CFC7B8',asphalt:'#2B2E33',chalk:'#FFFFFF',dirt:'#C9B08A',dirt2:'#B39A74',tree:'#6E8B3D',glow:'#FFD24D',water:'#8DB9DA',yellow:'#FFC72C','yellow-ink':'#1C1E21',red:'#DE3A2F',amber:'#EE8B22',green:'#1FAE5A',bg:'#EFEBE3'};
-let shareFontCSS=null;
-async function shareFonts(hi){if(shareFontCSS!==null)return shareFontCSS;const files=[['Khand',600,'khand-600-latin'],['Khand',700,'khand-700-latin']];if(hi)files.push(['Khand',600,'khand-600-devanagari'],['Khand',700,'khand-700-devanagari']);
+const shareFontCSS={};
+async function shareFonts(hi){const key=hi?'hi':'en';if(shareFontCSS[key]!=null)return shareFontCSS[key];const files=[['Khand',600,'khand-600-latin'],['Khand',700,'khand-700-latin']];if(hi)files.push(['Khand',600,'khand-600-devanagari'],['Khand',700,'khand-700-devanagari']);
  const parts=[];for(const [fam,w,f] of files){try{const r=await fetch(`fonts/${f}.woff2`);if(!r.ok)continue;const b=await r.blob();const b64=await new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.readAsDataURL(b)});parts.push(`@font-face{font-family:'${fam}';font-weight:${w};src:url(${b64}) format('woff2')}`)}catch(e){}}
- shareFontCSS=parts.join('');return shareFontCSS}
+ shareFontCSS[key]=parts.join('');return shareFontCSS[key]}
 async function stripImage(svg,hi){const css=await shareFonts(hi);let s=svg.replace(/var\(--s-([a-z0-9-]+)\)/g,(m,k)=>SHARE_TOK[k]||'#000').replace(/var\(--head\)/g,"'Khand',sans-serif").replace(/class="lbl"/g,'class="lbl" style="font-family:Khand,sans-serif;font-weight:600;letter-spacing:.04em;text-transform:uppercase"');
  s=s.replace('<defs>',`<defs><style>${css}</style>`);s=s.replace(/<svg /,'<svg width="1000" height="260" ');
  const url='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s);return new Promise(res=>{const img=new Image();img.onload=()=>res(img);img.onerror=()=>res(null);img.src=url})}

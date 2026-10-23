@@ -95,7 +95,7 @@ def document(fname, title, desc, body, scripts, extra_head="", extra_css="", pre
     print(f"built {fname:14s} {len(html.encode('utf-8')):7d} bytes")
 
 body = read("body.html")
-document("index.html", TITLE, DESC, body, ["data.js", "obs.js", "config.js", "rtw.js", "share.js", "app.js"])
+document("index.html", TITLE, DESC, body, ["data.js", "obs.js", "learn.js", "config.js", "rtw.js", "share.js", "cards.js", "app.js"])
 document("map.html", "Gurugram footpath map · Right to Walk",
          "Every footpath a citizen has checked in Gurugram, on one map: where a walker could not go 100 m without stepping onto the road.",
          read("map.html"), ["data.js", "obs.js", "config.js", "rtw.js", "frame.js", "map.js"],
@@ -117,7 +117,9 @@ document("moderate.html", "Moderation · Right to Walk", "Moderation of citizen 
 art_body = re.sub(r'\s*<a href="map\.html" id="nav-map"[^>]*>Map</a>', "", body)
 for f in ("map.html", "report.html", "dataset.html"):
     art_body = art_body.replace(f'href="{f}"', f'href="{SITE}{f}"')
-artifact = read("head.html") + "<style>\n" + style + "\n</style>\n" + art_body + wrap_script(["data.js", "obs.js", "config.js", "rtw.js", "share.js", "app.js"], cfg_off)
+artifact = read("head.html") + "<style>\n" + style + "\n</style>\n" + art_body + wrap_script(["data.js", "obs.js", "learn.js", "config.js", "rtw.js", "share.js", "cards.js", "app.js"], cfg_off)
+for f in ("map.html", "report.html", "dataset.html"):  # the Hindi strings link to these pages too
+    artifact = artifact.replace(f'href="{f}"', f'href="{SITE}{f}"')
 (ROOT / "artifact.html").write_text(artifact, encoding="utf-8")
 print(f"built {'artifact.html':14s} {len(artifact.encode('utf-8')):7d} bytes (record off)")
 if local:
