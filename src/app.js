@@ -5,7 +5,7 @@ Object.assign(S.en,{mark:'Right to Walk',how:'How it works',found:'As found',sta
  obs_line:'Obstructions recorded on the footpath',
  mode_h:'How much time do you have?',mode_quick:'Quick check',mode_quick_p:'2 minutes. One spot: your location, a photo, what is on the footpath. Makes a pin and a short notice.',mode_full:'Full stretch',mode_full_p:'15 minutes. Walk 500 m, eleven questions, a score, your street as found and to standard, a full notice.',change:'Change',
  loc_h:'Where are you?',loc_btn:'Use my location',loc_retake:'Retake',loc_wait:'Getting your location…',loc_ok:'Location taken',loc_acc:'accuracy about',loc_map:'Open in map',
- loc_fail:'This browser could not share your location. On the live site it asks once; here, paste coordinates from Google Maps (press and hold a spot, then copy the two numbers) or just name the road below.',loc_coords:'Coordinates from Google Maps',loc_use:'Use these',loc_badcoords:'That does not look like two coordinates, for example 28.4502, 77.0962',
+ loc_fail:'This browser did not share your location. Allow location for this site in the browser settings and tap Retake, or paste coordinates from Google Maps (press and hold a spot, then copy the two numbers), or just name the road below.',loc_coords:'Coordinates from Google Maps',loc_use:'Use these',loc_badcoords:'That does not look like two coordinates, for example 28.4502, 77.0962',
  side_h:'Which footpath?',side_left:'On my left as I walk',side_right:'On my right as I walk',
  loc_name:'Road name and a landmark',loc_name_h:'Optional if you took your location; it makes the letter easier to read.',
  cls_note:'On the live site the map will suggest this. For now, four taps.',
@@ -20,7 +20,7 @@ Object.assign(S.hi,{mark:'राइट टू वॉक',how:'कैसे क�
  obs_line:'फुटपाथ पर दर्ज रुकावटें',
  mode_h:'आपके पास कितना समय है?',mode_quick:'झटपट जाँच',mode_quick_p:'2 मिनट। एक जगह: आपकी लोकेशन, एक फ़ोटो, फुटपाथ पर क्या है। एक पिन और छोटा नोटिस बनता है।',mode_full:'पूरा हिस्सा',mode_full_p:'15 मिनट। 500 मीटर चलें, ग्यारह सवाल, स्कोर, आपकी सड़क जैसी मिली और मानक पर, पूरा नोटिस।',change:'बदलें',
  loc_h:'आप कहाँ हैं?',loc_btn:'मेरी लोकेशन लें',loc_retake:'फिर से लें',loc_wait:'लोकेशन ली जा रही है…',loc_ok:'लोकेशन ले ली',loc_acc:'सटीकता लगभग',loc_map:'नक़्शे में देखें',
- loc_fail:'यह ब्राउज़र लोकेशन नहीं दे सका। असली साइट पर यह एक बार पूछेगा; यहाँ Google Maps से निर्देशांक पेस्ट करें (जगह को देर तक दबाएँ, फिर दो नंबर कॉपी करें) या नीचे सड़क का नाम लिखें।',loc_coords:'Google Maps के निर्देशांक',loc_use:'इन्हें लें',loc_badcoords:'यह दो निर्देशांक नहीं लगते, जैसे 28.4502, 77.0962',
+ loc_fail:'ब्राउज़र ने लोकेशन नहीं दी। ब्राउज़र सेटिंग में इस साइट के लिए लोकेशन की अनुमति दें और फिर से लें, या Google Maps से निर्देशांक पेस्ट करें (जगह को देर तक दबाएँ, फिर दो नंबर कॉपी करें), या नीचे सड़क का नाम लिखें।',loc_coords:'Google Maps के निर्देशांक',loc_use:'इन्हें लें',loc_badcoords:'यह दो निर्देशांक नहीं लगते, जैसे 28.4502, 77.0962',
  side_h:'कौन सा फुटपाथ?',side_left:'चलते हुए मेरे बाएँ',side_right:'चलते हुए मेरे दाएँ',
  loc_name:'सड़क का नाम और एक लैंडमार्क',loc_name_h:'लोकेशन ली हो तो वैकल्पिक; इससे पत्र पढ़ना आसान होता है।',
  cls_note:'असली साइट पर नक़्शा यह सुझाएगा। अभी चार टैप।',
@@ -160,7 +160,7 @@ function renderLocate(){const l=st.locate;const body=$('locate-body');$('to-audi
  const q=isQuick();
  let h=`<div class="modeline"><span class="kicker"><b>${esc(q?T('mode_quick'):T('mode_full'))}</b> · ${q?'2':'15'} min</span><button type="button" class="btn small" data-mode-reset>${esc(T('change'))}</button></div>`;
  h+=`<h2>${esc(T('loc_h'))}</h2>`;
- h+=`<div class="locbox">${st.loc.start?fixCard(st.loc.start,T('loc_ok'))+`<div class="btnrow"><button type="button" class="btn small" id="loc-get">${esc(T('loc_retake'))}</button></div>`:`<button type="button" class="btn yellow" id="loc-get" ${locBusy?'disabled':''}>${ICON.pin}${esc(locBusy?T('loc_wait'):T('loc_btn'))}</button>`}
+ h+=`<div class="locbox">${st.loc.start?fixCard(st.loc.start,T('loc_ok'))+`<div class="btnrow"><button type="button" class="btn small" id="loc-get">${esc(T('loc_retake'))}</button></div>`:`<button type="button" class="btn yellow" id="loc-get" ${locBusy?'disabled':''}>${ICON.pin}${esc(locBusy?T('loc_wait'):(locFail?T('loc_retake'):T('loc_btn')))}</button>`}
   <div id="loc-fallback" ${locFail?'':'hidden'}><p class="small err">${esc(T('loc_fail'))}</p><label class="f"><span>${esc(T('loc_coords'))}</span><div class="coordrow"><input type="text" id="f-coords" inputmode="decimal" placeholder="28.4502, 77.0962"><button type="button" class="btn small" id="loc-use">${esc(T('loc_use'))}</button></div></label><p class="err" id="coord-err" hidden></p></div></div>`;
  h+=`<label class="f"><span>${esc(T('side_h'))}</span>${segHTML('side',['left','right'],l.side)}</label>`;
  if(!q){h+=`<div class="paper soft" style="gap:14px"><h3>${esc(T('loc_class_h'))}</h3><p class="small">${esc(T('cls_note'))}</p><label class="f"><span>${esc(T('loc_div'))}</span>${segHTML('divider',['yes','no'],l.divider)}</label><label class="f"><span>${esc(T('loc_lanes'))}</span>${segHTML('lanes',['1','2','3'],l.lanes)}</label><label class="f"><span>${esc(T('loc_through'))}</span>${segHTML('through',['yes','no'],l.through)}</label><label class="f"><span>${esc(T('loc_gates'))}</span>${segHTML('gates',['yes','no'],l.gates)}</label><div id="classout" hidden></div></div>`;

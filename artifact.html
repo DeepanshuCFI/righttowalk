@@ -10,7 +10,7 @@
 :root{
   --bg:#EFEBE3; --paper:#FFFFFF; --ink:#1C1E21; --ink-2:#5B5A54; --line:#D9D3C7;
   --yellow:#FFC72C; --yellow-ink:#1C1E21; --green:#1FAE5A; --red:#DE3A2F; --amber:#EE8B22;
-  --asphalt:#2B2E33; --chalk:#FFFFFF; --paver:#E6E1D6; --plot:#F6F3EC; --plot2:#CFC7B8; --dirt:#C9B08A; --dirt2:#B39A74; --tree:#6E8B3D; --glow:#FFD24D; --water:#8DB9DA;
+  --asphalt:#2B2E33; --chalk:#FFFFFF; --paver:#E6E1D6; --plot:#F6F3EC; --plot2:#CFC7B8; --dirt:#C9B08A; --dirt2:#B39A74; --tree:#6E8B3D; --glow:#FFD24D; --water:#8DB9DA; --stripe:#1C1E21;
   --head:'Khand','Mukta',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   --body:'Mukta',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
 }
@@ -18,13 +18,13 @@
   :root:not([data-theme="light"]){
     --bg:#15171A; --paper:#212428; --ink:#F3EFE6; --ink-2:#B6B1A6; --line:#3A3E45;
     --yellow:#FFC72C; --yellow-ink:#1C1E21; --green:#37C96F; --red:#FF5C52; --amber:#FFA142;
-    --asphalt:#0E1012; --chalk:#F3EFE6; --paver:#3A3E45; --plot:#2A2E34; --plot2:#4A4F57; --dirt:#6B5A3F; --dirt2:#5A4B33; --tree:#7FA04A; --glow:#FFD24D; --water:#4C7FA6; color-scheme:dark;
+    --asphalt:#0E1012; --chalk:#F3EFE6; --paver:#3A3E45; --plot:#2A2E34; --plot2:#4A4F57; --dirt:#6B5A3F; --dirt2:#5A4B33; --tree:#7FA04A; --glow:#FFD24D; --water:#4C7FA6; --stripe:#1C1E21; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#15171A; --paper:#212428; --ink:#F3EFE6; --ink-2:#B6B1A6; --line:#3A3E45;
   --yellow:#FFC72C; --yellow-ink:#1C1E21; --green:#37C96F; --red:#FF5C52; --amber:#FFA142;
-  --asphalt:#0E1012; --chalk:#F3EFE6; --paver:#3A3E45; --plot:#2A2E34; --plot2:#4A4F57; --dirt:#6B5A3F; --dirt2:#5A4B33; --tree:#7FA04A; --glow:#FFD24D; --water:#4C7FA6; color-scheme:dark;
+  --asphalt:#0E1012; --chalk:#F3EFE6; --paver:#3A3E45; --plot:#2A2E34; --plot2:#4A4F57; --dirt:#6B5A3F; --dirt2:#5A4B33; --tree:#7FA04A; --glow:#FFD24D; --water:#4C7FA6; --stripe:#1C1E21; color-scheme:dark;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -33,7 +33,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17p
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
 .wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 /* kerb stripe: the brand device */
-.kerb{height:8px;background:repeating-linear-gradient(135deg,var(--yellow) 0 16px,var(--ink) 16px 32px)}
+.kerb{height:8px;background:repeating-linear-gradient(135deg,var(--yellow) 0 16px,var(--stripe) 16px 32px)}
 .kerb.thin{height:5px}
 /* header */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg)}
@@ -47,7 +47,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 /* type */
 h1,h2,h3,h4{font-family:var(--head);margin:0;text-wrap:balance;line-height:1}
 h1{font-size:clamp(44px,10vw,84px);font-weight:700;letter-spacing:-.005em;text-transform:uppercase}
-h1 .y{background:var(--yellow);color:var(--yellow-ink);padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+h1 .y{display:inline-block;line-height:1;background:var(--yellow);color:var(--yellow-ink);padding:0 .12em .03em;margin-top:.06em}
 h2{font-size:clamp(32px,7vw,52px);font-weight:700;text-transform:uppercase;letter-spacing:.005em}
 h3{font-size:26px;font-weight:600;letter-spacing:.01em}
 h4{font-size:20px;font-weight:600}
@@ -267,6 +267,20 @@ details.why p{margin-top:6px}
 button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 @media (min-width:900px){.wrap{max-width:760px}.palette{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}}
 
+/* ---------- desktop composition ---------- */
+.two-up{display:grid;gap:18px}
+@media (min-width:1100px){
+  #v-learn .wrap{max-width:1080px}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px 56px;align-items:start}
+  .hero .wrap>.block:first-child{grid-column:1;grid-row:1}
+  .hero .wrap>.block:nth-child(2){grid-column:2;grid-row:1;align-self:center}
+  .hero .wrap>*:nth-child(n+3){grid-column:1 / -1}
+  h1{font-size:clamp(44px,6vw,78px)}
+  .two-up{grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+  .two-up>*{min-width:0}
+  .palette{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+}
+
 </style>
 <header class="top">
   <div class="wrap">
@@ -305,6 +319,7 @@ button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlig
 
     <div class="block">
       <h2>What the court has said</h2>
+      <div class="two-up">
       <div class="quote">
         <p>"If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers. The duty bearers are the urban development authorities, municipal corporations, municipalities and even panchayats, who must endeavour to demarcate, construct, maintain, and safeguard footpaths and other necessary pedestrian infrastructure."</p>
         <cite>Supreme Court, Maniyar Iliyaz v. P. Ayyappan, 2026 INSC 647, 19 June 2026, para 20(b). <span class="tag law">Binding law</span></cite>
@@ -317,6 +332,7 @@ button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlig
         <li><strong>Drivers must slow down at crossings</strong>, pedestrians have right of way at uncontrolled crossings, and no vehicle may be driven or parked on a footpath. Rules of the Road Regulations 1989, regulations 8, 11 and 15. <span class="tag dir">Statutory regulation</span></li>
         <li><strong>The case is still open</strong> as "Re: Fundamental Right to Walk and Footpath", W.P.(C) 844/2026. On 24 August 2026 every State and UT was made a party; on 5 October 2026 the Union was told to name the authority responsible for footpaths and five pilot towns.</li>
       </ul>
+      </div>
     </div>
 
     <div class="block" id="gloss-block">
@@ -344,6 +360,7 @@ button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlig
       <p class="small">The 2022 figures are read from the IRC draft hosted by NITI Aayog; the published code is paywalled. The 2 m walking zone is independently confirmed.</p>
     </div>
 
+    <div class="two-up">
     <div class="block">
       <h2>Who must provide it here</h2>
       <p class="muted">The agency that owns the road maintains the footpath. In Gurugram that is at least six bodies, and no public map says which road is whose. The check asks you to pick the likely owner; "not sure" goes to GMDA and the Chief Minister's Window, which forward it.</p>
@@ -365,6 +382,7 @@ button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlig
         <li><strong>Result.</strong> A score out of 100 at the weakest point of the stretch, one of three bands, your street as found and to standard, and the three heaviest things to ask for. Weights are printed; this is method v1.0.</li>
         <li><strong>Notice.</strong> A ready letter to the owning agency quoting the Court, with a reply-by date 21 days out. You copy it and send it through the agency's own channel. This page never files anything for you.</li>
       </ul>
+    </div>
     </div>
 
     <div class="block">
@@ -654,7 +672,7 @@ Object.assign(S.en,{mark:'Right to Walk',how:'How it works',found:'As found',sta
  obs_line:'Obstructions recorded on the footpath',
  mode_h:'How much time do you have?',mode_quick:'Quick check',mode_quick_p:'2 minutes. One spot: your location, a photo, what is on the footpath. Makes a pin and a short notice.',mode_full:'Full stretch',mode_full_p:'15 minutes. Walk 500 m, eleven questions, a score, your street as found and to standard, a full notice.',change:'Change',
  loc_h:'Where are you?',loc_btn:'Use my location',loc_retake:'Retake',loc_wait:'Getting your location…',loc_ok:'Location taken',loc_acc:'accuracy about',loc_map:'Open in map',
- loc_fail:'This browser could not share your location. On the live site it asks once; here, paste coordinates from Google Maps (press and hold a spot, then copy the two numbers) or just name the road below.',loc_coords:'Coordinates from Google Maps',loc_use:'Use these',loc_badcoords:'That does not look like two coordinates, for example 28.4502, 77.0962',
+ loc_fail:'This browser did not share your location. Allow location for this site in the browser settings and tap Retake, or paste coordinates from Google Maps (press and hold a spot, then copy the two numbers), or just name the road below.',loc_coords:'Coordinates from Google Maps',loc_use:'Use these',loc_badcoords:'That does not look like two coordinates, for example 28.4502, 77.0962',
  side_h:'Which footpath?',side_left:'On my left as I walk',side_right:'On my right as I walk',
  loc_name:'Road name and a landmark',loc_name_h:'Optional if you took your location; it makes the letter easier to read.',
  cls_note:'On the live site the map will suggest this. For now, four taps.',
@@ -669,7 +687,7 @@ Object.assign(S.hi,{mark:'राइट टू वॉक',how:'कैसे क�
  obs_line:'फुटपाथ पर दर्ज रुकावटें',
  mode_h:'आपके पास कितना समय है?',mode_quick:'झटपट जाँच',mode_quick_p:'2 मिनट। एक जगह: आपकी लोकेशन, एक फ़ोटो, फुटपाथ पर क्या है। एक पिन और छोटा नोटिस बनता है।',mode_full:'पूरा हिस्सा',mode_full_p:'15 मिनट। 500 मीटर चलें, ग्यारह सवाल, स्कोर, आपकी सड़क जैसी मिली और मानक पर, पूरा नोटिस।',change:'बदलें',
  loc_h:'आप कहाँ हैं?',loc_btn:'मेरी लोकेशन लें',loc_retake:'फिर से लें',loc_wait:'लोकेशन ली जा रही है…',loc_ok:'लोकेशन ले ली',loc_acc:'सटीकता लगभग',loc_map:'नक़्शे में देखें',
- loc_fail:'यह ब्राउज़र लोकेशन नहीं दे सका। असली साइट पर यह एक बार पूछेगा; यहाँ Google Maps से निर्देशांक पेस्ट करें (जगह को देर तक दबाएँ, फिर दो नंबर कॉपी करें) या नीचे सड़क का नाम लिखें।',loc_coords:'Google Maps के निर्देशांक',loc_use:'इन्हें लें',loc_badcoords:'यह दो निर्देशांक नहीं लगते, जैसे 28.4502, 77.0962',
+ loc_fail:'ब्राउज़र ने लोकेशन नहीं दी। ब्राउज़र सेटिंग में इस साइट के लिए लोकेशन की अनुमति दें और फिर से लें, या Google Maps से निर्देशांक पेस्ट करें (जगह को देर तक दबाएँ, फिर दो नंबर कॉपी करें), या नीचे सड़क का नाम लिखें।',loc_coords:'Google Maps के निर्देशांक',loc_use:'इन्हें लें',loc_badcoords:'यह दो निर्देशांक नहीं लगते, जैसे 28.4502, 77.0962',
  side_h:'कौन सा फुटपाथ?',side_left:'चलते हुए मेरे बाएँ',side_right:'चलते हुए मेरे दाएँ',
  loc_name:'सड़क का नाम और एक लैंडमार्क',loc_name_h:'लोकेशन ली हो तो वैकल्पिक; इससे पत्र पढ़ना आसान होता है।',
  cls_note:'असली साइट पर नक़्शा यह सुझाएगा। अभी चार टैप।',
@@ -809,7 +827,7 @@ function renderLocate(){const l=st.locate;const body=$('locate-body');$('to-audi
  const q=isQuick();
  let h=`<div class="modeline"><span class="kicker"><b>${esc(q?T('mode_quick'):T('mode_full'))}</b> · ${q?'2':'15'} min</span><button type="button" class="btn small" data-mode-reset>${esc(T('change'))}</button></div>`;
  h+=`<h2>${esc(T('loc_h'))}</h2>`;
- h+=`<div class="locbox">${st.loc.start?fixCard(st.loc.start,T('loc_ok'))+`<div class="btnrow"><button type="button" class="btn small" id="loc-get">${esc(T('loc_retake'))}</button></div>`:`<button type="button" class="btn yellow" id="loc-get" ${locBusy?'disabled':''}>${ICON.pin}${esc(locBusy?T('loc_wait'):T('loc_btn'))}</button>`}
+ h+=`<div class="locbox">${st.loc.start?fixCard(st.loc.start,T('loc_ok'))+`<div class="btnrow"><button type="button" class="btn small" id="loc-get">${esc(T('loc_retake'))}</button></div>`:`<button type="button" class="btn yellow" id="loc-get" ${locBusy?'disabled':''}>${ICON.pin}${esc(locBusy?T('loc_wait'):(locFail?T('loc_retake'):T('loc_btn')))}</button>`}
   <div id="loc-fallback" ${locFail?'':'hidden'}><p class="small err">${esc(T('loc_fail'))}</p><label class="f"><span>${esc(T('loc_coords'))}</span><div class="coordrow"><input type="text" id="f-coords" inputmode="decimal" placeholder="28.4502, 77.0962"><button type="button" class="btn small" id="loc-use">${esc(T('loc_use'))}</button></div></label><p class="err" id="coord-err" hidden></p></div></div>`;
  h+=`<label class="f"><span>${esc(T('side_h'))}</span>${segHTML('side',['left','right'],l.side)}</label>`;
  if(!q){h+=`<div class="paper soft" style="gap:14px"><h3>${esc(T('loc_class_h'))}</h3><p class="small">${esc(T('cls_note'))}</p><label class="f"><span>${esc(T('loc_div'))}</span>${segHTML('divider',['yes','no'],l.divider)}</label><label class="f"><span>${esc(T('loc_lanes'))}</span>${segHTML('lanes',['1','2','3'],l.lanes)}</label><label class="f"><span>${esc(T('loc_through'))}</span>${segHTML('through',['yes','no'],l.through)}</label><label class="f"><span>${esc(T('loc_gates'))}</span>${segHTML('gates',['yes','no'],l.gates)}</label><div id="classout" hidden></div></div>`;

@@ -4,7 +4,7 @@
 :root{
   --bg:#EFEBE3; --paper:#FFFFFF; --ink:#1C1E21; --ink-2:#5B5A54; --line:#D9D3C7;
   --yellow:#FFC72C; --yellow-ink:#1C1E21; --green:#1FAE5A; --red:#DE3A2F; --amber:#EE8B22;
-  --asphalt:#2B2E33; --chalk:#FFFFFF; --paver:#E6E1D6; --plot:#F6F3EC; --plot2:#CFC7B8; --dirt:#C9B08A; --dirt2:#B39A74; --tree:#6E8B3D; --glow:#FFD24D; --water:#8DB9DA;
+  --asphalt:#2B2E33; --chalk:#FFFFFF; --paver:#E6E1D6; --plot:#F6F3EC; --plot2:#CFC7B8; --dirt:#C9B08A; --dirt2:#B39A74; --tree:#6E8B3D; --glow:#FFD24D; --water:#8DB9DA; --stripe:#1C1E21;
   --head:'Khand','Mukta',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   --body:'Mukta',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
 }
@@ -12,13 +12,13 @@
   :root:not([data-theme="light"]){
     --bg:#15171A; --paper:#212428; --ink:#F3EFE6; --ink-2:#B6B1A6; --line:#3A3E45;
     --yellow:#FFC72C; --yellow-ink:#1C1E21; --green:#37C96F; --red:#FF5C52; --amber:#FFA142;
-    --asphalt:#0E1012; --chalk:#F3EFE6; --paver:#3A3E45; --plot:#2A2E34; --plot2:#4A4F57; --dirt:#6B5A3F; --dirt2:#5A4B33; --tree:#7FA04A; --glow:#FFD24D; --water:#4C7FA6; color-scheme:dark;
+    --asphalt:#0E1012; --chalk:#F3EFE6; --paver:#3A3E45; --plot:#2A2E34; --plot2:#4A4F57; --dirt:#6B5A3F; --dirt2:#5A4B33; --tree:#7FA04A; --glow:#FFD24D; --water:#4C7FA6; --stripe:#1C1E21; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#15171A; --paper:#212428; --ink:#F3EFE6; --ink-2:#B6B1A6; --line:#3A3E45;
   --yellow:#FFC72C; --yellow-ink:#1C1E21; --green:#37C96F; --red:#FF5C52; --amber:#FFA142;
-  --asphalt:#0E1012; --chalk:#F3EFE6; --paver:#3A3E45; --plot:#2A2E34; --plot2:#4A4F57; --dirt:#6B5A3F; --dirt2:#5A4B33; --tree:#7FA04A; --glow:#FFD24D; --water:#4C7FA6; color-scheme:dark;
+  --asphalt:#0E1012; --chalk:#F3EFE6; --paver:#3A3E45; --plot:#2A2E34; --plot2:#4A4F57; --dirt:#6B5A3F; --dirt2:#5A4B33; --tree:#7FA04A; --glow:#FFD24D; --water:#4C7FA6; --stripe:#1C1E21; color-scheme:dark;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -27,7 +27,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17p
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
 .wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 /* kerb stripe: the brand device */
-.kerb{height:8px;background:repeating-linear-gradient(135deg,var(--yellow) 0 16px,var(--ink) 16px 32px)}
+.kerb{height:8px;background:repeating-linear-gradient(135deg,var(--yellow) 0 16px,var(--stripe) 16px 32px)}
 .kerb.thin{height:5px}
 /* header */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg)}
@@ -41,7 +41,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 /* type */
 h1,h2,h3,h4{font-family:var(--head);margin:0;text-wrap:balance;line-height:1}
 h1{font-size:clamp(44px,10vw,84px);font-weight:700;letter-spacing:-.005em;text-transform:uppercase}
-h1 .y{background:var(--yellow);color:var(--yellow-ink);padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+h1 .y{display:inline-block;line-height:1;background:var(--yellow);color:var(--yellow-ink);padding:0 .12em .03em;margin-top:.06em}
 h2{font-size:clamp(32px,7vw,52px);font-weight:700;text-transform:uppercase;letter-spacing:.005em}
 h3{font-size:26px;font-weight:600;letter-spacing:.01em}
 h4{font-size:20px;font-weight:600}
@@ -260,3 +260,17 @@ details.why p{margin-top:6px}
 
 button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 @media (min-width:900px){.wrap{max-width:760px}.palette{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}}
+
+/* ---------- desktop composition ---------- */
+.two-up{display:grid;gap:18px}
+@media (min-width:1100px){
+  #v-learn .wrap{max-width:1080px}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px 56px;align-items:start}
+  .hero .wrap>.block:first-child{grid-column:1;grid-row:1}
+  .hero .wrap>.block:nth-child(2){grid-column:2;grid-row:1;align-self:center}
+  .hero .wrap>*:nth-child(n+3){grid-column:1 / -1}
+  h1{font-size:clamp(44px,6vw,78px)}
+  .two-up{grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+  .two-up>*{min-width:0}
+  .palette{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+}
