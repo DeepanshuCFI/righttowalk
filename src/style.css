@@ -5,6 +5,8 @@
   --bg:#EFEBE3; --paper:#FFFFFF; --ink:#1C1E21; --ink-2:#5B5A54; --line:#D9D3C7;
   --yellow:#FFC72C; --yellow-ink:#1C1E21; --green:#1FAE5A; --red:#DE3A2F; --amber:#EE8B22;
   --asphalt:#2B2E33; --chalk:#FFFFFF; --paver:#E6E1D6; --plot:#F6F3EC; --plot2:#CFC7B8; --dirt:#C9B08A; --dirt2:#B39A74; --tree:#6E8B3D; --glow:#FFD24D; --water:#8DB9DA; --stripe:#1C1E21;
+  /* the street drawing keeps daylight colours in both themes */
+  --s-paver:#E6E1D6; --s-line:#CFC9BC; --s-ink:#1C1E21; --s-ink2:#5B5A54; --s-plot:#F6F3EC; --s-plot2:#CFC7B8; --s-asphalt:#2B2E33; --s-chalk:#FFFFFF; --s-dirt:#C9B08A; --s-dirt2:#B39A74; --s-tree:#6E8B3D; --s-glow:#FFD24D; --s-water:#8DB9DA; --s-yellow:#FFC72C; --s-yellow-ink:#1C1E21; --s-red:#DE3A2F; --s-amber:#EE8B22; --s-green:#1FAE5A; --s-bg:#EFEBE3;
   --head:'Khand','Mukta',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   --body:'Mukta',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
 }
@@ -81,7 +83,7 @@ ul.plain li strong{color:var(--ink);font-weight:700}
 .bigstat .n{font-family:var(--head);font-weight:700;font-size:clamp(56px,14vw,96px);line-height:.9;color:var(--red);font-variant-numeric:tabular-nums}
 .bigstat .l{font-size:15px;color:var(--ink-2);max-width:48ch}
 /* street strip */
-.street{position:relative;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:var(--asphalt)}
+.street{position:relative;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:var(--s-asphalt)}
 .street svg{display:block;width:100%;height:auto}
 .street .layer{position:absolute;inset:0;transition:opacity .45s}
 .street .layer.hide{opacity:0;pointer-events:none}
@@ -197,7 +199,7 @@ footer .wrap{padding-block:18px;font-size:13.5px;color:var(--ink-2);display:grid
 /* ---------- glossary ---------- */
 .gl{display:grid;grid-template-columns:minmax(120px,160px) 1fr;gap:16px;align-items:start}
 @media (max-width:480px){.gl{grid-template-columns:1fr}}
-.glpic svg{width:100%;height:auto;border:2px solid var(--ink);border-radius:12px;overflow:hidden}
+.glpic svg{width:100%;height:auto;border:2px solid var(--ink);border-radius:12px;overflow:hidden;background:var(--s-paver)}
 .gltext{display:grid;gap:8px;min-width:0}
 .gltext dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:15px}
 .gltext dt{font-family:var(--head);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding-top:2px}
@@ -267,10 +269,15 @@ button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlig
   #v-learn .wrap{max-width:1080px}
   .hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px 56px;align-items:start}
   .hero .wrap>.block:first-child{grid-column:1;grid-row:1}
-  .hero .wrap>.block:nth-child(2){grid-column:2;grid-row:1;align-self:center}
+  .hero .wrap>.paper:nth-child(2){grid-column:2;grid-row:1;align-self:center}
   .hero .wrap>*:nth-child(n+3){grid-column:1 / -1}
   h1{font-size:clamp(44px,6vw,78px)}
   .two-up{grid-template-columns:1fr 1fr;gap:28px;align-items:start}
   .two-up>*{min-width:0}
   .palette{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
 }
+
+.street .lbl{font-family:var(--head);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:3px;border:1.5px solid var(--ink-2)}
