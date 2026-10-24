@@ -364,6 +364,16 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
 /* glossary detail lives inside the palette grid, under the tapped row */
 .palette>#gloss-detail{grid-column:1 / -1;margin:2px 0 6px}
 
+/* ---------- the legal ladder ---------- */
+.ladder{margin:0;padding:0;list-style:none;counter-reset:rung;display:grid}
+.ladder li{position:relative;margin-left:18px;padding:12px 0 14px 46px;border-left:4px solid var(--ink);color:var(--ink-2);font-size:16px;line-height:1.45}
+.ladder li::before{counter-increment:rung;content:counter(rung);position:absolute;left:-20px;top:10px;width:36px;height:36px;border-radius:8px;background:var(--yellow);color:var(--yellow-ink);border:2px solid var(--ink);font-family:var(--head);font-weight:700;font-size:20px;display:grid;place-items:center}
+.ladder li strong{color:var(--ink);font-weight:700}
+.ladder li:last-child{border-left-color:transparent}
+.ladder li:last-child::after{content:"";position:absolute;left:-4px;top:0;height:28px;width:4px;background:var(--ink)}
+.ladder .tag{margin-left:4px}
+@media (min-width:1100px){.ladder li{font-size:16.5px}}
+
 /* ---------- secondary pages: map, report, moderation ---------- */
 .pagehead{display:grid;gap:8px}
 .pagehead h1{font-size:clamp(36px,8vw,64px)}

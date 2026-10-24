@@ -364,6 +364,16 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
 /* glossary detail lives inside the palette grid, under the tapped row */
 .palette>#gloss-detail{grid-column:1 / -1;margin:2px 0 6px}
 
+/* ---------- the legal ladder ---------- */
+.ladder{margin:0;padding:0;list-style:none;counter-reset:rung;display:grid}
+.ladder li{position:relative;margin-left:18px;padding:12px 0 14px 46px;border-left:4px solid var(--ink);color:var(--ink-2);font-size:16px;line-height:1.45}
+.ladder li::before{counter-increment:rung;content:counter(rung);position:absolute;left:-20px;top:10px;width:36px;height:36px;border-radius:8px;background:var(--yellow);color:var(--yellow-ink);border:2px solid var(--ink);font-family:var(--head);font-weight:700;font-size:20px;display:grid;place-items:center}
+.ladder li strong{color:var(--ink);font-weight:700}
+.ladder li:last-child{border-left-color:transparent}
+.ladder li:last-child::after{content:"";position:absolute;left:-4px;top:0;height:28px;width:4px;background:var(--ink)}
+.ladder .tag{margin-left:4px}
+@media (min-width:1100px){.ladder li{font-size:16.5px}}
+
 
 </style>
 </head>
@@ -433,6 +443,22 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
       <div class="cards" id="cards"></div>
     </div>
 
+    <div class="block" id="ladder-block">
+      <h2 data-s="lad_h">Who can make the law, and who has</h2>
+      <p class="muted" data-sh="lad_p">There is no Right to Walk Act. That does not mean there is no law. The right is declared, the power to legislate is Haryana's, the duty to build sits with the road's owner, and the Motor Vehicles Act already hands the State rule-making powers it has not used. Read from the top down.</p>
+      <ol class="ladder">
+        <li data-sh="lad_1"><strong>The right.</strong> Articles 19(1)(d) and 21 of the Constitution: the right to walk and to demarcated footpaths, with priority over motor vehicles (Maniyar Iliyaz, 19 June 2026); footpaths in good condition are part of Article 21 (Rajaseekaran, 14 May 2025). <span class="tag law">Binding law</span></li>
+        <li data-sh="lad_2"><strong>Who may legislate.</strong> Roads are on the State List (Seventh Schedule, List II, entry 13), so the Haryana legislature can make a footpath law. No State has. <span class="tag dir">Constitution</span></li>
+        <li data-sh="lad_3"><strong>Whose duty.</strong> Roads and bridges are a municipal function (Article 243W, Twelfth Schedule, item 4). In Gurugram the statutes put the roads with the Municipal Corporation (Haryana Municipal Corporation Act 1994), GMDA (GMDA Act 2017), HSVP, and NHAI for the national highways. <span class="tag dir">Statute</span></li>
+        <li data-sh="lad_4"><strong>Powers the State has not used.</strong> Since 2019 the Motor Vehicles Act lets a State make rules "regulating the activities and access of non-mechanically propelled vehicles and pedestrians to public places" (section 138(1A)) and rules for "design, construction and maintenance standards for roads other than national highways" (section 210D). On 7 October 2025 the Supreme Court gave States six months to make them. Haryana's are not on the public record; two RTIs are asking. <span class="tag no">Power, unused</span></li>
+        <li data-sh="lad_5"><strong>Liability, once standards exist.</strong> Section 198A: the authority, contractor or consultant responsible for a road must follow the prescribed standards, and where the failure causes death or disability is punishable with a fine of up to one lakh rupees. It bites only against standards actually prescribed, by the Centre for highways or by the State under section 210D for every other road. That is why the rules matter. <span class="tag dir">Statute</span></li>
+        <li data-sh="lad_6"><strong>Accessibility.</strong> Section 41(1)(c) of the Rights of Persons with Disabilities Act 2016 requires "accessible roads"; the 2021 Harmonised Guidelines and IRC:SP:117-2018 set the standard for kerb ramps and tactile tiles. <span class="tag law">Binding law</span></li>
+        <li data-sh="lad_7"><strong>Standards.</strong> IRC:103-2022 is the yardstick the Court named. It binds only where a government adopts it, and Gurugram has adopted no street standard. <span class="tag std">Standard</span></li>
+        <li data-sh="lad_8"><strong>Court directions.</strong> Footpath audits and grievance systems in India's fifty largest cities and on national highways (7 October 2025); the Union to name the authority responsible for footpaths and five pilot towns (5 October 2026). Gurugram is not among the fifty. <span class="tag dir">Court direction</span></li>
+      </ol>
+      <p class="small" data-sh="lad_note">The honest summary: the competence is clear, the duty is assigned, the mandatory layer is thin. The gap is Haryana's unmade rules, and that is the first thing this record asks for.</p>
+    </div>
+
     <div class="block" id="gloss-block">
       <h2 data-s="gl_h"></h2>
       <p class="muted" data-s="gl_p"></p>
@@ -488,7 +514,7 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
       <h2 data-s="cant_h">What this check cannot say</h2>
       <ul class="plain">
         <li data-sh="cant_b1">That "the Supreme Court ordered every road to have an X-metre footpath by a date". No such order exists. <span class="tag no">Cannot say</span></li>
-        <li data-sh="cant_b2">That "there is a Right to Walk Act". There is none; the right is a constitutional declaration. <span class="tag no">Cannot say</span></li>
+        <li data-sh="cant_b2">That "there is a Right to Walk Act". There is none. The right is a constitutional declaration; the power to make the law is the State's, the duty to build is the road owner's, and the Motor Vehicles Act already gives Haryana rule-making powers it has not used (the ladder above). <span class="tag no">Cannot say</span></li>
         <li data-sh="cant_b3">That NHAI, PWD or a private developer "must build footpaths under Maniyar". The judgment names development authorities, municipal bodies and panchayats; for highways the stronger hook is the Rajaseekaran directions, to which NHAI is a party. <span class="tag no">Cannot say</span></li>
         <li data-sh="cant_b4">This is not an encroachment reporter. A failure is the road owner's failure to provide, demarcate or maintain, not a person to be removed. Vending has its own law (Street Vendors Act 2014) and belongs in a designed vending zone.</li>
       </ul>
@@ -779,6 +805,19 @@ const TAG_HI={law:'बाध्यकारी क़ानून',dir:'को�
 const tagHi=k=>`<span class="tag ${k==='reg'?'dir':k}">${TAG_HI[k]}</span>`;
 
 Object.assign(S.hi,{
+
+ // the legal ladder
+ lad_h:'क़ानून कौन बना सकता है, और किसने बनाया है',
+ lad_p:'राइट टू वॉक नाम का कोई अधिनियम नहीं है। इसका मतलब यह नहीं कि कोई क़ानून नहीं है। हक़ घोषित हो चुका है, क़ानून बनाने का अधिकार हरियाणा का है, बनाने की ज़िम्मेदारी सड़क के मालिक की है, और मोटर वाहन अधिनियम राज्य को नियम बनाने की वे शक्तियाँ पहले से देता है जिनका उसने इस्तेमाल नहीं किया। ऊपर से नीचे पढ़ें।',
+ lad_1:'<strong>हक़।</strong> संविधान के अनुच्छेद 19(1)(d) और 21: चलने का और चिह्नित फुटपाथ का हक़, मोटर गाड़ियों से ऊपर (Maniyar Iliyaz, 19 जून 2026); अच्छी हालत के फुटपाथ अनुच्छेद 21 का हिस्सा हैं (Rajaseekaran, 14 मई 2025)। <span class="tag law">बाध्यकारी क़ानून</span>',
+ lad_2:'<strong>क़ानून कौन बना सकता है।</strong> सड़कें राज्य सूची में हैं (सातवीं अनुसूची, सूची II, प्रविष्टि 13), इसलिए हरियाणा विधानसभा फुटपाथ का क़ानून बना सकती है। किसी राज्य ने नहीं बनाया। <span class="tag dir">संविधान</span>',
+ lad_3:'<strong>ज़िम्मेदारी किसकी।</strong> सड़कें और पुल नगर निकाय का काम हैं (अनुच्छेद 243W, बारहवीं अनुसूची, मद 4)। गुरुग्राम में क़ानून सड़कें नगर निगम (Haryana Municipal Corporation Act 1994), GMDA (GMDA Act 2017), HSVP और राष्ट्रीय राजमार्गों के लिए NHAI को सौंपते हैं। <span class="tag dir">क़ानून</span>',
+ lad_4:'<strong>वे शक्तियाँ जो राज्य ने इस्तेमाल नहीं कीं।</strong> 2019 से मोटर वाहन अधिनियम राज्य को "सार्वजनिक जगहों पर पैदल चलने वालों और बिना मोटर की सवारियों की आवाजाही और पहुँच" के नियम (धारा 138(1A)) और "राष्ट्रीय राजमार्गों के अलावा सड़कों की डिज़ाइन, निर्माण और रखरखाव के मानकों" के नियम (धारा 210D) बनाने देता है। 7 अक्टूबर 2025 को सुप्रीम कोर्ट ने राज्यों को छह महीने दिए। हरियाणा के नियम सार्वजनिक रिकॉर्ड पर नहीं हैं; दो RTI पूछ रही हैं। <span class="tag no">अधिकार है, इस्तेमाल नहीं</span>',
+ lad_5:'<strong>मानक बनते ही जवाबदेही।</strong> धारा 198A: सड़क के लिए ज़िम्मेदार प्राधिकरण, ठेकेदार या सलाहकार को तय मानक मानने होंगे, और चूक से मौत या विकलांगता हो तो एक लाख रुपये तक जुर्माना। यह सिर्फ़ उन्हीं मानकों पर लागू होती है जो सच में तय हुए हों: राजमार्गों के लिए केंद्र ने, बाक़ी हर सड़क के लिए राज्य ने धारा 210D में। इसीलिए नियम मायने रखते हैं। <span class="tag dir">क़ानून</span>',
+ lad_6:'<strong>सुलभता।</strong> दिव्यांगजन अधिकार अधिनियम 2016 की धारा 41(1)(c) "सुलभ सड़कें" माँगती है; 2021 की Harmonised Guidelines और IRC:SP:117-2018 रैम्प और उभरी टाइलों का मानक तय करते हैं। <span class="tag law">बाध्यकारी क़ानून</span>',
+ lad_7:'<strong>मानक।</strong> IRC:103-2022 वह पैमाना है जिसका नाम कोर्ट ने लिया। यह वहीं बाध्य करता है जहाँ सरकार इसे अपनाए, और गुरुग्राम ने सड़क का कोई मानक नहीं अपनाया। <span class="tag std">मानक</span>',
+ lad_8:'<strong>कोर्ट के निर्देश।</strong> देश के पचास सबसे बड़े शहरों और राष्ट्रीय राजमार्गों पर फुटपाथ ऑडिट और शिकायत व्यवस्था (7 अक्टूबर 2025); केंद्र फुटपाथ की ज़िम्मेदार एजेंसी और पाँच पायलट शहर बताए (5 अक्टूबर 2026)। गुरुग्राम उन पचास में नहीं है। <span class="tag dir">कोर्ट का निर्देश</span>',
+ lad_note:'ईमानदार सार: अधिकार साफ़ है, ज़िम्मेदारी तय है, अनिवार्य परत पतली है। कमी हरियाणा के न बने नियमों की है, और यही इस रिकॉर्ड की पहली माँग है।',
  // hero
  hero_kick:'<b>फुटपाथ चेक</b> · प्रोटोटाइप · गुरुग्राम · तरीक़ा v1.0',
  hero_h1:'फुटपाथ पर चलना <span class="y">आपका हक़ है।</span>',
@@ -838,7 +877,7 @@ Object.assign(S.hi,{
  // what this check cannot say
  cant_h:'यह जाँच क्या नहीं कह सकती',
  cant_b1:`कि "सुप्रीम कोर्ट ने हर सड़क पर फ़लाँ तारीख़ तक इतने मीटर का फुटपाथ बनाने का आदेश दिया"। ऐसा कोई आदेश नहीं है। ${tagHi('no')}`,
- cant_b2:`कि "राइट टू वॉक का कोई क़ानून (Act) है"। ऐसा कोई क़ानून नहीं है; यह अधिकार संविधान से निकला है, जिसे कोर्ट ने घोषित किया है। ${tagHi('no')}`,
+ cant_b2:`कि "राइट टू वॉक का कोई क़ानून (Act) है"। ऐसा कोई अधिनियम नहीं है। यह हक़ संविधान की घोषणा है; क़ानून बनाने का अधिकार राज्य का है, बनाने की ज़िम्मेदारी सड़क के मालिक की, और मोटर वाहन अधिनियम हरियाणा को नियम बनाने की वे शक्तियाँ पहले से देता है जिनका उसने इस्तेमाल नहीं किया (ऊपर की सीढ़ी देखें)। ${tagHi('no')}`,
  cant_b3:`कि NHAI, PWD या कोई निजी बिल्डर "Maniyar के तहत फुटपाथ बनाने को बाध्य है"। फ़ैसले में विकास प्राधिकरणों, नगर निकायों और पंचायतों के नाम हैं; हाईवे के लिए मज़बूत आधार Rajaseekaran के निर्देश हैं, जिनमें NHAI पक्षकार है। ${tagHi('no')}`,
  cant_b4:'यह कब्ज़े की शिकायत का ऐप नहीं है। कमी का मतलब है सड़क के मालिक का फुटपाथ देने, चिह्नित करने या ठीक रखने में नाकाम रहना, किसी इंसान को हटाना नहीं। रेहड़ी-पटरी का अपना क़ानून है (Street Vendors Act 2014) और उसकी जगह एक तय वेंडिंग ज़ोन में है।',
 
