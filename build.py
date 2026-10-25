@@ -114,6 +114,9 @@ document("report.html", "Gurugram report · Right to Walk",
 document("roads.html", "Roads to walk · Right to Walk",
          "Haryana's own list of 100 Gurugram roads to be upgraded by 7 November 2026, as an assignment sheet: which have been walked, which fail the Supreme Court's 100 m test, and room to divide the rest between volunteers.",
          read("roads.html"), ["data.js", "obs.js", "config.js", "rtw.js", "frame.js", "roads.js"], extra_css=pages_css + "\n" + roads_css, config=cfg_roads)
+document("law.html", "The law · Right to Walk",
+         "The law behind the right to walk: what the Supreme Court has said, who can make the law and who has, what a footpath should be, who must provide it in Gurugram.",
+         read("law.html"), ["data.js", "obs.js", "learn.js", "config.js", "rtw.js", "lawpage.js"], extra_css=pages_css)
 document("dataset.html", "Open data · Right to Walk",
          "The Gurugram footpath record as open data (CC BY 4.0): every published check as CSV and JSON, with a field guide.",
          read("dataset.html"), ["data.js", "obs.js", "config.js", "rtw.js", "dataset.js"], extra_css=pages_css)
@@ -122,10 +125,10 @@ document("moderate.html", "Moderation · Right to Walk", "Moderation of citizen 
 
 # ---- artifact: head.html as written (title, metas, Google Fonts link); record switched off; site links made absolute ----
 art_body = re.sub(r'\s*<a href="map\.html" id="nav-map"[^>]*>Map</a>', "", body)
-for f in ("map.html", "report.html", "dataset.html"):
+for f in ("map.html", "report.html", "dataset.html", "law.html"):
     art_body = art_body.replace(f'href="{f}"', f'href="{SITE}{f}"')
 artifact = read("head.html") + "<style>\n" + style + "\n</style>\n" + art_body + wrap_script(["data.js", "obs.js", "learn.js", "config.js", "rtw.js", "share.js", "cards.js", "app.js"], cfg_off)
-for f in ("map.html", "report.html", "dataset.html"):  # the Hindi strings link to these pages too
+for f in ("map.html", "report.html", "dataset.html", "law.html"):  # the Hindi strings link to these pages too
     artifact = artifact.replace(f'href="{f}"', f'href="{SITE}{f}"')
 (ROOT / "artifact.html").write_text(artifact, encoding="utf-8")
 print(f"built {'artifact.html':14s} {len(artifact.encode('utf-8')):7d} bytes (record off)")

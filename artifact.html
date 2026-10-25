@@ -333,13 +333,29 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
 .ladder .tag{margin-left:4px}
 @media (min-width:1100px){.ladder li{font-size:16.5px}}
 
+/* ---------- short home page ---------- */
+.numbers{gap:12px}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.step3{background:var(--paper);border:2px solid var(--ink);border-radius:14px;padding:16px;display:grid;gap:6px;align-content:start}
+.step3 .k{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:8px;background:var(--yellow);color:var(--yellow-ink);border:2px solid var(--ink);font-family:var(--head);font-weight:700;font-size:20px}
+.step3 b{font-family:var(--head);font-weight:600;font-size:22px;line-height:1.1}
+.step3 p{font-size:15px;color:var(--ink-2)}
+/* compact ladder on the law page */
+details.rung summary{cursor:pointer;list-style:none;display:block}
+details.rung summary::-webkit-details-marker{display:none}
+details.rung summary::after{content:"more";margin-left:8px;font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--yellow)}
+details.rung[open] summary::after{content:"less"}
+:lang(hi) details.rung summary::after{content:"और"}
+:lang(hi) details.rung[open] summary::after{content:"कम"}
+details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yellow);background:var(--paper);border-radius:0 10px 10px 0}
+
 </style>
 <header class="top">
   <div class="wrap">
     <a class="mark" href="#learn" data-s="mark">Right to Walk</a>
     <nav>
-      <a href="#learn" id="nav-learn" data-s="nav_learn">Learn</a>
       <a href="#check" id="nav-check" data-s="nav_check">Check a street</a>
+      <a href="https://righttowalk.life/law.html" id="nav-law" data-s="nav_law">The law</a>
       <a href="#saved" id="nav-saved" data-s="nav_saved">Saved</a>
     </nav>
     <button class="lang" id="langbtn" type="button" aria-label="Switch language">हिंदी</button>
@@ -352,17 +368,15 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
 <section class="v hero" id="v-learn">
   <div class="wrap">
     <div class="block">
-      <span class="kicker" data-sh="hero_kick"><b>Footpath Check</b> · Prototype · Gurugram · Method v1.0</span>
+      <span class="kicker" data-sh="hero_kick"><b>Footpath Check</b> · Gurugram</span>
       <h1 data-sh="hero_h1">Walking on a footpath is <span class="y">your right.</span></h1>
-      <p class="lead" data-s="hero_lead">Walk one stretch of a road you use. Answer eleven plain questions. Get a result in the words the Supreme Court itself uses, and a notice ready to send to whoever owns the road. No account, no app, about fifteen minutes.</p>
-      <div class="btnrow"><a class="btn yellow" href="#check" data-s="start">Start a check</a><a class="btn" href="#how" data-s="how">How it works</a></div>
+      <p class="lead" data-s="hero_lead">The Supreme Court said so on 19 June 2026. Check the footpath on a street you use, in two minutes on your phone, and put it on the Gurugram record.</p>
+      <div class="btnrow"><a class="btn yellow" href="#check" data-s="nav_check">Check a street</a><a class="btn" href="https://righttowalk.life/map.html" data-s="see_map">See the map</a></div>
+      <p class="small" data-sh="hero_law">"If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers." Supreme Court, Maniyar Iliyaz v. P. Ayyappan, 19 June 2026. <a href="https://righttowalk.life/law.html">The law behind this</a></p>
     </div>
 
-    <div class="paper">
-      <div class="bigstat"><div class="n">36,526</div><div class="l" data-s="stat_l">pedestrians were killed on Indian roads in 2024 (provisional), about a hundred a day. Haryana: 866. Ministry of Road Transport and Highways, Rajya Sabha answer, 18 March 2026.</div></div>
-    </div>
-    <div class="paper counter" id="counter" hidden></div>
-    <div class="paper" id="deaths-note" hidden></div>
+    <div class="paper numbers" id="numbers"></div>
+
     <div class="block">
       <div class="demo-cap"><span class="kicker" id="demo-cap"><b>A typical sector road</b> · as found</span><div class="toggle" id="demo-toggle"><button type="button" data-m="found" aria-pressed="true" data-s="found">As found</button><button type="button" data-m="standard" aria-pressed="false" data-s="standard">To standard</button></div></div>
       <div class="street" id="demo-street"></div>
@@ -371,23 +385,14 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
     </div>
 
 
-    <div class="block">
-      <h2 data-s="court_h">What the court has said</h2>
-      <div class="two-up">
-      <div class="quote">
-        <p lang="en">"If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers. The duty bearers are the urban development authorities, municipal corporations, municipalities and even panchayats, who must endeavour to demarcate, construct, maintain, and safeguard footpaths and other necessary pedestrian infrastructure."</p>
-        <p class="gloss" data-hi="court_gloss" hidden></p>
-        <cite data-sh="court_cite">Supreme Court, Maniyar Iliyaz v. P. Ayyappan, 2026 INSC 647, 19 June 2026, para 20(b). <span class="tag law">Binding law</span></cite>
+    <div class="block" id="two-min">
+      <h2 data-s="tm_h">Two minutes, three steps</h2>
+      <div class="steps3">
+        <div class="step3"><span class="k">1</span><b data-s="tm_1h">Where</b><p data-s="tm_1p">One tap takes your location. Say which side of the road you are on.</p></div>
+        <div class="step3"><span class="k">2</span><b data-s="tm_2h">Tap what you see</b><p data-s="tm_2p">Parked cars, a vendor cart, an open manhole, a dug-up stretch. One photo.</p></div>
+        <div class="step3"><span class="k">3</span><b data-s="tm_3h">The Court's test</b><p data-s="tm_3p">Could you walk 100 m without stepping onto the road? You get the answer in the Court's words, a notice to the road's owner, and a pin on the map.</p></div>
       </div>
-      <ul class="plain">
-        <li data-sh="court_b1"><strong>The right to walk is a fundamental right</strong> under Article 19(1)(d) with Articles 19(1)(a) to (c) and 21. It includes "the right to demarcated footpaths", and these rights "are primary and shall have priority over movement by motorised vehicles". <span class="tag law">Binding law</span></li>
-        <li data-sh="court_b2"><strong>The duty is enforceable.</strong> Para 10 calls it "an enforceable duty"; para 20(c) gives remedies for restitution and compensation independent of the Motor Vehicles Act. <span class="tag law">Binding law</span></li>
-        <li data-sh="court_b3"><strong>Footpaths in good condition are part of Article 21.</strong> "By the side of all public roads, there must be proper facility of footpaths or footways with special emphasis on user-friendly to persons with disabilities." S. Rajaseekaran v. Union of India, 14 May 2025. <span class="tag law">Binding law</span></li>
-        <li data-sh="court_b4"><strong>Agencies in 50 cities and NHAI were told to audit footpaths</strong> for deficiencies in width, height and surface, make crossings compliant with Indian Roads Congress guidelines, map encroachment hotspots with photographs, and open online footpath grievance systems. Rajaseekaran, 7 October 2025. <span class="tag dir">Court direction</span></li>
-        <li data-sh="court_b5"><strong>Drivers must slow down at crossings</strong>, pedestrians have right of way at uncontrolled crossings, and no vehicle may be driven or parked on a footpath. Rules of the Road Regulations 1989, regulations 8, 11 and 15. <span class="tag dir">Statutory regulation</span></li>
-        <li data-sh="court_b6"><strong>The case is still open</strong> as "Re: Fundamental Right to Walk and Footpath", W.P.(C) 844/2026. On 24 August 2026 every State and UT was made a party; on 5 October 2026 the Union was told to name the authority responsible for footpaths and five pilot towns.</li>
-      </ul>
-      </div>
+      <p class="small" data-sh="tm_more">A full stretch, fifteen minutes and ten questions with a score, is there too. <a href="#problems">What each tile means</a> · <a href="https://righttowalk.life/law.html">The law behind this</a> · <a href="https://righttowalk.life/report.html">The Gurugram report</a></p>
     </div>
 
     <div class="block" id="share-right">
@@ -396,22 +401,13 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
       <div class="cards" id="cards"></div>
     </div>
 
-    <div class="block" id="ladder-block">
-      <h2 data-s="lad_h">Who can make the law, and who has</h2>
-      <p class="muted" data-sh="lad_p">There is no Right to Walk Act. That does not mean there is no law. The right is declared, the power to legislate is Haryana's, the duty to build sits with the road's owner, and the Motor Vehicles Act already hands the State rule-making powers it has not used. Read from the top down.</p>
-      <ol class="ladder">
-        <li data-sh="lad_1"><strong>The right.</strong> Articles 19(1)(d) and 21 of the Constitution: the right to walk and to demarcated footpaths, with priority over motor vehicles (Maniyar Iliyaz, 19 June 2026); footpaths in good condition are part of Article 21 (Rajaseekaran, 14 May 2025). <span class="tag law">Binding law</span></li>
-        <li data-sh="lad_2"><strong>Who may legislate.</strong> Roads are on the State List (Seventh Schedule, List II, entry 13), so the Haryana legislature can make a footpath law. No State has. <span class="tag dir">Constitution</span></li>
-        <li data-sh="lad_3"><strong>Whose duty.</strong> Roads and bridges are a municipal function (Article 243W, Twelfth Schedule, item 4). In Gurugram the statutes put the roads with the Municipal Corporation (Haryana Municipal Corporation Act 1994), GMDA (GMDA Act 2017), HSVP, and NHAI for the national highways. <span class="tag dir">Statute</span></li>
-        <li data-sh="lad_4"><strong>Powers the State has not used.</strong> Since 2019 the Motor Vehicles Act lets a State make rules "regulating the activities and access of non-mechanically propelled vehicles and pedestrians to public places" (section 138(1A)) and rules for "design, construction and maintenance standards for roads other than national highways" (section 210D). On 7 October 2025 the Supreme Court gave States six months to make them. Haryana's are not on the public record; two RTIs are asking. <span class="tag no">Power, unused</span></li>
-        <li data-sh="lad_5"><strong>Liability, once standards exist.</strong> Section 198A: the authority, contractor or consultant responsible for a road must follow the prescribed standards, and where the failure causes death or disability is punishable with a fine of up to one lakh rupees. It bites only against standards actually prescribed, by the Centre for highways or by the State under section 210D for every other road. That is why the rules matter. <span class="tag dir">Statute</span></li>
-        <li data-sh="lad_6"><strong>Accessibility.</strong> Section 41(1)(c) of the Rights of Persons with Disabilities Act 2016 requires "accessible roads"; the 2021 Harmonised Guidelines and IRC:SP:117-2018 set the standard for kerb ramps and tactile tiles. <span class="tag law">Binding law</span></li>
-        <li data-sh="lad_7"><strong>Standards.</strong> IRC:103-2022 is the yardstick the Court named. It binds only where a government adopts it, and Gurugram has adopted no street standard. <span class="tag std">Standard</span></li>
-        <li data-sh="lad_8"><strong>Court directions.</strong> Footpath audits and grievance systems in India's fifty largest cities and on national highways (7 October 2025); the Union to name the authority responsible for footpaths and five pilot towns (5 October 2026). Gurugram is not among the fifty. <span class="tag dir">Court direction</span></li>
-      </ol>
-      <p class="small" data-sh="lad_note">The honest summary: the competence is clear, the duty is assigned, the mandatory layer is thin. The gap is Haryana's unmade rules, and that is the first thing this record asks for.</p>
-    </div>
+    <div class="note" data-s="learn_note">Nothing leaves your phone unless you add a check to the record. A moderator reads every entry before it is published, and your name is never published.</div>
+  </div>
+</section>
 
+<!-- ============ PROBLEMS (the tile glossary) ============ -->
+<section class="v" id="v-problems" hidden>
+  <div class="wrap">
     <div class="block" id="gloss-block">
       <h2 data-s="gl_h"></h2>
       <p class="muted" data-s="gl_p"></p>
@@ -419,61 +415,7 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
       <div class="paper" id="gloss-detail"></div>
     </div>
 
-    <div class="block">
-      <h2 data-s="irc_h">What a footpath should be</h2>
-      <p class="muted" data-sh="irc_p">The Indian Roads Congress code IRC:103 is the yardstick the Court named. It is engineering guidance, binding only where a city has adopted it. Gurugram has adopted no street standard of its own, so this check reports the 2012 edition as the floor and the 2022 revision as the current standard. <span class="tag std">Standard</span></p>
-      <div class="tbl"><table>
-        <thead><tr><th data-s="irc_th1">What</th><th data-s="irc_th2">IRC:103-2012</th><th data-s="irc_th3">IRC:103-2022</th></tr></thead>
-        <tbody data-sh="irc_rows">
-          <tr><td class="fg">Clear walking zone</td><td>1.8 m</td><td>2.0 m; 2.5 m near schools, hospitals, markets and bus stops; 4.0 m on city commercial streets</td></tr>
-          <tr><td class="fg">Kerb height</td><td>150 mm at most</td><td>150 mm at most</td></tr>
-          <tr><td class="fg">Across gates and side lanes</td><td>Continuous between junctions</td><td>Vehicle ramps within the footpath no longer than 3.5 m</td></tr>
-          <tr><td class="fg">Kerb ramps at crossings</td><td>1:12, at least 1.2 m wide, tactile tiles</td><td>1:15</td></tr>
-          <tr><td class="fg">Crossings</td><td>Every 80 to 250 m</td><td>Every 80 to 150 m; raised tables at unsignalised crossings; refuge of 1.2 m where the road is wider than 10.5 m</td></tr>
-          <tr><td class="fg">Where a footpath is required</td><td>Collector roads and above</td><td>Every street where traffic moves faster than 15 km/h</td></tr>
-          <tr><td class="fg">Lighting</td><td>25 to 40 lux</td><td>25 to 30 lux</td></tr>
-        </tbody>
-      </table></div>
-      <p class="small" data-s="irc_note">The 2022 figures are read from the IRC draft hosted by NITI Aayog; the published code is paywalled. The 2 m walking zone is independently confirmed.</p>
-    </div>
-
-    <div class="two-up">
-    <div class="block">
-      <h2 data-s="own_h">Who must provide it here</h2>
-      <p class="muted" data-s="own_p">The agency that owns the road maintains the footpath. In Gurugram that is at least six bodies, and no public map says which road is whose. The check asks you to pick the likely owner; "not sure" goes to GMDA and the Chief Minister's Window, which forward it.</p>
-      <ul class="plain">
-        <li data-sh="own_b1"><strong>GMDA</strong>: master sector-dividing roads and their service roads.</li>
-        <li data-sh="own_b2"><strong>MCG</strong>: internal roads in HSVP sectors transferred in 2017, and nine private colonies taken over in 2022.</li>
-        <li data-sh="own_b3"><strong>HSVP</strong>: sectors not yet transferred.</li>
-        <li data-sh="own_b4"><strong>DTCP and the coloniser</strong>: inside DLF, Sushant Lok, South City, Palam Vihar and other licensed colonies until transfer.</li>
-        <li data-sh="own_b5"><strong>NHAI</strong>: NH-48 and NH-248A (Sohna Road) and their service lanes.</li>
-        <li data-sh="own_b6"><strong>PWD (B&amp;R)</strong>: state roads.</li>
-      </ul>
-    </div>
-
-    <div class="block" id="how">
-      <h2 data-s="how_h">How a check works</h2>
-      <ul class="plain">
-        <li data-sh="how_b1"><strong>Where.</strong> Take your location with one tap (or name the road), pick which footpath, and for a full check answer four questions about the road. A quick check is one spot and two minutes; a full stretch is 500 m and fifteen.</li>
-        <li data-sh="how_b2"><strong>Walk.</strong> One gate question (can you walk 100 m without stepping onto the road), ten yes/no items with a photo each, and one question only you can answer. Your stretch draws itself at the top as you go.</li>
-        <li data-sh="how_b3"><strong>Result.</strong> A score out of 100 at the weakest point of the stretch, one of three bands, your street as found and to standard, and the three heaviest things to ask for. Weights are printed; this is method v1.0.</li>
-        <li data-sh="how_b4"><strong>Notice.</strong> A ready letter to the owning agency quoting the Court, with a reply-by date 21 days out. You copy it and send it through the agency's own channel. This page never files anything for you.</li>
-        <li data-sh="how_b5"><strong>Record.</strong> If you choose, the check joins the public Gurugram record: a moderator reads it, then it appears on the <a href="https://righttowalk.life/map.html">map</a>, in the <a href="https://righttowalk.life/report.html">report</a> and in the open dataset. The record is the evidence; the Supreme Court's open case on the right to walk is where it is headed.</li>
-      </ul>
-    </div>
-    </div>
-
-    <div class="block">
-      <h2 data-s="cant_h">What this check cannot say</h2>
-      <ul class="plain">
-        <li data-sh="cant_b1">That "the Supreme Court ordered every road to have an X-metre footpath by a date". No such order exists. <span class="tag no">Cannot say</span></li>
-        <li data-sh="cant_b2">That "there is a Right to Walk Act". There is none. The right is a constitutional declaration; the power to make the law is the State's, the duty to build is the road owner's, and the Motor Vehicles Act already gives Haryana rule-making powers it has not used (the ladder above). <span class="tag no">Cannot say</span></li>
-        <li data-sh="cant_b3">That NHAI, PWD or a private developer "must build footpaths under Maniyar". The judgment names development authorities, municipal bodies and panchayats; for highways the stronger hook is the Rajaseekaran directions, to which NHAI is a party. <span class="tag no">Cannot say</span></li>
-        <li data-sh="cant_b4">This is not an encroachment reporter. A failure is the road owner's failure to provide, demarcate or maintain, not a person to be removed. Vending has its own law (Street Vendors Act 2014) and belongs in a designed vending zone.</li>
-      </ul>
-    </div>
-
-    <div class="note" data-s="learn_note">Nothing leaves your phone unless you choose to add a check to the Gurugram record; a moderator looks at every entry before it is published, and your name is never published. A check you save is stored only in this browser. Every number and legal line above carries its source.</div>
+    <div class="btnrow"><a class="btn yellow" href="#check" data-s="start">Check a street</a><a class="btn" href="#learn" data-s="back_home">Back</a></div>
   </div>
 </section>
 
@@ -560,7 +502,7 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
 'use strict';
 // ---------- strings ----------
 const S = {
-  en:{nav_learn:'Learn',nav_check:'Check a street',nav_saved:'Saved',start:'Start a check',next:'Next',back:'Back',see:'See the result',notice:'Draft the notice',copy:'Copy the notice',copied:'Copied',save:'Save this check',saved_ok:'Saved in this browser',copyrec:'Copy record',new:'Start another check',
+  en:{nav_learn:'Learn',nav_check:'Check a street',nav_saved:'Saved',nav_law:'The law',nav_report:'Report',start:'Start a check',next:'Next',back:'Back',see:'See the result',notice:'Draft the notice',copy:'Copy the notice',copied:'Copied',save:'Save this check',saved_ok:'Saved in this browser',copyrec:'Copy record',new:'Start another check',
     st1:'Where',st2:'Walk',st3:'Result',st4:'Notice',
     loc_h:'Where are you walking?',loc_road:'Road name',loc_area:'Sector or area',loc_from:'Stretch starts at',loc_to:'Stretch ends at',loc_side:'Which side?',loc_side_h:'Say which side and which way you are facing. One check covers one side; do the other side as a second check.',
     loc_class_h:'What kind of road is it?',loc_div:'Is there a central divider?',loc_lanes:'How many car lanes in each direction?',loc_through:'Do buses or lots of through traffic use it, running on for kilometres?',loc_gates:'Do house and shop gates open straight onto it, with cars parked on both sides?',
@@ -581,7 +523,7 @@ const S = {
     not_note:'This page does not file complaints. Copy the text, attach your photos, and send it through the agency channel. Keep the reference number you get. Re-walk the stretch after the reply-by date and record what changed.',
     sav_h:'Saved checks',sav_p:'Stored only in this browser. Copy a record to send it on.',none:'No saved checks yet.',del:'Delete',del_sure:'Delete for sure',open:'Open',
     resume:'You have an unfinished check. It has been restored.',pedestrians:'pedestrians in 5 min'},
-  hi:{nav_learn:'जानें',nav_check:'सड़क जाँचें',nav_saved:'सहेजे गए',start:'जाँच शुरू करें',next:'आगे',back:'पीछे',see:'नतीजा देखें',notice:'नोटिस बनाएँ',copy:'नोटिस कॉपी करें',copied:'कॉपी हो गया',save:'यह जाँच सहेजें',saved_ok:'इस ब्राउज़र में सहेज लिया',copyrec:'रिकॉर्ड कॉपी करें',new:'एक और जाँच',
+  hi:{nav_learn:'जानें',nav_check:'सड़क जाँचें',nav_saved:'सहेजे गए',nav_law:'क़ानून',nav_report:'रिपोर्ट',start:'जाँच शुरू करें',next:'आगे',back:'पीछे',see:'नतीजा देखें',notice:'नोटिस बनाएँ',copy:'नोटिस कॉपी करें',copied:'कॉपी हो गया',save:'यह जाँच सहेजें',saved_ok:'इस ब्राउज़र में सहेज लिया',copyrec:'रिकॉर्ड कॉपी करें',new:'एक और जाँच',
     st1:'कहाँ',st2:'चलें',st3:'नतीजा',st4:'नोटिस',
     loc_h:'आप कहाँ चल रहे हैं?',loc_road:'सड़क का नाम',loc_area:'सेक्टर या इलाक़ा',loc_from:'हिस्सा यहाँ से शुरू',loc_to:'हिस्सा यहाँ ख़त्म',loc_side:'कौन सी तरफ़?',loc_side_h:'बताएँ कौन सी तरफ़ और किस दिशा में चल रहे हैं। एक जाँच एक तरफ़ की है; दूसरी तरफ़ अलग जाँच करें।',
     loc_class_h:'यह कैसी सड़क है?',loc_div:'क्या बीच में डिवाइडर है?',loc_lanes:'हर दिशा में कितनी लेन?',loc_through:'क्या बसें या दूर जाने वाला ट्रैफ़िक चलता है, किलोमीटरों तक?',loc_gates:'क्या घरों-दुकानों के गेट सीधे सड़क पर खुलते हैं, और दोनों तरफ़ गाड़ियाँ खड़ी रहती हैं?',
@@ -762,19 +704,37 @@ Object.assign(S.hi,{
  // the legal ladder
  lad_h:'क़ानून कौन बना सकता है, और किसने बनाया है',
  lad_p:'राइट टू वॉक नाम का कोई अधिनियम नहीं है। इसका मतलब यह नहीं कि कोई क़ानून नहीं है। हक़ घोषित हो चुका है, क़ानून बनाने का अधिकार हरियाणा का है, बनाने की ज़िम्मेदारी सड़क के मालिक की है, और मोटर वाहन अधिनियम राज्य को नियम बनाने की वे शक्तियाँ पहले से देता है जिनका उसने इस्तेमाल नहीं किया। ऊपर से नीचे पढ़ें।',
- lad_1:'<strong>हक़।</strong> संविधान के अनुच्छेद 19(1)(d) और 21: चलने का और चिह्नित फुटपाथ का हक़, मोटर गाड़ियों से ऊपर (Maniyar Iliyaz, 19 जून 2026); अच्छी हालत के फुटपाथ अनुच्छेद 21 का हिस्सा हैं (Rajaseekaran, 14 मई 2025)। <span class="tag law">बाध्यकारी क़ानून</span>',
- lad_2:'<strong>क़ानून कौन बना सकता है।</strong> सड़कें राज्य सूची में हैं (सातवीं अनुसूची, सूची II, प्रविष्टि 13), इसलिए हरियाणा विधानसभा फुटपाथ का क़ानून बना सकती है। किसी राज्य ने नहीं बनाया। <span class="tag dir">संविधान</span>',
- lad_3:'<strong>ज़िम्मेदारी किसकी।</strong> सड़कें और पुल नगर निकाय का काम हैं (अनुच्छेद 243W, बारहवीं अनुसूची, मद 4)। गुरुग्राम में क़ानून सड़कें नगर निगम (Haryana Municipal Corporation Act 1994), GMDA (GMDA Act 2017), HSVP और राष्ट्रीय राजमार्गों के लिए NHAI को सौंपते हैं। <span class="tag dir">क़ानून</span>',
- lad_4:'<strong>वे शक्तियाँ जो राज्य ने इस्तेमाल नहीं कीं।</strong> 2019 से मोटर वाहन अधिनियम राज्य को "सार्वजनिक जगहों पर पैदल चलने वालों और बिना मोटर की सवारियों की आवाजाही और पहुँच" के नियम (धारा 138(1A)) और "राष्ट्रीय राजमार्गों के अलावा सड़कों की डिज़ाइन, निर्माण और रखरखाव के मानकों" के नियम (धारा 210D) बनाने देता है। 7 अक्टूबर 2025 को सुप्रीम कोर्ट ने राज्यों को छह महीने दिए। हरियाणा के नियम सार्वजनिक रिकॉर्ड पर नहीं हैं; दो RTI पूछ रही हैं। <span class="tag no">अधिकार है, इस्तेमाल नहीं</span>',
- lad_5:'<strong>मानक बनते ही जवाबदेही।</strong> धारा 198A: सड़क के लिए ज़िम्मेदार प्राधिकरण, ठेकेदार या सलाहकार को तय मानक मानने होंगे, और चूक से मौत या विकलांगता हो तो एक लाख रुपये तक जुर्माना। यह सिर्फ़ उन्हीं मानकों पर लागू होती है जो सच में तय हुए हों: राजमार्गों के लिए केंद्र ने, बाक़ी हर सड़क के लिए राज्य ने धारा 210D में। इसीलिए नियम मायने रखते हैं। <span class="tag dir">क़ानून</span>',
- lad_6:'<strong>सुलभता।</strong> दिव्यांगजन अधिकार अधिनियम 2016 की धारा 41(1)(c) "सुलभ सड़कें" माँगती है; 2021 की Harmonised Guidelines और IRC:SP:117-2018 रैम्प और उभरी टाइलों का मानक तय करते हैं। <span class="tag law">बाध्यकारी क़ानून</span>',
- lad_7:'<strong>मानक।</strong> IRC:103-2022 वह पैमाना है जिसका नाम कोर्ट ने लिया। यह वहीं बाध्य करता है जहाँ सरकार इसे अपनाए, और गुरुग्राम ने सड़क का कोई मानक नहीं अपनाया। <span class="tag std">मानक</span>',
- lad_8:'<strong>कोर्ट के निर्देश।</strong> देश के पचास सबसे बड़े शहरों और राष्ट्रीय राजमार्गों पर फुटपाथ ऑडिट और शिकायत व्यवस्था (7 अक्टूबर 2025); केंद्र फुटपाथ की ज़िम्मेदार एजेंसी और पाँच पायलट शहर बताए (5 अक्टूबर 2026)। गुरुग्राम उन पचास में नहीं है। <span class="tag dir">कोर्ट का निर्देश</span>',
+ lad_1:'संविधान के अनुच्छेद 19(1)(d) और 21: चलने का और चिह्नित फुटपाथ का हक़, मोटर गाड़ियों से ऊपर (Maniyar Iliyaz, 19 जून 2026); अच्छी हालत के फुटपाथ अनुच्छेद 21 का हिस्सा हैं (Rajaseekaran, 14 मई 2025)। <span class="tag law">बाध्यकारी क़ानून</span>',
+ lad_2:'सड़कें राज्य सूची में हैं (सातवीं अनुसूची, सूची II, प्रविष्टि 13), इसलिए हरियाणा विधानसभा फुटपाथ का क़ानून बना सकती है। किसी राज्य ने नहीं बनाया। <span class="tag dir">संविधान</span>',
+ lad_3:'सड़कें और पुल नगर निकाय का काम हैं (अनुच्छेद 243W, बारहवीं अनुसूची, मद 4)। गुरुग्राम में क़ानून सड़कें नगर निगम (Haryana Municipal Corporation Act 1994), GMDA (GMDA Act 2017), HSVP और राष्ट्रीय राजमार्गों के लिए NHAI को सौंपते हैं। <span class="tag dir">क़ानून</span>',
+ lad_4:'2019 से मोटर वाहन अधिनियम राज्य को "सार्वजनिक जगहों पर पैदल चलने वालों और बिना मोटर की सवारियों की आवाजाही और पहुँच" के नियम (धारा 138(1A)) और "राष्ट्रीय राजमार्गों के अलावा सड़कों की डिज़ाइन, निर्माण और रखरखाव के मानकों" के नियम (धारा 210D) बनाने देता है। 7 अक्टूबर 2025 को सुप्रीम कोर्ट ने राज्यों को छह महीने दिए। हरियाणा के नियम सार्वजनिक रिकॉर्ड पर नहीं हैं; दो RTI पूछ रही हैं। <span class="tag no">अधिकार है, इस्तेमाल नहीं</span>',
+ lad_5:'धारा 198A: सड़क के लिए ज़िम्मेदार प्राधिकरण, ठेकेदार या सलाहकार को तय मानक मानने होंगे, और चूक से मौत या विकलांगता हो तो एक लाख रुपये तक जुर्माना। यह सिर्फ़ उन्हीं मानकों पर लागू होती है जो सच में तय हुए हों: राजमार्गों के लिए केंद्र ने, बाक़ी हर सड़क के लिए राज्य ने धारा 210D में। इसीलिए नियम मायने रखते हैं। <span class="tag dir">क़ानून</span>',
+ lad_6:'दिव्यांगजन अधिकार अधिनियम 2016 की धारा 41(1)(c) "सुलभ सड़कें" माँगती है; 2021 की Harmonised Guidelines और IRC:SP:117-2018 रैम्प और उभरी टाइलों का मानक तय करते हैं। <span class="tag law">बाध्यकारी क़ानून</span>',
+ lad_7:'IRC:103-2022 वह पैमाना है जिसका नाम कोर्ट ने लिया। यह वहीं बाध्य करता है जहाँ सरकार इसे अपनाए, और गुरुग्राम ने सड़क का कोई मानक नहीं अपनाया। <span class="tag std">मानक</span>',
+ lad_8:'देश के पचास सबसे बड़े शहरों और राष्ट्रीय राजमार्गों पर फुटपाथ ऑडिट और शिकायत व्यवस्था (7 अक्टूबर 2025); केंद्र फुटपाथ की ज़िम्मेदार एजेंसी और पाँच पायलट शहर बताए (5 अक्टूबर 2026)। गुरुग्राम उन पचास में नहीं है। <span class="tag dir">कोर्ट का निर्देश</span>',
  lad_note:'ईमानदार सार: अधिकार साफ़ है, ज़िम्मेदारी तय है, अनिवार्य परत पतली है। कमी हरियाणा के न बने नियमों की है, और यही इस रिकॉर्ड की पहली माँग है।',
+
+ // short home page
+ hero_law:'"If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers." सुप्रीम कोर्ट, Maniyar Iliyaz v. P. Ayyappan, 19 जून 2026। <a href="https://righttowalk.life/law.html">इसके पीछे का क़ानून</a>',
+ see_map:'नक़्शा देखें',
+ tm_h:'दो मिनट, तीन क़दम',tm_1h:'कहाँ',tm_1p:'एक टैप में आपकी लोकेशन। बताएँ सड़क की किस तरफ़ हैं।',tm_2h:'जो दिखे, उसे दबाएँ',tm_2p:'खड़ी गाड़ियाँ, ठेला, खुला मैनहोल, खुदा हुआ हिस्सा। एक फ़ोटो।',tm_3h:'कोर्ट की कसौटी',tm_3p:'क्या आप सड़क पर उतरे बिना 100 मीटर चल सकते थे? जवाब कोर्ट के शब्दों में, सड़क के मालिक को नोटिस, और नक़्शे पर एक पिन।',
+ tm_more:'पूरा हिस्सा, पंद्रह मिनट और दस सवाल, स्कोर के साथ, भी है। <a href="#problems">हर टाइल का मतलब</a> · <a href="https://righttowalk.life/law.html">इसके पीछे का क़ानून</a> · <a href="https://righttowalk.life/report.html">गुरुग्राम रिपोर्ट</a>',
+ back_home:'वापस',
+ // law page
+ law_kick:'<b>क़ानून</b> · जब ज़रूरत हो तब पढ़ें',law_h1:'चलने के हक़ के पीछे का क़ानून',law_lead:'सुप्रीम कोर्ट ने क्या कहा है, क़ानून कौन बना सकता है और किसने बनाया है, फुटपाथ कैसा होना चाहिए, गुरुग्राम में इसे देना किसका काम है, और यह जाँच क्या दावा नहीं कर सकती। हर पंक्ति अपना स्रोत बताती है।',
+ law_note:'क़ानूनी पंक्तियाँ हस्ताक्षरित फ़ैसले और आदेशों से ली गई हैं; IRC के आँकड़े अपने संस्करण के साथ हैं; मोटर वाहन अधिनियम का पाठ 2026 के संशोधन के बाद के India Code से पढ़ा गया है। यह पेज आपकी ओर से कुछ दर्ज नहीं करता।',
+ lad_1s:'<strong>हक़।</strong> चलना, और चिह्नित फुटपाथ, मौलिक अधिकार है। <span class="tag law">बाध्यकारी क़ानून</span>',
+ lad_2s:'<strong>क़ानून कौन बना सकता है।</strong> सड़कें राज्य का विषय हैं; हरियाणा फुटपाथ का क़ानून बना सकता है। किसी राज्य ने नहीं बनाया। <span class="tag dir">संविधान</span>',
+ lad_3s:'<strong>ज़िम्मेदारी किसकी।</strong> सड़क का मालिक: MCG, GMDA, HSVP, या राजमार्गों पर NHAI। <span class="tag dir">क़ानून</span>',
+ lad_4s:'<strong>वे शक्तियाँ जो राज्य ने इस्तेमाल नहीं कीं।</strong> मोटर वाहन अधिनियम की दो नियम-शक्तियाँ 2019 से; कोर्ट के छह महीने अप्रैल 2026 में बीत गए। <span class="tag no">अधिकार है, इस्तेमाल नहीं</span>',
+ lad_5s:'<strong>मानक बनते ही जवाबदेही।</strong> धारा 198A उस प्राधिकरण या ठेकेदार पर जुर्माना लगाती है जिसकी चूक से मौत हो; पर पहले मानक चाहिए। <span class="tag dir">क़ानून</span>',
+ lad_6s:'<strong>सुलभता।</strong> रैम्प और उभरी टाइलें क़ानूनी ज़रूरत हैं। <span class="tag law">बाध्यकारी क़ानून</span>',
+ lad_7s:'<strong>मानक।</strong> IRC:103-2022 पैमाना है; गुरुग्राम ने कोई मानक नहीं अपनाया। <span class="tag std">मानक</span>',
+ lad_8s:'<strong>कोर्ट के निर्देश।</strong> पचास शहरों में ऑडिट; पाँच पायलट शहर तय होने हैं। गुरुग्राम अभी किसी में नहीं। <span class="tag dir">कोर्ट का निर्देश</span>',
  // hero
- hero_kick:'<b>फुटपाथ चेक</b> · प्रोटोटाइप · गुरुग्राम · तरीक़ा v1.0',
+ hero_kick:'<b>फुटपाथ चेक</b> · गुरुग्राम',
  hero_h1:'फुटपाथ पर चलना <span class="y">आपका हक़ है।</span>',
- hero_lead:'अपनी रोज़ की सड़क का एक हिस्सा चलें। ग्यारह सीधे सवालों के जवाब दें। नतीजा उन्हीं शब्दों में पाएँ जो सुप्रीम कोर्ट ख़ुद इस्तेमाल करता है, और एक नोटिस जो उस एजेंसी को भेजने के लिए तैयार हो जिसकी यह सड़क है। न खाता, न ऐप, क़रीब पंद्रह मिनट।',
+ hero_lead:'सुप्रीम कोर्ट ने 19 जून 2026 को यही कहा। अपनी किसी सड़क का फुटपाथ दो मिनट में फ़ोन पर जाँचें, और उसे गुरुग्राम के रिकॉर्ड में डालें।',
  stat_l:'पैदल चलने वाले 2024 में भारत की सड़कों पर मारे गए (अनंतिम आँकड़ा), यानी रोज़ क़रीब सौ। हरियाणा: 866। सड़क परिवहन और राजमार्ग मंत्रालय, राज्यसभा में जवाब, 18 मार्च 2026।',
 
  // demo strip
@@ -834,7 +794,7 @@ Object.assign(S.hi,{
  cant_b3:`कि NHAI, PWD या कोई निजी बिल्डर "Maniyar के तहत फुटपाथ बनाने को बाध्य है"। फ़ैसले में विकास प्राधिकरणों, नगर निकायों और पंचायतों के नाम हैं; हाईवे के लिए मज़बूत आधार Rajaseekaran के निर्देश हैं, जिनमें NHAI पक्षकार है। ${tagHi('no')}`,
  cant_b4:'यह कब्ज़े की शिकायत का ऐप नहीं है। कमी का मतलब है सड़क के मालिक का फुटपाथ देने, चिह्नित करने या ठीक रखने में नाकाम रहना, किसी इंसान को हटाना नहीं। रेहड़ी-पटरी का अपना क़ानून है (Street Vendors Act 2014) और उसकी जगह एक तय वेंडिंग ज़ोन में है।',
 
- learn_note:'जब तक आप ख़ुद जाँच को गुरुग्राम के रिकॉर्ड में न जोड़ें, आपके फ़ोन से कुछ बाहर नहीं जाता; हर प्रविष्टि को छपने से पहले एक मॉडरेटर देखता है, और आपका नाम कभी नहीं छपता। सहेजी हुई जाँच सिर्फ़ इसी ब्राउज़र में रहती है। ऊपर के हर आँकड़े और क़ानूनी बात के साथ उसका स्रोत है।',
+ learn_note:'जब तक आप जाँच को रिकॉर्ड में न जोड़ें, फ़ोन से कुछ बाहर नहीं जाता। प्रकाशित होने से पहले हर प्रविष्टि एक मॉडरेटर पढ़ता है, और आपका नाम कभी प्रकाशित नहीं होता।',
 
  // footer (shown under every view)
  foot_1:'राइट टू वॉक (righttowalk.life) Crashfree India का प्रोटोटाइप है: फुटपाथ चेक, फ़ेज़ 0, गुरुग्राम, तरीक़ा v1.0, 23 अक्टूबर 2026। वज़न: फुटपाथ 20, खाली 15, क्रॉसिंग 15, रफ़्तार 12, चौड़ाई 8, रैम्प 8, सतह 7, रोशनी 7, कर्ब और निरंतरता 4, बफ़र 4। स्कोर हिस्से के सबसे कमज़ोर बिंदु पर लिया जाता है।',
@@ -1102,7 +1062,7 @@ Object.assign(S.en,{mark:'Right to Walk',how:'How it works',found:'As found',sta
  quick_h:'What is on the footpath here?',quick_gate:'Can you walk past this spot without stepping onto the road?',quick_photo:'Add a photo of this spot',quick_res:'Spot report',quick_ask:'What to ask for',quick_none:'Nothing recorded at this spot.',quick_pass:'Can walk past',quick_fail:'Has to step onto the road',
  err_loc:'Take your location or name the road, pick which footpath, and answer the four road questions.',err_loc_q:'Take your location or name the road, and pick which footpath.',err_quick:'Tap at least one problem, or answer the question.',
  st2q:'Spot',st3q:'Report',at:'at',
- nav_map:'Map',cnt_h:'Gurugram so far',cnt_n:'checks sent in so far',cnt_pub:'on the public map',cnt_fail:'of tested stretches fail the 100 m test',cnt_map:'See the map',cnt_report:'Gurugram report',
+ nav_map:'Map',num_h:'Gurugram so far',num_india:'pedestrians killed on Indian roads in 2024',num_map:'checks on the public map',num_fail:'of tested stretches fail the 100 m test',num_deaths:'pedestrian deaths on the Gurugram record',num_src:'36,526 is provisional, from the Ministry of Road Transport and Highways in a Rajya Sabha answer of 18 March 2026; Haryana: 866.',pal_gl:'What does each tile mean?',cnt_h:'Gurugram so far',cnt_n:'checks sent in so far',cnt_pub:'on the public map',cnt_fail:'of tested stretches fail the 100 m test',cnt_map:'See the map',cnt_report:'Gurugram report',
  sub_h:'Add this to the Gurugram record',sub_p:'Your check joins the public map and the count once a moderator has looked at it. Published: the road, the location rounded to about 10 m, your answers and your photos. Not published: your name. Nothing else is collected.',sub_sector:'Sector or area',sub_sector_none:'Choose…',sub_name:'Your first name (optional, never published)',sub_name_ph:'optional',
  sub_consent:'I walked this myself and agree that this check may be published under the CC BY 4.0 licence.',sub_need:'Tick the box to add it.',sub_btn:'Add to the record',sub_busy:'Sending…',sub_done:'Added to the record',sub_done_h:'On the record',sub_done_p:'A moderator checks every entry before it appears on the map, usually within a day or two. Thank you for walking it.',sub_ref:'Reference',sub_photo:'photo sent',sub_photos:'photos sent',sub_err:'Could not send. Check your connection and try again.',sub_photofail:'Record added; some photos could not be sent.',
  share_h:'Share it',share_p:'A picture of this check for WhatsApp, with the street drawn as found.',share_btn:'Share',share_dl:'Download image',share_busy:'Drawing the card…',share_err:'Could not draw the card in this browser.',share_cta:'Check your street in two minutes:'});
@@ -1121,7 +1081,7 @@ Object.assign(S.hi,{mark:'राइट टू वॉक',how:'कैसे क�
  quick_h:'यहाँ फुटपाथ पर क्या है?',quick_gate:'क्या आप इस जगह से सड़क पर उतरे बिना निकल सकते हैं?',quick_photo:'इस जगह की फ़ोटो जोड़ें',quick_res:'जगह की रिपोर्ट',quick_ask:'क्या माँगें',quick_none:'इस जगह कुछ दर्ज नहीं हुआ।',quick_pass:'निकल सकते हैं',quick_fail:'सड़क पर उतरना पड़ता है',
  err_loc:'लोकेशन लें या सड़क का नाम लिखें, फुटपाथ चुनें, और सड़क के चारों सवाल दें।',err_loc_q:'लोकेशन लें या सड़क का नाम लिखें, और फुटपाथ चुनें।',err_quick:'कम से कम एक समस्या दबाएँ, या सवाल का जवाब दें।',
  st2q:'जगह',st3q:'रिपोर्ट',at:'पर',
- nav_map:'नक़्शा',cnt_h:'गुरुग्राम अब तक',cnt_n:'अब तक भेजी गई जाँचें',cnt_pub:'सार्वजनिक नक़्शे पर',cnt_fail:'जाँचे गए हिस्सों में 100 मीटर की कसौटी पर फ़ेल',cnt_map:'नक़्शा देखें',cnt_report:'गुरुग्राम रिपोर्ट',
+ nav_map:'नक़्शा',num_h:'गुरुग्राम अब तक',num_india:'पैदल चलने वाले 2024 में भारत की सड़कों पर मारे गए',num_map:'जाँचें सार्वजनिक नक़्शे पर',num_fail:'जाँचे गए हिस्से 100 मीटर की कसौटी पर फ़ेल',num_deaths:'पैदल चलने वालों की मौतें गुरुग्राम के रिकॉर्ड पर',num_src:'36,526 अनंतिम आँकड़ा है, सड़क परिवहन मंत्रालय का राज्यसभा में 18 मार्च 2026 का जवाब; हरियाणा: 866।',pal_gl:'हर टाइल का मतलब?',cnt_h:'गुरुग्राम अब तक',cnt_n:'अब तक भेजी गई जाँचें',cnt_pub:'सार्वजनिक नक़्शे पर',cnt_fail:'जाँचे गए हिस्सों में 100 मीटर की कसौटी पर फ़ेल',cnt_map:'नक़्शा देखें',cnt_report:'गुरुग्राम रिपोर्ट',
  sub_h:'इसे गुरुग्राम के रिकॉर्ड में जोड़ें',sub_p:'एक मॉडरेटर के देखने के बाद आपकी जाँच सार्वजनिक नक़्शे और गिनती में जुड़ जाती है। प्रकाशित होता है: सड़क, लगभग 10 मीटर तक गोल की गई लोकेशन, आपके जवाब और फ़ोटो। प्रकाशित नहीं होता: आपका नाम। और कुछ नहीं लिया जाता।',sub_sector:'सेक्टर या इलाक़ा',sub_sector_none:'चुनें…',sub_name:'आपका पहला नाम (वैकल्पिक, कभी प्रकाशित नहीं)',sub_name_ph:'वैकल्पिक',
  sub_consent:'मैं ख़ुद यहाँ चला/चली और इस जाँच को CC BY 4.0 लाइसेंस के तहत प्रकाशित करने की सहमति देता/देती हूँ।',sub_need:'जोड़ने के लिए बॉक्स पर टिक करें।',sub_btn:'रिकॉर्ड में जोड़ें',sub_busy:'भेजा जा रहा है…',sub_done:'रिकॉर्ड में जुड़ गया',sub_done_h:'रिकॉर्ड में',sub_done_p:'नक़्शे पर दिखने से पहले एक मॉडरेटर हर प्रविष्टि देखता है, आमतौर पर एक-दो दिन में। चलने के लिए धन्यवाद।',sub_ref:'संदर्भ',sub_photo:'फ़ोटो भेजी',sub_photos:'फ़ोटो भेजीं',sub_err:'भेजा नहीं जा सका। कनेक्शन देखकर फिर कोशिश करें।',sub_photofail:'रिकॉर्ड जुड़ गया; कुछ फ़ोटो नहीं भेजी जा सकीं।',
  share_h:'साझा करें',share_p:'WhatsApp के लिए इस जाँच की तस्वीर, सड़क जैसी मिली वैसी बनी हुई।',share_btn:'साझा करें',share_dl:'तस्वीर डाउनलोड करें',share_busy:'कार्ड बन रहा है…',share_err:'इस ब्राउज़र में कार्ड नहीं बन सका।',share_cta:'दो मिनट में अपनी सड़क जाँचें:'});
@@ -1254,7 +1214,7 @@ function renderSteps(cur){const names=isQuick()?[T('st1'),T('st2q'),T('st3q'),T(
 function tileHTML(v,label,pressed,attr){const ic=ICON[v]||'';return `<button type="button" class="tile" ${attr} aria-pressed="${String(pressed)}">${ic}<span>${esc(label)}</span></button>`}
 function segHTML(field,opts,val,labels){return `<div class="tiles" data-field="${field}">${opts.map(o=>tileHTML(field==='side'?o:(field==='lanes'?'':o),labels?labels[o]:segLabel(field,o),val===o,`data-v="${o}"`)).join('')}</div>`}
 function segLabel(f,o){if(f==='lanes')return o==='3'?(lang==='hi'?'3 या ज़्यादा':'3 or more'):o;if(f==='side')return o==='left'?T('side_left'):T('side_right');return T(o)}
-function paletteHTML(){const c=obsCounts(st.obs);const show=OBS.filter(o=>!o.more||palMore||c[o.id]);return `<div class="palwrap"><div class="kicker"><b>${esc(isQuick()?T('quick_h'):T('pal_h'))}</b></div><p class="help">${esc(isQuick()?T('pal_pq'):T('pal_p'))}</p><div class="palette" data-pal>${show.map(o=>`<div class="palw"><button type="button" class="pal${c[o.id]?' has':''}" data-ob="${o.id}" aria-label="${esc(nm(o))}">${obsIcon(o.id)}<span>${esc(nm(o))}</span>${c[o.id]?`<b class="badge">${c[o.id]}</b>`:''}</button>${c[o.id]?`<button type="button" class="minus" data-rm="${o.id}" aria-label="${esc(T('rm'))}">&minus;</button>`:''}</div>`).join('')}</div><div class="btnrow"><button type="button" class="btn small" id="pal-more">${esc(palMore?T('pal_less'):T('pal_more'))}</button></div><p class="palsum">${st.obs&&st.obs.length?`<b>${esc(isQuick()?T('pal_sumq'):T('pal_sum'))}:</b> ${Object.entries(c).map(([id,n])=>`${esc(nm(OBS_BY[id]))}${n>1?' ×'+n:''}`).join(', ')}`:esc(T('pal_none'))}</p></div>`}
+function paletteHTML(){const c=obsCounts(st.obs);const show=OBS.filter(o=>!o.more||palMore||c[o.id]);return `<div class="palwrap"><div class="kicker"><b>${esc(isQuick()?T('quick_h'):T('pal_h'))}</b></div><p class="help">${esc(isQuick()?T('pal_pq'):T('pal_p'))}</p><div class="palette" data-pal>${show.map(o=>`<div class="palw"><button type="button" class="pal${c[o.id]?' has':''}" data-ob="${o.id}" aria-label="${esc(nm(o))}">${obsIcon(o.id)}<span>${esc(nm(o))}</span>${c[o.id]?`<b class="badge">${c[o.id]}</b>`:''}</button>${c[o.id]?`<button type="button" class="minus" data-rm="${o.id}" aria-label="${esc(T('rm'))}">&minus;</button>`:''}</div>`).join('')}</div><div class="btnrow"><button type="button" class="btn small" id="pal-more">${esc(palMore?T('pal_less'):T('pal_more'))}</button><a class="small" href="#problems">${esc(T('pal_gl'))}</a></div><p class="palsum">${st.obs&&st.obs.length?`<b>${esc(isQuick()?T('pal_sumq'):T('pal_sum'))}:</b> ${Object.entries(c).map(([id,n])=>`${esc(nm(OBS_BY[id]))}${n>1?' ×'+n:''}`).join(', ')}`:esc(T('pal_none'))}</p></div>`}
 function photoHTML(key,label){return `<div class="photo"><label><input type="file" accept="image/*" capture="environment" data-ph="${key}">${esc(photos[key]?T('change'):(label||T('photo')))}</label>${photos[key]?`<img src="${photos[key].url}" alt="">`:''}</div>`}
 
 // ---------- render: where ----------
@@ -1346,14 +1306,11 @@ async function makeShare(){if(shareBusy)return;shareBusy=true;try{const b=await 
 async function doShare(){if(!shareBlob)return;const file=new File([shareBlob],'right-to-walk.png',{type:'image/png'});const text=shareText();
  if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:'Right to Walk',text});return}catch(e){if(e&&e.name==='AbortError')return}}downloadShare()}
 function downloadShare(){if(!shareURL)return;const a=document.createElement('a');a.href=shareURL;a.download='right-to-walk-'+(st.meta.sub?rtwShort(st.meta.sub.id).toLowerCase():'check')+'.png';document.body.appendChild(a);a.click();a.remove()}
-function renderDeathsNote(){const box=$('deaths-note');if(!box||typeof rtwDeaths!=='function')return;const cs=rtwDeaths();if(!cs.length){box.hidden=true;return}const sm=rtwDeathsSummary(rtwDeathsMatch([]));const y=sm.first?new Date(sm.first).getFullYear():'';box.hidden=false;
- const en=`<span class="kicker"><b>On the record</b></span><p>${sm.total} pedestrian ${sm.total===1?'death':'deaths'} in Gurugram${y?` since ${y}`:''} ${sm.total===1?'is':'are'} on the public record at a place where the record itself says what the road lacked: ${sm.children} ${sm.children===1?'child or teenager':'children or teenagers'}, ${sm.elderly} elderly. Each entry quotes its source and blames no one. Each is a stretch you can walk.</p><div class="btnrow"><a class="btn small" href="https://righttowalk.life/map.html">See them on the map</a><a class="btn small" href="report.html#r-deaths-block">The record</a></div>`;
- const hi=`<span class="kicker"><b>रिकॉर्ड पर</b></span><p>गुरुग्राम में${y?` ${y} से`:''} ${sm.total} पैदल चलने वालों की मौत सार्वजनिक रिकॉर्ड पर है, हर एक ऐसी जगह जहाँ रिकॉर्ड खुद बताता है कि सड़क में क्या नहीं था: ${sm.children} बच्चे या किशोर, ${sm.elderly} बुज़ुर्ग। हर प्रविष्टि अपना स्रोत बताती है और किसी को दोष नहीं देती। हर जगह एक ऐसा हिस्सा है जिस पर आप चल सकते हैं।</p><div class="btnrow"><a class="btn small" href="https://righttowalk.life/map.html">नक़्शे पर देखें</a><a class="btn small" href="report.html#r-deaths-block">रिकॉर्ड</a></div>`;
- box.innerHTML=lang==='hi'?hi:en}
-async function renderCounter(){const box=$('counter');if(!box)return;if(typeof RTW_ON!=='function'||!RTW_ON()){box.hidden=true;return}
- try{if(!statsCache||Date.now()-statsAt>60000){statsCache=await rtwStats();statsAt=Date.now()}const s=statsCache;const pct=rtwPct(s.gate_tested-s.gate_pass,s.gate_tested);
-  box.hidden=false;box.innerHTML=`<span class="kicker"><b>${esc(T('cnt_h'))}</b></span><div class="cnt"><div class="cntn"><span class="n">${s.submitted}</span><span class="l">${esc(T('cnt_n'))}</span></div><div class="cntn"><span class="n">${s.published}</span><span class="l">${esc(T('cnt_pub'))}</span></div>${pct!=null?`<div class="cntn"><span class="n r">${pct}%</span><span class="l">${esc(T('cnt_fail'))}</span></div>`:''}</div><div class="btnrow"><a class="btn small" href="https://righttowalk.life/map.html">${esc(T('cnt_map'))}</a><a class="btn small" href="https://righttowalk.life/report.html">${esc(T('cnt_report'))}</a></div>`}
- catch(e){box.hidden=true}}
+async function renderNumbers(){const box=$('numbers');if(!box)return;const deaths=(typeof rtwDeathsSummary==='function')?rtwDeathsSummary(rtwDeathsMatch([])):null;let st_=null;
+ if(typeof RTW_ON==='function'&&RTW_ON()){try{if(!statsCache||Date.now()-statsAt>60000){statsCache=await rtwStats();statsAt=Date.now()}st_=statsCache}catch(e){st_=null}}
+ const pct=st_?rtwPct(st_.gate_tested-st_.gate_pass,st_.gate_tested):null;
+ const tiles=[['36,526',T('num_india'),'r'],st_?[st_.published,T('num_map'),'']:null,pct!=null?[pct+'%',T('num_fail'),'r']:null,deaths&&deaths.total?[deaths.total,T('num_deaths'),'']:null].filter(Boolean);
+ box.hidden=false;box.innerHTML=`<span class="kicker"><b>${esc(T('num_h'))}</b></span><div class="cnt">${tiles.map(([n,l,c])=>`<div class="cntn"><span class="n ${c}">${n}</span><span class="l">${esc(l)}</span></div>`).join('')}</div><p class="small">${esc(T('num_src'))}</p><div class="btnrow"><a class="btn small" href="https://righttowalk.life/map.html">${esc(T('cnt_map'))}</a><a class="btn small" href="https://righttowalk.life/report.html">${esc(T('cnt_report'))}</a></div>`}
 
 // ---------- notice ----------
 function renderNotice(){const sel=$('f-owner');sel.innerHTML=OWNERS.map(o=>`<option value="${o.id}">${esc(o.name)}</option>`).join('');sel.value=st.owner;$('f-name').value=st.name;$('f-org').value=st.org;$('f-hhrc').checked=st.hhrc;updateNotice()}
@@ -1393,7 +1350,7 @@ function glossPlace(g,det){const cols=Math.max(1,(getComputedStyle(g).gridTempla
 
 // ---------- navigation ----------
 function showStep(i){step=i;const q=isQuick();$('s-locate').hidden=i!==0;$('s-audit').hidden=!(i===1&&!q);$('s-quick').hidden=!(i===1&&q);$('s-card').hidden=i!==2;$('s-notice').hidden=i!==3;renderSteps(i);if(i===0)renderLocate();if(i===1){if(q)renderQuick();else renderItems()}if(i===2)renderCard();if(i===3)renderNotice();window.scrollTo({top:0})}
-function route(){let h=(location.hash||'#learn').replace('#','');if(h==='how'){h='learn'}if(!['learn','check','saved'].includes(h))h='learn';['learn','check','saved'].forEach(v=>{$('v-'+v).hidden=v!==h;const a=$('nav-'+v);if(v===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});if(h==='learn'){renderDemo();renderGloss();renderCounter();renderCards();renderDeathsNote()}if(h==='check')showStep(step);if(h==='saved')renderSaved();if(location.hash==='#how'){const el=$('how');if(el)el.scrollIntoView()}}
+function route(){let h=(location.hash||'#learn').replace('#','');if(h==='how'){h='learn'}const VIEWS=['learn','check','saved','problems'];if(!VIEWS.includes(h))h='learn';VIEWS.forEach(v=>{$('v-'+v).hidden=v!==h;const a=$('nav-'+v);if(a){if(v===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')}});if(h==='learn'){renderDemo();renderNumbers();if(typeof renderCards==='function')renderCards()}if(h==='problems')renderGloss();if(h==='check')showStep(step);if(h==='saved')renderSaved();window.scrollTo({top:0})}
 function afterObsChange(lastIdx){suggestFromObs();saveDraft();refreshPalette();if(!isQuick())renderLive(false,{redraw:true,lastObs:lastIdx})}
 
 // ---------- events ----------
@@ -1440,7 +1397,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='f-coo
 document.addEventListener('change',e=>{const t=e.target;if(t.id==='f-land'){st.locate.land=t.value;renderClassOut();saveDraft()}if(t.id==='f-owner'){st.owner=t.value;updateNotice()}if(t.id==='f-hhrc'){st.hhrc=t.checked;updateNotice()}if(t.id==='sub-sector'){st.locate.area=t.value;saveDraft()}if(t.id==='sub-owner'){st.owner=t.value;saveDraft()}if(t.dataset.ph){const f=t.files&&t.files[0];if(f){if(photos[t.dataset.ph])URL.revokeObjectURL(photos[t.dataset.ph].url);photos[t.dataset.ph]={url:URL.createObjectURL(f),name:f.name,file:f};if(isQuick())renderQuick();else renderItems()}}});
 window.addEventListener('hashchange',route);
 function setTop(){const h=document.querySelector('header.top');if(h)document.documentElement.style.setProperty('--toph',h.offsetHeight+'px')}
-let _rz;window.addEventListener('resize',()=>{setTop();clearTimeout(_rz);_rz=setTimeout(()=>{if(!$('v-learn').hidden){renderDemo();renderGloss()}if(!$('s-card').hidden)renderResStreet()},250)});window.addEventListener('load',setTop);
+let _rz;window.addEventListener('resize',()=>{setTop();clearTimeout(_rz);_rz=setTimeout(()=>{if(!$('v-learn').hidden)renderDemo();if(!$('v-problems').hidden)renderGloss();if(!$('s-card').hidden)renderResStreet()},250)});window.addEventListener('load',setTop);
 
 // ---------- boot ----------
 document.querySelectorAll('[data-s],[data-sh]').forEach(el=>{const k=el.dataset.s||el.dataset.sh;if(S.en[k]==null)S.en[k]=el.dataset.sh?el.innerHTML:el.textContent.trim()});

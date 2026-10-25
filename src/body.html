@@ -2,9 +2,9 @@
   <div class="wrap">
     <a class="mark" href="#learn" data-s="mark">Right to Walk</a>
     <nav>
-      <a href="#learn" id="nav-learn" data-s="nav_learn">Learn</a>
       <a href="#check" id="nav-check" data-s="nav_check">Check a street</a>
       <a href="map.html" id="nav-map" data-s="nav_map">Map</a>
+      <a href="law.html" id="nav-law" data-s="nav_law">The law</a>
       <a href="#saved" id="nav-saved" data-s="nav_saved">Saved</a>
     </nav>
     <button class="lang" id="langbtn" type="button" aria-label="Switch language">हिंदी</button>
@@ -17,17 +17,15 @@
 <section class="v hero" id="v-learn">
   <div class="wrap">
     <div class="block">
-      <span class="kicker" data-sh="hero_kick"><b>Footpath Check</b> · Prototype · Gurugram · Method v1.0</span>
+      <span class="kicker" data-sh="hero_kick"><b>Footpath Check</b> · Gurugram</span>
       <h1 data-sh="hero_h1">Walking on a footpath is <span class="y">your right.</span></h1>
-      <p class="lead" data-s="hero_lead">Walk one stretch of a road you use. Answer eleven plain questions. Get a result in the words the Supreme Court itself uses, and a notice ready to send to whoever owns the road. No account, no app, about fifteen minutes.</p>
-      <div class="btnrow"><a class="btn yellow" href="#check" data-s="start">Start a check</a><a class="btn" href="#how" data-s="how">How it works</a></div>
+      <p class="lead" data-s="hero_lead">The Supreme Court said so on 19 June 2026. Check the footpath on a street you use, in two minutes on your phone, and put it on the Gurugram record.</p>
+      <div class="btnrow"><a class="btn yellow" href="#check" data-s="nav_check">Check a street</a><a class="btn" href="map.html" data-s="see_map">See the map</a></div>
+      <p class="small" data-sh="hero_law">"If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers." Supreme Court, Maniyar Iliyaz v. P. Ayyappan, 19 June 2026. <a href="law.html">The law behind this</a></p>
     </div>
 
-    <div class="paper">
-      <div class="bigstat"><div class="n">36,526</div><div class="l" data-s="stat_l">pedestrians were killed on Indian roads in 2024 (provisional), about a hundred a day. Haryana: 866. Ministry of Road Transport and Highways, Rajya Sabha answer, 18 March 2026.</div></div>
-    </div>
-    <div class="paper counter" id="counter" hidden></div>
-    <div class="paper" id="deaths-note" hidden></div>
+    <div class="paper numbers" id="numbers"></div>
+
     <div class="block">
       <div class="demo-cap"><span class="kicker" id="demo-cap"><b>A typical sector road</b> · as found</span><div class="toggle" id="demo-toggle"><button type="button" data-m="found" aria-pressed="true" data-s="found">As found</button><button type="button" data-m="standard" aria-pressed="false" data-s="standard">To standard</button></div></div>
       <div class="street" id="demo-street"></div>
@@ -36,23 +34,14 @@
     </div>
 
 
-    <div class="block">
-      <h2 data-s="court_h">What the court has said</h2>
-      <div class="two-up">
-      <div class="quote">
-        <p lang="en">"If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers. The duty bearers are the urban development authorities, municipal corporations, municipalities and even panchayats, who must endeavour to demarcate, construct, maintain, and safeguard footpaths and other necessary pedestrian infrastructure."</p>
-        <p class="gloss" data-hi="court_gloss" hidden></p>
-        <cite data-sh="court_cite">Supreme Court, Maniyar Iliyaz v. P. Ayyappan, 2026 INSC 647, 19 June 2026, para 20(b). <span class="tag law">Binding law</span></cite>
+    <div class="block" id="two-min">
+      <h2 data-s="tm_h">Two minutes, three steps</h2>
+      <div class="steps3">
+        <div class="step3"><span class="k">1</span><b data-s="tm_1h">Where</b><p data-s="tm_1p">One tap takes your location. Say which side of the road you are on.</p></div>
+        <div class="step3"><span class="k">2</span><b data-s="tm_2h">Tap what you see</b><p data-s="tm_2p">Parked cars, a vendor cart, an open manhole, a dug-up stretch. One photo.</p></div>
+        <div class="step3"><span class="k">3</span><b data-s="tm_3h">The Court's test</b><p data-s="tm_3p">Could you walk 100 m without stepping onto the road? You get the answer in the Court's words, a notice to the road's owner, and a pin on the map.</p></div>
       </div>
-      <ul class="plain">
-        <li data-sh="court_b1"><strong>The right to walk is a fundamental right</strong> under Article 19(1)(d) with Articles 19(1)(a) to (c) and 21. It includes "the right to demarcated footpaths", and these rights "are primary and shall have priority over movement by motorised vehicles". <span class="tag law">Binding law</span></li>
-        <li data-sh="court_b2"><strong>The duty is enforceable.</strong> Para 10 calls it "an enforceable duty"; para 20(c) gives remedies for restitution and compensation independent of the Motor Vehicles Act. <span class="tag law">Binding law</span></li>
-        <li data-sh="court_b3"><strong>Footpaths in good condition are part of Article 21.</strong> "By the side of all public roads, there must be proper facility of footpaths or footways with special emphasis on user-friendly to persons with disabilities." S. Rajaseekaran v. Union of India, 14 May 2025. <span class="tag law">Binding law</span></li>
-        <li data-sh="court_b4"><strong>Agencies in 50 cities and NHAI were told to audit footpaths</strong> for deficiencies in width, height and surface, make crossings compliant with Indian Roads Congress guidelines, map encroachment hotspots with photographs, and open online footpath grievance systems. Rajaseekaran, 7 October 2025. <span class="tag dir">Court direction</span></li>
-        <li data-sh="court_b5"><strong>Drivers must slow down at crossings</strong>, pedestrians have right of way at uncontrolled crossings, and no vehicle may be driven or parked on a footpath. Rules of the Road Regulations 1989, regulations 8, 11 and 15. <span class="tag dir">Statutory regulation</span></li>
-        <li data-sh="court_b6"><strong>The case is still open</strong> as "Re: Fundamental Right to Walk and Footpath", W.P.(C) 844/2026. On 24 August 2026 every State and UT was made a party; on 5 October 2026 the Union was told to name the authority responsible for footpaths and five pilot towns.</li>
-      </ul>
-      </div>
+      <p class="small" data-sh="tm_more">A full stretch, fifteen minutes and ten questions with a score, is there too. <a href="#problems">What each tile means</a> · <a href="law.html">The law behind this</a> · <a href="report.html">The Gurugram report</a></p>
     </div>
 
     <div class="block" id="share-right">
@@ -61,22 +50,13 @@
       <div class="cards" id="cards"></div>
     </div>
 
-    <div class="block" id="ladder-block">
-      <h2 data-s="lad_h">Who can make the law, and who has</h2>
-      <p class="muted" data-sh="lad_p">There is no Right to Walk Act. That does not mean there is no law. The right is declared, the power to legislate is Haryana's, the duty to build sits with the road's owner, and the Motor Vehicles Act already hands the State rule-making powers it has not used. Read from the top down.</p>
-      <ol class="ladder">
-        <li data-sh="lad_1"><strong>The right.</strong> Articles 19(1)(d) and 21 of the Constitution: the right to walk and to demarcated footpaths, with priority over motor vehicles (Maniyar Iliyaz, 19 June 2026); footpaths in good condition are part of Article 21 (Rajaseekaran, 14 May 2025). <span class="tag law">Binding law</span></li>
-        <li data-sh="lad_2"><strong>Who may legislate.</strong> Roads are on the State List (Seventh Schedule, List II, entry 13), so the Haryana legislature can make a footpath law. No State has. <span class="tag dir">Constitution</span></li>
-        <li data-sh="lad_3"><strong>Whose duty.</strong> Roads and bridges are a municipal function (Article 243W, Twelfth Schedule, item 4). In Gurugram the statutes put the roads with the Municipal Corporation (Haryana Municipal Corporation Act 1994), GMDA (GMDA Act 2017), HSVP, and NHAI for the national highways. <span class="tag dir">Statute</span></li>
-        <li data-sh="lad_4"><strong>Powers the State has not used.</strong> Since 2019 the Motor Vehicles Act lets a State make rules "regulating the activities and access of non-mechanically propelled vehicles and pedestrians to public places" (section 138(1A)) and rules for "design, construction and maintenance standards for roads other than national highways" (section 210D). On 7 October 2025 the Supreme Court gave States six months to make them. Haryana's are not on the public record; two RTIs are asking. <span class="tag no">Power, unused</span></li>
-        <li data-sh="lad_5"><strong>Liability, once standards exist.</strong> Section 198A: the authority, contractor or consultant responsible for a road must follow the prescribed standards, and where the failure causes death or disability is punishable with a fine of up to one lakh rupees. It bites only against standards actually prescribed, by the Centre for highways or by the State under section 210D for every other road. That is why the rules matter. <span class="tag dir">Statute</span></li>
-        <li data-sh="lad_6"><strong>Accessibility.</strong> Section 41(1)(c) of the Rights of Persons with Disabilities Act 2016 requires "accessible roads"; the 2021 Harmonised Guidelines and IRC:SP:117-2018 set the standard for kerb ramps and tactile tiles. <span class="tag law">Binding law</span></li>
-        <li data-sh="lad_7"><strong>Standards.</strong> IRC:103-2022 is the yardstick the Court named. It binds only where a government adopts it, and Gurugram has adopted no street standard. <span class="tag std">Standard</span></li>
-        <li data-sh="lad_8"><strong>Court directions.</strong> Footpath audits and grievance systems in India's fifty largest cities and on national highways (7 October 2025); the Union to name the authority responsible for footpaths and five pilot towns (5 October 2026). Gurugram is not among the fifty. <span class="tag dir">Court direction</span></li>
-      </ol>
-      <p class="small" data-sh="lad_note">The honest summary: the competence is clear, the duty is assigned, the mandatory layer is thin. The gap is Haryana's unmade rules, and that is the first thing this record asks for.</p>
-    </div>
+    <div class="note" data-s="learn_note">Nothing leaves your phone unless you add a check to the record. A moderator reads every entry before it is published, and your name is never published.</div>
+  </div>
+</section>
 
+<!-- ============ PROBLEMS (the tile glossary) ============ -->
+<section class="v" id="v-problems" hidden>
+  <div class="wrap">
     <div class="block" id="gloss-block">
       <h2 data-s="gl_h"></h2>
       <p class="muted" data-s="gl_p"></p>
@@ -84,61 +64,7 @@
       <div class="paper" id="gloss-detail"></div>
     </div>
 
-    <div class="block">
-      <h2 data-s="irc_h">What a footpath should be</h2>
-      <p class="muted" data-sh="irc_p">The Indian Roads Congress code IRC:103 is the yardstick the Court named. It is engineering guidance, binding only where a city has adopted it. Gurugram has adopted no street standard of its own, so this check reports the 2012 edition as the floor and the 2022 revision as the current standard. <span class="tag std">Standard</span></p>
-      <div class="tbl"><table>
-        <thead><tr><th data-s="irc_th1">What</th><th data-s="irc_th2">IRC:103-2012</th><th data-s="irc_th3">IRC:103-2022</th></tr></thead>
-        <tbody data-sh="irc_rows">
-          <tr><td class="fg">Clear walking zone</td><td>1.8 m</td><td>2.0 m; 2.5 m near schools, hospitals, markets and bus stops; 4.0 m on city commercial streets</td></tr>
-          <tr><td class="fg">Kerb height</td><td>150 mm at most</td><td>150 mm at most</td></tr>
-          <tr><td class="fg">Across gates and side lanes</td><td>Continuous between junctions</td><td>Vehicle ramps within the footpath no longer than 3.5 m</td></tr>
-          <tr><td class="fg">Kerb ramps at crossings</td><td>1:12, at least 1.2 m wide, tactile tiles</td><td>1:15</td></tr>
-          <tr><td class="fg">Crossings</td><td>Every 80 to 250 m</td><td>Every 80 to 150 m; raised tables at unsignalised crossings; refuge of 1.2 m where the road is wider than 10.5 m</td></tr>
-          <tr><td class="fg">Where a footpath is required</td><td>Collector roads and above</td><td>Every street where traffic moves faster than 15 km/h</td></tr>
-          <tr><td class="fg">Lighting</td><td>25 to 40 lux</td><td>25 to 30 lux</td></tr>
-        </tbody>
-      </table></div>
-      <p class="small" data-s="irc_note">The 2022 figures are read from the IRC draft hosted by NITI Aayog; the published code is paywalled. The 2 m walking zone is independently confirmed.</p>
-    </div>
-
-    <div class="two-up">
-    <div class="block">
-      <h2 data-s="own_h">Who must provide it here</h2>
-      <p class="muted" data-s="own_p">The agency that owns the road maintains the footpath. In Gurugram that is at least six bodies, and no public map says which road is whose. The check asks you to pick the likely owner; "not sure" goes to GMDA and the Chief Minister's Window, which forward it.</p>
-      <ul class="plain">
-        <li data-sh="own_b1"><strong>GMDA</strong>: master sector-dividing roads and their service roads.</li>
-        <li data-sh="own_b2"><strong>MCG</strong>: internal roads in HSVP sectors transferred in 2017, and nine private colonies taken over in 2022.</li>
-        <li data-sh="own_b3"><strong>HSVP</strong>: sectors not yet transferred.</li>
-        <li data-sh="own_b4"><strong>DTCP and the coloniser</strong>: inside DLF, Sushant Lok, South City, Palam Vihar and other licensed colonies until transfer.</li>
-        <li data-sh="own_b5"><strong>NHAI</strong>: NH-48 and NH-248A (Sohna Road) and their service lanes.</li>
-        <li data-sh="own_b6"><strong>PWD (B&amp;R)</strong>: state roads.</li>
-      </ul>
-    </div>
-
-    <div class="block" id="how">
-      <h2 data-s="how_h">How a check works</h2>
-      <ul class="plain">
-        <li data-sh="how_b1"><strong>Where.</strong> Take your location with one tap (or name the road), pick which footpath, and for a full check answer four questions about the road. A quick check is one spot and two minutes; a full stretch is 500 m and fifteen.</li>
-        <li data-sh="how_b2"><strong>Walk.</strong> One gate question (can you walk 100 m without stepping onto the road), ten yes/no items with a photo each, and one question only you can answer. Your stretch draws itself at the top as you go.</li>
-        <li data-sh="how_b3"><strong>Result.</strong> A score out of 100 at the weakest point of the stretch, one of three bands, your street as found and to standard, and the three heaviest things to ask for. Weights are printed; this is method v1.0.</li>
-        <li data-sh="how_b4"><strong>Notice.</strong> A ready letter to the owning agency quoting the Court, with a reply-by date 21 days out. You copy it and send it through the agency's own channel. This page never files anything for you.</li>
-        <li data-sh="how_b5"><strong>Record.</strong> If you choose, the check joins the public Gurugram record: a moderator reads it, then it appears on the <a href="map.html">map</a>, in the <a href="report.html">report</a> and in the open dataset. The record is the evidence; the Supreme Court's open case on the right to walk is where it is headed.</li>
-      </ul>
-    </div>
-    </div>
-
-    <div class="block">
-      <h2 data-s="cant_h">What this check cannot say</h2>
-      <ul class="plain">
-        <li data-sh="cant_b1">That "the Supreme Court ordered every road to have an X-metre footpath by a date". No such order exists. <span class="tag no">Cannot say</span></li>
-        <li data-sh="cant_b2">That "there is a Right to Walk Act". There is none. The right is a constitutional declaration; the power to make the law is the State's, the duty to build is the road owner's, and the Motor Vehicles Act already gives Haryana rule-making powers it has not used (the ladder above). <span class="tag no">Cannot say</span></li>
-        <li data-sh="cant_b3">That NHAI, PWD or a private developer "must build footpaths under Maniyar". The judgment names development authorities, municipal bodies and panchayats; for highways the stronger hook is the Rajaseekaran directions, to which NHAI is a party. <span class="tag no">Cannot say</span></li>
-        <li data-sh="cant_b4">This is not an encroachment reporter. A failure is the road owner's failure to provide, demarcate or maintain, not a person to be removed. Vending has its own law (Street Vendors Act 2014) and belongs in a designed vending zone.</li>
-      </ul>
-    </div>
-
-    <div class="note" data-s="learn_note">Nothing leaves your phone unless you choose to add a check to the Gurugram record; a moderator looks at every entry before it is published, and your name is never published. A check you save is stored only in this browser. Every number and legal line above carries its source.</div>
+    <div class="btnrow"><a class="btn yellow" href="#check" data-s="start">Check a street</a><a class="btn" href="#learn" data-s="back_home">Back</a></div>
   </div>
 </section>
 

@@ -326,3 +326,19 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
 .ladder li:last-child::after{content:"";position:absolute;left:-4px;top:0;height:28px;width:4px;background:var(--ink)}
 .ladder .tag{margin-left:4px}
 @media (min-width:1100px){.ladder li{font-size:16.5px}}
+
+/* ---------- short home page ---------- */
+.numbers{gap:12px}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.step3{background:var(--paper);border:2px solid var(--ink);border-radius:14px;padding:16px;display:grid;gap:6px;align-content:start}
+.step3 .k{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:8px;background:var(--yellow);color:var(--yellow-ink);border:2px solid var(--ink);font-family:var(--head);font-weight:700;font-size:20px}
+.step3 b{font-family:var(--head);font-weight:600;font-size:22px;line-height:1.1}
+.step3 p{font-size:15px;color:var(--ink-2)}
+/* compact ladder on the law page */
+details.rung summary{cursor:pointer;list-style:none;display:block}
+details.rung summary::-webkit-details-marker{display:none}
+details.rung summary::after{content:"more";margin-left:8px;font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--yellow)}
+details.rung[open] summary::after{content:"less"}
+:lang(hi) details.rung summary::after{content:"और"}
+:lang(hi) details.rung[open] summary::after{content:"कम"}
+details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yellow);background:var(--paper);border-radius:0 10px 10px 0}

@@ -374,6 +374,22 @@ label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink
 .ladder .tag{margin-left:4px}
 @media (min-width:1100px){.ladder li{font-size:16.5px}}
 
+/* ---------- short home page ---------- */
+.numbers{gap:12px}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.step3{background:var(--paper);border:2px solid var(--ink);border-radius:14px;padding:16px;display:grid;gap:6px;align-content:start}
+.step3 .k{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:8px;background:var(--yellow);color:var(--yellow-ink);border:2px solid var(--ink);font-family:var(--head);font-weight:700;font-size:20px}
+.step3 b{font-family:var(--head);font-weight:600;font-size:22px;line-height:1.1}
+.step3 p{font-size:15px;color:var(--ink-2)}
+/* compact ladder on the law page */
+details.rung summary{cursor:pointer;list-style:none;display:block}
+details.rung summary::-webkit-details-marker{display:none}
+details.rung summary::after{content:"more";margin-left:8px;font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--yellow)}
+details.rung[open] summary::after{content:"less"}
+:lang(hi) details.rung summary::after{content:"और"}
+:lang(hi) details.rung[open] summary::after{content:"कम"}
+details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yellow);background:var(--paper);border-radius:0 10px 10px 0}
+
 /* ---------- secondary pages: map, report, moderation ---------- */
 .pagehead{display:grid;gap:8px}
 .pagehead h1{font-size:clamp(36px,8vw,64px)}
@@ -502,9 +518,9 @@ code{overflow-wrap:anywhere}
   <div class="wrap">
     <a class="mark" href="index.html">Right to Walk</a>
     <nav>
-      <a href="index.html#learn">Learn</a>
       <a href="index.html#check">Check a street</a>
       <a href="map.html">Map</a>
+      <a href="law.html">The law</a>
       <a href="report.html">Report</a>
     </nav>
   </div>
@@ -569,7 +585,7 @@ code{overflow-wrap:anywhere}
 'use strict';
 // ---------- strings ----------
 const S = {
-  en:{nav_learn:'Learn',nav_check:'Check a street',nav_saved:'Saved',start:'Start a check',next:'Next',back:'Back',see:'See the result',notice:'Draft the notice',copy:'Copy the notice',copied:'Copied',save:'Save this check',saved_ok:'Saved in this browser',copyrec:'Copy record',new:'Start another check',
+  en:{nav_learn:'Learn',nav_check:'Check a street',nav_saved:'Saved',nav_law:'The law',nav_report:'Report',start:'Start a check',next:'Next',back:'Back',see:'See the result',notice:'Draft the notice',copy:'Copy the notice',copied:'Copied',save:'Save this check',saved_ok:'Saved in this browser',copyrec:'Copy record',new:'Start another check',
     st1:'Where',st2:'Walk',st3:'Result',st4:'Notice',
     loc_h:'Where are you walking?',loc_road:'Road name',loc_area:'Sector or area',loc_from:'Stretch starts at',loc_to:'Stretch ends at',loc_side:'Which side?',loc_side_h:'Say which side and which way you are facing. One check covers one side; do the other side as a second check.',
     loc_class_h:'What kind of road is it?',loc_div:'Is there a central divider?',loc_lanes:'How many car lanes in each direction?',loc_through:'Do buses or lots of through traffic use it, running on for kilometres?',loc_gates:'Do house and shop gates open straight onto it, with cars parked on both sides?',
@@ -590,7 +606,7 @@ const S = {
     not_note:'This page does not file complaints. Copy the text, attach your photos, and send it through the agency channel. Keep the reference number you get. Re-walk the stretch after the reply-by date and record what changed.',
     sav_h:'Saved checks',sav_p:'Stored only in this browser. Copy a record to send it on.',none:'No saved checks yet.',del:'Delete',del_sure:'Delete for sure',open:'Open',
     resume:'You have an unfinished check. It has been restored.',pedestrians:'pedestrians in 5 min'},
-  hi:{nav_learn:'जानें',nav_check:'सड़क जाँचें',nav_saved:'सहेजे गए',start:'जाँच शुरू करें',next:'आगे',back:'पीछे',see:'नतीजा देखें',notice:'नोटिस बनाएँ',copy:'नोटिस कॉपी करें',copied:'कॉपी हो गया',save:'यह जाँच सहेजें',saved_ok:'इस ब्राउज़र में सहेज लिया',copyrec:'रिकॉर्ड कॉपी करें',new:'एक और जाँच',
+  hi:{nav_learn:'जानें',nav_check:'सड़क जाँचें',nav_saved:'सहेजे गए',nav_law:'क़ानून',nav_report:'रिपोर्ट',start:'जाँच शुरू करें',next:'आगे',back:'पीछे',see:'नतीजा देखें',notice:'नोटिस बनाएँ',copy:'नोटिस कॉपी करें',copied:'कॉपी हो गया',save:'यह जाँच सहेजें',saved_ok:'इस ब्राउज़र में सहेज लिया',copyrec:'रिकॉर्ड कॉपी करें',new:'एक और जाँच',
     st1:'कहाँ',st2:'चलें',st3:'नतीजा',st4:'नोटिस',
     loc_h:'आप कहाँ चल रहे हैं?',loc_road:'सड़क का नाम',loc_area:'सेक्टर या इलाक़ा',loc_from:'हिस्सा यहाँ से शुरू',loc_to:'हिस्सा यहाँ ख़त्म',loc_side:'कौन सी तरफ़?',loc_side_h:'बताएँ कौन सी तरफ़ और किस दिशा में चल रहे हैं। एक जाँच एक तरफ़ की है; दूसरी तरफ़ अलग जाँच करें।',
     loc_class_h:'यह कैसी सड़क है?',loc_div:'क्या बीच में डिवाइडर है?',loc_lanes:'हर दिशा में कितनी लेन?',loc_through:'क्या बसें या दूर जाने वाला ट्रैफ़िक चलता है, किलोमीटरों तक?',loc_gates:'क्या घरों-दुकानों के गेट सीधे सड़क पर खुलते हैं, और दोनों तरफ़ गाड़ियाँ खड़ी रहती हैं?',
