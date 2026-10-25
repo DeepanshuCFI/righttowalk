@@ -16,25 +16,30 @@
 <section class="v" id="v-game">
   <div class="wrap">
     <div class="pagehead">
-      <span class="kicker"><b>Gurugram</b> · 30 px to the metre</span>
+      <span class="kicker"><b>Gurugram</b> · 500 m · three stretches</span>
       <h1 id="g-title">The footpath game</h1>
-      <p class="lead" id="g-sub">Walk 100 m without stepping onto the road. Tap or press space to jump. Hold the Duck button or the down arrow to duck. It is harder than it should be.</p>
+      <p class="lead" id="g-sub">You walk 500 m of a Gurugram road. The footpath will block you; the only way past is the road, where the traffic is. Step down, step up, or wait. It is not a game you win; it is a walk you survive.</p>
     </div>
+    <div class="ghud"><span id="g-where"></span><span id="g-dist"><b id="g-m">0 m</b> <i id="g-road"></i></span></div>
+    <div class="gbar"><i id="g-bar"></i><b id="g-tick">Court’s test, 100 m</b></div>
     <div class="gamewrap" id="g-wrap">
-      <canvas id="g-canvas" width="1000" height="300" aria-label="The footpath game: a walker, obstacles coming from the right, the road below" role="img"></canvas>
-      <button type="button" class="btn yellow gstart" id="g-start">Tap to start walking</button>
+      <canvas id="g-canvas" width="1000" height="392" aria-label="The footpath game: a footpath seen from above with the road beside it; things block the footpath and traffic passes on the road" role="img"></canvas>
+      <button type="button" class="btn yellow gstart" id="g-start">Start walking</button>
     </div>
-    <div class="gctrl">
-      <button type="button" class="btn yellow" id="g-jump">Jump</button>
-      <button type="button" class="btn" id="g-duck">Duck</button>
+    <p class="gcap" id="g-cap">&nbsp;</p>
+    <div class="gctrl three">
+      <button type="button" class="btn yellow" id="g-up">Up to the footpath</button>
+      <button type="button" class="btn" id="g-wait">Wait</button>
+      <button type="button" class="btn red" id="g-down">Down to the road</button>
     </div>
+    <p class="small" id="g-help">On a phone: tap the footpath to step up, tap the road to step down, or swipe up and down. Hold Wait to stop. On a keyboard: arrows up and down, space to wait.</p>
     <div class="paper gover" id="g-over" hidden>
       <h2 id="g-over-h"></h2>
-      <p id="g-over-p"></p>
+      <p class="gstats" id="g-over-p"></p>
       <p class="small" id="g-over-best"></p>
-      <div class="btnrow"><button type="button" class="btn yellow" id="g-again">Walk again</button><a class="btn" href="index.html#check" id="g-real">Check a real street</a><button type="button" class="btn" id="g-share">Share your distance</button></div>
+      <div class="btnrow"><button type="button" class="btn yellow" id="g-again">Walk again</button><a class="btn" href="index.html#check" id="g-real">Check a real street</a><button type="button" class="btn" id="g-share">Share this walk</button></div>
     </div>
-    <p class="small">Every obstacle in the game is one you can tap on a real check. The walker, the kerb and the road are the same drawing the check makes of your street. Nothing here is uploaded or recorded; your best distance stays on your phone.</p>
+    <p class="small" id="g-note">Every obstacle is one you can tap on a real check. Nothing here is uploaded or recorded. The backdrops are Gurugram for the feel of it; the obstacles are typical of the city, not a survey of any one spot.</p>
   </div>
 </section>
 </main>
