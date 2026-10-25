@@ -10,7 +10,7 @@
 .mapstat .n.r{color:var(--red)}
 .mapstat .l{font-size:13px;color:var(--ink-2);line-height:1.25;max-width:22ch}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:4px 12px;min-height:36px;font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.chip{border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 12px;min-height:44px;font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 .map{height:min(70vh,640px);min-height:380px;background:var(--plot2);border-bottom:2px solid var(--ink)}
 .map .leaflet-popup-content-wrapper{border-radius:12px;border:2px solid var(--ink);box-shadow:none;background:var(--paper);color:var(--ink);font-family:var(--body)}

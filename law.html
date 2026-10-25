@@ -81,13 +81,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 /* header */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg)}
 .top .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 14px;padding-block:10px 8px}
-.mark{font-family:var(--head);font-weight:700;font-size:26px;line-height:1;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);text-decoration:none;display:inline-flex;align-items:baseline;gap:8px}
+.mark{font-family:var(--head);font-weight:700;font-size:26px;line-height:1;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:8px;min-height:44px}
 .mark small{font-family:var(--body);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
 .top nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto}
-@media (max-width:640px){.top .wrap{justify-content:flex-start}.top .lang{margin-left:auto;order:2}.top nav{order:3;flex-basis:100%;margin-left:0}}
-.top nav a{white-space:nowrap;font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.04em;text-transform:uppercase;padding:6px 12px;border-radius:999px;border:2px solid transparent;color:var(--ink-2);text-decoration:none;min-height:36px;display:inline-flex;align-items:center}
+@media (max-width:640px){.top .wrap{justify-content:flex-start;gap:2px 10px;padding-block:6px 4px}.mark{font-size:22px}.top .lang{margin-left:auto;order:2}.top nav{order:3;flex-basis:100%;margin-left:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:2px;margin-inline:-6px;padding-inline:6px}.top nav::-webkit-scrollbar{display:none}.top nav a{font-size:15px;padding:8px 10px}}
+.top nav a{white-space:nowrap;font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.04em;text-transform:uppercase;padding:8px 12px;border-radius:999px;border:2px solid transparent;color:var(--ink-2);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
 .top nav a[aria-current="page"]{border-color:var(--ink);color:var(--ink)}
-.lang{border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:4px 12px;font-family:var(--head);font-weight:600;font-size:16px;cursor:pointer;min-height:36px}
+.lang{border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:4px 12px;font-family:var(--head);font-weight:600;font-size:16px;cursor:pointer;min-height:44px}
 /* type */
 h1,h2,h3,h4{font-family:var(--head);margin:0;text-wrap:balance;line-height:1}
 h1{font-size:clamp(44px,10vw,84px);font-weight:700;letter-spacing:-.005em;text-transform:uppercase}
@@ -276,7 +276,7 @@ footer .wrap{padding-block:18px;font-size:13.5px;color:var(--ink-2);display:grid
 @keyframes crawl{from{transform:translateX(0)}to{transform:translateX(-22px)}}
 @media (prefers-reduced-motion:reduce){.street .ob.drop,.glpic .ob.drop,.walker.moving .f1,.walker.moving .f2,.street.reveal::after,.lampglow,.signal .lamp,.tile[aria-pressed="true"] svg path,.badge.pop,.carx{animation:none}}
 
-.btn.small{min-height:40px;font-size:16px;padding:0 16px}
+.btn.small{min-height:44px;font-size:16px;padding:0 16px}
 
 /* ---------- modes, location, end marker, why ---------- */
 .modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
@@ -390,6 +390,11 @@ details.rung[open] summary::after{content:"less"}
 :lang(hi) details.rung[open] summary::after{content:"कम"}
 details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yellow);background:var(--paper);border-radius:0 10px 10px 0}
 
+/* 44 px tap targets on the card buttons; skip link for keyboard and screen-reader users */
+#cards button{min-height:44px}
+.skip{position:absolute;left:8px;top:-80px;z-index:60;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:10px;font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
+.skip:focus,.skip:focus-visible{top:8px;outline:3px solid var(--yellow);outline-offset:2px}
+
 /* ---------- secondary pages: map, report, moderation ---------- */
 .pagehead{display:grid;gap:8px}
 .pagehead h1{font-size:clamp(36px,8vw,64px)}
@@ -402,7 +407,7 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
 .mapstat .n.r{color:var(--red)}
 .mapstat .l{font-size:13px;color:var(--ink-2);line-height:1.25;max-width:22ch}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:4px 12px;min-height:36px;font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.chip{border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 12px;min-height:44px;font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 .map{height:min(70vh,640px);min-height:380px;background:var(--plot2);border-bottom:2px solid var(--ink)}
 .map .leaflet-popup-content-wrapper{border-radius:12px;border:2px solid var(--ink);box-shadow:none;background:var(--paper);color:var(--ink);font-family:var(--body)}
@@ -495,6 +500,7 @@ code{overflow-wrap:anywhere}
 <body>
 <noscript><p style="margin:16px;font:17px/1.5 system-ui">Right to Walk needs JavaScript for this page. Please enable it, or open the page in another browser.</p></noscript>
 <script>if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.hidden=true}}</script>
+<a class="skip" href="#main" data-s="skip">Skip to content</a>
 <header class="top">
   <div class="wrap">
     <a class="mark" href="index.html" data-s="mark">Right to Walk</a>
@@ -508,7 +514,7 @@ code{overflow-wrap:anywhere}
   </div>
   <div class="kerb"></div>
 </header>
-<main>
+<main id="main">
 <section class="v" id="v-law">
   <div class="wrap">
     <div class="pagehead">
@@ -607,7 +613,7 @@ code{overflow-wrap:anywhere}
 'use strict';
 // ---------- strings ----------
 const S = {
-  en:{nav_learn:'Learn',nav_check:'Check a street',nav_saved:'Saved',nav_law:'The law',nav_report:'Report',start:'Start a check',next:'Next',back:'Back',see:'See the result',notice:'Draft the notice',copy:'Copy the notice',copied:'Copied',save:'Save this check',saved_ok:'Saved in this browser',copyrec:'Copy record',new:'Start another check',
+  en:{nav_learn:'Learn',nav_check:'Check a street',nav_saved:'Saved',nav_law:'The law',nav_report:'Report',skip:'Skip to content',start:'Start a check',next:'Next',back:'Back',see:'See the result',notice:'Draft the notice',copy:'Copy the notice',copied:'Copied',save:'Save this check',saved_ok:'Saved in this browser',copyrec:'Copy record',new:'Start another check',
     st1:'Where',st2:'Walk',st3:'Result',st4:'Notice',
     loc_h:'Where are you walking?',loc_road:'Road name',loc_area:'Sector or area',loc_from:'Stretch starts at',loc_to:'Stretch ends at',loc_side:'Which side?',loc_side_h:'Say which side and which way you are facing. One check covers one side; do the other side as a second check.',
     loc_class_h:'What kind of road is it?',loc_div:'Is there a central divider?',loc_lanes:'How many car lanes in each direction?',loc_through:'Do buses or lots of through traffic use it, running on for kilometres?',loc_gates:'Do house and shop gates open straight onto it, with cars parked on both sides?',
@@ -628,7 +634,7 @@ const S = {
     not_note:'This page does not file complaints. Copy the text, attach your photos, and send it through the agency channel. Keep the reference number you get. Re-walk the stretch after the reply-by date and record what changed.',
     sav_h:'Saved checks',sav_p:'Stored only in this browser. Copy a record to send it on.',none:'No saved checks yet.',del:'Delete',del_sure:'Delete for sure',open:'Open',
     resume:'You have an unfinished check. It has been restored.',pedestrians:'pedestrians in 5 min'},
-  hi:{nav_learn:'जानें',nav_check:'सड़क जाँचें',nav_saved:'सहेजे गए',nav_law:'क़ानून',nav_report:'रिपोर्ट',start:'जाँच शुरू करें',next:'आगे',back:'पीछे',see:'नतीजा देखें',notice:'नोटिस बनाएँ',copy:'नोटिस कॉपी करें',copied:'कॉपी हो गया',save:'यह जाँच सहेजें',saved_ok:'इस ब्राउज़र में सहेज लिया',copyrec:'रिकॉर्ड कॉपी करें',new:'एक और जाँच',
+  hi:{nav_learn:'जानें',nav_check:'सड़क जाँचें',nav_saved:'सहेजे गए',nav_law:'क़ानून',nav_report:'रिपोर्ट',skip:'सीधे सामग्री पर जाएँ',start:'जाँच शुरू करें',next:'आगे',back:'पीछे',see:'नतीजा देखें',notice:'नोटिस बनाएँ',copy:'नोटिस कॉपी करें',copied:'कॉपी हो गया',save:'यह जाँच सहेजें',saved_ok:'इस ब्राउज़र में सहेज लिया',copyrec:'रिकॉर्ड कॉपी करें',new:'एक और जाँच',
     st1:'कहाँ',st2:'चलें',st3:'नतीजा',st4:'नोटिस',
     loc_h:'आप कहाँ चल रहे हैं?',loc_road:'सड़क का नाम',loc_area:'सेक्टर या इलाक़ा',loc_from:'हिस्सा यहाँ से शुरू',loc_to:'हिस्सा यहाँ ख़त्म',loc_side:'कौन सी तरफ़?',loc_side_h:'बताएँ कौन सी तरफ़ और किस दिशा में चल रहे हैं। एक जाँच एक तरफ़ की है; दूसरी तरफ़ अलग जाँच करें।',
     loc_class_h:'यह कैसी सड़क है?',loc_div:'क्या बीच में डिवाइडर है?',loc_lanes:'हर दिशा में कितनी लेन?',loc_through:'क्या बसें या दूर जाने वाला ट्रैफ़िक चलता है, किलोमीटरों तक?',loc_gates:'क्या घरों-दुकानों के गेट सीधे सड़क पर खुलते हैं, और दोनों तरफ़ गाड़ियाँ खड़ी रहती हैं?',
@@ -820,10 +826,10 @@ Object.assign(S.hi,{
  lad_note:'ईमानदार सार: अधिकार साफ़ है, ज़िम्मेदारी तय है, अनिवार्य परत पतली है। कमी हरियाणा के न बने नियमों की है, और यही इस रिकॉर्ड की पहली माँग है।',
 
  // short home page
- hero_law:'"If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers." सुप्रीम कोर्ट, Maniyar Iliyaz v. P. Ayyappan, 19 जून 2026। <a href="law.html">इसके पीछे का क़ानून</a>',
+ hero_law:'"If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers." भारत का सुप्रीम कोर्ट, 19 जून 2026। <a href="law.html">इसके पीछे का क़ानून पढ़ें</a>',
  see_map:'नक़्शा देखें',
- tm_h:'दो मिनट, तीन क़दम',tm_1h:'कहाँ',tm_1p:'एक टैप में आपकी लोकेशन। बताएँ सड़क की किस तरफ़ हैं।',tm_2h:'जो दिखे, उसे दबाएँ',tm_2p:'खड़ी गाड़ियाँ, ठेला, खुला मैनहोल, खुदा हुआ हिस्सा। एक फ़ोटो।',tm_3h:'कोर्ट की कसौटी',tm_3p:'क्या आप सड़क पर उतरे बिना 100 मीटर चल सकते थे? जवाब कोर्ट के शब्दों में, सड़क के मालिक को नोटिस, और नक़्शे पर एक पिन।',
- tm_more:'पूरा हिस्सा, पंद्रह मिनट और दस सवाल, स्कोर के साथ, भी है। <a href="#problems">हर टाइल का मतलब</a> · <a href="law.html">इसके पीछे का क़ानून</a> · <a href="report.html">गुरुग्राम रिपोर्ट</a>',
+ tm_h:'दो मिनट, तीन क़दम',tm_1h:'कहाँ',tm_1p:'एक टैप में आपकी लोकेशन। बताएँ सड़क की किस तरफ़ हैं।',tm_2h:'जो दिखे, उसे दबाएँ',tm_2p:'खड़ी गाड़ियाँ, ठेला, खुला मैनहोल, खुदा हुआ हिस्सा। एक फ़ोटो जोड़ें।',tm_3h:'कोर्ट की कसौटी',tm_3p:'क्या आप सड़क पर उतरे बिना 100 मीटर चल सकते थे? जवाब कोर्ट के शब्दों में मिलता है। सड़क के मालिक के लिए नोटिस मिलता है। आपकी जाँच नक़्शे पर एक पिन बन जाती है।',
+ tm_more:'पूरी जाँच भी है: पंद्रह मिनट, दस सवाल, एक स्कोर। <a href="#problems">हर टाइल का मतलब</a> · <a href="law.html">इसके पीछे का क़ानून</a> · <a href="report.html">गुरुग्राम रिपोर्ट</a>',
  back_home:'वापस',
  // law page
  law_kick:'<b>क़ानून</b> · जब ज़रूरत हो तब पढ़ें',law_h1:'चलने के हक़ के पीछे का क़ानून',law_lead:'सुप्रीम कोर्ट ने क्या कहा है, क़ानून कौन बना सकता है और किसने बनाया है, फुटपाथ कैसा होना चाहिए, गुरुग्राम में इसे देना किसका काम है, और यह जाँच क्या दावा नहीं कर सकती। हर पंक्ति अपना स्रोत बताती है।',
@@ -839,7 +845,7 @@ Object.assign(S.hi,{
  // hero
  hero_kick:'<b>फुटपाथ चेक</b> · गुरुग्राम',
  hero_h1:'फुटपाथ पर चलना <span class="y">आपका हक़ है।</span>',
- hero_lead:'सुप्रीम कोर्ट ने 19 जून 2026 को यही कहा। अपनी किसी सड़क का फुटपाथ दो मिनट में फ़ोन पर जाँचें, और उसे गुरुग्राम के रिकॉर्ड में डालें।',
+ hero_lead:'सुप्रीम कोर्ट ने 19 जून 2026 को यही कहा। जिस सड़क पर आप चलते हैं, उसे जाँचें। फ़ोन पर दो मिनट लगते हैं। फिर उसे गुरुग्राम के रिकॉर्ड में डालें।',
  stat_l:'पैदल चलने वाले 2024 में भारत की सड़कों पर मारे गए (अनंतिम आँकड़ा), यानी रोज़ क़रीब सौ। हरियाणा: 866। सड़क परिवहन और राजमार्ग मंत्रालय, राज्यसभा में जवाब, 18 मार्च 2026।',
 
  // demo strip
@@ -899,7 +905,7 @@ Object.assign(S.hi,{
  cant_b3:`कि NHAI, PWD या कोई निजी बिल्डर "Maniyar के तहत फुटपाथ बनाने को बाध्य है"। फ़ैसले में विकास प्राधिकरणों, नगर निकायों और पंचायतों के नाम हैं; हाईवे के लिए मज़बूत आधार Rajaseekaran के निर्देश हैं, जिनमें NHAI पक्षकार है। ${tagHi('no')}`,
  cant_b4:'यह कब्ज़े की शिकायत का ऐप नहीं है। कमी का मतलब है सड़क के मालिक का फुटपाथ देने, चिह्नित करने या ठीक रखने में नाकाम रहना, किसी इंसान को हटाना नहीं। रेहड़ी-पटरी का अपना क़ानून है (Street Vendors Act 2014) और उसकी जगह एक तय वेंडिंग ज़ोन में है।',
 
- learn_note:'जब तक आप जाँच को रिकॉर्ड में न जोड़ें, फ़ोन से कुछ बाहर नहीं जाता। प्रकाशित होने से पहले हर प्रविष्टि एक मॉडरेटर पढ़ता है, और आपका नाम कभी प्रकाशित नहीं होता।',
+ learn_note:'जब तक आप जाँच को रिकॉर्ड में न जोड़ें, फ़ोन से कुछ बाहर नहीं जाता। सार्वजनिक होने से पहले हर प्रविष्टि एक मॉडरेटर पढ़ता है। आपका नाम कभी प्रकाशित नहीं होता।',
 
  // footer (shown under every view)
  foot_1:'राइट टू वॉक (righttowalk.life) Crashfree India का प्रोटोटाइप है: फुटपाथ चेक, फ़ेज़ 0, गुरुग्राम, तरीक़ा v1.0, 23 अक्टूबर 2026। वज़न: फुटपाथ 20, खाली 15, क्रॉसिंग 15, रफ़्तार 12, चौड़ाई 8, रैम्प 8, सतह 7, रोशनी 7, कर्ब और निरंतरता 4, बफ़र 4। स्कोर हिस्से के सबसे कमज़ोर बिंदु पर लिया जाता है।',
