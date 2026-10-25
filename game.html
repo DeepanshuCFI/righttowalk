@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The footpath game · Right to Walk</title>
+<meta name="description" content="Walk 100 m of a Gurugram footpath without stepping onto the road: a small game built from the same drawings as the check. Tap to jump, hold to duck.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://tile.openstreetmap.org; connect-src 'self' https://qeiqfkzugpipcvolvhjw.supabase.co; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FFC72C">
+<link rel="canonical" href="https://righttowalk.life/game.html">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Right to Walk">
+<meta property="og:title" content="The footpath game · Right to Walk">
+<meta property="og:description" content="Walk 100 m of a Gurugram footpath without stepping onto the road: a small game built from the same drawings as the check. Tap to jump, hold to duck.">
+<meta property="og:url" content="https://righttowalk.life/game.html">
+<meta property="og:image" content="https://righttowalk.life/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The footpath game · Right to Walk">
+<meta name="twitter:description" content="Walk 100 m of a Gurugram footpath without stepping onto the road: a small game built from the same drawings as the check. Tap to jump, hold to duck.">
+<meta name="twitter:image" content="https://righttowalk.life/og.png">
+<style>
+@font-face{font-family:'Khand';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/khand-500-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF4, U+1CF7-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B0A}
+@font-face{font-family:'Khand';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/khand-500-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Khand';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/khand-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Khand';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/khand-600-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF4, U+1CF7-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B0A}
+@font-face{font-family:'Khand';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/khand-600-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Khand';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/khand-600-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Khand';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/khand-700-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF4, U+1CF7-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B0A}
+@font-face{font-family:'Khand';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/khand-700-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Khand';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/khand-700-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/mukta-400-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF4, U+1CF7-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B0A}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/mukta-400-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/mukta-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/mukta-500-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF4, U+1CF7-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B0A}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/mukta-500-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/mukta-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/mukta-700-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF4, U+1CF7-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B0A}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/mukta-700-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Mukta';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/mukta-700-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+
+/* Footpath Check. Direction: "Kerb and chalk". The street's own materials: concrete pavers, black-and-yellow kerb paint,
+   tactile yellow, chalk survey marks, the pedestrian signal. One phone-first column; the stretch you are checking is drawn
+   live at the top of the walk and becomes the result. Khand (condensed, signage) + Mukta (humanist), both Latin + Devanagari. */
+:root{
+  --bg:#EFEBE3; --paper:#FFFFFF; --ink:#1C1E21; --ink-2:#5B5A54; --line:#D9D3C7;
+  --yellow:#FFC72C; --yellow-ink:#1C1E21; --green:#1FAE5A; --red:#DE3A2F; --amber:#EE8B22;
+  --asphalt:#2B2E33; --chalk:#FFFFFF; --paver:#E6E1D6; --plot:#F6F3EC; --plot2:#CFC7B8; --dirt:#C9B08A; --dirt2:#B39A74; --tree:#6E8B3D; --glow:#FFD24D; --water:#8DB9DA; --stripe:#1C1E21;
+  /* the street drawing keeps daylight colours in both themes */
+  --s-paver:#E6E1D6; --s-line:#CFC9BC; --s-ink:#1C1E21; --s-ink2:#5B5A54; --s-plot:#F6F3EC; --s-plot2:#CFC7B8; --s-asphalt:#2B2E33; --s-chalk:#FFFFFF; --s-dirt:#C9B08A; --s-dirt2:#B39A74; --s-tree:#6E8B3D; --s-glow:#FFD24D; --s-water:#8DB9DA; --s-yellow:#FFC72C; --s-yellow-ink:#1C1E21; --s-red:#DE3A2F; --s-amber:#EE8B22; --s-green:#1FAE5A; --s-bg:#EFEBE3;
+  --head:'Khand','Mukta',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --body:'Mukta',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171A; --paper:#212428; --ink:#F3EFE6; --ink-2:#B6B1A6; --line:#3A3E45;
+    --yellow:#FFC72C; --yellow-ink:#1C1E21; --green:#37C96F; --red:#FF5C52; --amber:#FFA142;
+    --asphalt:#0E1012; --chalk:#F3EFE6; --paver:#3A3E45; --plot:#2A2E34; --plot2:#4A4F57; --dirt:#6B5A3F; --dirt2:#5A4B33; --tree:#7FA04A; --glow:#FFD24D; --water:#4C7FA6; --stripe:#1C1E21; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171A; --paper:#212428; --ink:#F3EFE6; --ink-2:#B6B1A6; --line:#3A3E45;
+  --yellow:#FFC72C; --yellow-ink:#1C1E21; --green:#37C96F; --red:#FF5C52; --amber:#FFA142;
+  --asphalt:#0E1012; --chalk:#F3EFE6; --paver:#3A3E45; --plot:#2A2E34; --plot2:#4A4F57; --dirt:#6B5A3F; --dirt2:#5A4B33; --tree:#7FA04A; --glow:#FFD24D; --water:#4C7FA6; --stripe:#1C1E21; color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5;padding-bottom:48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+/* kerb stripe: the brand device */
+.kerb{height:8px;background:repeating-linear-gradient(135deg,var(--yellow) 0 16px,var(--stripe) 16px 32px)}
+.kerb.thin{height:5px}
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg)}
+.top .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 14px;padding-block:10px 8px}
+.mark{font-family:var(--head);font-weight:700;font-size:26px;line-height:1;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:8px;min-height:44px}
+.mark small{font-family:var(--body);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.top nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto}
+@media (max-width:640px){.top .wrap{justify-content:flex-start;gap:2px 10px;padding-block:6px 4px}.mark{font-size:22px}.top .lang{margin-left:auto;order:2}.top nav{order:3;flex-basis:100%;margin-left:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:2px;margin-inline:-6px;padding-inline:6px}.top nav::-webkit-scrollbar{display:none}.top nav a{font-size:15px;padding:8px 10px}}
+.top nav a{white-space:nowrap;font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.04em;text-transform:uppercase;padding:8px 12px;border-radius:999px;border:2px solid transparent;color:var(--ink-2);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.top nav a[aria-current="page"]{border-color:var(--ink);color:var(--ink)}
+.lang{border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:4px 12px;font-family:var(--head);font-weight:600;font-size:16px;cursor:pointer;min-height:44px}
+/* type */
+h1,h2,h3,h4{font-family:var(--head);margin:0;text-wrap:balance;line-height:1}
+h1{font-size:clamp(44px,10vw,84px);font-weight:700;letter-spacing:-.005em;text-transform:uppercase}
+h1 .y{display:inline-block;line-height:1;background:var(--yellow);color:var(--yellow-ink);padding:0 .12em .03em;margin-top:.06em}
+h2{font-size:clamp(32px,7vw,52px);font-weight:700;text-transform:uppercase;letter-spacing:.005em}
+h3{font-size:26px;font-weight:600;letter-spacing:.01em}
+h4{font-size:20px;font-weight:600}
+p{margin:0}
+.lead{font-size:19px;color:var(--ink-2);max-width:60ch}
+.muted{color:var(--ink-2)}
+.small{font-size:14px;color:var(--ink-2);line-height:1.45}
+.kicker{font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.kicker b{color:var(--ink)}
+section.v .wrap{padding-block:24px 40px;display:grid;gap:26px}
+.block{display:grid;gap:12px}
+section.v .wrap>*,.block>*{min-width:0}
+.paper{background:var(--paper);border:2px solid var(--ink);border-radius:14px;padding:18px;display:grid;gap:10px;min-width:0}
+.paper.soft{border-color:var(--line)}
+.tag{display:inline-block;font-family:var(--head);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid var(--ink-2);color:var(--ink-2);border-radius:6px;padding:1px 7px;vertical-align:middle;white-space:nowrap}
+.tag.law{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tag.dir{border-color:var(--ink);color:var(--ink)}
+.tag.std{background:var(--yellow);color:var(--yellow-ink);border-color:var(--yellow)}
+.tag.no{border-color:var(--red);color:var(--red)}
+.tag.rep{border-color:var(--amber);color:var(--amber)}
+ul.plain{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+ul.plain li{position:relative;padding-left:22px;color:var(--ink-2)}
+ul.plain li::before{content:"";position:absolute;left:0;top:9px;width:10px;height:10px;background:var(--yellow);border:2px solid var(--ink);border-radius:2px;transform:rotate(45deg)}
+ul.plain li strong{color:var(--ink);font-weight:700}
+.quote{display:grid;gap:8px;padding:16px 18px;border-left:6px solid var(--yellow);background:var(--paper);border-radius:0 12px 12px 0}
+.quote p{font-family:var(--head);font-weight:600;font-size:21px;line-height:1.25}
+.quote cite{font-style:normal;font-size:14px;color:var(--ink-2)}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:999px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);font-family:var(--head);font-weight:600;font-size:20px;letter-spacing:.03em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:transform .08s}
+.btn:active{transform:translateY(1px)}
+.btn.yellow{background:var(--yellow);color:var(--yellow-ink);border-color:var(--ink)}
+.btn.ink{background:var(--ink);color:var(--bg)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+/* stats */
+.bigstat{display:grid;gap:4px}
+.bigstat .n{font-family:var(--head);font-weight:700;font-size:clamp(56px,14vw,96px);line-height:.9;color:var(--red);font-variant-numeric:tabular-nums}
+.bigstat .l{font-size:15px;color:var(--ink-2);max-width:48ch}
+/* street strip */
+.street{position:relative;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:var(--s-asphalt)}
+.street svg{display:block;width:100%;height:auto}
+.street .layer{position:absolute;inset:0;transition:opacity .45s}
+.street .layer.hide{opacity:0;pointer-events:none}
+.street .cap{position:absolute;left:10px;top:8px;font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--chalk);background:rgba(28,30,33,.75);padding:2px 8px;border-radius:6px}
+.walker{transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion:reduce){.walker,.street .layer{transition:none}}
+.toggle{display:inline-flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden;background:var(--paper)}
+.toggle button{border:0;background:transparent;color:var(--ink);font-family:var(--head);font-weight:600;font-size:17px;letter-spacing:.04em;text-transform:uppercase;padding:8px 16px;min-height:44px;cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.steps div{font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);border-top:4px solid var(--line);padding-top:6px}
+.steps div.on{color:var(--ink);border-top-color:var(--yellow)}
+.steps div.done{border-top-color:var(--ink)}
+/* forms */
+label.f{display:grid;gap:6px;font-weight:500;color:var(--ink)}
+label.f span.h{font-size:14px;font-weight:400;color:var(--ink-2)}
+input[type=text],input[type=number],select,textarea{width:100%;min-height:50px;border:2px solid var(--ink);border-radius:12px;padding:10px 14px;font:inherit;font-size:17px;background:var(--paper);color:var(--ink)}
+textarea{min-height:280px;line-height:1.45;font-size:15px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--yellow);outline-offset:1px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+/* answer tiles: chalk marks */
+.tiles{display:flex;flex-wrap:wrap;gap:8px}
+.tile{flex:1 1 100px;min-height:56px;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:2px solid var(--ink);border-radius:12px;background:var(--paper);color:var(--ink);font-family:var(--head);font-weight:600;font-size:19px;letter-spacing:.03em;text-transform:uppercase;cursor:pointer;padding:6px 10px}
+.tile svg{width:22px;height:22px;flex:0 0 auto}
+.tile[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.tile[aria-pressed="true"] svg{stroke:var(--bg)}
+.tile:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.tiles.five .tile{flex-basis:30%;font-size:16px}
+/* items */
+.item{background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:10px}
+.item.gate{border-color:var(--ink);background:var(--plot)}
+.item .num{display:flex;justify-content:space-between;gap:8px;font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.item .num .w{color:var(--ink);background:var(--yellow);padding:0 7px;border-radius:5px}
+.item .q{font-family:var(--head);font-weight:600;font-size:23px;line-height:1.15}
+.item .help{font-size:15px;color:var(--ink-2)}
+.item .moot{font-size:15px;color:var(--red);font-weight:500}
+.photo{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.photo label{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border-radius:999px;border:2px dashed var(--ink-2);font-size:15px;cursor:pointer;color:var(--ink);font-weight:500}
+.photo input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+.photo img{height:46px;width:46px;object-fit:cover;border-radius:8px;border:2px solid var(--ink)}
+.livebar{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--toph,58px));z-index:15;background:var(--bg);padding-block:8px 10px;display:grid;gap:6px}
+.livebar .meta{display:flex;justify-content:space-between;font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.bottombar{position:sticky;bottom:0;background:var(--bg);border-top:2px solid var(--ink);padding-block:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;z-index:10}
+.err{color:var(--red);font-weight:500}
+/* result */
+.result{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.signal{width:96px;height:auto;flex:0 0 auto}
+.score .n{font-family:var(--head);font-weight:700;font-size:clamp(72px,18vw,120px);line-height:.85;font-variant-numeric:tabular-nums;color:var(--ink)}
+.score .n.g{color:var(--green)} .score .n.a{color:var(--amber)} .score .n.r{color:var(--red)}
+.score .band{font-family:var(--head);font-weight:700;font-size:clamp(22px,5vw,30px);text-transform:uppercase;letter-spacing:.03em;line-height:1.05}
+.score .band.g{color:var(--green)} .score .band.a{color:var(--amber)} .score .band.r{color:var(--red)}
+.score .of{font-size:14px;color:var(--ink-2)}
+.gatechip{display:inline-flex;align-items:center;gap:6px;font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:6px;border:2px solid currentColor}
+.gatechip.ok{color:var(--green)} .gatechip.bad{color:var(--red)}
+.asks{display:grid;gap:12px;counter-reset:ask}
+.ask{position:relative;background:var(--paper);border:2px solid var(--ink);border-radius:12px;padding:14px 14px 14px 58px;display:grid;gap:6px}
+.ask::before{counter-increment:ask;content:counter(ask);position:absolute;left:12px;top:12px;width:34px;height:34px;border-radius:8px;background:var(--yellow);color:var(--yellow-ink);font-family:var(--head);font-weight:700;font-size:22px;display:grid;place-items:center}
+.ask .t{font-family:var(--head);font-weight:600;font-size:20px;display:flex;justify-content:space-between;gap:8px;line-height:1.1}
+.ask .t span{font-size:14px;color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.ask p{font-size:15px;color:var(--ink-2)}
+.ask p.std{font-size:13.5px}
+/* tables */
+.tbl{overflow-x:auto;border:2px solid var(--ink);border-radius:12px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{padding:10px 12px;border-bottom:1.5px solid var(--line);vertical-align:top;text-align:left}
+th{font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--plot)}
+tr:last-child td{border-bottom:0}
+td{color:var(--ink-2)} td.fg{color:var(--ink);font-weight:500}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap}
+.thumbs img{height:76px;width:76px;object-fit:cover;border-radius:8px;border:2px solid var(--ink)}
+.note{font-size:14px;color:var(--ink-2);border:2px dashed var(--line);border-radius:12px;padding:12px 14px}
+.saved{display:grid;gap:10px}
+.saved .row{background:var(--paper);border:2px solid var(--ink);border-radius:12px;padding:14px;display:grid;gap:8px}
+.saved .row .t{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.saved .row .t strong{font-family:var(--head);font-weight:600;font-size:20px;line-height:1.1}
+.scorepill{font-family:var(--head);font-weight:700;font-size:16px;letter-spacing:.04em;text-transform:uppercase;padding:2px 10px;border-radius:6px;border:2px solid currentColor;white-space:nowrap}
+.scorepill.g{color:var(--green)} .scorepill.a{color:var(--amber)} .scorepill.r{color:var(--red)}
+.channels{display:grid;gap:8px;font-size:15px}
+.channels div{background:var(--paper);border:2px solid var(--line);border-radius:12px;padding:12px 14px}
+.channels strong{font-weight:700;color:var(--ink)}
+a{color:var(--ink);text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:3px}
+a:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;border-radius:2px}
+footer .wrap{padding-block:18px;font-size:13.5px;color:var(--ink-2);display:grid;gap:6px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-family:var(--head);font-weight:600;font-size:17px;letter-spacing:.04em;text-transform:uppercase;z-index:40;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+.hero .wrap{padding-block:28px 32px;display:grid;gap:22px}
+.demo-cap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+
+/* ---------- obstacle palette ---------- */
+.palwrap{display:grid;gap:8px;padding:12px;border:2px dashed var(--ink-2);border-radius:12px;background:var(--plot)}
+.palette{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.palw{position:relative;min-width:0}
+.pal{width:100%;display:grid;grid-template-rows:auto auto;justify-items:center;gap:4px;padding:6px 4px 8px;border:2px solid var(--ink);border-radius:12px;background:var(--paper);color:var(--ink);font-family:var(--head);font-weight:600;font-size:14px;line-height:1.1;letter-spacing:.02em;text-transform:uppercase;cursor:pointer;text-align:center;transition:transform .08s}
+.pal:active{transform:scale(.96)}
+.pal span{display:block;max-width:100%;overflow-wrap:anywhere}
+.pal.has{background:var(--yellow);color:var(--yellow-ink)}
+.pal.sel{background:var(--ink);color:var(--bg)}
+.pal:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.obicon{width:64px;height:auto;border-radius:6px;overflow:hidden;border:1.5px solid var(--line)}
+.obicon.sm{width:40px}
+.badge{position:absolute;top:-8px;right:-6px;min-width:26px;height:26px;padding:0 7px;border-radius:999px;background:var(--ink);color:var(--bg);border:2px solid var(--bg);font-family:var(--head);font-weight:700;font-size:15px;display:grid;place-items:center;pointer-events:none}
+.badge.pop{animation:pop .3s ease-out}
+@keyframes pop{0%{transform:scale(.5)}60%{transform:scale(1.35)}100%{transform:scale(1)}}
+.minus{position:absolute;bottom:-10px;right:-8px;width:36px;height:36px;border-radius:999px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);font-family:var(--head);font-weight:700;font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
+.palsum{font-size:14px;color:var(--ink-2)}
+.palsum b{color:var(--ink)}
+.autonote{font-size:13.5px;color:var(--ink-2);font-style:italic}
+.obsrow{display:flex;flex-wrap:wrap;gap:8px}
+.obchip{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);border-radius:999px;padding:4px 12px 4px 4px;font-family:var(--head);font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.02em}
+.obchip .obicon{border-radius:999px;border:0}
+/* ---------- glossary ---------- */
+.gl{display:grid;grid-template-columns:minmax(120px,160px) 1fr;gap:16px;align-items:start}
+@media (max-width:480px){.gl{grid-template-columns:1fr}}
+.glpic svg{width:100%;height:auto;border:2px solid var(--ink);border-radius:12px;overflow:hidden;background:var(--s-paver)}
+.gltext{display:grid;gap:8px;min-width:0}
+.gltext dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:15px}
+.gltext dt{font-family:var(--head);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding-top:2px}
+.gltext dd{margin:0;color:var(--ink)}
+.sev{display:inline-block;font-family:var(--head);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;border-radius:6px;padding:1px 8px;border:2px solid currentColor}
+.sev.off{color:var(--red)} .sev.fall{color:var(--red)} .sev.narrow{color:var(--amber)} .sev.comfort{color:var(--ink-2)}
+/* ---------- motion ---------- */
+.street .ob{transform-box:fill-box;transform-origin:50% 100%}
+.street .ob.drop,.glpic .ob.drop{animation:drop .6s cubic-bezier(.2,.8,.3,1) both;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes drop{0%{transform:translateY(-80px) scale(.9);opacity:0}55%{transform:translateY(6px) scale(1.04);opacity:1}80%{transform:translateY(-3px) scale(1)}100%{transform:translateY(0) scale(1);opacity:1}}
+.walker .f2{opacity:0}
+.walker.moving .f1{animation:stepA .32s steps(1,end) infinite}
+.walker.moving .f2{animation:stepB .32s steps(1,end) infinite}
+@keyframes stepA{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes stepB{0%,49%{opacity:0}50%,100%{opacity:1}}
+.street.reveal::after{content:"";position:absolute;inset:0;background:var(--bg);transform-origin:right center;animation:wipe .85s cubic-bezier(.7,0,.3,1) forwards;pointer-events:none}
+@keyframes wipe{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.lampglow{transform-box:fill-box;transform-origin:center;animation:glow 2.6s ease-in-out infinite}
+@keyframes glow{0%,100%{opacity:1}50%{opacity:.75}}
+.signal .lamp{transform-box:fill-box;transform-origin:center;animation:lampon .55s .35s cubic-bezier(.2,.8,.3,1) both}
+@keyframes lampon{0%{opacity:.15;transform:scale(.5)}70%{opacity:1;transform:scale(1.12)}100%{opacity:1;transform:scale(1)}}
+.tile[aria-pressed="true"] svg path{stroke-dasharray:70;animation:write .4s ease-out both}
+@keyframes write{from{stroke-dashoffset:70}to{stroke-dashoffset:0}}
+.carx{animation:crawl 6s linear infinite}
+@keyframes crawl{from{transform:translateX(0)}to{transform:translateX(-22px)}}
+@media (prefers-reduced-motion:reduce){.street .ob.drop,.glpic .ob.drop,.walker.moving .f1,.walker.moving .f2,.street.reveal::after,.lampglow,.signal .lamp,.tile[aria-pressed="true"] svg path,.badge.pop,.carx{animation:none}}
+
+.btn.small{min-height:44px;font-size:16px;padding:0 16px}
+
+/* ---------- modes, location, end marker, why ---------- */
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.modecard{text-align:left;display:grid;gap:6px;padding:18px;border:2px solid var(--ink);border-radius:14px;background:var(--paper);color:var(--ink);cursor:pointer;font:inherit;transition:transform .08s}
+.modecard:active{transform:scale(.985)}
+.modecard .mk{display:inline-block;justify-self:start;font-family:var(--head);font-weight:700;font-size:15px;letter-spacing:.1em;text-transform:uppercase;background:var(--yellow);color:var(--yellow-ink);padding:1px 8px;border-radius:6px}
+.modecard b{font-family:var(--head);font-weight:700;font-size:28px;line-height:1;text-transform:uppercase}
+.modecard p{font-size:15px;color:var(--ink-2)}
+.modecard:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.modeline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.locbox{display:grid;gap:10px}
+.btn svg{width:20px;height:20px}
+.fix{display:flex;gap:12px;align-items:center;background:var(--paper);border:2px solid var(--ink);border-radius:12px;padding:12px 14px}
+.fix .fixc{font-family:var(--head);font-weight:700;font-size:24px;letter-spacing:.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.coordrow{display:flex;gap:8px;flex-wrap:wrap}
+.coordrow input{flex:1 1 180px}
+.endchip{display:inline-flex;align-items:center;gap:6px;font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--green);border:2px solid currentColor;border-radius:999px;padding:6px 12px}
+.endchip svg{width:16px;height:16px}
+details.why{border:1.5px dashed var(--line);border-radius:10px;padding:6px 12px;font-size:14.5px;color:var(--ink-2)}
+details.why summary{cursor:pointer;font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+details.why summary::before{content:"";width:8px;height:8px;border-right:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(-45deg);transition:transform .15s}
+details.why[open] summary::before{transform:rotate(45deg)}
+details.why summary::-webkit-details-marker{display:none}
+details.why p{margin-top:6px}
+.loc svg{width:14px;height:14px;vertical-align:-2px}
+.bottombar{justify-content:flex-start}
+.bottombar #to-card,.bottombar #to-card-q{margin-left:auto}
+.ask p.who{font-size:13.5px;color:var(--ink-2)}
+.ask p.who b{color:var(--ink)}
+.ask .t span{min-width:0}
+.ask .t span:first-child{white-space:normal}
+
+button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+@media (min-width:900px){.wrap{max-width:760px}.palette{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}}
+
+/* ---------- desktop composition ---------- */
+.two-up{display:grid;gap:18px}
+@media (min-width:1100px){
+  #v-learn .wrap{max-width:1080px}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px 56px;align-items:start}
+  .hero .wrap>.block:first-child{grid-column:1;grid-row:1}
+  .hero .wrap>.paper:nth-child(2){grid-column:2;grid-row:1;align-self:center}
+  .hero .wrap>*:nth-child(n+3){grid-column:1 / -1}
+  h1{font-size:clamp(44px,6vw,78px)}
+  .two-up{grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+  .two-up>*{min-width:0}
+  .palette{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+}
+
+.street .lbl{font-family:var(--head);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:3px;border:1.5px solid var(--ink-2)}
+
+/* ---------- Phase 1: record, share, counter ---------- */
+.counter{gap:12px}
+.cnt{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px 22px}
+.cntn{display:grid;gap:2px}
+.cntn .n{font-family:var(--head);font-weight:700;font-size:clamp(44px,9vw,64px);line-height:.95;font-variant-numeric:tabular-nums;color:var(--ink)}
+.cntn .n.r{color:var(--red)}
+.cntn .l{font-size:14px;color:var(--ink-2);line-height:1.3}
+.submit{border-style:dashed}
+.submit.done{border-style:solid;background:var(--plot)}
+label.f.check{grid-template-columns:auto 1fr;align-items:start;gap:10px;font-size:15px;color:var(--ink-2)}
+label.f.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--ink)}
+.sharecard{position:relative;max-width:360px;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:var(--paper);aspect-ratio:4/5}
+.sharecard img{display:block;width:100%;height:auto}
+.sharewait{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+/* ---------- awareness cards on the learn page ---------- */
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (min-width:700px){.cards{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.cardw{display:grid;gap:8px;min-width:0;align-content:start}
+.cardw .sharecard{max-width:none}
+.cardw .kicker{font-size:14px;letter-spacing:.1em}
+.cardw .btnrow{gap:6px}
+.cardw .btn.small{min-height:38px;font-size:15px;padding:0 12px;flex:1 1 auto}
+/* Hindi: Devanagari needs no tracking, and its matras need a little more room in the highlight and the condensed lines */
+:lang(hi) .kicker,:lang(hi) .tag,:lang(hi) .btn,:lang(hi) .top nav a,:lang(hi) .lang,:lang(hi) .tile,:lang(hi) .toggle button,:lang(hi) .steps div,:lang(hi) .scorepill,:lang(hi) .gatechip,:lang(hi) .mark,:lang(hi) .cardw .kicker{letter-spacing:.01em}
+:lang(hi) h1,:lang(hi) h2{line-height:1.12}
+:lang(hi) h1 .y{padding:.04em .12em .08em;line-height:1.12}
+:lang(hi) .quote p{line-height:1.35}
+.quote .gloss{font-size:16px;color:var(--ink-2);line-height:1.5}
+:lang(hi) .tbl table{min-width:560px}
+
+/* glossary detail lives inside the palette grid, under the tapped row */
+.palette>#gloss-detail{grid-column:1 / -1;margin:2px 0 6px}
+
+/* ---------- the legal ladder ---------- */
+.ladder{margin:0;padding:0;list-style:none;counter-reset:rung;display:grid}
+.ladder li{position:relative;margin-left:18px;padding:12px 0 14px 46px;border-left:4px solid var(--ink);color:var(--ink-2);font-size:16px;line-height:1.45}
+.ladder li::before{counter-increment:rung;content:counter(rung);position:absolute;left:-20px;top:10px;width:36px;height:36px;border-radius:8px;background:var(--yellow);color:var(--yellow-ink);border:2px solid var(--ink);font-family:var(--head);font-weight:700;font-size:20px;display:grid;place-items:center}
+.ladder li strong{color:var(--ink);font-weight:700}
+.ladder li:last-child{border-left-color:transparent}
+.ladder li:last-child::after{content:"";position:absolute;left:-4px;top:0;height:28px;width:4px;background:var(--ink)}
+.ladder .tag{margin-left:4px}
+@media (min-width:1100px){.ladder li{font-size:16.5px}}
+
+/* ---------- short home page ---------- */
+.numbers{gap:12px}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.step3{background:var(--paper);border:2px solid var(--ink);border-radius:14px;padding:16px;display:grid;gap:6px;align-content:start}
+.step3 .k{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:8px;background:var(--yellow);color:var(--yellow-ink);border:2px solid var(--ink);font-family:var(--head);font-weight:700;font-size:20px}
+.step3 b{font-family:var(--head);font-weight:600;font-size:22px;line-height:1.1}
+.step3 p{font-size:15px;color:var(--ink-2)}
+/* compact ladder on the law page */
+details.rung summary{cursor:pointer;list-style:none;display:block}
+details.rung summary::-webkit-details-marker{display:none}
+details.rung summary::after{content:"more";margin-left:8px;font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--yellow)}
+details.rung[open] summary::after{content:"less"}
+:lang(hi) details.rung summary::after{content:"और"}
+:lang(hi) details.rung[open] summary::after{content:"कम"}
+details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yellow);background:var(--paper);border-radius:0 10px 10px 0}
+
+/* 44 px tap targets on the card buttons; skip link for keyboard and screen-reader users */
+#cards button{min-height:44px}
+.skip{position:absolute;left:8px;top:-80px;z-index:60;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:10px;font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
+.skip:focus,.skip:focus-visible{top:8px;outline:3px solid var(--yellow);outline-offset:2px}
+
+/* ---------- secondary pages: map, report, moderation ---------- */
+.pagehead{display:grid;gap:8px}
+.pagehead h1{font-size:clamp(36px,8vw,64px)}
+/* map */
+.mapmain{display:grid;gap:0}
+.mapbar{background:var(--bg);border-bottom:2px solid var(--ink)}
+.mapbar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;padding-block:12px}
+.mapstat{display:grid;gap:0;min-width:120px}
+.mapstat .n{font-family:var(--head);font-weight:700;font-size:40px;line-height:.95;font-variant-numeric:tabular-nums}
+.mapstat .n.r{color:var(--red)}
+.mapstat .l{font-size:13px;color:var(--ink-2);line-height:1.25;max-width:22ch}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 12px;min-height:44px;font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.map{height:min(70vh,640px);min-height:380px;background:var(--plot2);border-bottom:2px solid var(--ink)}
+.map .leaflet-popup-content-wrapper{border-radius:12px;border:2px solid var(--ink);box-shadow:none;background:var(--paper);color:var(--ink);font-family:var(--body)}
+.map .leaflet-popup-content{margin:12px 14px;font-size:15px;line-height:1.4;min-width:220px}
+.map .leaflet-popup-tip{background:var(--paper);border:2px solid var(--ink);border-top:0;border-left:0}
+.map .leaflet-container{font-family:var(--body)}
+.map .leaflet-control-attribution{font-size:11px}
+.pop b{font-family:var(--head);font-weight:600;font-size:18px;line-height:1.1}
+.pop .obsrow{margin-top:6px}
+.pop .obchip{font-size:13px;padding:2px 10px 2px 2px}
+.pop .obicon.sm{width:30px}
+.pop .gatechip{font-size:13px;margin-top:6px}
+.pop img{display:block;width:100%;height:auto;border-radius:8px;border:2px solid var(--ink);margin-top:8px}
+.pop .btn.small{min-height:34px;font-size:14px;margin-top:8px}
+.mapfoot .wrap{display:grid;gap:10px;padding-block:16px 28px}
+.mapempty{position:absolute;inset:0;display:grid;place-items:center;z-index:400;pointer-events:none}
+.mapempty div{pointer-events:auto;background:var(--paper);border:2px solid var(--ink);border-radius:14px;padding:16px 20px;max-width:360px;text-align:center;font-size:15px;color:var(--ink-2)}
+.leaflet-marker-pane .pin{transition:transform .2s}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .map .leaflet-layer{filter:brightness(.82) contrast(1.05)}}
+/* report */
+.tiles4{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.stattile{background:var(--paper);border:2px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:2px}
+.stattile .n{font-family:var(--head);font-weight:700;font-size:38px;line-height:1;font-variant-numeric:tabular-nums}
+.stattile .l{font-size:13.5px;color:var(--ink-2);line-height:1.3}
+.bars{display:grid;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(120px,200px) 1fr auto;gap:10px;align-items:center;font-size:15px}
+.bar .t{color:var(--ink);font-weight:500;line-height:1.2}
+.bar .b{height:18px;background:var(--line);border-radius:4px;overflow:hidden}
+.bar .b i{display:block;height:100%;background:var(--ink);border-radius:4px}
+.bar .b i.r{background:var(--red)}
+.bar .n{font-family:var(--head);font-weight:700;font-size:18px;font-variant-numeric:tabular-nums;min-width:3ch;text-align:right}
+.pctcell{font-family:var(--head);font-weight:700;font-size:18px;font-variant-numeric:tabular-nums}
+.pctcell.r{color:var(--red)} .pctcell.g{color:var(--green)}
+.worst{display:grid;gap:8px}
+.worst .row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;background:var(--paper);border:2px solid var(--line);border-radius:12px;padding:10px 14px}
+.worst .k{font-family:var(--head);font-weight:700;font-size:22px;color:var(--ink-2);min-width:2ch}
+.worst .t{font-weight:500;line-height:1.2}
+.worst .t .small{display:block}
+.empty{font-size:15px;color:var(--ink-2);border:2px dashed var(--line);border-radius:12px;padding:14px 16px}
+@media print{header.top,.kerb,footer,.btnrow,.noprint{display:none!important}body{background:#fff;color:#000;padding:0}.paper,.stattile,.worst .row{border-color:#000}.wrap{max-width:none}}
+/* moderation */
+.modbar{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
+.modrow{background:var(--paper);border:2px solid var(--ink);border-radius:14px;padding:16px;display:grid;gap:10px}
+.modrow .head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.modrow .head b{font-family:var(--head);font-weight:600;font-size:22px;line-height:1.1}
+.modrow .meta{font-size:14px;color:var(--ink-2)}
+.modrow .ans{display:flex;flex-wrap:wrap;gap:6px}
+.modrow .ans span{font-size:13px;border:1.5px solid var(--line);border-radius:6px;padding:2px 8px;color:var(--ink-2)}
+.modrow .ans span.no{border-color:var(--red);color:var(--red)}
+.modrow .ans span.yes{border-color:var(--green);color:var(--green)}
+.modrow .ans span.partly{border-color:var(--amber);color:var(--amber)}
+.modrow .ph{display:flex;gap:8px;flex-wrap:wrap}
+.modrow .ph img{height:120px;width:auto;max-width:200px;object-fit:cover;border-radius:8px;border:2px solid var(--ink);cursor:zoom-in}
+.modrow .ph img.big{height:auto;width:100%;max-width:100%;cursor:zoom-out}
+.modrow .act{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.modrow .act input{flex:1 1 200px;min-height:40px}
+.modrow .st{font-family:var(--head);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;border:2px solid currentColor;border-radius:6px;padding:1px 8px}
+.st.pending{color:var(--amber)} .st.published{color:var(--green)} .st.rejected{color:var(--red)} .st.test{color:var(--ink-2)}
+.btn.danger{border-color:var(--red);color:var(--red)}
+.btn.ok{border-color:var(--green);color:var(--green)}
+/* roads to walk: the sampling frame on the map, the report and the assignment sheet */
+.roadsline{font-family:var(--head);font-weight:600;font-size:clamp(19px,3.4vw,24px);line-height:1.2;margin-top:2px;text-wrap:balance}
+.roadsline .small{display:block;font-family:var(--body);font-weight:400;margin-top:4px}
+.legend i.ln{width:24px;height:5px;border-radius:3px;border:0;background:var(--ink-2)}
+.legend i.ln.dash{background:repeating-linear-gradient(90deg,var(--ink-2) 0 3px,transparent 3px 8px)}
+.chip.alt[aria-pressed="true"]{background:var(--yellow);color:var(--yellow-ink);border-color:var(--ink)}
+.map .road{cursor:pointer}
+.wrap.wide{max-width:1080px}
+.roadtbl td.k{font-family:var(--head);font-weight:700;color:var(--ink-2)}
+.roadtbl td.fg .small{display:block;font-weight:400;max-width:34ch}
+.roadtbl th.blank,.roadtbl td.blank{min-width:112px;background:var(--plot)}
+.roadtbl td.blank.wide,.roadtbl th.blank.wide{min-width:170px}
+.roadtbl td.blank.tick,.roadtbl th.blank.tick{min-width:70px;text-align:center}
+.roadtbl tr.hl td{background:var(--yellow);color:var(--yellow-ink)}
+
+/* long unbreakable strings (endpoint URLs in code) must wrap on phones */
+code{overflow-wrap:anywhere}
+
+/* deaths on record */
+.legend i.dot.death{background:#1C1E21;border:2px solid #F3EFE6;box-shadow:0 0 0 1.5px #1C1E21;border-radius:999px}
+.pop.death p{margin:0}
+.pop.death .btn.small{min-height:36px}
+.map .death{cursor:pointer}
+#r-deaths td.q{font-style:italic;color:var(--ink);min-width:220px}
+#r-deaths td{vertical-align:top}
+#r-deaths td:nth-child(3){min-width:170px}
+
+/* the footpath game */
+.gamewrap{position:relative;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#2B2E33;touch-action:none;user-select:none;-webkit-user-select:none}
+.gamewrap canvas{display:block;width:100%;height:auto}
+.gstart{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap}
+.gctrl{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gctrl .btn{min-height:64px;font-size:24px;touch-action:none;user-select:none;-webkit-user-select:none}
+@media (min-width:900px){.gctrl{max-width:420px}}
+.gover h2{font-size:clamp(26px,6vw,40px)}
+
+</style>
+</head>
+<body>
+<noscript><p style="margin:16px;font:17px/1.5 system-ui">Right to Walk needs JavaScript for this page. Please enable it, or open the page in another browser.</p></noscript>
+<script>if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.hidden=true}}</script>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html">Right to Walk</a>
+    <nav>
+      <a href="index.html#check">Check a street</a>
+      <a href="map.html">Map</a>
+      <a href="law.html">The law</a>
+      <a href="game.html" aria-current="page">Game</a>
+    </nav>
+    <button class="lang" id="langbtn" type="button" aria-label="Switch language">हिंदी</button>
+  </div>
+  <div class="kerb"></div>
+</header>
+<main id="main">
+<section class="v" id="v-game">
+  <div class="wrap">
+    <div class="pagehead">
+      <span class="kicker"><b>Gurugram</b> · 30 px to the metre</span>
+      <h1 id="g-title">The footpath game</h1>
+      <p class="lead" id="g-sub">Walk 100 m without stepping onto the road. Tap or press space to jump. Hold the Duck button or the down arrow to duck. It is harder than it should be.</p>
+    </div>
+    <div class="gamewrap" id="g-wrap">
+      <canvas id="g-canvas" width="1000" height="300" aria-label="The footpath game: a walker, obstacles coming from the right, the road below" role="img"></canvas>
+      <button type="button" class="btn yellow gstart" id="g-start">Tap to start walking</button>
+    </div>
+    <div class="gctrl">
+      <button type="button" class="btn yellow" id="g-jump">Jump</button>
+      <button type="button" class="btn" id="g-duck">Duck</button>
+    </div>
+    <div class="paper gover" id="g-over" hidden>
+      <h2 id="g-over-h"></h2>
+      <p id="g-over-p"></p>
+      <p class="small" id="g-over-best"></p>
+      <div class="btnrow"><button type="button" class="btn yellow" id="g-again">Walk again</button><a class="btn" href="index.html#check" id="g-real">Check a real street</a><button type="button" class="btn" id="g-share">Share your distance</button></div>
+    </div>
+    <p class="small">Every obstacle in the game is one you can tap on a real check. The walker, the kerb and the road are the same drawing the check makes of your street. Nothing here is uploaded or recorded; your best distance stays on your phone.</p>
+  </div>
+</section>
+</main>
+<div class="kerb thin"></div>
+<footer><div class="wrap"><p>Right to Walk (righttowalk.life) is a Crashfree India prototype: the Footpath Check, Gurugram, method v1.0.</p></div></footer>
+
+<script>
+(function(){
+'use strict';
+// ---------- footpath problem types ----------
+// Reconciled 23 Oct 2026 against research_notes/.../footpath_problem_taxonomy.md (21-row taxonomy, 91 sources):
+// the twelve first-screen types that cover almost all counted cases, plus three second-screen types (more:true) for Gurugram realism.
+// Absence, discontinuity, height and dark zones are audit items 1, 9 and 8, not palette tiles.
+// sev: 'off' forces you onto the road · 'fall' trip, fall or injury hazard · 'narrow' narrows the path · 'comfort'
+const OBS=[
+ {id:'parked',en:'Parked vehicles',hi:'फुटपाथ पर पार्किंग, खड़ी गाड़ियाँ',sev:'off',
+  who:'Gurugram Traffic Police (challan, towing); MCG or GMDA for bollards',
+  rule:'Rules of the Road Regulations 1989, reg. 15(2)(ii): a driver shall not park on a footpath; IRC:103-2012 cl. 6.12: bollards with a clear gap of 1,200 mm',
+  fix:'Enforce regulation 15 (challan and tow) and fit kerb-edge bollards with a 1.2 m clear gap so vehicles cannot mount the footpath while wheelchairs pass',
+  desc:'Cars and two-wheelers parked on the footpath, usually at shops and markets. In ITDP’s Chennai audit parking was 40% of all obstructions counted, the largest single type.'},
+ {id:'vendor',en:'Vendor cart, kiosk or tin shed',hi:'रेहड़ी-पटरी, ठेला, खोखा, टीन शेड',sev:'off',
+  who:'MCG street-vending team and Town Vending Committee on MCG roads and markets; GMDA Enforcement on master roads; HSVP Estate Office in sector markets',
+  rule:'Street Vendors Act 2014 s.3(3) (no eviction before the survey), s.18 (30 days’ notice), s.28 (penalty up to ₹2,000); Haryana Municipal Street Vendors Act 2014 s.16; IRC:103-2012 cl. 6.11 and the 2022 draft cl. 6.10 (vending managed so it does not hinder pedestrians); Haryana Municipal Corporation Act 1994 s.408',
+  fix:'Mark a vending zone in the multi-utility strip and certify vendors through the Town Vending Committee; remove un-certified fixed structures after notice; keep the walking zone clear',
+  desc:'Vending is lawful and belongs in a designed vending zone; count a cart only when it leaves no way past. Permanent khokhas and tin sheds are different: GMDA’s 2026 survey counted 600 to 700 of them on Gurugram roads.'},
+ {id:'shop',en:'Shop or house spilling onto it',hi:'दुकान का सामान बाहर, काउंटर, चबूतरा, सीढ़ियाँ',sev:'narrow',
+  who:'MCG (s.408 notices, zonal enforcement teams); DTP Enforcement in licensed colonies; HSVP in sector markets; GMDA on master roads',
+  rule:'Haryana Municipal Corporation Act 1994 s.408 (removal of encroachments; 9,505 removals in Gurugram 2015 to 2023); IRC:103 walking-zone clearance',
+  fix:'Remove goods, counters, platforms and steps back to the building line and mark the frontage line',
+  desc:'Display goods, a counter, a raised platform, steps or a canopy that a shop or house extends over the footpath.'},
+ {id:'ramp',en:'Private ramp or fence over it',hi:'रैंप, ग्रिल, चारदीवारी, गार्ड रूम',sev:'off',
+  who:'DTP Enforcement in licensed colonies (DLF, Sushant Lok, Palam Vihar); MCG in taken-over colonies; HSVP in sectors; GMDA on master roads and drains',
+  rule:'IRC:103-2012: minimise driveways crossing the footpath and keep it continuous; 2022 draft: the footpath continues at one level across property entrances, with vehicle ramps inside the kerb zone; MCG public notice, Aug 2026: ramps cut carriageway width and cause waterlogging',
+  fix:'Demolish the ramp or fence, restore the footpath level and allow only a short driveway ramp inside the kerb zone',
+  desc:'Concrete ramps poured over the roadside drain, fences, lawns and guard cabins pushed onto public land. GMDA pulled down hundreds of ramps along 60 km in four days in 2026; DTP counted 650 in Palam Vihar alone.'},
+ {id:'electric',en:'Electric pole, box or transformer',hi:'बिजली का खंभा, ट्रांसफ़ॉर्मर, फ़ीडर पिलर, जंक्शन बॉक्स',sev:'off',
+  who:'DHBVN for poles, transformers and feeder pillars; the MCG or GMDA street-light wing and its contractors for lamp posts; the road owner coordinates shifting',
+  rule:'IRC:103-2012 cl. 6.1.3 and 6.1.4: no utility poles or electric, water or telecom boxes within the walking zone; Electricity Act 2003 s.67; Bombay High Court, April 2025: the convenience of service providers does not take precedence over pedestrian rights',
+  fix:'Relocate the pole, box or transformer to the multi-utility zone or underground it, and secure exposed wiring',
+  desc:'Utility hardware planted in the walking zone, often with exposed wiring. Bengaluru found 9,000 of its 45,000 transformers on footpaths in 2014; a Gurugram footpath electrocution near IFFCO Chowk metro was traced to a streetlight contractor.'},
+ {id:'green',en:'Tree or bushes in the path',hi:'पेड़ बीच में, झाड़ियाँ, नीची टहनियाँ, ट्री गार्ड',sev:'narrow',
+  who:'Horticulture wing of MCG (internal roads) or GMDA (master roads and green belts); HSVP Horticulture; felling needs Forest Department permission',
+  rule:'IRC:103-2012 cl. 6.1.4 (no trees or branches within the clear height and width) and cl. 6.1.10.2 (vegetation at least 2.2 m clear); 2022 draft: tree pits of about 1.8 × 1.8 m in the multi-utility zone with surmountable gratings',
+  fix:'Prune to 2.2 m clear height, re-align the walking zone around existing trees with level tree grates, and never cut the tree',
+  desc:'Trees planted in the walking zone, hedges grown across it, branches below head height. The fix is to design around the tree, not to remove it.'},
+ {id:'manhole',en:'Open manhole or drain',hi:'खुला मैनहोल, ढक्कन गायब, खुला नाला, स्लैब गायब',sev:'fall',
+  who:'The owner of the line: MCG for colony sewers (Public Health wing), GMDA for master sewers and the storm drains along master roads, HSVP in un-transferred sectors, NHAI for highway drains',
+  rule:'IRC:103-2012 cl. 6.1.8: service covers should not sit on footpaths and must be non-slip and flush; IS 1726:1991 and IS 12592:2002 cover grades; Delhi High Court (Mayur Vihar): the tragedy could have been avoided had the drain been covered and barricaded',
+  fix:'Cover immediately with the right grade of cover, flush with the surface and lockable; barricade until done; inspect the whole line',
+  desc:'An open, sunken or uncovered chamber or drain. NCRB counted 195 deaths from falls into manholes and sewers in 2024, up from 117 in 2023; Gurugram had over 500 open manholes reported in 2023. The most urgent item on this list.'},
+ {id:'slab',en:'Broken, uneven or missing tiles',hi:'टूटा फुटपाथ, उखड़ी टाइलें, गड्ढे, धँसी स्लैब',sev:'fall',
+  who:'Road owner: MCG on internal roads, GMDA on master roads, HSVP in sectors',
+  rule:'IRC:103-2012 cl. 6.1.6: a firm, even paved surface, gratings aligned across the direction of travel, joint gaps no more than 5 mm',
+  fix:'Re-lay firm, even paving, fix loose slabs so they cannot lift, and align gratings across the walking direction',
+  desc:'Pavers lifted, slabs sunk, potholes in the footpath. People trip, or step onto the road to avoid it.'},
+ {id:'dug',en:'Dug up and left',hi:'खुदा हुआ फुटपाथ, केबल की खुदाई, मिट्टी के ढेर',sev:'off',
+  who:'The utility that cut it (telecom contractor, gas, DHBVN, GMDA water or sewer) under a road-cutting permission from MCG or GMDA, which must enforce restoration',
+  rule:'Road-cutting permission conditions; IRC:103-2012 cl. 6.1.3 and 6.10: no utility ducts under the walking zone, ducts in the multi-utility zone',
+  fix:'Reinstate the original paving within the permission period and recover the cost from the utility’s deposit; put future lines in ducts under the multi-utility zone',
+  desc:'A trench opened for a cable or pipe and back-filled with rubble, or not at all.'},
+ {id:'waste',en:'Malba or garbage',hi:'मलबा, बिल्डिंग मटीरियल, कूड़ा, डंपिंग पॉइंट',sev:'narrow',
+  who:'MCG Sanitation (ward teams and the Sanitation Security Force) for garbage; the builder for construction malba, enforced by MCG and DTP; GMDA Enforcement on master roads',
+  rule:'Construction and Demolition Waste Management Rules 2016; Solid Waste Management Rules 2016; Haryana Municipal Corporation Act 1994 s.408; IRC:103-2012 cl. 3(iii): bins on one side of the footpath',
+  fix:'Clear the material, fine the dumper, send construction waste to the authorised facility and move bins to the furniture zone',
+  desc:'Sand, bricks and rubble stored by a site next door, or an informal dumping point that has taken over the path. In Mumbai’s August 2026 enforcement ledger, stored goods and structures outnumbered parked vehicles ten to one.'},
+ {id:'furniture',en:'Signboard, bus stop or furniture in the path',hi:'होर्डिंग, यूनिपोल, बस स्टॉप, शौचालय, पुल की सीढ़ियाँ',sev:'narrow',
+  who:'MCG Advertising Wing for boards (Haryana Municipal Advertisement Bye-laws 2022); GMDA for unipoles on its land; GMDA or MCG for bus shelters; GMDA or NHAI for foot-over-bridges',
+  rule:'IRC:103-2012 cl. 6.1.10.2 (obstacles below 2.2 m may project at most 100 mm) and cl. 6.11.4 (furniture placed in a straight line in the multi-utility zone)',
+  fix:'Move the board, shelter or stair landing into the furniture line with 2 m clear behind it, and remove unauthorised advertising',
+  desc:'Hoardings, unipoles, bus shelters, toilets, barricades and bridge staircases placed across the walking line instead of in the furniture zone. Gurugram had over 400 unipoles counted in 2024.'},
+ {id:'water',en:'Waterlogged or silted',hi:'जलभराव, कीचड़, गाद, सीवर ओवरफ़्लो',sev:'off',
+  who:'MCG for internal drains and sewers; GMDA for master drains',
+  rule:'IRC:103-2012 cl. 6.1.6: paving laid to even falls, with working drains',
+  fix:'Lay the paving to even falls, desilt and fix the drain or sewer',
+  desc:'Standing water, mud or sewer overflow that makes the path unusable after rain. Gurugram mapped 155 waterlogging hotspots in 2026.'},
+ {id:'riding',more:true,en:'Two-wheelers riding on it',hi:'फुटपाथ पर बाइक चलाना',sev:'fall',
+  who:'Gurugram Traffic Police',
+  rule:'Rules of the Road Regulations 1989, reg. 11: a driver shall not drive on a footpath except with police permission; Motor Vehicles Act s.184',
+  fix:'Fit bollards with a 1.2 m clear gap at the ends of the stretch and enforce regulation 11',
+  desc:'Riders use the pavement to bypass a jam; walkers have to step aside.'},
+ {id:'cattle',more:true,en:'Stray cattle or dogs',hi:'आवारा पशु, सांड, कुत्ते',sev:'fall',
+  who:'MCG veterinary wing (cattle helpline) and its catching agencies',
+  rule:'Municipal law on stray animals; MCG’s own survey put stray cattle at about 11,000',
+  fix:'Catch and shelter the animals and act against the dairies that release them',
+  desc:'Cattle gathering at gates and markets, or a shed built on the path; older residents avoid walking past.'},
+ {id:'shrine',more:true,en:'Shrine, statue or memorial',hi:'मंदिर, मज़ार, मूर्ति',sev:'narrow',
+  who:'District administration (Deputy Commissioner) with MCG or GMDA, under the state policy ordered by the Supreme Court',
+  rule:'Supreme Court order of 29 September 2009 (Union of India v. State of Gujarat): no new unauthorised religious structures on roads or pavements; extended to statues in 2013',
+  fix:'No new structures; review existing ones under the 2009 order and keep the walking zone clear around them',
+  desc:'A religious or memorial structure occupying the walkway.'}
+];
+const OBS_BY=Object.fromEntries(OBS.map(o=>[o.id,o]));
+const SEV_LBL={en:{off:'Forces you onto the road',fall:'Fall or injury hazard',narrow:'Narrows the path',comfort:'Comfort'},hi:{off:'सड़क पर उतरना पड़ता है',fall:'गिरने या चोट का ख़तरा',narrow:'रास्ता संकरा',comfort:'सुविधा'}};
+// glyphs are drawn against the footpath band: x = centre, b = 150 (kerb line); they rise from the bottom
+function obsGlyph(id,x,b){b=b||150;
+ const car=(cx)=>`<rect x="${cx-34}" y="${b-42}" width="68" height="32" rx="9" style="fill:var(--s-ink2)"/><rect x="${cx-22}" y="${b-56}" width="44" height="20" rx="7" style="fill:var(--s-ink2)"/><rect x="${cx-17}" y="${b-52}" width="14" height="11" rx="2" style="fill:var(--s-chalk);opacity:.7"/><rect x="${cx+3}" y="${b-52}" width="14" height="11" rx="2" style="fill:var(--s-chalk);opacity:.7"/><circle cx="${cx-20}" cy="${b-8}" r="8" style="fill:var(--s-ink)"/><circle cx="${cx+20}" cy="${b-8}" r="8" style="fill:var(--s-ink)"/>`;
+ const bike=(cx)=>`<circle cx="${cx-13}" cy="${b-9}" r="9" style="fill:none;stroke:var(--s-ink);stroke-width:3.5"/><circle cx="${cx+13}" cy="${b-9}" r="9" style="fill:none;stroke:var(--s-ink);stroke-width:3.5"/><path d="M${cx-13} ${b-9} L${cx-3} ${b-30} L${cx+8} ${b-30} L${cx+13} ${b-9} M${cx-3} ${b-30} L${cx-10} ${b-39} M${cx+8} ${b-30} L${cx+16} ${b-41} L${cx+21} ${b-41}" style="fill:none;stroke:var(--s-ink);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round"/><rect x="${cx-8}" y="${b-35}" width="18" height="8" rx="3" style="fill:var(--s-ink2)"/>`;
+ const tin=(cx,w,h)=>`<rect x="${cx-w/2}" y="${b-h}" width="${w}" height="${h}" style="fill:var(--s-ink2)"/>${[-2,-1,0,1,2].map(i=>`<path d="M${cx+i*(w/5)} ${b-h} V${b}" style="stroke:var(--s-ink);stroke-width:2;opacity:.55"/>`).join('')}<path d="M${cx-w/2-6} ${b-h} H${cx+w/2+6} L${cx+w/2} ${b-h-12} H${cx-w/2} Z" style="fill:var(--s-ink)"/>`;
+ const cart=(cx)=>`<rect x="${cx-24}" y="${b-42}" width="48" height="26" rx="4" style="fill:var(--s-ink2)"/><circle cx="${cx-12}" cy="${b-8}" r="8" style="fill:none;stroke:var(--s-ink);stroke-width:3.5"/><circle cx="${cx+12}" cy="${b-8}" r="8" style="fill:none;stroke:var(--s-ink);stroke-width:3.5"/><path d="M${cx} ${b-42} V${b-76}" style="stroke:var(--s-ink);stroke-width:3"/><path d="M${cx-34} ${b-68} A34 34 0 0 1 ${cx+34} ${b-68} Z" style="fill:var(--s-yellow);stroke:var(--s-ink);stroke-width:2"/><path d="M${cx-12} ${b-68} A12 24 0 0 1 ${cx+12} ${b-68}" style="fill:var(--s-red)"/>`;
+ const pole=(cx,h)=>`<rect x="${cx-4}" y="${b-h}" width="8" height="${h}" style="fill:var(--s-ink)"/><rect x="${cx-20}" y="${b-h+6}" width="40" height="5" style="fill:var(--s-ink)"/><circle cx="${cx-16}" cy="${b-h+2}" r="3.5" style="fill:var(--s-ink2)"/><circle cx="${cx+16}" cy="${b-h+2}" r="3.5" style="fill:var(--s-ink2)"/>`;
+ const box=(cx)=>`<rect x="${cx-26}" y="${b-50}" width="52" height="42" rx="3" style="fill:var(--s-ink2);stroke:var(--s-ink);stroke-width:2"/>${[-18,-9,0,9,18].map(i=>`<path d="M${cx+i} ${b-44} V${b-14}" style="stroke:var(--s-ink);stroke-width:2;opacity:.6"/>`).join('')}<rect x="${cx-30}" y="${b-8}" width="60" height="8" style="fill:var(--s-ink)"/><path d="M${cx-11} ${b-57} L${cx} ${b-77} L${cx+11} ${b-57} Z" style="fill:var(--s-yellow);stroke:var(--s-ink);stroke-width:2"/><path d="M${cx+2} ${b-73} L${cx-3} ${b-66} H${cx+2} L${cx-2} ${b-60}" style="fill:none;stroke:var(--s-ink);stroke-width:2.2;stroke-linecap:round"/>`;
+ const tree=(cx)=>`<rect x="${cx-7}" y="${b-40}" width="14" height="40" style="fill:var(--s-dirt2)"/><circle cx="${cx}" cy="${b-62}" r="26" style="fill:var(--s-tree)"/><circle cx="${cx-17}" cy="${b-50}" r="15" style="fill:var(--s-tree)"/><circle cx="${cx+17}" cy="${b-52}" r="15" style="fill:var(--s-tree)"/>`;
+ const bush=(cx)=>`<ellipse cx="${cx-14}" cy="${b-12}" rx="18" ry="12" style="fill:var(--s-tree)"/><ellipse cx="${cx+8}" cy="${b-18}" rx="22" ry="16" style="fill:var(--s-tree)"/><path d="M${cx} ${b-30} l-5 -16 M${cx+12} ${b-32} l4 -18" style="stroke:var(--s-tree);stroke-width:4;stroke-linecap:round"/>`;
+ const board=(cx)=>`<rect x="${cx-30}" y="${b-84}" width="60" height="38" style="fill:var(--s-chalk);stroke:var(--s-ink);stroke-width:3"/><rect x="${cx-22}" y="${b-76}" width="34" height="7" style="fill:var(--s-red)"/><rect x="${cx-22}" y="${b-64}" width="46" height="5" style="fill:var(--s-ink2)"/><rect x="${cx-22}" y="${b-56}" width="26" height="5" style="fill:var(--s-ink2)"/><rect x="${cx-4}" y="${b-46}" width="8" height="46" style="fill:var(--s-ink)"/>`;
+ const shelter=(cx)=>`<rect x="${cx-36}" y="${b-70}" width="72" height="9" style="fill:var(--s-ink)"/><rect x="${cx-30}" y="${b-61}" width="6" height="61" style="fill:var(--s-ink)"/><rect x="${cx+24}" y="${b-61}" width="6" height="61" style="fill:var(--s-ink)"/><rect x="${cx-22}" y="${b-28}" width="44" height="7" style="fill:var(--s-ink2)"/><rect x="${cx-18}" y="${b-21}" width="5" height="21" style="fill:var(--s-ink2)"/><rect x="${cx+13}" y="${b-21}" width="5" height="21" style="fill:var(--s-ink2)"/><rect x="${cx-16}" y="${b-57}" width="32" height="20" style="fill:var(--s-chalk);opacity:.7"/>`;
+ switch(OBS_BY[id]?id:'waste'){
+  case 'parked':return car(x-14)+bike(x+36);
+  case 'vendor':return tin(x+26,46,56)+cart(x-18);
+  case 'shop':return `<rect x="${x-32}" y="${b-52}" width="64" height="52" style="fill:var(--s-plot2);stroke:var(--s-ink);stroke-width:2"/><path d="M${x-40} ${b-50} H${x+40} L${x+32} ${b-68} H${x-32} Z" style="fill:var(--s-red)"/>${[-30,-15,0,15,30].map(i=>`<path d="M${x+i} ${b-50} V${b-68}" style="stroke:var(--s-chalk);stroke-width:3;opacity:.8"/>`).join('')}<rect x="${x-26}" y="${b-30}" width="18" height="18" style="fill:var(--s-ink2)"/><rect x="${x-4}" y="${b-24}" width="24" height="12" style="fill:var(--s-ink2)"/><rect x="${x+2}" y="${b-40}" width="16" height="12" style="fill:var(--s-ink)"/><rect x="${x+34}" y="${b-10}" width="24" height="10" style="fill:var(--s-plot2);stroke:var(--s-ink);stroke-width:2"/>`;
+  case 'ramp':return `<path d="M${x-44} ${b} L${x+44} ${b} L${x+44} ${b-26} L${x-44} ${b-6} Z" style="fill:var(--s-plot2);stroke:var(--s-ink);stroke-width:2"/>${[-30,-10,10,30].map((i,k)=>`<path d="M${x+i} ${b-(9+k*4.7)} V${b}" style="stroke:var(--s-ink);stroke-width:2;opacity:.5"/>`).join('')}<path d="M${x-44} ${b-6} L${x+44} ${b-26}" style="stroke:var(--s-ink);stroke-width:3"/><path d="M${x+20} ${b-28} V${b-60} M${x+32} ${b-30} V${b-60} M${x+44} ${b-26} V${b-60} M${x+16} ${b-56} H${x+48}" style="stroke:var(--s-ink);stroke-width:3"/>`;
+  case 'electric':return pole(x-32,100)+box(x+14);
+  case 'green':return tree(x-14)+bush(x+26);
+  case 'manhole':return `<ellipse cx="${x}" cy="${b-6}" rx="22" ry="9" style="fill:var(--s-ink)"/><ellipse cx="${x+26}" cy="${b-16}" rx="20" ry="8" style="fill:var(--s-ink2);stroke:var(--s-ink);stroke-width:2;transform-box:fill-box;transform-origin:center;transform:rotate(-20deg)"/><path d="M${x-30} ${b-30} L${x-12} ${b-30} M${x-21} ${b-39} L${x-21} ${b-21}" style="stroke:var(--s-red);stroke-width:4;stroke-linecap:round"/>`;
+  case 'slab':return `<rect x="${x-26}" y="${b-14}" width="52" height="14" style="fill:var(--s-ink)"/><path d="M${x-34} ${b-14} L${x-26} ${b-24} L${x-14} ${b-14} Z M${x+6} ${b-14} L${x+14} ${b-28} L${x+30} ${b-14} Z" style="fill:var(--s-plot2);stroke:var(--s-ink);stroke-width:2"/><path d="M${x-8} ${b-6} h12" style="stroke:var(--s-ink2);stroke-width:2"/>`;
+  case 'dug':return `<rect x="${x-40}" y="${b-12}" width="80" height="12" style="fill:var(--s-dirt2)"/><ellipse cx="${x+22}" cy="${b-16}" rx="24" ry="12" style="fill:var(--s-dirt)"/><path d="M${x-44} ${b-30} H${x+44}" style="stroke:var(--s-red);stroke-width:6;stroke-dasharray:10 8"/><rect x="${x-46}" y="${b-50}" width="4" height="50" style="fill:var(--s-ink)"/><rect x="${x+42}" y="${b-50}" width="4" height="50" style="fill:var(--s-ink)"/>`;
+  case 'waste':return `<path d="M${x-40} ${b} L${x-24} ${b-32} L${x-8} ${b-20} L${x+4} ${b-40} L${x+26} ${b} Z" style="fill:var(--s-dirt2)"/><rect x="${x-16}" y="${b-16}" width="13" height="7" style="fill:var(--s-red)"/><rect x="${x-1}" y="${b-16}" width="13" height="7" style="fill:var(--s-red)"/><rect x="${x-9}" y="${b-24}" width="13" height="7" style="fill:var(--s-red)"/><ellipse cx="${x+36}" cy="${b-12}" rx="16" ry="12" style="fill:var(--s-ink)"/><ellipse cx="${x+26}" cy="${b-26}" rx="12" ry="9" style="fill:var(--s-ink2)"/>`;
+  case 'furniture':return shelter(x-14)+board(x+36);
+  case 'water':return `<ellipse cx="${x}" cy="${b-8}" rx="46" ry="9" style="fill:var(--s-water)"/><path d="M${x-26} ${b-9} q6 -4 12 0 q6 4 12 0 M${x+2} ${b-6} q6 -4 12 0" style="fill:none;stroke:var(--s-chalk);stroke-width:2;opacity:.8"/>`;
+  case 'riding':return bike(x+6)+`<path d="M${x-40} ${b-30} H${x-24} M${x-44} ${b-20} H${x-26} M${x-38} ${b-10} H${x-26}" style="stroke:var(--s-ink2);stroke-width:3;stroke-linecap:round"/><circle cx="${x+10}" cy="${b-54}" r="6" style="fill:var(--s-ink)"/><path d="M${x+10} ${b-48} L${x+6} ${b-34} M${x+10} ${b-46} L${x+20} ${b-41}" style="stroke:var(--s-ink);stroke-width:4;stroke-linecap:round"/>`;
+  case 'cattle':return `<ellipse cx="${x}" cy="${b-30}" rx="34" ry="18" style="fill:var(--s-ink2)"/><rect x="${x+24}" y="${b-50}" width="22" height="22" rx="8" style="fill:var(--s-ink2)"/><path d="M${x+28} ${b-50} l-4 -10 M${x+42} ${b-50} l4 -10" style="stroke:var(--s-ink);stroke-width:3;stroke-linecap:round"/>${[-26,-10,8,22].map(i=>`<rect x="${x+i}" y="${b-16}" width="6" height="16" style="fill:var(--s-ink)"/>`).join('')}`;
+  case 'shrine':return `<rect x="${x-30}" y="${b-40}" width="60" height="40" style="fill:var(--s-plot2);stroke:var(--s-ink);stroke-width:2"/><path d="M${x-30} ${b-40} Q${x} ${b-88} ${x+30} ${b-40} Z" style="fill:var(--s-yellow);stroke:var(--s-ink);stroke-width:2"/><path d="M${x} ${b-70} V${b-100} L${x+16} ${b-94} L${x} ${b-88}" style="fill:var(--s-red);stroke:var(--s-ink);stroke-width:1.5"/><rect x="${x-8}" y="${b-24}" width="16" height="24" style="fill:var(--s-ink)"/>`;
+  default:return `<path d="M${x-30} ${b} L${x-10} ${b-30} L${x+10} ${b-16} L${x+30} ${b} Z" style="fill:var(--s-dirt2)"/>`}
+}
+// stand-alone icon with a slice of footpath and kerb under it
+function obsIcon(id,cls){return `<svg class="${cls||'obicon'}" viewBox="0 30 100 140" aria-hidden="true"><rect x="0" y="30" width="100" height="120" style="fill:var(--s-paver)"/><path d="M0 70H100M0 110H100M50 30V70M25 70V110M75 70V110M50 110V150" style="stroke:var(--s-line);stroke-width:1.5"/>${obsGlyph(id,50,150)}<rect x="0" y="150" width="50" height="12" style="fill:var(--s-yellow)"/><rect x="50" y="150" width="50" height="12" style="fill:var(--s-ink)"/><rect x="0" y="162" width="100" height="8" style="fill:var(--s-asphalt)"/></svg>`}
+
+// ---------- the footpath game: walk 100 m of a Gurugram footpath without stepping onto the road ----------
+// Chrome-dinosaur rules on our own street: the walker from the drawn strip, the obstacles from the palette (obs.js),
+// tap to jump, hold to duck. Everything is drawn on a canvas from SVG the site already has; nothing is loaded from anywhere.
+const TOK={paver:'#E6E1D6',line:'#CFC9BC',ink:'#1C1E21',ink2:'#5B5A54',plot:'#F6F3EC',plot2:'#CFC7B8',asphalt:'#2B2E33',chalk:'#FFFFFF',dirt:'#C9B08A',dirt2:'#B39A74',tree:'#6E8B3D',glow:'#FFD24D',water:'#8DB9DA',yellow:'#FFC72C','yellow-ink':'#1C1E21',red:'#DE3A2F',amber:'#EE8B22',green:'#1FAE5A',bg:'#EFEBE3'};
+const GS={
+ en:{title:'The footpath game',sub:'Walk 100 m without stepping onto the road. Tap or press space to jump. Hold the Duck button or the down arrow to duck. It is harder than it should be.',start:'Tap to start walking',jump:'Jump',duck:'Duck',m:'m',best:'best',over:'You stepped onto the road at',passed:'100 m without stepping onto the road. The Court’s test: passed.',again:'Walk again',real:'Check a real street',share:'Share your distance',shared:'Copied',sharetext:(m)=>`I walked ${m} m of a Gurugram footpath before it put me on the road. The Supreme Court’s test is 100 m. Try it: https://righttowalk.life/game.html`,
+  joke:{parked:'A car parked across the footpath. It is “just for two minutes”.',vendor:'A chai stall. Honestly, worth stopping for. Still not a footpath.',shop:'The shop’s goods have spread to the kerb. So has the shop.',ramp:'A private ramp. The house is private. The footpath was not.',manhole:'An open manhole. The one thing on this footpath that is not funny.',slab:'A missing slab. The paver is now in somebody’s garden.',dug:'Dug up for a cable in 2024. The cable is fine.',waste:'Malba. Somebody’s bathroom is being renovated, on your footpath.',water:'Waterlogged. The drain is under the hoarding.',cattle:'A cow. She has right of way. Legally debatable, practically settled.',riding:'A scooter on the footpath. He is “just going a little ahead”.',shrine:'A shrine. Divine intervention does not cover footpaths.',wire:'A cable at head height. The pole is on the footpath too.',branch:'A branch at head height. The tree was here first; the footpath should have gone around it.',hoarding:'A hoarding at head height, selling 4 BHK luxury living facing the road you now stand on.',road:'You stepped onto the road. So does everyone. That is the point.'}},
+ hi:{title:'फुटपाथ का खेल',sub:'सड़क पर उतरे बिना 100 मीटर चलें। कूदने के लिए टैप करें या स्पेस दबाएँ। झुकने के लिए “झुकें” बटन या नीचे वाला तीर दबाए रखें। यह जितना होना चाहिए, उससे मुश्किल है।',start:'चलना शुरू करने के लिए टैप करें',jump:'कूदें',duck:'झुकें',m:'मी',best:'सबसे ज़्यादा',over:'आप सड़क पर उतर गए',passed:'सड़क पर उतरे बिना 100 मीटर। कोर्ट की कसौटी: पास।',again:'फिर चलें',real:'असली सड़क जाँचें',share:'अपनी दूरी साझा करें',shared:'कॉपी हो गया',sharetext:(m)=>`मैं गुरुग्राम के फुटपाथ पर ${m} मीटर चला, फिर उसने मुझे सड़क पर उतार दिया। सुप्रीम कोर्ट की कसौटी 100 मीटर है। आज़माएँ: https://righttowalk.life/game.html`,
+  joke:{parked:'फुटपाथ पर आड़ी खड़ी गाड़ी। “बस दो मिनट के लिए”।',vendor:'चाय की दुकान। सच कहें तो रुकने लायक। फिर भी फुटपाथ नहीं।',shop:'दुकान का सामान कर्ब तक फैल गया। दुकान भी।',ramp:'निजी रैंप। घर निजी है। फुटपाथ नहीं था।',manhole:'खुला मैनहोल। इस फुटपाथ पर एक यही चीज़ है जो मज़ाक नहीं है।',slab:'गायब स्लैब। पेवर अब किसी के बग़ीचे में है।',dug:'2024 में केबल के लिए खोदा गया। केबल ठीक है।',waste:'मलबा। किसी का बाथरूम बन रहा है, आपके फुटपाथ पर।',water:'जलभराव। नाली होर्डिंग के नीचे है।',cattle:'एक गाय। रास्ता उसका है। क़ानूनन बहस है, व्यवहार में तय।',riding:'फुटपाथ पर स्कूटर। “बस थोड़ा आगे जा रहा हूँ”।',shrine:'एक मंदिर। ईश्वरीय कृपा फुटपाथ तक नहीं पहुँचती।',wire:'सिर की ऊँचाई पर तार। खंभा भी फुटपाथ पर है।',branch:'सिर की ऊँचाई पर टहनी। पेड़ पहले से था; फुटपाथ को घूमकर जाना चाहिए था।',hoarding:'सिर की ऊँचाई पर होर्डिंग, 4 BHK लग्ज़री बेच रही है, उसी सड़क की ओर जिस पर अब आप खड़े हैं।',road:'आप सड़क पर उतर गए। सब उतरते हैं। बात यही है।'}}
+};
+let lang=(()=>{try{return localStorage.getItem('fc_lang')||'en'}catch(e){return 'en'}})();if(!GS[lang])lang='en';
+const T=k=>GS[lang][k];
+const $=id=>document.getElementById(id);
+const W=1000,H=300,GROUND=200,WX=150,PXM=30;let VW=W;   // canvas units; footpath surface; walker x; px per metre
+const GROUNDOBS=[['parked',96,58],['vendor',100,76],['shop',84,68],['ramp',90,48],['manhole',56,22],['slab',66,30],['dug',92,32],['waste',70,42],['water',94,14],['cattle',84,52],['riding',64,62],['shrine',64,92]];
+const OVEROBS=[['wire',80],['branch',76],['hoarding',90]];
+const svgTok=s=>s.replace(/var\(--s-([a-z0-9-]+)\)/g,(m,k)=>TOK[k]||'#000');
+function img(svg){return new Promise(res=>{const i=new Image();i.onload=()=>res(i);i.onerror=()=>res(null);i.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)})}
+// ---- drawings: the palette glyphs sit on a baseline b with x at centre; we render each into a 200 x 160 image ----
+function groundSVG(id){return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" width="200" height="160">${svgTok(obsGlyph(id,100,150))}</svg>`}
+function overSVG(id){const b=150;let g='';
+ if(id==='wire')g=`<rect x="12" y="${b-150}" width="8" height="150" fill="${TOK.ink}"/><rect x="180" y="${b-150}" width="8" height="150" fill="${TOK.ink}"/><rect x="0" y="${b-148}" width="32" height="5" fill="${TOK.ink}"/><rect x="168" y="${b-148}" width="32" height="5" fill="${TOK.ink}"/>${[0,8,16,24,32,40].map(d=>`<path d="M16 ${b-144+d} Q100 ${b-20+d*0.6} 184 ${b-144+d}" fill="none" stroke="${d%16?TOK.ink2:TOK.ink}" stroke-width="3"/>`).join('')}<rect x="84" y="${b-96}" width="32" height="22" rx="3" fill="${TOK.ink2}" stroke="${TOK.ink}" stroke-width="2"/><path d="M94 ${b-91} l6 6 l-6 6" fill="none" stroke="${TOK.yellow}" stroke-width="2"/>`;
+ else if(id==='branch')g=`<rect x="170" y="${b-150}" width="18" height="150" fill="${TOK.dirt2}"/><path d="M178 ${b-120} Q120 ${b-100} 40 ${b-70}" fill="none" stroke="${TOK.dirt2}" stroke-width="10" stroke-linecap="round"/><ellipse cx="70" cy="${b-78}" rx="52" ry="26" fill="${TOK.tree}"/><ellipse cx="110" cy="${b-108}" rx="50" ry="28" fill="${TOK.tree}"/><ellipse cx="60" cy="${b-120}" rx="44" ry="24" fill="${TOK.tree}"/><circle cx="170" cy="${b-140}" r="34" fill="${TOK.tree}"/>`;
+ else g=`<rect x="20" y="${b-150}" width="10" height="150" fill="${TOK.ink}"/><rect x="170" y="${b-150}" width="10" height="150" fill="${TOK.ink}"/><rect x="10" y="${b-150}" width="180" height="100" fill="${TOK.chalk}" stroke="${TOK.ink}" stroke-width="4"/><rect x="24" y="${b-134}" width="90" height="14" fill="${TOK.red}"/><rect x="24" y="${b-110}" width="150" height="9" fill="${TOK.ink2}"/><rect x="24" y="${b-94}" width="120" height="9" fill="${TOK.ink2}"/><rect x="24" y="${b-78}" width="80" height="9" fill="${TOK.yellow}"/><rect x="24" y="${b-64}" width="150" height="6" fill="${TOK.ink2}"/>`;
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" width="200" height="160">${g}</svg>`}
+function walkerSVG(pose,color){const c=color||TOK.ink;let body='';
+ if(pose==='walk1')body=`<circle cx="0" cy="-29" r="7" fill="${c}"/><path d="M0 -21V-2 M0 -20L-10 -8M0 -20L10 -10 M0 -2L-9 14M0 -2L9 14" stroke="${c}" stroke-width="5" stroke-linecap="round" fill="none"/>`;
+ else if(pose==='walk2')body=`<circle cx="0" cy="-29" r="7" fill="${c}"/><path d="M0 -21V-2 M0 -20L-4 -6M0 -20L6 -4 M0 -2L-3 15M0 -2L4 15" stroke="${c}" stroke-width="5" stroke-linecap="round" fill="none"/>`;
+ else if(pose==='jump')body=`<circle cx="0" cy="-31" r="7" fill="${c}"/><path d="M0 -23V-4 M0 -22L-11 -14M0 -22L11 -16 M0 -4L-9 4L-4 12 M0 -4L8 3L4 12" stroke="${c}" stroke-width="5" stroke-linecap="round" fill="none"/>`;
+ else if(pose==='duck')body=`<circle cx="4" cy="-18" r="7" fill="${c}"/><path d="M2 -11L-2 -2 M0 -8L-9 -3M0 -8L9 -5 M-2 -2L-10 10M-2 -2L8 10" stroke="${c}" stroke-width="5" stroke-linecap="round" fill="none"/>`;
+ else body=`<circle cx="0" cy="-29" r="7" fill="${c}"/><path d="M0 -21V-2 M0 -20L-7 -6M0 -20L7 -6 M0 -2L-4 14M0 -2L4 14" stroke="${c}" stroke-width="5" stroke-linecap="round" fill="none"/>`;
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-22 -44 44 62" width="88" height="124">${body}</svg>`}
+const IMG={};
+async function loadAll(){const jobs=[];for(const [id] of GROUNDOBS)jobs.push(img(groundSVG(id)).then(i=>IMG[id]=i));for(const [id] of OVEROBS)jobs.push(img(overSVG(id)).then(i=>IMG[id]=i));for(const p of ['walk1','walk2','jump','duck','stand'])jobs.push(img(walkerSVG(p)).then(i=>IMG['w_'+p]=i));jobs.push(img(walkerSVG('stand',TOK.red)).then(i=>IMG.w_fallen=i));await Promise.all(jobs)}
+// ---- state ----
+let cv,ctx,scale=1,state='idle',t0=0,last=0,dist=0,speed=0,obs=[],nextAt=0,wy=0,vy=0,ducking=false,walkT=0,hit=null,best=0,flash=0,car=null,passedShown=false,raf=0;
+const G=2400,V0=-760;
+function reset(){dist=0;speed=300;obs=[];nextAt=700;wy=0;vy=0;ducking=false;walkT=0;hit=null;flash=0;passedShown=false;car={x:VW+200,v:0}}
+function spawn(){const over=Math.random()<0.28&&dist>900;let o;if(over){const [id,w]=OVEROBS[Math.floor(Math.random()*OVEROBS.length)];o={id,kind:'over',x:VW+120,w,h:98}}else{const [id,w,h]=GROUNDOBS[Math.floor(Math.random()*GROUNDOBS.length)];o={id,kind:'ground',x:VW+120,w,h}}obs.push(o);
+ const gentle=dist<2400?220:0;nextAt=dist+gentle+360+Math.random()*420+speed*0.55}
+function walkerBox(){const h=ducking&&wy===0?46:82;return {x:WX-16,y:GROUND-h-(-wy),w:32,h}}   // wy is negative when in the air (canvas y up is smaller)
+function obsBox(o){if(o.kind==='over')return {x:o.x-o.w/2,y:GROUND-150,w:o.w,h:98};return {x:o.x-o.w/2,y:GROUND-o.h,w:o.w,h:o.h}}
+function overlap(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}
+function metres(){return Math.floor(dist/PXM)}
+function jump(){if(state==='idle'){start();return}if(state==='over'){start();return}if(wy===0&&!ducking){vy=V0;wy=-0.01}}
+function start(){reset();state='running';last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop);$('g-over').hidden=true;$('g-start').hidden=true}
+function gameOver(id){state='over';hit=id;const m=metres();if(m>best){best=m;try{localStorage.setItem('fc_game_best',String(best))}catch(e){}}
+ const box=$('g-over');box.hidden=false;$('g-over-h').textContent=`${T('over')} ${m} ${T('m')}`;$('g-over-p').textContent=T('joke')[id]||T('joke').road;$('g-over-best').textContent=`${T('best')}: ${best} ${T('m')}`;$('g-share').hidden=!m;drawFrame()}
+function loop(now){if(state!=='running')return;const dt=Math.min(0.05,(now-last)/1000);last=now;
+ speed=Math.min(640,speed+8*dt);dist+=speed*dt;walkT+=dt;
+ if(wy<0||vy<0){vy+=G*dt;wy+=vy*dt;if(wy>=0){wy=0;vy=0}}
+ for(const o of obs)o.x-=speed*dt;obs=obs.filter(o=>o.x>-160);
+ if(dist>=nextAt)spawn();
+ if(car){car.x-=(speed*1.7+120)*dt;if(car.x<-200)car.x=VW+400+Math.random()*1200}
+ if(!passedShown&&metres()>=100){passedShown=true;flash=2.2}
+ if(flash>0)flash-=dt;
+ const wb=walkerBox();for(const o of obs){if(overlap(wb,obsBox(o))){gameOver(o.id);return}}
+ drawFrame();raf=requestAnimationFrame(loop)}
+function drawFrame(){const c=ctx;c.setTransform(scale,0,0,scale,0,0);c.clearRect(0,0,VW,H);
+ c.fillStyle=TOK.plot;c.fillRect(0,0,VW,40);
+ // pavers, scrolling
+ c.fillStyle=TOK.paver;c.fillRect(0,40,VW,GROUND-40);c.strokeStyle=TOK.line;c.lineWidth=1.5;const off=-(dist%40);c.beginPath();for(let y=40;y<=GROUND;y+=22){c.moveTo(0,y);c.lineTo(VW,y)}for(let x=off;x<VW+40;x+=40){for(let y=40,k=0;y<GROUND;y+=22,k++){const sx=x+(k%2?20:0);c.moveTo(sx,y);c.lineTo(sx,Math.min(y+22,GROUND))}}c.stroke();
+ // kerb and road
+ for(let x=-(dist%80);x<VW+80;x+=80){c.fillStyle=TOK.yellow;c.fillRect(x,GROUND,40,12);c.fillStyle=TOK.ink;c.fillRect(x+40,GROUND,40,12)}
+ c.fillStyle=TOK.asphalt;c.fillRect(0,GROUND+12,VW,H-GROUND-12);c.strokeStyle=TOK.chalk;c.globalAlpha=.55;c.lineWidth=3;c.setLineDash([40,30]);c.lineDashOffset=dist%70;c.beginPath();c.moveTo(0,GROUND+56);c.lineTo(VW,GROUND+56);c.stroke();c.setLineDash([]);c.globalAlpha=1;
+ // a car on the road
+ if(car){const x=car.x;c.fillStyle=TOK.chalk;c.globalAlpha=.85;c.beginPath();c.roundRect(x,GROUND+66,70,26,8);c.fill();c.beginPath();c.roundRect(x+12,GROUND+58,42,14,5);c.fill();c.globalAlpha=1;c.fillStyle=TOK.ink;c.beginPath();c.arc(x+16,GROUND+94,7,0,7);c.arc(x+54,GROUND+94,7,0,7);c.fill()}
+ // obstacles
+ for(const o of obs){const im=IMG[o.id];if(im)c.drawImage(im,o.x-100,GROUND-150,200,160);if(o.kind==='over'){/* the hazard band is drawn in the image */}}
+ // walker
+ let pose='stand';if(state==='running'){pose=wy<0?'jump':(ducking?'duck':(Math.floor(walkT*8)%2?'walk1':'walk2'))}
+ if(state==='over'){const im=IMG.w_fallen;c.strokeStyle=TOK.red;c.lineWidth=4;c.setLineDash([8,6]);c.beginPath();c.moveTo(WX,GROUND-40);c.quadraticCurveTo(WX+40,GROUND+10,WX+70,GROUND+70);c.stroke();c.setLineDash([]);if(im)c.drawImage(im,WX+70-44,GROUND+74-124+32,88,124);c.fillStyle=TOK.red;c.font='700 22px Khand, sans-serif';c.fillText('HONK',car?Math.max(20,Math.min(VW-90,car.x)):VW-120,GROUND+50)}
+ else{const im=IMG['w_'+pose];if(im)c.drawImage(im,WX-44,GROUND+wy-124+32,88,124)}
+ // HUD
+ c.fillStyle=TOK.ink;c.font='700 26px Khand, sans-serif';c.textAlign='right';c.fillText(`${metres()} ${T('m')}`,VW-20,32);c.font='600 15px Khand, sans-serif';c.fillStyle=TOK.ink2;c.fillText(`${T('best')} ${best} ${T('m')}`,VW-20,54);c.textAlign='left';
+ if(flash>0){c.globalAlpha=Math.min(1,flash);c.fillStyle=TOK.green;c.font='700 30px Khand, sans-serif';c.textAlign='center';c.fillText(T('passed'),VW/2,100);c.textAlign='left';c.globalAlpha=1}
+}
+function fit(){const box=$('g-wrap');const w=box.clientWidth;VW=w<640?640:W;scale=w/VW;cv.width=Math.round(VW*scale*devicePixelRatio);cv.height=Math.round(H*scale*devicePixelRatio);cv.style.height=Math.round(H*scale)+'px';scale*=devicePixelRatio;if(state!=='running')drawFrame()}
+function applyStrings(){$('g-title').textContent=T('title');$('g-sub').textContent=T('sub');$('g-jump').textContent=T('jump');$('g-duck').textContent=T('duck');$('g-again').textContent=T('again');$('g-real').textContent=T('real');$('g-share').textContent=T('share');$('g-start').textContent=T('start');const b=$('langbtn');if(b)b.textContent=lang==='en'?'हिंदी':'English';document.documentElement.lang=lang==='hi'?'hi':'en';if(state==='over'&&hit!=null)gameOver(hit);else if(state!=='running')drawFrame()}
+async function share(){const m=metres();const text=T('sharetext')(m);try{if(navigator.share){await navigator.share({text});return}}catch(e){if(e&&e.name==='AbortError')return}try{await navigator.clipboard.writeText(text);$('g-share').textContent=T('shared');setTimeout(()=>$('g-share').textContent=T('share'),1500)}catch(e){}}
+async function init(){cv=$('g-canvas');ctx=cv.getContext('2d');try{best=+(localStorage.getItem('fc_game_best')||0)||0}catch(e){}await loadAll();reset();fit();applyStrings();
+ window.addEventListener('resize',fit);window.addEventListener('load',fit);setTimeout(fit,60);setTimeout(fit,600);
+ cv.addEventListener('pointerdown',e=>{e.preventDefault();jump()});
+ $('g-jump').addEventListener('pointerdown',e=>{e.preventDefault();jump()});
+ const duckOn=e=>{e.preventDefault();if(state==='running')ducking=true},duckOff=()=>{ducking=false};
+ $('g-duck').addEventListener('pointerdown',duckOn);['pointerup','pointerleave','pointercancel'].forEach(ev=>$('g-duck').addEventListener(ev,duckOff));
+ document.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();jump()}if(e.code==='ArrowDown'){e.preventDefault();if(state==='running')ducking=true}});
+ document.addEventListener('keyup',e=>{if(e.code==='ArrowDown')ducking=false});
+ $('g-again').addEventListener('click',start);$('g-share').addEventListener('click',share);$('g-start').addEventListener('click',jump);
+ const lb=$('langbtn');if(lb)lb.addEventListener('click',()=>{lang=lang==='en'?'hi':'en';try{localStorage.setItem('fc_lang',lang)}catch(e){}applyStrings()});
+ // pause when the tab is hidden (?nopause in the URL keeps it running, for automated play-tests)
+ const nopause=/[?&]nopause/.test(location.search);document.addEventListener('visibilitychange',()=>{if(!nopause&&document.hidden&&state==='running'){state='idle';$('g-start').hidden=false;drawFrame()}})}
+init();
+
+})();
+</script>
+</body>
+</html>

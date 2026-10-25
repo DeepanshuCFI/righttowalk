@@ -1,0 +1,42 @@
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html">Right to Walk</a>
+    <nav>
+      <a href="index.html#check">Check a street</a>
+      <a href="map.html">Map</a>
+      <a href="law.html">The law</a>
+      <a href="game.html" aria-current="page">Game</a>
+    </nav>
+    <button class="lang" id="langbtn" type="button" aria-label="Switch language">हिंदी</button>
+  </div>
+  <div class="kerb"></div>
+</header>
+<main id="main">
+<section class="v" id="v-game">
+  <div class="wrap">
+    <div class="pagehead">
+      <span class="kicker"><b>Gurugram</b> · 30 px to the metre</span>
+      <h1 id="g-title">The footpath game</h1>
+      <p class="lead" id="g-sub">Walk 100 m without stepping onto the road. Tap or press space to jump. Hold the Duck button or the down arrow to duck. It is harder than it should be.</p>
+    </div>
+    <div class="gamewrap" id="g-wrap">
+      <canvas id="g-canvas" width="1000" height="300" aria-label="The footpath game: a walker, obstacles coming from the right, the road below" role="img"></canvas>
+      <button type="button" class="btn yellow gstart" id="g-start">Tap to start walking</button>
+    </div>
+    <div class="gctrl">
+      <button type="button" class="btn yellow" id="g-jump">Jump</button>
+      <button type="button" class="btn" id="g-duck">Duck</button>
+    </div>
+    <div class="paper gover" id="g-over" hidden>
+      <h2 id="g-over-h"></h2>
+      <p id="g-over-p"></p>
+      <p class="small" id="g-over-best"></p>
+      <div class="btnrow"><button type="button" class="btn yellow" id="g-again">Walk again</button><a class="btn" href="index.html#check" id="g-real">Check a real street</a><button type="button" class="btn" id="g-share">Share your distance</button></div>
+    </div>
+    <p class="small">Every obstacle in the game is one you can tap on a real check. The walker, the kerb and the road are the same drawing the check makes of your street. Nothing here is uploaded or recorded; your best distance stays on your phone.</p>
+  </div>
+</section>
+</main>
+<div class="kerb thin"></div>
+<footer><div class="wrap"><p>Right to Walk (righttowalk.life) is a Crashfree India prototype: the Footpath Check, Gurugram, method v1.0.</p></div></footer>

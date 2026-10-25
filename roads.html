@@ -495,6 +495,15 @@ code{overflow-wrap:anywhere}
 #r-deaths td{vertical-align:top}
 #r-deaths td:nth-child(3){min-width:170px}
 
+/* the footpath game */
+.gamewrap{position:relative;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#2B2E33;touch-action:none;user-select:none;-webkit-user-select:none}
+.gamewrap canvas{display:block;width:100%;height:auto}
+.gstart{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap}
+.gctrl{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gctrl .btn{min-height:64px;font-size:24px;touch-action:none;user-select:none;-webkit-user-select:none}
+@media (min-width:900px){.gctrl{max-width:420px}}
+.gover h2{font-size:clamp(26px,6vw,40px)}
+
 /* the assignment sheet prints landscape, with ruled blank cells */
 @media print{
   @page{size:A4 landscape;margin:12mm}
