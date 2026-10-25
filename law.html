@@ -496,12 +496,21 @@ code{overflow-wrap:anywhere}
 #r-deaths td:nth-child(3){min-width:170px}
 
 /* the footpath game */
-.gamewrap{position:relative;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#2B2E33;touch-action:none;user-select:none;-webkit-user-select:none}
+.gamewrap{position:relative;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#F6F3EC;touch-action:none;user-select:none;-webkit-user-select:none}
 .gamewrap canvas{display:block;width:100%;height:auto}
 .gstart{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap}
+.ghud{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:Khand,sans-serif;font-weight:700;font-size:20px;margin:0 0 4px}
+.ghud #g-dist{white-space:nowrap}.ghud #g-dist i{font-style:normal;color:var(--red,#DE3A2F);text-transform:uppercase;font-size:15px;letter-spacing:.04em}
+.gbar{position:relative;height:10px;background:var(--line,#CFC9BC);border-radius:5px;margin:0 0 10px;overflow:visible}
+.gbar i{display:block;height:100%;width:0;background:var(--ink);border-radius:5px;transition:width .2s linear}
+.gbar b{position:absolute;left:20%;top:-4px;height:18px;border-left:2px solid var(--red,#DE3A2F);padding-left:6px;font-size:12px;line-height:18px;font-weight:600;color:var(--ink2,#5B5A54);white-space:nowrap}
+.gcap{min-height:1.5em;margin:10px 0 12px;font-size:17px;font-weight:600;line-height:1.35}
 .gctrl{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.gctrl .btn{min-height:64px;font-size:24px;touch-action:none;user-select:none;-webkit-user-select:none}
-@media (min-width:900px){.gctrl{max-width:420px}}
+.gctrl.three{grid-template-columns:1fr minmax(72px,.5fr) 1fr}
+.gctrl .btn{min-height:64px;font-size:20px;line-height:1.1;touch-action:none;user-select:none;-webkit-user-select:none;padding:8px 10px}
+.gctrl .btn.red{background:var(--red,#DE3A2F);color:#fff;border-color:var(--red,#DE3A2F)}
+@media (min-width:900px){.gctrl{max-width:560px}}
+.gstats .n{font-family:Khand,sans-serif;font-weight:700;font-size:1.5em;line-height:1}
 .gover h2{font-size:clamp(26px,6vw,40px)}
 
 </style>
@@ -835,7 +844,7 @@ Object.assign(S.hi,{
  lad_note:'ईमानदार सार: अधिकार साफ़ है, ज़िम्मेदारी तय है, अनिवार्य परत पतली है। कमी हरियाणा के न बने नियमों की है, और यही इस रिकॉर्ड की पहली माँग है।',
 
  // short home page
- gt_k:'एक छोटा खेल',gt_p:'सड़क पर उतरे बिना गुरुग्राम के फुटपाथ पर 100 मीटर चलें। वही रुकावटें, वही कर्ब, एक चलने वाला, कोई इनाम नहीं। यह जितना होना चाहिए, उससे मुश्किल है।',gt_btn:'फुटपाथ का खेल खेलें',
+ gt_k:'एक छोटा खेल',gt_p:'गुरुग्राम की एक सड़क पर 500 मीटर चलें। फुटपाथ आपको रोकेगा; आगे जाने का एक ही रास्ता है, सड़क, जहाँ ट्रैफ़िक है। नब्बे सेकंड में, यहाँ पैदल चलना कैसा लगता है।',gt_btn:'फुटपाथ का खेल खेलें',
  hero_law:'"If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers." भारत का सुप्रीम कोर्ट, 19 जून 2026। <a href="law.html">इसके पीछे का क़ानून पढ़ें</a>',
  see_map:'नक़्शा देखें',
  tm_h:'दो मिनट, तीन क़दम',tm_1h:'कहाँ',tm_1p:'एक टैप में आपकी लोकेशन। बताएँ सड़क की किस तरफ़ हैं।',tm_2h:'जो दिखे, उसे दबाएँ',tm_2p:'खड़ी गाड़ियाँ, ठेला, खुला मैनहोल, खुदा हुआ हिस्सा। एक फ़ोटो जोड़ें।',tm_3h:'कोर्ट की कसौटी',tm_3p:'क्या आप सड़क पर उतरे बिना 100 मीटर चल सकते थे? जवाब कोर्ट के शब्दों में मिलता है। सड़क के मालिक के लिए नोटिस मिलता है। आपकी जाँच नक़्शे पर एक पिन बन जाती है।',
