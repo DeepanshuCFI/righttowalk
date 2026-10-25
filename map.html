@@ -500,6 +500,11 @@ code{overflow-wrap:anywhere}
 .gamewrap{position:relative;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#F6F3EC;touch-action:none;user-select:none;-webkit-user-select:none}
 .gamewrap canvas{display:block;width:100%;height:auto}
 .gstart{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap}
+.gwho{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 14px}
+.gwho .small{margin:0 4px 0 0}
+.gwho .chip{min-height:44px;padding:8px 14px;border:2px solid var(--ink);border-radius:999px;background:transparent;color:var(--ink);font:inherit;font-weight:700;line-height:1.1;cursor:pointer}
+.gwho .chip.on{background:var(--ink);color:#fff}
+.gover .kicker{display:block;margin:0 0 6px}
 .ghud{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:Khand,sans-serif;font-weight:700;font-size:20px;margin:0 0 4px}
 .ghud #g-dist{white-space:nowrap}.ghud #g-dist i{font-style:normal;color:var(--red,#DE3A2F);text-transform:uppercase;font-size:15px;letter-spacing:.04em}
 .gbar{position:relative;height:10px;background:var(--line,#CFC9BC);border-radius:5px;margin:0 0 10px;overflow:visible}
