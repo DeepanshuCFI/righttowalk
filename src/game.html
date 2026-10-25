@@ -16,10 +16,11 @@
 <section class="v" id="v-game">
   <div class="wrap">
     <div class="pagehead">
-      <span class="kicker"><b>Gurugram</b> · 500 m · three stretches</span>
+      <span class="kicker"><b>Gurugram</b> · 500 m · day, dark, rain · four walkers</span>
       <h1 id="g-title">The footpath game</h1>
-      <p class="lead" id="g-sub">You walk 500 m of a Gurugram road. The footpath will block you; the only way past is the road, where the traffic is. Step down, step up, or wait. It is not a game you win; it is a walk you survive.</p>
+      <p class="lead" id="g-sub">You walk 500 m of a Gurugram road: an afternoon stretch, one after dark, one in the rain. The footpath will block you; the only way past is the road, where the traffic is. Step down, step up, or wait for a gap. Pick who is walking. It is not a game you win. It is a walk you get through.</p>
     </div>
+    <div class="gwho" id="g-who" role="group" aria-label="Who is walking"><span class="small" id="g-wholabel">Who is walking?</span><button type="button" class="chip on" data-p="adult" aria-pressed="true">Working adult</button><button type="button" class="chip" data-p="child" aria-pressed="false">Schoolchild</button><button type="button" class="chip" data-p="older" aria-pressed="false">Older person</button><button type="button" class="chip" data-p="wheel" aria-pressed="false">Wheelchair user</button></div>
     <div class="ghud"><span id="g-where"></span><span id="g-dist"><b id="g-m">0 m</b> <i id="g-road"></i></span></div>
     <div class="gbar"><i id="g-bar"></i><b id="g-tick">Court’s test, 100 m</b></div>
     <div class="gamewrap" id="g-wrap">
@@ -34,6 +35,7 @@
     </div>
     <p class="small" id="g-help">On a phone: tap the footpath to step up, tap the road to step down, or swipe up and down. Hold Wait to stop. On a keyboard: arrows up and down, space to wait.</p>
     <div class="paper gover" id="g-over" hidden>
+      <span class="kicker" id="g-over-who"></span>
       <h2 id="g-over-h"></h2>
       <p class="gstats" id="g-over-p"></p>
       <p class="small" id="g-over-best"></p>
