@@ -3,45 +3,55 @@
   <div class="wrap">
     <a class="mark" href="index.html">Right to Walk</a>
     <nav>
-      <a href="index.html#check">Check a street</a>
-      <a href="map.html" aria-current="page">Map</a>
-      <a href="law.html">The law</a>
-      <a href="report.html">Report</a>
+      <a href="index.html#check" data-hi="सड़क जाँचें">Check a street</a>
+      <a href="map.html" aria-current="page" data-hi="नक्शा">Map</a>
+      <a href="law.html" data-hi="क़ानून">The law</a>
+      <a href="report.html" data-hi="रिपोर्ट">Report</a>
     </nav>
   </div>
   <div class="kerb"></div>
 </header>
 <main id="main" class="mapmain">
   <div class="mapbar"><div class="wrap">
-    <div class="mapstat"><span class="n" id="m-pub">–</span><span class="l">checks on the public map</span></div>
-    <div class="mapstat"><span class="n r" id="m-fail">–</span><span class="l">of tested stretches fail the 100 m test</span></div>
-    <div class="mapstat"><span class="n" id="m-deaths">–</span><span class="l">pedestrian deaths on the public record</span></div>
+    <div class="mapstat"><span class="n" id="m-pub">–</span><span class="l" data-hi="सार्वजनिक रिकॉर्ड में जाँचें">published observations</span></div>
+    <div class="mapstat"><span class="n r" id="m-fail">–</span><span class="l" data-hi="पूरी जाँचों में 100 मीटर पर असफल">of full 100 m checks failed</span><span class="small" id="m-denom">—</span></div>
+    <div class="mapstat"><span class="n" id="m-deaths">–</span><span class="l" data-hi="रिकॉर्ड में पैदल यात्रियों की मौतें">pedestrian deaths on record</span></div>
     <div class="chips" id="m-filters" role="group" aria-label="Filter pins">
-      <button type="button" class="chip" data-f="all" aria-pressed="true">All</button>
-      <button type="button" class="chip" data-f="fail" aria-pressed="false">Fails 100 m</button>
-      <button type="button" class="chip" data-f="pass" aria-pressed="false">Passes</button>
-      <button type="button" class="chip" data-f="full" aria-pressed="false">Full stretches</button>
-      <button type="button" class="chip" data-f="verified" aria-pressed="false">Verified</button>
+      <button type="button" class="chip" data-f="all" aria-pressed="true" data-hi="सभी">All</button>
+      <button type="button" class="chip" data-f="spot" aria-pressed="false" data-hi="एक जगह">Spot reports</button>
+      <button type="button" class="chip" data-f="fail" aria-pressed="false" data-hi="100 मीटर असफल">100 m failed</button>
+      <button type="button" class="chip" data-f="pass" aria-pressed="false" data-hi="100 मीटर पास">100 m passed</button>
+      <button type="button" class="chip" data-f="full" aria-pressed="false" data-hi="पूरी जाँचें">Full checks</button>
+      <button type="button" class="chip" data-f="verified" aria-pressed="false" data-hi="पुनः जाँची">Verified</button>
     </div>
     <div class="chips" id="m-layers" role="group" aria-label="Layers">
-      <button type="button" class="chip alt" data-layer="roads" aria-pressed="true">Roads to walk</button>
-      <button type="button" class="chip alt" data-layer="deaths" aria-pressed="true">Deaths on record</button>
+      <button type="button" class="chip alt" data-layer="roads" aria-pressed="true" data-hi="जाँचने वाली सड़कें">Roads to walk</button>
+      <button type="button" class="chip alt" data-layer="deaths" aria-pressed="true" data-hi="रिकॉर्ड में मौतें">Deaths on record</button>
     </div>
-    <a class="btn small" href="report.html">Gurugram report</a>
+    <button type="button" class="chip" id="m-lang" aria-label="Switch language">हिन्दी</button>
+    <a class="btn small" href="report.html" data-hi="गुरुग्राम रिपोर्ट">Gurugram report</a>
   </div></div>
   <div style="position:relative">
-    <div id="map" class="map" role="region" aria-label="Map of checked footpaths in Gurugram"></div>
-    <div class="mapempty" id="m-empty" hidden><div id="m-empty-text"></div></div>
+    <div id="map" class="map" role="region" aria-label="Map of checked footpaths in Gurugram" tabindex="-1"></div>
+    <div class="mapempty" id="m-empty" hidden><div><span id="m-empty-text"></span> <a href="index.html#check" data-hi="एक जगह जाँचें">Check a spot</a></div></div>
   </div>
+  <section class="recordlist wrap" aria-labelledby="m-list-title">
+    <div class="recordlist-head"><div><h2 id="m-list-title" data-hi="सार्वजनिक जाँचें">Published observations</h2><p class="small" id="m-list-count" role="status" aria-live="polite"></p></div>
+      <label for="m-search" data-hi="सड़क, इलाक़ा या संदर्भ खोजें">Search road, area or reference</label>
+      <input id="m-search" type="search" autocomplete="off" placeholder="Search observations" aria-controls="m-list">
+    </div>
+    <p class="small" data-hi="हर कार्ड एक जगह या सड़क के एक हिस्से की जाँच है। नक्शे की रेखाएँ पूरी सड़क के बारे में फ़ैसला नहीं बतातीं।">Each card is an observation of one spot or stretch. Road lines do not show a verdict for an entire road.</p>
+    <ol id="m-list" class="recordcards"></ol>
+  </section>
   <div class="mapfoot"><div class="wrap">
-    <div class="legend"><span><i style="background:#DE3A2F;border-color:#DE3A2F"></i>fails the 100 m test</span><span><i style="background:#EE8B22;border-color:#EE8B22"></i>walkable with repairs</span><span><i style="background:#1FAE5A;border-color:#1FAE5A"></i>passes</span><span><i style="background:#5B5A54;border-color:#5B5A54"></i>spot report, test not answered</span></div>
-    <div class="legend"><span><i class="ln dash"></i>on Haryana's list, not yet walked</span><span><i class="ln" style="background:#1FAE5A"></i>walked, passes</span><span><i class="ln" style="background:#DE3A2F"></i>walked, fails the 100 m test</span><span><i class="ln"></i>walked, test not answered</span></div>
+    <div class="legend"><span><i style="background:#DE3A2F;border-color:#DE3A2F"></i>full 100 m check failed</span><span><i style="background:#EE8B22;border-color:#EE8B22"></i>full check needs repairs</span><span><i style="background:#1FAE5A;border-color:#1FAE5A"></i>full check passed</span><span><i style="background:#5B5A54;border-color:#5B5A54"></i>spot report or continuity unknown</span></div>
+    <div class="legend"><span><i class="ln dash"></i>road on Haryana's list; coverage unknown</span></div>
     <div class="legend"><span><i class="dot death"></i>a pedestrian death on the public record, with the infrastructure fact the record states; tap it to walk that stretch</span></div>
-    <p class="small"><strong>Roads to walk</strong> are the roads on Haryana's own list: on 8 October 2026 the state gave GMDA, MCG and HSVP thirty days to upgrade 100 Gurugram roads, footpaths included, by 7 November. Only GMDA's 27 are public so far. A check counts for a road when it starts within 60 m of it. <a href="roads.html">Assignment sheet for volunteers</a>.</p>
-    <p class="small">Every pin is a check a citizen walked and a moderator read. Pins are rounded to about 10 m. "Verified" pins were re-walked by a trained volunteer. Pins that fail the 100 m test are stretches where a walker could not go 100 m on the footpath without stepping onto the road: the Supreme Court's own test for a footpath that exists (Maniyar Iliyaz, 19 June 2026, para 20(b)).</p>
+    <p class="small"><strong>Roads to walk</strong> are the roads on Haryana's published list. A check appears near a road when its start is within 60 m of an approximate line; this does not establish coverage of that road or either footpath side. <a href="roads.html">Assignment sheet for volunteers</a>.</p>
+    <p class="small">Each pin is a citizen observation read by a moderator. Locations are rounded to about 10 m. Quick checks describe one spot; only full checks can answer Right to Walk's 100 m continuity question. The distance is our method, not a threshold set by the Supreme Court. <a href="dataset.html">Read the method and limits</a>.</p>
     <p class="small">The record is open data (CC BY 4.0): <a href="data/checks.csv">checks.csv</a> · <a href="data/checks.json">checks.json</a> · <a href="dataset.html">about the dataset</a>. Map tiles from the <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">OpenStreetMap</a> community servers; loading them tells that server your IP address and the tiles you view, nothing else.</p>
   </div></div>
 </main>
 <div class="kerb thin"></div>
-<footer><div class="wrap"><p>Right to Walk (righttowalk.life) is a Crashfree India prototype: the Footpath Check, Gurugram, method v1.0.</p></div></footer>
+<footer><div class="wrap"><p>Right to Walk · a citizen project by Crashfree India.</p></div></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>

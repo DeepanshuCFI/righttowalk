@@ -19,8 +19,8 @@ read = lambda p: (SRC / p).read_text(encoding="utf-8")
 
 SITE = "https://righttowalk.life/"
 TITLE = "Right to Walk"
-DESC = ("Check the footpath on your street in two minutes, see what the Supreme Court and the road standards say it should be, "
-        "and send the notice to whoever owns the road. A Crashfree India prototype for Gurugram.")
+DESC = ("Record a footpath observation in Gurugram, learn what the Supreme Court has said about walking, "
+        "and add your check to a moderated public record. By Crashfree India.")
 
 # ---- connection (public values) ----
 cfg = read("config.js")
@@ -104,15 +104,15 @@ def document(fname, title, desc, body, scripts, extra_head="", extra_css="", pre
 body = read("body.html")
 document("index.html", TITLE, DESC, body, ["data.js", "obs.js", "learn.js", "config.js", "rtw.js", "deaths.js", "share.js", "cards.js", "app.js"], config=cfg_index)
 document("map.html", "Gurugram footpath map · Right to Walk",
-         "Every footpath a citizen has checked in Gurugram, on one map: where a walker could not go 100 m without stepping onto the road.",
+         "Published spot observations and full 100 m continuity checks in Gurugram, with the limits of each check shown.",
          read("map.html"), ["data.js", "obs.js", "config.js", "rtw.js", "frame.js", "deaths.js", "map.js"],
          extra_head='<link rel="stylesheet" href="vendor/leaflet/leaflet.css">\n', extra_css=pages_css,
          pre_script='<script src="vendor/leaflet/leaflet.js"></script>\n', config=cfg_roads)
 document("report.html", "Gurugram report · Right to Walk",
-         "How far is Gurugram from the Right to Walk? The share of checked footpaths that fail the Supreme Court's 100 m test, by sector and by road owner, live from the public record.",
+         "A report of submitted footpath observations in Gurugram, separating spot reports from Right to Walk's 100 m continuity checks.",
          read("report.html"), ["data.js", "obs.js", "config.js", "rtw.js", "frame.js", "deaths.js", "report.js"], extra_css=pages_css, config=cfg_roads)
 document("roads.html", "Roads to walk · Right to Walk",
-         "Haryana's own list of 100 Gurugram roads to be upgraded by 7 November 2026, as an assignment sheet: which have been walked, which fail the Supreme Court's 100 m test, and room to divide the rest between volunteers.",
+         "A Gurugram road assignment sheet showing where citizen observations exist and where coverage is still unknown.",
          read("roads.html"), ["data.js", "obs.js", "config.js", "rtw.js", "frame.js", "roads.js"], extra_css=pages_css + "\n" + roads_css, config=cfg_roads)
 document("law.html", "The law · Right to Walk",
          "The law behind the right to walk: what the Supreme Court has said, who can make the law and who has, what a footpath should be, who must provide it in Gurugram.",

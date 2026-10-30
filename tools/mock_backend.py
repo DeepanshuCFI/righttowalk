@@ -4,7 +4,7 @@
     python3 tools/mock_backend.py            # listens on 127.0.0.1:8816, in-memory store
     RTW_URL=http://127.0.0.1:8816 RTW_ANON=anon python3 build.py   # build the pages against it
 
-It applies the same rules as sql/001_phase1.sql: anon may only insert pending/test rows and upload into pending/;
+It approximates the rules in sql/001_phase1.sql through sql/003_evidence_integrity.sql for local UI development: anon may only insert pending/test rows and upload into pending/;
 public views show published rows without personal columns; moderators (emails below) read and update everything.
 A sign-in link is printed to the console instead of being emailed.
 """
@@ -15,7 +15,7 @@ MODS = {"deepanshu@crashfreeindia.org"}
 ROWS = {}       # id -> row
 FILES = {}      # path -> (content_type, bytes)
 TOKENS = {}     # access token -> email
-PUBLIC_COLS = ["id", "created_at", "mode", "method", "lat", "lon", "length_m", "side", "road", "sector", "land", "road_class", "owner", "gate", "answers", "obs", "score", "band", "anchor", "photo_count", "verified"]
+PUBLIC_COLS = ["id", "created_at", "mode", "method", "lat", "lon", "length_m", "side", "road", "sector", "land", "road_class", "owner", "gate", "answers", "obs", "score", "band", "anchor", "photo_count", "verified", "spot_passable", "verified_at", "verification_check_id", "legacy_verified"]
 
 def b64u(b): return base64.urlsafe_b64encode(b).rstrip(b"=").decode()
 def jwt(email):
@@ -27,15 +27,19 @@ def stats():
     pub = [r for r in ROWS.values() if r["status"] == "published"]
     live = [r for r in ROWS.values() if r["status"] in ("pending", "published")]
     return {"submitted": len(live), "published": len(pub), "pending": sum(1 for r in ROWS.values() if r["status"] == "pending"),
-            "people": len({r.get("client_id") for r in live if r.get("client_id")}), "gate_tested": sum(1 for r in pub if r.get("gate")),
-            "gate_pass": sum(1 for r in pub if r.get("gate") == "yes"), "with_footpath": sum(1 for r in pub if (r.get("answers") or {}).get("i1") == "yes"),
+            "people": len({r.get("client_id") for r in pub if r.get("client_id")}), "gate_tested": sum(1 for r in pub if r.get("mode") == "full" and r.get("gate")),
+            "gate_pass": sum(1 for r in pub if r.get("mode") == "full" and r.get("gate") == "yes"),
+            "spot_tested": sum(1 for r in pub if r.get("mode") == "quick" and r.get("spot_passable")),
+            "spot_blocked": sum(1 for r in pub if r.get("mode") == "quick" and r.get("spot_passable") == "no"),
+            "with_footpath": sum(1 for r in pub if r.get("mode") == "full" and (r.get("answers") or {}).get("i1") == "yes"),
             "full": sum(1 for r in pub if r["mode"] == "full"), "verified": sum(1 for r in pub if r.get("verified")),
             "first": min((r["created_at"] for r in pub), default=None), "last": max((r["created_at"] for r in pub), default=None)}
 def group(key):
     pub = [r for r in ROWS.values() if r["status"] == "published"]; out = {}
     for r in pub:
-        k = (r.get(key) or ("Unspecified" if key == "sector" else "unknown")); g = out.setdefault(k, {key: k, "checks": 0, "gate_tested": 0, "gate_pass": 0, "with_footpath": 0, "full_checks": 0, "verified": 0})
-        g["checks"] += 1; g["gate_tested"] += 1 if r.get("gate") else 0; g["gate_pass"] += 1 if r.get("gate") == "yes" else 0
+        k = (r.get(key) or ("Unspecified" if key == "sector" else "unknown")); g = out.setdefault(k, {key: k, "checks": 0, "gate_tested": 0, "gate_pass": 0, "spot_tested": 0, "with_footpath": 0, "full_checks": 0, "verified": 0})
+        g["checks"] += 1; g["gate_tested"] += 1 if r.get("mode") == "full" and r.get("gate") else 0; g["gate_pass"] += 1 if r.get("mode") == "full" and r.get("gate") == "yes" else 0
+        g["spot_tested"] += 1 if r.get("mode") == "quick" and r.get("spot_passable") else 0
         g["with_footpath"] += 1 if (r.get("answers") or {}).get("i1") == "yes" else 0; g["full_checks"] += 1 if r["mode"] == "full" else 0; g["verified"] += 1 if r.get("verified") else 0
     return sorted(out.values(), key=lambda g: -g["checks"])
 
@@ -65,7 +69,7 @@ class H(BaseHTTPRequestHandler):
             if sel != "*" and any(c not in PUBLIC_COLS for c in sel.split(",")): return self.send(400, {"message": "column does not exist"})
             rows.sort(key=lambda r: r["created_at"], reverse=True); return self.send(200, rows)
         if p == "/rest/v1/public_sector_stats": return self.send(200, group("sector"))
-        if p == "/rest/v1/public_owner_stats": return self.send(200, [{k: v for k, v in g.items() if k in ("owner", "checks", "gate_tested", "gate_pass")} for g in group("owner")])
+        if p == "/rest/v1/public_owner_stats": return self.send(200, [{k: v for k, v in g.items() if k in ("owner", "checks", "gate_tested", "gate_pass", "spot_tested")} for g in group("owner")])
         if p == "/rest/v1/checks":
             if not self.mod(): return self.send(401 if not self.email() else 403, {"message": "permission denied for table checks"})
             rows = list(ROWS.values())
@@ -75,7 +79,9 @@ class H(BaseHTTPRequestHandler):
         if p.startswith("/storage/v1/object/authenticated/photos/"):
             key = p[len("/storage/v1/object/authenticated/photos/"):]
             if key not in FILES: return self.send(404, {"message": "Object not found"})
-            if not (self.mod() or key.startswith("published/")): return self.send(403, {"message": "new row violates row-level security policy"})
+            check_id = key.split("/")[1] if key.startswith("published/") and len(key.split("/")) >= 3 else None
+            if not (self.mod() or (check_id in ROWS and ROWS[check_id]["status"] == "published")):
+                return self.send(403, {"message": "new row violates row-level security policy"})
             ct, data = FILES[key]; return self.send(200, data, ct)
         if p.startswith("/storage/v1/object/public/"): return self.send(400, {"message": "Bucket not public"})
         return self.send(404, {"message": "not found"})
@@ -99,14 +105,22 @@ class H(BaseHTTPRequestHandler):
                 return self.send(403, {"message": "new row violates row-level security policy for table \"checks\""})
             if r.get("lat") is not None and not (6 <= r["lat"] <= 38): return self.send(400, {"message": "new row violates check constraint"})
             if r.get("lat") is None and not r.get("road"): return self.send(400, {"message": "new row violates check constraint \"checks_has_place\""})
-            row = {"id": r.get("id") or str(uuid.uuid4()), "created_at": now(), "method": "footpath-check-v1.2", "answers": {}, "obs": {}, "photo_count": 0, "verified": False, "status": "pending", "moderated_at": None, "moderated_by": None, "mod_note": None}
-            row.update({k: v for k, v in r.items() if k not in ("created_at",)}); ROWS[row["id"]] = row
+            row = {"id": r.get("id") or str(uuid.uuid4()), "created_at": now(), "method": "footpath-check-v1.3", "answers": {}, "obs": {}, "photo_count": 0, "verified": False, "verified_at": None, "verification_check_id": None, "legacy_verified": False, "status": "pending", "moderated_at": None, "moderated_by": None, "mod_note": None}
+            row.update({k: v for k, v in r.items() if k not in ("created_at",)}); row["ua"] = None; row["photo_count"] = 0
+            if row.get("mode") == "quick":
+                row["spot_passable"] = row.get("spot_passable") or row.get("gate"); row["gate"] = None
+                row["answers"] = {}; row["score"] = None; row["band"] = None; row["length_m"] = None
+            else: row["spot_passable"] = None
+            ROWS[row["id"]] = row
             if "representation" in prefer: return self.send(401, {"message": "permission denied for table checks"})
             return self.send(201)
         if p.startswith("/storage/v1/object/photos/"):
             key = p[len("/storage/v1/object/photos/"):]; ct = self.headers.get("Content-Type", "")
-            if not key.startswith("pending/") and not self.mod(): return self.send(403, {"message": "new row violates row-level security policy"})
-            if not re.match(r"image/(jpeg|png|webp|heic|heif)", ct): return self.send(415, {"message": "mime type not supported"})
+            if not self.mod():
+                match = re.fullmatch(r"pending/([0-9a-f-]{36})/([A-Za-z0-9_-]{1,64})\.jpg", key)
+                if not match or match.group(1) not in ROWS or ROWS[match.group(1)]["status"] != "pending": return self.send(403, {"message": "new row violates row-level security policy"})
+                if sum(k.startswith("pending/" + match.group(1) + "/") for k in FILES) >= 12: return self.send(403, {"message": "photo limit reached"})
+            if ct != "image/jpeg": return self.send(415, {"message": "mime type not supported"})
             data = self.body()
             if len(data) > 3145728: return self.send(413, {"message": "object exceeded maximum size"})
             FILES[key] = (ct, data); return self.send(200, {"Key": "photos/" + key})
@@ -127,8 +141,15 @@ class H(BaseHTTPRequestHandler):
             if not self.mod(): return self.send(200 if self.email() else 401, [] if self.email() else {"message": "permission denied for table checks"})
             rid = q.get("id", [""])[0].replace("eq.", ""); r = ROWS.get(rid)
             if not r: return self.send(200, [])
-            patch = self.jbody(); allowed = {"status", "verified", "moderated_at", "moderated_by", "mod_note"}
+            patch = self.jbody(); allowed = {"status", "verified", "verified_at", "verification_check_id", "photo_count", "moderated_at", "moderated_by", "mod_note"}
             if set(patch) - allowed: return self.send(403, {"message": "permission denied for column"})
+            if patch.get("verified"):
+                other = ROWS.get(patch.get("verification_check_id"))
+                if not other or other["status"] != "published" or other["created_at"] <= r["created_at"] or other.get("side") != r.get("side"):
+                    return self.send(400, {"message": "Verification requires a later published check on the same side"})
+                patch["verified_at"] = now()
+            elif patch.get("verified") is False:
+                patch["verified_at"] = None; patch["verification_check_id"] = None
             r.update(patch); return self.send(200, [r] if "representation" in self.headers.get("Prefer", "") else None) if "representation" in self.headers.get("Prefer", "") else self.send(204)
         return self.send(404, {"message": "not found"})
     def do_DELETE(self):

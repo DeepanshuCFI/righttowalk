@@ -13,12 +13,12 @@ const CARDS_S={
   b:{cap:'The number',file:'36526',kick:'INDIA · 2024',n:'36,526',l1:'pedestrians killed',l2:'on Indian roads in 2024',day:'About a hundred a day. Provisional figure.',
      hn:'866',hl:'in Haryana',src:'Source: Ministry of Road Transport and Highways, Rajya Sabha answer, 18 March 2026.',each:'Every one of them had a right to a footpath.',
      text:'36,526 pedestrians were killed on Indian roads in 2024, 866 of them in Haryana (Ministry of Road Transport and Highways, Rajya Sabha, 18 March 2026). Check your street: https://righttowalk.life'},
-  c:{cap:'The 100 m test',file:'100m',kick:'THE 100 M TEST',l1:'A footpath you cannot',l2:'stay on for 100 m',l3:'is not a footpath',
-     sub:'Our test for the Court’s words: walk 100 m on one side without stepping onto the road. If you cannot, the road owner has not provided the footpath the Court says it must.',
+  c:{cap:'Our 100 m check',file:'100m',kick:'RIGHT TO WALK METHOD',l1:'Blocked before',l2:'100 m on this side?',l3:'Record the spot',
+     sub:'Our 100 m continuity question is a project method, not a Supreme Court threshold. If the route is blocked, stop safely and mark the location.',
      cite:'Supreme Court of India, 19 June 2026: “demarcated and well-maintained footpaths for walkers”',
-     text:'A footpath you cannot stay on for 100 m is not a footpath. Check yours in two minutes: https://righttowalk.life'},
+     cta:'Check one spot or 100 m',text:'Right to Walk uses its own 100 m continuity question. A two-minute quick check records one spot, not a 100 m walk. https://righttowalk.life'},
   d:{cap:'Whose failure',file:'vendor',kick:'WHOSE FAILURE?',l1:'A blocked footpath is',l2:'the road owner’s failure',l3:'not the vendor’s',
-     z1:'Building line',z2:'Walking zone · 2 m clear',z3:'Vending and utility zone',z4:'Road',
+     z1:'Building line',z2:'Clear walking zone',z3:'Vending and utility zone',z4:'Road',
      sub:'The duty to provide, demarcate and maintain a footpath lies with the agency that owns the road. Vending is lawful under the Street Vendors Act 2014 and belongs in a designed vending zone beside a clear walking zone, not in its place.',
      ask:'Ask for the footpath. Not for the vendor to go.',
      text:'A blocked footpath is the road owner’s failure, not the vendor’s. Vending belongs in a vending zone under the Street Vendors Act 2014; the walking zone must be provided. Ask for the footpath: https://righttowalk.life'}
@@ -34,12 +34,12 @@ const CARDS_S={
   b:{cap:'आँकड़ा',file:'36526-hi',kick:'भारत · 2024',n:'36,526',l1:'पैदल चलने वाले',l2:'2024 में भारत की सड़कों पर मारे गए',day:'यानी रोज़ क़रीब सौ। अनंतिम आँकड़ा।',
      hn:'866',hl:'हरियाणा में',src:'स्रोत: सड़क परिवहन और राजमार्ग मंत्रालय, राज्यसभा में जवाब, 18 मार्च 2026।',each:'इनमें से हर एक को फुटपाथ का हक़ था।',
      text:'2024 में भारत की सड़कों पर 36,526 पैदल चलने वाले मारे गए, इनमें 866 हरियाणा में (सड़क परिवहन और राजमार्ग मंत्रालय, राज्यसभा, 18 मार्च 2026)। अपनी सड़क जाँचें: https://righttowalk.life'},
-  c:{cap:'100 मीटर की कसौटी',file:'100m-hi',kick:'100 मीटर की कसौटी',l1:'जिस फुटपाथ पर',l2:'100 मीटर भी न चल सकें',l3:'वह फुटपाथ नहीं है',
-     sub:'कोर्ट के शब्दों की हमारी कसौटी: एक तरफ़ 100 मीटर सड़क पर उतरे बिना चलें। न चल पाएँ, तो सड़क के मालिक ने वह फुटपाथ नहीं दिया जो कोर्ट के मुताबिक़ देना है।',
+  c:{cap:'हमारी 100 मीटर जाँच',file:'100m-hi',kick:'राइट टू वॉक का तरीका',l1:'100 मीटर से पहले',l2:'रास्ता बंद है?',l3:'जगह दर्ज करें',
+     sub:'100 मीटर निरंतरता का सवाल परियोजना का तरीका है, सुप्रीम कोर्ट की तय दूरी नहीं। रास्ता बंद हो तो सुरक्षित जगह रुकें और जगह दर्ज करें।',
      cite:'सुप्रीम कोर्ट, 19 जून 2026: “demarcated and well-maintained footpaths for walkers”',
-     text:'जिस फुटपाथ पर 100 मीटर भी न चल सकें, वह फुटपाथ नहीं है। दो मिनट में अपनी सड़क जाँचें: https://righttowalk.life'},
+     cta:'एक जगह या 100 मीटर जाँचें',text:'राइट टू वॉक का 100 मीटर सवाल परियोजना का तरीका है। दो मिनट की झटपट जाँच एक जगह दर्ज करती है, 100 मीटर की चाल नहीं। https://righttowalk.life'},
   d:{cap:'किसकी नाकामी',file:'vendor-hi',kick:'किसकी नाकामी?',l1:'रुका हुआ फुटपाथ',l2:'सड़क के मालिक की नाकामी है',l3:'रेहड़ी वाले की नहीं',
-     z1:'इमारत की रेखा',z2:'चलने की जगह · 2 मीटर साफ़',z3:'वेंडिंग और यूटिलिटी ज़ोन',z4:'सड़क',
+     z1:'इमारत की रेखा',z2:'चलने की साफ़ जगह',z3:'वेंडिंग और यूटिलिटी ज़ोन',z4:'सड़क',
      sub:'फुटपाथ देना, चिह्नित करना और ठीक रखना उस एजेंसी का कर्तव्य है जिसकी सड़क है। रेहड़ी-पटरी Street Vendors Act 2014 के तहत क़ानूनी है और उसकी जगह एक तय वेंडिंग ज़ोन में है, चलने की साफ़ जगह के बग़ल में, उसकी जगह पर नहीं।',
      ask:'फुटपाथ माँगें। रेहड़ी हटाने की माँग नहीं।',
      text:'रुका हुआ फुटपाथ सड़क के मालिक की नाकामी है, रेहड़ी वाले की नहीं। रेहड़ी-पटरी की जगह Street Vendors Act 2014 के तहत वेंडिंग ज़ोन में है; चलने की जगह देना मालिक का काम है। फुटपाथ माँगें: https://righttowalk.life'}
@@ -98,7 +98,7 @@ async function drawCardC(L,hi){const {c,ctx,W,H}=cardCtx();cardKicker(ctx,hi,[CA
  ctx.save();rr(ctx,sx,y,sw,sh,18);ctx.clip();ctx.fillStyle=SHARE_TOK.asphalt;ctx.fillRect(sx,y,sw,sh);if(img)ctx.drawImage(img,sx,y,sw,sh);ctx.restore();ctx.lineWidth=4;ctx.strokeStyle=SHARE_TOK.ink;rr(ctx,sx,y,sw,sh,18);ctx.stroke();y+=sh+36;
  y=cardPara(ctx,L.sub,60,y,960,`500 36px ${CARD_BODY}`,SHARE_TOK.ink,48)+14;
  y=cardPara(ctx,L.cite,60,y,960,`400 27px ${CARD_BODY}`,SHARE_TOK.ink2,36);
- cardFooter(ctx,W,H,hi,CARDS_S[hi?'hi':'en'].cta);return c}
+ cardFooter(ctx,W,H,hi,L.cta);return c}
 // ---- (d) the vendor nuance, with a plan view of the footpath zones ----
 async function drawCardD(L,hi){const {c,ctx,W,H}=cardCtx();cardKicker(ctx,hi,[CARDS_S[hi?'hi':'en'].kick,L.kick]);
  let y=cardHeadline(ctx,hi,[{t:L.l1},{t:L.l2,box:'ink'},{t:L.l3,box:'yellow'}],140,84);y+=24;

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Gurugram report · Right to Walk</title>
-<meta name="description" content="How far is Gurugram from the Right to Walk? The share of checked footpaths that fail the Supreme Court's 100 m test, by sector and by road owner, live from the public record.">
+<meta name="description" content="A report of submitted footpath observations in Gurugram, separating spot reports from Right to Walk's 100 m continuity checks.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://tile.openstreetmap.org; connect-src 'self' https://qeiqfkzugpipcvolvhjw.supabase.co; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="color-scheme" content="light dark">
@@ -16,14 +16,14 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Right to Walk">
 <meta property="og:title" content="Gurugram report · Right to Walk">
-<meta property="og:description" content="How far is Gurugram from the Right to Walk? The share of checked footpaths that fail the Supreme Court's 100 m test, by sector and by road owner, live from the public record.">
+<meta property="og:description" content="A report of submitted footpath observations in Gurugram, separating spot reports from Right to Walk's 100 m continuity checks.">
 <meta property="og:url" content="https://righttowalk.life/report.html">
 <meta property="og:image" content="https://righttowalk.life/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Gurugram report · Right to Walk">
-<meta name="twitter:description" content="How far is Gurugram from the Right to Walk? The share of checked footpaths that fail the Supreme Court's 100 m test, by sector and by road owner, live from the public record.">
+<meta name="twitter:description" content="A report of submitted footpath observations in Gurugram, separating spot reports from Right to Walk's 100 m continuity checks.">
 <meta name="twitter:image" content="https://righttowalk.life/og.png">
 <style>
 @font-face{font-family:'Khand';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/khand-500-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF4, U+1CF7-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B0A}
@@ -174,6 +174,12 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px soli
 .photo label{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border-radius:999px;border:2px dashed var(--ink-2);font-size:15px;cursor:pointer;color:var(--ink);font-weight:500}
 .photo input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
 .photo img{height:46px;width:46px;object-fit:cover;border-radius:8px;border:2px solid var(--ink)}
+.photo label:focus-within{outline:3px solid var(--yellow);outline-offset:3px}
+.photo-review{display:grid;justify-items:start;gap:6px}
+.photo-review img{height:76px;width:76px;object-fit:cover;border-radius:8px;border:2px solid var(--ink)}
+.photo-review .btn,.photo .btn{min-height:40px;padding-inline:12px;font-size:14px}
+.item[aria-invalid="true"]{border-color:var(--red)}
+.item:focus-visible{outline:3px solid var(--yellow);outline-offset:4px}
 .livebar{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--toph,58px));z-index:15;background:var(--bg);padding-block:8px 10px;display:grid;gap:6px}
 .livebar .meta{display:flex;justify-content:space-between;font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);font-variant-numeric:tabular-nums}
 .bottombar{position:sticky;bottom:0;background:var(--bg);border-top:2px solid var(--ink);padding-block:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;z-index:10}
@@ -426,6 +432,24 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
 .mapempty{position:absolute;inset:0;display:grid;place-items:center;z-index:400;pointer-events:none}
 .mapempty div{pointer-events:auto;background:var(--paper);border:2px solid var(--ink);border-radius:14px;padding:16px 20px;max-width:360px;text-align:center;font-size:15px;color:var(--ink-2)}
 .leaflet-marker-pane .pin{transition:transform .2s}
+.recordlist{padding-block:28px 36px}
+.recordlist-head{display:flex;flex-wrap:wrap;align-items:end;gap:10px 16px}
+.recordlist-head>div{flex:1 1 240px}
+.recordlist-head h2{margin:0}
+.recordlist-head label{font-size:14px;font-weight:700}
+.recordlist-head input{flex:1 1 220px;min-height:44px;border:2px solid var(--ink);border-radius:8px;background:var(--paper);color:var(--ink);padding:8px 12px;font:inherit}
+.recordcards{list-style:none;padding:0;margin:16px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.recordcard{border:2px solid var(--line);border-radius:12px;background:var(--paper);padding:14px;display:grid;gap:8px}
+.recordcard h3{font-size:22px;margin:0}
+.recordcard p{margin:0}
+.recordcard summary{font-weight:700;cursor:pointer;min-height:44px;display:flex;align-items:center}
+.recordanswers{display:grid;gap:4px;margin:8px 0}
+.recordanswers div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:4px 0}
+.recordanswers dt{flex:1}
+.recordanswers dd{margin:0;font-weight:700;text-align:right}
+.recordactions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.recordcards .empty{grid-column:1/-1}
+@media(max-width:600px){.recordlist-head label{width:100%}.recordlist-head input{flex-basis:100%}}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .map .leaflet-layer{filter:brightness(.82) contrast(1.05)}}
 /* report */
 .tiles4{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
@@ -528,10 +552,10 @@ code{overflow-wrap:anywhere}
   <div class="wrap">
     <a class="mark" href="index.html">Right to Walk</a>
     <nav>
-      <a href="index.html#check">Check a street</a>
-      <a href="map.html">Map</a>
-      <a href="law.html">The law</a>
-      <a href="report.html" aria-current="page">Report</a>
+      <a href="index.html#check" data-hi="सड़क जाँचें">Check a street</a>
+      <a href="map.html" data-hi="नक्शा">Map</a>
+      <a href="law.html" data-hi="क़ानून">The law</a>
+      <a href="report.html" aria-current="page" data-hi="रिपोर्ट">Report</a>
     </nav>
   </div>
   <div class="kerb"></div>
@@ -543,11 +567,12 @@ code{overflow-wrap:anywhere}
       <span class="kicker"><b>Gurugram report</b> · live from the public record · <span id="r-when">—</span></span>
       <h1>How far is Gurugram from the Right to Walk?</h1>
       <p class="lead" id="r-lead">Loading the record…</p>
+      <button type="button" class="chip" id="r-lang" aria-label="Switch language">हिन्दी</button>
     </div>
 
     <div class="paper" id="r-head">
-      <div class="bigstat"><div class="n" id="r-pct">—</div><div class="l" id="r-pct-l">of the footpath stretches citizens have tested fail the Supreme Court's 100 m test: a walker could not go 100 m without stepping onto the road.</div></div>
-      <p class="roadsline" id="r-roads-line">Of the 100 roads on Haryana's own audit list, — have been walked and — fail the 100 m test.<span class="small" id="r-roads-note"></span></p>
+      <div class="bigstat"><div class="n" id="r-pct">—</div><div class="l" id="r-pct-l">of eligible full checks failed Right to Walk's 100 m continuity question. Quick spot reports are excluded. <span id="r-denom">—</span></div></div>
+      <p class="roadsline" id="r-roads-line">Loading nearby observations.<span class="small" id="r-roads-note"></span></p>
       <p class="roadsline" id="r-deaths-line">—</p>
     </div>
 
@@ -556,10 +581,10 @@ code{overflow-wrap:anywhere}
     <div class="paper soft">
       <h3>What this number is, and is not</h3>
       <ul class="plain">
-        <li><strong>It counts stretches, not kilometres.</strong> Each check is one side of one stretch of road, walked by one person on one day. Two checks of the same stretch count twice.</li>
-        <li><strong>The sample chose itself.</strong> People check the footpaths they walk and the ones that annoy them. Until the 100 roads in Haryana's own audit list have each been checked, the share above describes the record, not the city.</li>
-        <li><strong>"Verified" means re-walked.</strong> A trained volunteer re-walks a share of the record; the verified share is shown above. Where the re-walk disagrees, the verified result stands.</li>
-        <li><strong>The test is the Court's.</strong> "If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers" (Maniyar Iliyaz v. P. Ayyappan, 2026 INSC 647, para 20(b)). A footpath you cannot stay on for 100 m is not that.</li>
+        <li><strong>It counts eligible full checks, not kilometres or unique segments.</strong> Quick reports about one spot are excluded. Two checks of the same segment count twice. A missing end location means distance was not measured.</li>
+        <li><strong>The sample chose itself.</strong> People choose where to check. Even if all 100 listed roads receive one check, that does not make the sample representative of Gurugram or establish coverage of either footpath side.</li>
+        <li><strong>Moderator review is not a site measurement.</strong> A linked second field visit supports a verified label; older labels may need their source record checked. Every public result remains a dated observation.</li>
+        <li><strong>The Court states the duty; this project defines the distance.</strong> <a href="https://api.sci.gov.in/supremecourt/2024/42514/42514_2024_3_1501_71888_Judgement_19-Jun-2026.pdf" target="_blank" rel="noopener"><em>Maniyar Iliyaz</em>, paragraph 20(b)</a> calls for demarcated, well-maintained footpaths. The 100 m continuity check and score are Right to Walk's own method.</li>
       </ul>
     </div>
 
@@ -584,7 +609,7 @@ code{overflow-wrap:anywhere}
 
     <div class="block" id="r-roads-block">
       <h2>Haryana's own list</h2>
-      <p class="muted">The sampling frame. On 8 October 2026 the state gave GMDA, MCG and HSVP thirty days to upgrade 100 Gurugram roads of at least 500 m each, footpaths included, with a QR-coded board on each naming the officer responsible; the deadline is 7 November. Only GMDA's 27 stretches have been published. A check counts for a road when it starts within 60 m of it. <a href="roads.html">Assignment sheet</a> · <a href="map.html">on the map</a>.</p>
+      <p class="muted">Haryana's named-road list is a planning frame. Only GMDA's 27 roads have been identified publicly in the source used here. We associate a check when its start lies within 60 m of an approximate line. That does not prove which road, side or length was audited, so no whole-road pass/fail verdict is shown. <a href="roads.html">Assignment sheet</a> · <a href="map.html">on the map</a>.</p>
       <div id="r-roads"></div>
     </div>
 
@@ -596,22 +621,22 @@ code{overflow-wrap:anywhere}
 
     <div class="block">
       <h2>Ten stretches to start with</h2>
-      <p class="muted">The lowest-scoring full checks on the record. A place for an agency, a councillor or a reporter to begin.</p>
+      <p class="muted">The lowest-scoring full observations on the record. These are leads for a measured field audit, not a ranking of Gurugram roads or crash risk.</p>
       <div id="r-worst"></div>
     </div>
 
     <div class="block">
       <h2>What we are asking for</h2>
       <ul class="plain">
-        <li><strong>Name Gurugram as one of the five pilot towns</strong> the Supreme Court asked the Union to identify on 5 October 2026 in Re: Fundamental Right to Walk and Footpath, W.P.(C) 844/2026. This record is the baseline a pilot needs.</li>
+        <li><strong>Publish a measured Gurugram audit.</strong> Start with named segments and high-footfall or recent pedestrian-injury locations, record both sides and remedies, and publish the underlying measurements. Any pilot-town request should cite the signed order and current docket once obtained.</li>
         <li><strong>Audit the city's footpaths on the Court's terms, and publish it.</strong> On 7 October 2025 (S. Rajaseekaran, 2025 INSC 1189) the Court ordered road-owning agencies in India's fifty largest cities, and NHAI, to audit footpaths for width, height, surface and encroachment hotspots. Gurugram is not one of the fifty, so GMDA, MCG and HSVP are not yet under that order; NHAI's stretches here are. We ask the three agencies to run the same audit, road by road, and publish it, so that citizens' checks and the agencies' own can be laid side by side.</li>
-        <li><strong>Adopt one footpath standard for the city</strong> (IRC:103-2022, the code the Court named) and say which agency owns which road, so that a notice from a resident reaches the right desk the first time.</li>
+        <li><strong>State which standard and agency apply to each road.</strong> Publish road ownership and the applicable adopted or binding design provisions; verify figures against the final published IRC edition before using them as compliance findings.</li>
       </ul>
     </div>
 
     <div class="paper soft">
       <h3>Method and data</h3>
-      <p class="small">Footpath Check method v1.0 (record tag v1.2). Gate: 100 m on the footpath without stepping onto the road. Ten weighted items for a full check (footpath 20, clear 15, crossing 15, speed 12, width 8, ramps 8, surface 7, lighting 7, kerb and continuity 4, buffer 4); a quick check records one spot, the problems on it and the gate. Locations are rounded to four decimals (about 10 m). Every published row was read by a moderator; names are never published.</p>
+      <p class="small">Footpath Check method v1.0; record tags v1.2 and v1.3 may coexist. Quick mode records whether one spot can be passed. Full mode asks about 100 m continuity and ten weighted items (footpath 20, clear 15, crossing 15, speed 12, width 8, ramps 8, surface 7, lighting 7, kerb and continuity 4, buffer 4). Its score is an exploratory project index, not a legal compliance or crash-risk measure. Straight-line start-to-end distance is shown only when both fixes exist; it is not distance walked. Locations are rounded to four decimals (about 10 m); moderators read published rows; names are not published.</p>
       <p class="small">Open data, CC BY 4.0: <a href="data/checks.csv">checks.csv</a> · <a href="data/checks.json">checks.json</a> · <a href="data/stats.json">stats.json</a> · <a href="dataset.html">field guide</a>. Snapshots are taken daily; the figures on this page are live. Cite as: Crashfree India, Right to Walk: Gurugram footpath record, righttowalk.life, accessed <span id="r-cite-date"></span>.</p>
       <div class="btnrow noprint"><button type="button" class="btn small" id="r-print">Print or save as PDF</button><a class="btn small" href="map.html">See the map</a></div>
     </div>
@@ -619,69 +644,69 @@ code{overflow-wrap:anywhere}
 </section>
 </main>
 <div class="kerb thin"></div>
-<footer><div class="wrap"><p>Right to Walk (righttowalk.life) is a Crashfree India prototype: the Footpath Check, Gurugram, method v1.0.</p></div></footer>
+<footer><div class="wrap"><p>Right to Walk · a citizen project by Crashfree India.</p></div></footer>
 
 <script>
 (function(){
 'use strict';
 // ---------- strings ----------
 const S = {
-  en:{nav_learn:'Learn',nav_check:'Check a street',nav_saved:'Saved',nav_law:'The law',nav_report:'Report',skip:'Skip to content',start:'Start a check',next:'Next',back:'Back',see:'See the result',notice:'Draft the notice',copy:'Copy the notice',copied:'Copied',save:'Save this check',saved_ok:'Saved in this browser',copyrec:'Copy record',new:'Start another check',
+  en:{nav_learn:'Learn',nav_check:'Check a street',nav_saved:'Saved',nav_law:'The law',nav_report:'Report',skip:'Skip to content',start:'Start a check',next:'Next',back:'Back',see:'See the result',notice:'Draft an optional notice',copy:'Copy the notice',copied:'Copied',save:'Save this check',saved_ok:'Saved in this browser',copyrec:'Copy record',new:'Start another check',
     st1:'Where',st2:'Walk',st3:'Result',st4:'Notice',
     loc_h:'Where are you walking?',loc_road:'Road name',loc_area:'Sector or area',loc_from:'Stretch starts at',loc_to:'Stretch ends at',loc_side:'Which side?',loc_side_h:'Say which side and which way you are facing. One check covers one side; do the other side as a second check.',
     loc_class_h:'What kind of road is it?',loc_div:'Is there a central divider?',loc_lanes:'How many car lanes in each direction?',loc_through:'Do buses or lots of through traffic use it, running on for kilometres?',loc_gates:'Do house and shop gates open straight onto it, with cars parked on both sides?',
     loc_land:'What sits beside this stretch?',loc_count:'People walking past in 5 minutes',loc_count_h:'Optional. Recorded for priority, never scored.',
     land:{homes:'Mostly homes',shops:'Shops and offices along it',city:'A busy market or city commercial street',sensitive:'A school, hospital, bus stop or market within the stretch'},
-    yes:'Yes',no:'No',partly:'Partly',cant:"Can't tell",photo:'Add a photo',change:'Change photo',
-    aud_h:'Walk the stretch',aud_p:'Answer as you walk. A photo for each item makes the notice much harder to ignore.',
-    gate_lbl:'Gate question',item_lbl:'Item',weight:'weight',anchor_lbl:'Your call',
+    yes:'Yes',no:'No',partly:'Partly',cant:"Can't tell",photo:'Add an optional photo',change:'Change photo',
+    aud_h:'Check this side',aud_p:'Observe a 100 m section on this side. Stop in a safe place to answer; a photo is optional.',
+    gate_lbl:"Right to Walk's 100 m check",item_lbl:'Item',weight:'weight',anchor_lbl:'Your call',
     moot:'Fails automatically: there is no footpath on this side.',
     err_loc:'Fill in the road, the stretch, the side, and the four road questions.',err_aud:'Answer every item (lighting may be "Can\'t tell").',
-    card_h:'The result',card_ask:'Three things to ask for',card_photos:'Photos',card_note:'Method v1.0. Yes earns the full weight, no earns none; "partly" earns half on the three items that allow it. The score is scaled over the items you could judge. The band is set at the weakest point; a stretch that fails the 100 m gate is not walkable whatever it scores.',
-    gate_pass:'Passes the 100 m test',gate_fail:'Fails the 100 m test',band_g:'Walkable, keep it',band_a:'Walkable with repairs',band_r:'Not walkable',of:'out of 100',checked:'items checked',
+    card_h:'Your observation',card_ask:'Changes to ask for',card_photos:'Photos',card_note:'Project method v1.3. Yes earns the full weight, no earns none; "partly" earns half where offered. The score is scaled over items you could judge. A no on our 100 m continuity question puts this result in the red band. This score is a citizen observation, not a legal compliance finding.',
+    gate_pass:'100 m continuity reported',gate_fail:'100 m obstruction reported',band_g:'Walkable, keep it',band_a:'Walkable with repairs',band_r:'Not walkable',of:'out of 100',checked:'items checked',
     cls:{arterial:'Arterial road',subarterial:'Sub-arterial road',collector:'Collector road',local:'Local street'},
     clsx:{arterial:'IRC:86 expects a raised footpath on both sides, a segregated cycle track, and refuge islands at crossings.',subarterial:'It must have a raised footpath on both sides and refuges where the carriageway is wide.',collector:'IRC:86 says collectors "shall be designed with dedicated footpaths".',local:'It may be a shared space only if traffic is calmed below 20 km/h; otherwise it needs a footpath too.'},
-    tier:{homes:'Standard walking zone here: 2.0 m clear (IRC:103-2022; 1.8 m in the 2012 edition).',shops:'Standard walking zone here: 2.5 m clear (neighbourhood commercial, IRC:103-2022).',city:'Standard walking zone here: 4.0 m clear (city-level commercial street, IRC:103-2022).',sensitive:'Standard walking zone here: 2.5 m clear (near a school, hospital, market or bus stop, IRC:103-2022), with traffic calming.'},
+    tier:{homes:'Check that the walking zone is clear and continuous. Its required width needs a measured assessment against the published standard.',shops:'Commercial streets need room for both walking and access. Confirm the required width from the published standard before asserting compliance.',city:'A busy commercial street needs a measured walking-zone assessment against the published standard.',sensitive:'Near schools, hospitals, markets and bus stops, check accessible width and traffic calming. A measured agency audit is needed.'},
     anchors:['Definitely','Probably','Not sure','Probably not','Never'],
-    not_h:'The notice',not_owner:'Who maintains this road?',not_name:'Your name',not_org:'Your RWA or organisation',not_hhrc:'Also mark a copy to the Haryana Human Rights Commission (its own footpath case on Gurugram has been open since January 2026)',not_text:'Notice text (copy and send through the channel below)',not_where:'Where to send it',
-    not_note:'This page does not file complaints. Copy the text, attach your photos, and send it through the agency channel. Keep the reference number you get. Re-walk the stretch after the reply-by date and record what changed.',
+    not_h:'Optional notice',not_owner:'Who maintains this road?',not_name:'Your name',not_org:'Your RWA or organisation',not_hhrc:'Also mark a copy to the Haryana Human Rights Commission (check whether this is relevant before sending)',not_text:'Edit this draft, then copy and send it yourself',not_where:'Where to send it',
+    not_note:'This site does not send the notice. Check the road owner, facts, legal references and attachments before sending. Changing the recipient or name rebuilds the draft and replaces your edits.',
     sav_h:'Saved checks',sav_p:'Stored only in this browser. Copy a record to send it on.',none:'No saved checks yet.',del:'Delete',del_sure:'Delete for sure',open:'Open',
     resume:'You have an unfinished check. It has been restored.',pedestrians:'pedestrians in 5 min'},
-  hi:{nav_learn:'जानें',nav_check:'सड़क जाँचें',nav_saved:'सहेजे गए',nav_law:'क़ानून',nav_report:'रिपोर्ट',skip:'सीधे सामग्री पर जाएँ',start:'जाँच शुरू करें',next:'आगे',back:'पीछे',see:'नतीजा देखें',notice:'नोटिस बनाएँ',copy:'नोटिस कॉपी करें',copied:'कॉपी हो गया',save:'यह जाँच सहेजें',saved_ok:'इस ब्राउज़र में सहेज लिया',copyrec:'रिकॉर्ड कॉपी करें',new:'एक और जाँच',
+  hi:{nav_learn:'जानें',nav_check:'सड़क जाँचें',nav_saved:'सहेजे गए',nav_law:'क़ानून',nav_report:'रिपोर्ट',skip:'सीधे सामग्री पर जाएँ',start:'जाँच शुरू करें',next:'आगे',back:'पीछे',see:'नतीजा देखें',notice:'वैकल्पिक नोटिस बनाएँ',copy:'नोटिस कॉपी करें',copied:'कॉपी हो गया',save:'यह जाँच सहेजें',saved_ok:'इस ब्राउज़र में सहेज लिया',copyrec:'रिकॉर्ड कॉपी करें',new:'एक और जाँच',
     st1:'कहाँ',st2:'चलें',st3:'नतीजा',st4:'नोटिस',
     loc_h:'आप कहाँ चल रहे हैं?',loc_road:'सड़क का नाम',loc_area:'सेक्टर या इलाक़ा',loc_from:'हिस्सा यहाँ से शुरू',loc_to:'हिस्सा यहाँ ख़त्म',loc_side:'कौन सी तरफ़?',loc_side_h:'बताएँ कौन सी तरफ़ और किस दिशा में चल रहे हैं। एक जाँच एक तरफ़ की है; दूसरी तरफ़ अलग जाँच करें।',
     loc_class_h:'यह कैसी सड़क है?',loc_div:'क्या बीच में डिवाइडर है?',loc_lanes:'हर दिशा में कितनी लेन?',loc_through:'क्या बसें या दूर जाने वाला ट्रैफ़िक चलता है, किलोमीटरों तक?',loc_gates:'क्या घरों-दुकानों के गेट सीधे सड़क पर खुलते हैं, और दोनों तरफ़ गाड़ियाँ खड़ी रहती हैं?',
     loc_land:'इस हिस्से के बगल में क्या है?',loc_count:'5 मिनट में कितने लोग पैदल गुज़रे',loc_count_h:'वैकल्पिक। प्राथमिकता के लिए दर्ज, स्कोर में नहीं।',
     land:{homes:'ज़्यादातर घर',shops:'दुकानें और दफ़्तर',city:'व्यस्त बाज़ार या शहर की मुख्य व्यावसायिक सड़क',sensitive:'इस हिस्से में स्कूल, अस्पताल, बस स्टॉप या बाज़ार'},
-    yes:'हाँ',no:'नहीं',partly:'कुछ हद तक',cant:'पता नहीं',photo:'फ़ोटो जोड़ें',change:'फ़ोटो बदलें',
-    aud_h:'हिस्से पर चलें',aud_p:'चलते-चलते जवाब दें। हर सवाल की एक फ़ोटो नोटिस को नज़रअंदाज़ करना मुश्किल बना देती है।',
-    gate_lbl:'पहला सवाल',item_lbl:'सवाल',weight:'वज़न',anchor_lbl:'आपकी राय',
+    yes:'हाँ',no:'नहीं',partly:'कुछ हद तक',cant:'पता नहीं',photo:'वैकल्पिक फ़ोटो जोड़ें',change:'फ़ोटो बदलें',
+    aud_h:'इस तरफ़ की जाँच',aud_p:'इस तरफ़ 100 मीटर देखें। जवाब देने के लिए सुरक्षित जगह रुकें; फ़ोटो वैकल्पिक है।',
+    gate_lbl:'राइट टू वॉक की 100 मीटर जाँच',item_lbl:'सवाल',weight:'वज़न',anchor_lbl:'आपकी राय',
     moot:'अपने आप फ़ेल: इस तरफ़ फुटपाथ ही नहीं है।',
     err_loc:'सड़क, हिस्सा, तरफ़ और सड़क के चारों सवाल भरें।',err_aud:'हर सवाल का जवाब दें (रोशनी के लिए "पता नहीं" चल सकता है)।',
-    card_h:'नतीजा',card_ask:'तीन चीज़ें माँगें',card_photos:'फ़ोटो',card_note:'तरीक़ा v1.0। हाँ पर पूरा वज़न, नहीं पर शून्य; "कुछ हद तक" पर आधा, सिर्फ़ तीन सवालों में। स्कोर उन्हीं सवालों पर है जिन्हें आप आँक सके। बैंड सबसे कमज़ोर बिंदु से तय होता है; जो हिस्सा 100 मीटर की कसौटी पर फ़ेल है वह स्कोर चाहे जो हो, चलने लायक नहीं है।',
-    gate_pass:'100 मीटर की कसौटी पास',gate_fail:'100 मीटर की कसौटी फ़ेल',band_g:'चलने लायक, बनाए रखें',band_a:'मरम्मत के साथ चलने लायक',band_r:'चलने लायक नहीं',of:'100 में से',checked:'सवाल जाँचे',
+    card_h:'आपकी देखी बात',card_ask:'बदलाव की माँग',card_photos:'फ़ोटो',card_note:'परियोजना का तरीका v1.3। हाँ पर पूरा वज़न, नहीं पर शून्य, और जहाँ विकल्प है वहाँ कुछ हद तक पर आधा मिलता है। स्कोर उन बातों पर है जिन्हें आप देख सके। हमारी 100 मीटर निरंतरता जाँच का जवाब नहीं हो तो नतीजा लाल होता है। यह नागरिक का अवलोकन है, कानूनी अनुपालन का प्रमाण नहीं।',
+    gate_pass:'100 मीटर तक रास्ता बताया गया',gate_fail:'100 मीटर में रुकावट बताई गई',band_g:'चलने लायक, बनाए रखें',band_a:'मरम्मत के साथ चलने लायक',band_r:'चलने लायक नहीं',of:'100 में से',checked:'सवाल जाँचे',
     cls:{arterial:'मुख्य (आर्टीरियल) सड़क',subarterial:'उप-मुख्य सड़क',collector:'कलेक्टर सड़क',local:'स्थानीय गली'},
     clsx:{arterial:'IRC:86 के अनुसार दोनों तरफ़ ऊँचा फुटपाथ, अलग साइकिल ट्रैक और क्रॉसिंग पर रिफ़्यूज होने चाहिए।',subarterial:'दोनों तरफ़ ऊँचा फुटपाथ और चौड़ी सड़क पर रिफ़्यूज होने चाहिए।',collector:'IRC:86 कहता है कि कलेक्टर सड़कों पर फुटपाथ अनिवार्य है।',local:'यह साझा जगह तभी हो सकती है जब ट्रैफ़िक 20 किमी/घं से नीचे रखा जाए; वरना इसे भी फुटपाथ चाहिए।'},
-    tier:{homes:'यहाँ मानक चलने की जगह: 2.0 मीटर साफ़ (IRC:103-2022; 2012 संस्करण में 1.8 मीटर)।',shops:'यहाँ मानक चलने की जगह: 2.5 मीटर साफ़ (मोहल्ला व्यावसायिक, IRC:103-2022)।',city:'यहाँ मानक चलने की जगह: 4.0 मीटर साफ़ (शहर की व्यावसायिक सड़क, IRC:103-2022)।',sensitive:'यहाँ मानक चलने की जगह: 2.5 मीटर साफ़ (स्कूल, अस्पताल, बाज़ार या बस स्टॉप के पास, IRC:103-2022), ट्रैफ़िक धीमा करने के उपायों के साथ।'},
+    tier:{homes:'चलने की जगह साफ़ और लगातार है या नहीं देखें। आवश्यक चौड़ाई प्रकाशित मानक से मापकर तय करनी होगी।',shops:'व्यावसायिक सड़क पर चलने और दुकानों तक पहुँचने की जगह चाहिए। अनुपालन कहने से पहले प्रकाशित मानक से चौड़ाई जाँचें।',city:'व्यस्त व्यावसायिक सड़क पर चलने की जगह की माप प्रकाशित मानक से जाँची जानी चाहिए।',sensitive:'स्कूल, अस्पताल, बाज़ार और बस स्टॉप के पास सुलभ चौड़ाई और धीमा ट्रैफ़िक देखें। एजेंसी की मापी हुई जाँच ज़रूरी है।'},
     anchors:['ज़रूर','शायद हाँ','पता नहीं','शायद नहीं','कभी नहीं'],
-    not_h:'नोटिस',not_owner:'यह सड़क कौन संभालता है?',not_name:'आपका नाम',not_org:'आपकी RWA या संस्था',not_hhrc:'हरियाणा मानवाधिकार आयोग को भी प्रति भेजें (गुरुग्राम फुटपाथ पर उसका अपना मामला जनवरी 2026 से चल रहा है)',not_text:'नोटिस का पाठ (कॉपी करके नीचे दिए चैनल से भेजें)',not_where:'कहाँ भेजें',
-    not_note:'यह पेज शिकायत दर्ज नहीं करता। पाठ कॉपी करें, अपनी फ़ोटो जोड़ें, और एजेंसी के चैनल से भेजें। मिला हुआ संदर्भ नंबर रखें। जवाब की तारीख़ के बाद फिर से चलकर देखें कि क्या बदला।',
+    not_h:'वैकल्पिक नोटिस',not_owner:'यह सड़क कौन संभालता है?',not_name:'आपका नाम',not_org:'आपकी RWA या संस्था',not_hhrc:'हरियाणा मानवाधिकार आयोग को भी प्रति भेजें (भेजने से पहले इसकी प्रासंगिकता जाँचें)',not_text:'इस मसौदे को बदलें, फिर खुद कॉपी करके भेजें',not_where:'कहाँ भेजें',
+    not_note:'यह साइट नोटिस नहीं भेजती। भेजने से पहले सड़क का मालिक, तथ्य, कानूनी संदर्भ और फ़ोटो जाँचें। प्राप्तकर्ता या नाम बदलने पर मसौदा फिर बनेगा और आपके बदलाव मिटेंगे।',
     sav_h:'सहेजी गई जाँचें',sav_p:'सिर्फ़ इस ब्राउज़र में। आगे भेजने के लिए रिकॉर्ड कॉपी करें।',none:'अभी कोई जाँच सहेजी नहीं गई।',del:'हटाएँ',del_sure:'पक्का हटाएँ',open:'खोलें',
     resume:'आपकी एक अधूरी जाँच है। उसे वापस लाया गया है।',pedestrians:'पैदल, 5 मिनट में'}
 };
 // ---------- items ----------
 const ITEMS=[
- {id:'gate',gate:true,en:'Can you walk 100 m along this side without stepping onto the road?',hi:'क्या आप इस तरफ़ 100 मीटर सड़क पर उतरे बिना चल सकते हैं?',help_en:'Walk 100 m on this side. If at any point you had to step onto the road, the answer is No.',help_hi:'इस तरफ़ 100 मीटर चलें। कहीं भी सड़क पर उतरना पड़ा तो जवाब नहीं है।',opts:['yes','no'],lbl_en:'100 m without stepping onto the road',lbl_hi:'सड़क पर उतरे बिना 100 मीटर',heading:'Demarcated and well-maintained footpath (Maniyar, para 20(b))'},
- {id:'i1',w:20,en:'Is there a raised footpath on this side that you can actually walk on?',hi:'क्या इस तरफ़ एक ऊँचा फुटपाथ है जिस पर आप सच में चल सकते हैं?',help_en:'A kerb or raised slab you step up onto, not a painted strip or the road shoulder.',help_hi:'कर्ब या ऊँचा स्लैब जिस पर चढ़कर चला जाए; पेंट की पट्टी या सड़क का किनारा नहीं।',opts:['yes','no'],lbl_en:'Footpath present',lbl_hi:'फुटपाथ है',heading:'Presence and width (Rajaseekaran, 7 Oct 2025)',std:'A raised footpath on both sides of every collector road and above (IRC:86-2018); on every street where traffic exceeds 15 km/h (IRC:103-2022).',ask:'Construct a raised, continuous footpath on this side with a clear walking zone of 2.0 m (IRC:103-2022; 1.8 m minimum under the 2012 edition) and a kerb no higher than 150 mm.'},
- {id:'i2',w:15,partly:true,nf:true,en:'Is it clear of things that force you off (parked vehicles, poles, transformers, debris, an open drain, a missing slab, a built structure)?',hi:'क्या फुटपाथ ऐसी चीज़ों से खाली है जो आपको सड़क पर उतरने को मजबूर करें (खड़ी गाड़ियाँ, खंभे, ट्रांसफ़ॉर्मर, मलबा, खुली नाली, टूटा स्लैब, पक्का ढाँचा)?',help_en:'Walk the whole stretch and count anything that makes you step onto the road. Vehicles count. A vending stall counts only if it leaves no way past.',help_hi:'पूरा हिस्सा चलें और जो भी चीज़ आपको सड़क पर उतरने को मजबूर करे उसे गिनें। गाड़ियाँ गिनें। ठेला तभी गिनें जब बगल से निकलने की जगह न बचे।',opts:['yes','partly','no'],lbl_en:'Clear of obstructions',lbl_hi:'रुकावटों से खाली',heading:'Encroachment hotspots (Rajaseekaran, 7 Oct 2025); footpaths free of encroachment (14 May 2025)',std:'The walking zone must be clear of all obstructions (IRC:103-2012, cl. 6.1.3); poles, transformers and boxes belong in the furniture zone; no vehicle may be parked on a footpath (Rules of the Road Regulations 1989, reg. 15).',ask:'Clear the walking zone of fixed obstructions by relocating poles, transformers and boxes to the furniture zone, cover drains and replace missing slabs, and enforce regulation 15 against vehicles parked on the footpath.'},
- {id:'i3',w:15,partly:true,en:'Within this stretch, is there a crossing that is more than paint (a hump or raised table, an island to wait on, a signal with walk time, or a slow one-lane street)?',hi:'क्या इस हिस्से में कोई ऐसी क्रॉसिंग है जो सिर्फ़ पेंट से ज़्यादा हो (स्पीड ब्रेकर या ऊँचा टेबल, बीच में खड़े होने की जगह, पैदल सिग्नल, या धीमी एक-लेन सड़क)?',help_en:'Paint alone does not count. Look for a hump or raised table, an island you can wait on, or a signal with a walk phase.',help_hi:'सिर्फ़ पेंट नहीं गिना जाता। स्पीड ब्रेकर या ऊँचा टेबल, बीच में खड़े होने की जगह, या पैदल सिग्नल देखें।',opts:['yes','partly','no'],lbl_en:'A real crossing',lbl_hi:'असली क्रॉसिंग',heading:'Crossings with calming, markings, lighting and dividers (Rajaseekaran, 7 Oct 2025)',std:'A crossing every 80 to 150 m (IRC:103-2022; 80 to 250 m in 2012), raised tables at unsignalised crossings, a refuge of at least 1.2 m where the carriageway is wider than 10.5 m (IRC:35-2015), zebra at least 2 m wide.',ask:'Provide a crossing within this stretch that is more than paint: a raised table or speed hump at the zebra, a refuge island of at least 1.2 m where the road is wider than 10.5 m, and a pedestrian phase at any signal.'},
- {id:'i4',w:12,en:'Do vehicles move slowly enough to cross without running, or is there a hump, raised crossing, narrowing or school-zone sign that slows them?',hi:'क्या गाड़ियाँ इतनी धीमी चलती हैं कि आप बिना दौड़े पार कर सकें, या कोई ब्रेकर, ऊँची क्रॉसिंग, सड़क का संकरा होना या स्कूल ज़ोन का बोर्ड है?',help_en:'Stand at the kerb for a minute. Could a child or an older person cross without running? Any hump within 50 m of a school gate counts.',help_hi:'एक मिनट कर्ब पर खड़े हों। क्या बच्चा या बुज़ुर्ग बिना दौड़े पार कर पाएगा? स्कूल गेट के 50 मीटर में कोई ब्रेकर हो तो गिनें।',opts:['yes','no'],lbl_en:'Slow enough to cross',lbl_hi:'पार करने लायक धीमा ट्रैफ़िक',heading:'Traffic calming (Rajaseekaran, 7 Oct 2025)',std:'Traffic calming per IRC:99-2018: 25 km/h near schools and 30 km/h near hospitals; 20 km/h within 100 m of schools, hospitals, markets and transit (IRC:86-2018).',ask:'Install traffic calming on this stretch (raised crossing or hump per IRC:99-2018, carriageway narrowing at the crossing, posted limit) so that a child or an older person can cross without running.'},
- {id:'i5',w:8,nf:true,en:'Can two adults pass side by side, or a wheelchair get through, at the narrowest point?',hi:'क्या सबसे संकरी जगह पर दो लोग साथ-साथ निकल सकते हैं, या एक व्हीलचेयर जा सकती है?',help_en:'Find the narrowest point. Two adults side by side with elbow room is about 1.8 m. A wheelchair needs about 1.2 m clear and room to turn.',help_hi:'सबसे संकरी जगह ढूँढें। दो वयस्क साथ-साथ कोहनी की जगह के साथ लगभग 1.8 मीटर। व्हीलचेयर को लगभग 1.2 मीटर और मुड़ने की जगह चाहिए।',opts:['yes','no'],lbl_en:'Wide enough for two',lbl_hi:'दो लोगों जितना चौड़ा',heading:'Width (Rajaseekaran, 7 Oct 2025)',std:'Clear walking zone of 2.0 m (IRC:103-2022; 1.8 m in 2012), 2.5 m near schools, hospitals, markets and bus stops, measured at the narrowest point.',ask:'Widen the walking zone to the standard for this land use (2.0 m, or 2.5 m near a school, hospital, market or bus stop, IRC:103-2022) at its narrowest point.'},
- {id:'i6',w:8,nf:true,en:'Where it meets a road or driveway, is there a gentle ramp with no step, and a line of ribbed tiles?',hi:'जहाँ फुटपाथ सड़क या गेट से मिलता है, क्या बिना सीढ़ी वाला हल्का ढलान (रैम्प) है और उभरी लाइनों वाली टाइलें हैं?',help_en:'At every crossing and driveway: a sloped ramp with no step, wide enough for a wheelchair, and a strip of ribbed yellow tiles.',help_hi:'हर क्रॉसिंग और गेट पर: बिना सीढ़ी का ढलान, व्हीलचेयर जितना चौड़ा, और उभरी पीली टाइलों की पट्टी।',opts:['yes','no'],lbl_en:'Ramps and tactile tiles',lbl_hi:'रैम्प और टाइलें',heading:'Usable by persons with disabilities (Rajaseekaran, 14 May 2025)',std:'Kerb ramps at every crossing and driveway, gradient 1:12 (2012) or 1:15 (2022), at least 1.2 m wide, with tactile warning tiles (IRC:103; Harmonised Guidelines for Universal Accessibility 2021).',ask:'Provide kerb ramps (1:15, at least 1.2 m wide) with tactile warning tiles at every crossing and driveway on this stretch.'},
- {id:'i7',w:7,partly:true,nf:true,en:'Is the surface level and unbroken (no open drains, missing slabs, big steps, loose stones)?',hi:'क्या सतह समतल और साबुत है (कोई खुली नाली, गायब स्लैब, बड़ी सीढ़ी, ढीले पत्थर नहीं)?',help_en:'Drop a one-rupee coin. If it falls into a gap, that is a fail. Count missing slabs and open drains.',help_hi:'एक रुपये का सिक्का गिराएँ। दरार में गिर जाए तो फ़ेल। गायब स्लैब और खुली नालियाँ गिनें।',opts:['yes','partly','no'],lbl_en:'Level surface',lbl_hi:'समतल सतह',heading:'Surface (Rajaseekaran, 7 Oct 2025)',std:'Even, non-slip surface; joint gaps no more than 5 mm and level differences no more than 12 mm (IRC:103-2012, cl. 6.1.6); drains covered flush.',ask:'Repair the surface to an even, non-slip finish with drains covered flush and no gaps over 5 mm or steps over 12 mm.'},
- {id:'i8',w:7,cant:true,en:'Is it lit at night by working streetlights along it, not only at the junction?',hi:'क्या रात में फुटपाथ के साथ-साथ चालू स्ट्रीटलाइटें हैं, सिर्फ़ चौराहे पर नहीं?',help_en:'Best checked after dark. Pace the gap between working poles; over 40 paces is a dark gap. In daytime choose "Can\'t tell".',help_hi:'अँधेरे के बाद जाँचें। चालू खंभों के बीच क़दम गिनें; 40 से ज़्यादा क़दम यानी अँधेरा हिस्सा। दिन में "पता नहीं" चुनें।',opts:['yes','no','cant'],lbl_en:'Lit at night',lbl_hi:'रात में रोशनी',heading:'Lighting (Rajaseekaran, 7 Oct 2025)',std:'Street lighting along the footpath of 25 to 30 lux (IRC:103-2022; 25 to 40 lux in 2012) and 80 lux at crossings.',ask:'Restore or provide working street lighting along the full length of this footpath (25 to 30 lux, 80 lux at crossings).'},
- {id:'i9',w:4,nf:true,en:'Is the footpath no taller than your phone is long, and does it stay level across gates and side lanes?',hi:'क्या फुटपाथ आपके फ़ोन की लंबाई से ऊँचा नहीं है, और गेटों व गलियों पर एक ही स्तर पर बना रहता है?',help_en:'Hold your phone upright against the kerb: it should stick out above it. Then count how many times the footpath dips to road level for a gate or lane.',help_hi:'फ़ोन सीधा कर्ब से लगाएँ: फ़ोन ऊपर निकलना चाहिए। फिर गिनें कि गेट या गली के लिए फुटपाथ कितनी बार सड़क के स्तर तक उतरता है।',opts:['yes','no'],lbl_en:'Kerb height and continuity',lbl_hi:'कर्ब की ऊँचाई और निरंतरता',heading:'Height (Rajaseekaran, 7 Oct 2025); continuity "mandatory" (IRC:103-2012)',std:'Kerb no higher than 150 mm; footpath continuous at the same level across gates and side lanes, with vehicle ramps inside the footpath no longer than 3.5 m (IRC:103-2022).',ask:'Bring the kerb to 150 mm or less and carry the footpath at one level across every gate and side lane, with vehicle ramps no longer than 3.5 m.'},
- {id:'i10',w:4,nf:true,en:'Is there something between you and traffic (a kerb, a verge, trees, a railing you can get out of), and shade or a place to sit?',hi:'क्या आपके और ट्रैफ़िक के बीच कुछ है (कर्ब, घास की पट्टी, पेड़, ऐसी रेलिंग जिससे निकला जा सके), और छाया या बैठने की जगह है?',help_en:'A kerb height, a grass verge or trees between you and traffic. A railing counts only if you can step off it every 20 m or so.',help_hi:'आपके और ट्रैफ़िक के बीच कर्ब, घास की पट्टी या पेड़। रेलिंग तभी गिनें जब हर 20 मीटर पर निकलने की जगह हो।',opts:['yes','no'],lbl_en:'Buffer, shade, seating',lbl_hi:'बफ़र, छाया, बैठने की जगह',heading:'"Safeguard footpaths" (Maniyar, para 20(b))',std:'A buffer between the walking zone and traffic; guardrails only where unavoidable, with gaps every 20 m; shade and seating in the furniture zone (IRC:103-2022).',ask:'Provide a buffer between the walking zone and traffic (kerb, verge or tree line), replace continuous guardrails with ones that open every 20 m, and add shade and seating in the furniture zone.'},
+ {id:'gate',gate:true,en:'Can you walk 100 m along this side without stepping onto the road?',hi:'क्या आप इस तरफ़ 100 मीटर सड़क पर उतरे बिना चल सकते हैं?',help_en:'If the footpath is blocked before 100 m, stop safely and answer No. Do not step into traffic to complete the check.',help_hi:'100 मीटर से पहले फुटपाथ बंद हो तो सुरक्षित जगह रुकें और नहीं चुनें। जाँच के लिए ट्रैफ़िक में न उतरें।',opts:['yes','no'],lbl_en:'100 m without stepping onto the road',lbl_hi:'सड़क पर उतरे बिना 100 मीटर',heading:'Project continuity check; Court duty to maintain footpaths (Maniyar, para 20(b))'},
+ {id:'i1',w:20,en:'Is there a raised footpath on this side that you can actually walk on?',hi:'क्या इस तरफ़ एक ऊँचा फुटपाथ है जिस पर आप सच में चल सकते हैं?',help_en:'A kerb or raised slab you step up onto, not a painted strip or the road shoulder.',help_hi:'कर्ब या ऊँचा स्लैब जिस पर चढ़कर चला जाए; पेंट की पट्टी या सड़क का किनारा नहीं।',opts:['yes','no'],lbl_en:'Footpath present',lbl_hi:'फुटपाथ है',heading:'Presence and width (Rajaseekaran, 7 Oct 2025)',std:"The Court asks agencies to audit footpath presence and width. A measured design check against the published IRC code is needed.",ask:"Measure and provide a raised, continuous, accessible footpath on this side."},
+ {id:'i2',w:15,partly:true,nf:true,en:'Is it clear of things that force you off (parked vehicles, poles, transformers, debris, an open drain, a missing slab, a built structure)?',hi:'क्या फुटपाथ ऐसी चीज़ों से खाली है जो आपको सड़क पर उतरने को मजबूर करें (खड़ी गाड़ियाँ, खंभे, ट्रांसफ़ॉर्मर, मलबा, खुली नाली, टूटा स्लैब, पक्का ढाँचा)?',help_en:'Walk the whole stretch and count anything that makes you step onto the road. Vehicles count. A vending stall counts only if it leaves no way past.',help_hi:'पूरा हिस्सा चलें और जो भी चीज़ आपको सड़क पर उतरने को मजबूर करे उसे गिनें। गाड़ियाँ गिनें। ठेला तभी गिनें जब बगल से निकलने की जगह न बचे।',opts:['yes','partly','no'],lbl_en:'Clear of obstructions',lbl_hi:'रुकावटों से खाली',heading:'Encroachment hotspots (Rajaseekaran, 7 Oct 2025); footpaths free of encroachment (14 May 2025)',std:"The Court asks agencies to document chronic encroachment and remedy it. The clear walking zone should be kept free of obstructions.",ask:"Clear fixed obstructions, repair missing slabs and drains, and keep parked vehicles off the walking zone."},
+ {id:'i3',w:15,partly:true,en:'Within this stretch, is there a crossing that is more than paint (a hump or raised table, an island to wait on, a signal with walk time, or a slow one-lane street)?',hi:'क्या इस हिस्से में कोई ऐसी क्रॉसिंग है जो सिर्फ़ पेंट से ज़्यादा हो (स्पीड ब्रेकर या ऊँचा टेबल, बीच में खड़े होने की जगह, पैदल सिग्नल, या धीमी एक-लेन सड़क)?',help_en:'Paint alone does not count. Look for a hump or raised table, an island you can wait on, or a signal with a walk phase.',help_hi:'सिर्फ़ पेंट नहीं गिना जाता। स्पीड ब्रेकर या ऊँचा टेबल, बीच में खड़े होने की जगह, या पैदल सिग्नल देखें।',opts:['yes','partly','no'],lbl_en:'A real crossing',lbl_hi:'असली क्रॉसिंग',heading:'Crossings with calming, markings, lighting and dividers (Rajaseekaran, 7 Oct 2025)',std:"The Court asks for crossing audits covering traffic calming, markings, lighting and dividers. Exact geometry needs a measured design review.",ask:"Provide a safe crossing with traffic calming, a refuge where appropriate, and a usable pedestrian phase at signals."},
+ {id:'i4',w:12,en:'Do vehicles move slowly enough to cross without running, or is there a hump, raised crossing, narrowing or school-zone sign that slows them?',hi:'क्या गाड़ियाँ इतनी धीमी चलती हैं कि आप बिना दौड़े पार कर सकें, या कोई ब्रेकर, ऊँची क्रॉसिंग, सड़क का संकरा होना या स्कूल ज़ोन का बोर्ड है?',help_en:'Stand at the kerb for a minute. Could a child or an older person cross without running? Look for a speed-reducing feature near the crossing; this is an observation, not a speed measurement.',help_hi:'एक मिनट कर्ब पर खड़े हों। क्या बच्चा या बुज़ुर्ग बिना दौड़े पार कर पाएगा? क्रॉसिंग के पास गाड़ियों को धीमा करने का उपाय देखें; यह रफ़्तार की माप नहीं है।',opts:['yes','no'],lbl_en:'Slow enough to cross',lbl_hi:'पार करने लायक धीमा ट्रैफ़िक',heading:'Traffic calming (Rajaseekaran, 7 Oct 2025)',std:"The Court asks authorities to assess traffic calming at pedestrian crossings. Vehicle speed needs a measured check.",ask:"Measure vehicle speeds and provide traffic calming so people can cross without running."},
+ {id:'i5',w:8,nf:true,en:'Can two adults pass side by side, or a wheelchair get through, at the narrowest point?',hi:'क्या सबसे संकरी जगह पर दो लोग साथ-साथ निकल सकते हैं, या एक व्हीलचेयर जा सकती है?',help_en:'Find the narrowest point. Use two people or a wheelchair as a rough check; this does not measure width.',help_hi:'सबसे संकरी जगह ढूँढें। दो लोगों या व्हीलचेयर से मोटा अंदाज़ा लगाएँ; इससे चौड़ाई मापी नहीं जाती।',opts:['yes','no'],lbl_en:'Wide enough for two',lbl_hi:'दो लोगों जितना चौड़ा',heading:'Width (Rajaseekaran, 7 Oct 2025)',std:"The Court asks agencies to audit width. This citizen answer is a rough observation, not a width measurement.",ask:"Measure the narrowest clear walking width and provide an accessible route under the published standard."},
+ {id:'i6',w:8,nf:true,en:'Where it meets a road or driveway, is there a gentle ramp with no step, and a line of ribbed tiles?',hi:'जहाँ फुटपाथ सड़क या गेट से मिलता है, क्या बिना सीढ़ी वाला हल्का ढलान (रैम्प) है और उभरी लाइनों वाली टाइलें हैं?',help_en:'At every crossing and driveway: a sloped ramp with no step, wide enough for a wheelchair, and a strip of ribbed yellow tiles.',help_hi:'हर क्रॉसिंग और गेट पर: बिना सीढ़ी का ढलान, व्हीलचेयर जितना चौड़ा, और उभरी पीली टाइलों की पट्टी।',opts:['yes','no'],lbl_en:'Ramps and tactile tiles',lbl_hi:'रैम्प और टाइलें',heading:'Usable by persons with disabilities (Rajaseekaran, 14 May 2025)',std:"The Rights of Persons with Disabilities Act and the 2021 Harmonised Guidelines support accessible roads and step-free routes. A measured design review is needed.",ask:"Provide step-free kerb ramps and tactile warning guidance at crossings and driveways."},
+ {id:'i7',w:7,partly:true,nf:true,en:'Is the surface level and unbroken (no open drains, missing slabs, big steps, loose stones)?',hi:'क्या सतह समतल और साबुत है (कोई खुली नाली, गायब स्लैब, बड़ी सीढ़ी, ढीले पत्थर नहीं)?',help_en:'Drop a one-rupee coin. If it falls into a gap, that is a fail. Count missing slabs and open drains.',help_hi:'एक रुपये का सिक्का गिराएँ। दरार में गिर जाए तो फ़ेल। गायब स्लैब और खुली नालियाँ गिनें।',opts:['yes','partly','no'],lbl_en:'Level surface',lbl_hi:'समतल सतह',heading:'Surface (Rajaseekaran, 7 Oct 2025)',std:"The Court asks agencies to audit surface condition. A measured inspection should identify gaps, level changes and drainage defects.",ask:"Repair the surface to a firm, even, non-slip finish and cover drains flush."},
+ {id:'i8',w:7,cant:true,en:'Is it lit at night by working streetlights along it, not only at the junction?',hi:'क्या रात में फुटपाथ के साथ-साथ चालू स्ट्रीटलाइटें हैं, सिर्फ़ चौराहे पर नहीं?',help_en:'Best checked after dark. Pace the gap between working poles; over 40 paces is a dark gap. In daytime choose "Can\'t tell".',help_hi:'अँधेरे के बाद जाँचें। चालू खंभों के बीच क़दम गिनें; 40 से ज़्यादा क़दम यानी अँधेरा हिस्सा। दिन में "पता नहीं" चुनें।',opts:['yes','no','cant'],lbl_en:'Lit at night',lbl_hi:'रात में रोशनी',heading:'Lighting (Rajaseekaran, 7 Oct 2025)',std:"The Court asks agencies to consider lighting at crossings. Night-time illumination needs measurement by the road authority.",ask:"Restore working lights along the walking route and at crossings; measure illumination after dark."},
+ {id:'i9',w:4,nf:true,en:'Is the footpath no taller than your phone is long, and does it stay level across gates and side lanes?',hi:'क्या फुटपाथ आपके फ़ोन की लंबाई से ऊँचा नहीं है, और गेटों व गलियों पर एक ही स्तर पर बना रहता है?',help_en:'Hold your phone upright against the kerb: it should stick out above it. Then count how many times the footpath dips to road level for a gate or lane.',help_hi:'फ़ोन सीधा कर्ब से लगाएँ: फ़ोन ऊपर निकलना चाहिए। फिर गिनें कि गेट या गली के लिए फुटपाथ कितनी बार सड़क के स्तर तक उतरता है।',opts:['yes','no'],lbl_en:'Kerb height and continuity',lbl_hi:'कर्ब की ऊँचाई और निरंतरता',heading:'Height (Rajaseekaran, 7 Oct 2025); continuity "mandatory" (IRC:103-2012)',std:"The Court asks agencies to audit height and continuity. Kerb and driveway details need a measured design review.",ask:"Measure the kerb and carry a level walking route across gates and side lanes."},
+ {id:'i10',w:4,nf:true,en:'Is there something between you and traffic (a kerb, a verge, trees, a railing you can get out of), and shade or a place to sit?',hi:'क्या आपके और ट्रैफ़िक के बीच कुछ है (कर्ब, घास की पट्टी, पेड़, ऐसी रेलिंग जिससे निकला जा सके), और छाया या बैठने की जगह है?',help_en:'A kerb height, a grass verge or trees between you and traffic. A railing should not trap a walker on the roadside.',help_hi:'आपके और ट्रैफ़िक के बीच कर्ब, घास की पट्टी या पेड़। रेलिंग से पैदल चलने वाला सड़क के किनारे फँसना नहीं चाहिए।',opts:['yes','no'],lbl_en:'Buffer, shade, seating',lbl_hi:'बफ़र, छाया, बैठने की जगह',heading:'"Safeguard footpaths" (Maniyar, para 20(b))',std:"A safe walking zone should be separated from traffic where appropriate, with comfort features planned around a clear route.",ask:"Provide safe separation from traffic, shade and seating without blocking the clear route."},
  {id:'anchor',anchor:true,en:'Would you let a 10-year-old or your grandmother walk this stretch alone?',hi:'क्या आप 10 साल के बच्चे या अपनी दादी को इस हिस्से पर अकेले चलने देंगे?',help_en:'Reported with the result, never scored.',help_hi:'नतीजे के साथ दर्ज, स्कोर में नहीं।',lbl_en:'Would you let a child or a grandparent walk here alone',lbl_hi:'क्या बच्चे या बुज़ुर्ग को अकेले चलने देंगे'}
 ];
 const OWNERS=[
@@ -707,7 +732,7 @@ const OBS=[
   desc:'Cars and two-wheelers parked on the footpath, usually at shops and markets. In ITDP’s Chennai audit parking was 40% of all obstructions counted, the largest single type.'},
  {id:'vendor',en:'Vendor cart, kiosk or tin shed',hi:'रेहड़ी-पटरी, ठेला, खोखा, टीन शेड',sev:'off',
   who:'MCG street-vending team and Town Vending Committee on MCG roads and markets; GMDA Enforcement on master roads; HSVP Estate Office in sector markets',
-  rule:'Street Vendors Act 2014 s.3(3) (no eviction before the survey), s.18 (30 days’ notice), s.28 (penalty up to ₹2,000); Haryana Municipal Street Vendors Act 2014 s.16; IRC:103-2012 cl. 6.11 and the 2022 draft cl. 6.10 (vending managed so it does not hinder pedestrians); Haryana Municipal Corporation Act 1994 s.408',
+  rule:'Street Vendors Act 2014 s.3(3) (no eviction before the survey), s.18 (30 days’ notice), s.28 (penalty up to ₹2,000); Haryana Municipal Street Vendors Act 2014 s.16; IRC:103-2012 cl. 6.11 (vending managed so it does not hinder pedestrians); Haryana Municipal Corporation Act 1994 s.408',
   fix:'Mark a vending zone in the multi-utility strip and certify vendors through the Town Vending Committee; remove un-certified fixed structures after notice; keep the walking zone clear',
   desc:'Vending is lawful and belongs in a designed vending zone; count a cart only when it leaves no way past. Permanent khokhas and tin sheds are different: GMDA’s 2026 survey counted 600 to 700 of them on Gurugram roads.'},
  {id:'shop',en:'Shop or house spilling onto it',hi:'दुकान का सामान बाहर, काउंटर, चबूतरा, सीढ़ियाँ',sev:'narrow',
@@ -717,7 +742,7 @@ const OBS=[
   desc:'Display goods, a counter, a raised platform, steps or a canopy that a shop or house extends over the footpath.'},
  {id:'ramp',en:'Private ramp or fence over it',hi:'रैंप, ग्रिल, चारदीवारी, गार्ड रूम',sev:'off',
   who:'DTP Enforcement in licensed colonies (DLF, Sushant Lok, Palam Vihar); MCG in taken-over colonies; HSVP in sectors; GMDA on master roads and drains',
-  rule:'IRC:103-2012: minimise driveways crossing the footpath and keep it continuous; 2022 draft: the footpath continues at one level across property entrances, with vehicle ramps inside the kerb zone; MCG public notice, Aug 2026: ramps cut carriageway width and cause waterlogging',
+  rule:'IRC:103-2012: minimise driveways crossing the footpath and keep it continuous; MCG public notice, Aug 2026: ramps cut carriageway width and cause waterlogging. Check the published IRC:103-2022 clause before citing a current numeric standard',
   fix:'Demolish the ramp or fence, restore the footpath level and allow only a short driveway ramp inside the kerb zone',
   desc:'Concrete ramps poured over the roadside drain, fences, lawns and guard cabins pushed onto public land. GMDA pulled down hundreds of ramps along 60 km in four days in 2026; DTP counted 650 in Palam Vihar alone.'},
  {id:'electric',en:'Electric pole, box or transformer',hi:'बिजली का खंभा, ट्रांसफ़ॉर्मर, फ़ीडर पिलर, जंक्शन बॉक्स',sev:'off',
@@ -727,7 +752,7 @@ const OBS=[
   desc:'Utility hardware planted in the walking zone, often with exposed wiring. Bengaluru found 9,000 of its 45,000 transformers on footpaths in 2014; a Gurugram footpath electrocution near IFFCO Chowk metro was traced to a streetlight contractor.'},
  {id:'green',en:'Tree or bushes in the path',hi:'पेड़ बीच में, झाड़ियाँ, नीची टहनियाँ, ट्री गार्ड',sev:'narrow',
   who:'Horticulture wing of MCG (internal roads) or GMDA (master roads and green belts); HSVP Horticulture; felling needs Forest Department permission',
-  rule:'IRC:103-2012 cl. 6.1.4 (no trees or branches within the clear height and width) and cl. 6.1.10.2 (vegetation at least 2.2 m clear); 2022 draft: tree pits of about 1.8 × 1.8 m in the multi-utility zone with surmountable gratings',
+  rule:'IRC:103-2012 cl. 6.1.4 (no trees or branches within the clear height and width) and cl. 6.1.10.2 (vegetation at least 2.2 m clear); check the published IRC:103-2022 clause before citing a current tree-pit dimension',
   fix:'Prune to 2.2 m clear height, re-align the walking zone around existing trees with level tree grates, and never cut the tree',
   desc:'Trees planted in the walking zone, hedges grown across it, branches below head height. The fix is to design around the tree, not to remove it.'},
  {id:'manhole',en:'Open manhole or drain',hi:'खुला मैनहोल, ढक्कन गायब, खुला नाला, स्लैब गायब',sev:'fall',
@@ -753,7 +778,7 @@ const OBS=[
  {id:'furniture',en:'Signboard, bus stop or furniture in the path',hi:'होर्डिंग, यूनिपोल, बस स्टॉप, शौचालय, पुल की सीढ़ियाँ',sev:'narrow',
   who:'MCG Advertising Wing for boards (Haryana Municipal Advertisement Bye-laws 2022); GMDA for unipoles on its land; GMDA or MCG for bus shelters; GMDA or NHAI for foot-over-bridges',
   rule:'IRC:103-2012 cl. 6.1.10.2 (obstacles below 2.2 m may project at most 100 mm) and cl. 6.11.4 (furniture placed in a straight line in the multi-utility zone)',
-  fix:'Move the board, shelter or stair landing into the furniture line with 2 m clear behind it, and remove unauthorised advertising',
+  fix:'Move the board, shelter or stair landing out of the walking zone, and remove unauthorised advertising',
   desc:'Hoardings, unipoles, bus shelters, toilets, barricades and bridge staircases placed across the walking line instead of in the furniture zone. Gurugram had over 400 unipoles counted in 2024.'},
  {id:'water',en:'Waterlogged or silted',hi:'जलभराव, कीचड़, गाद, सीवर ओवरफ़्लो',sev:'off',
   who:'MCG for internal drains and sewers; GMDA for master drains',
@@ -843,11 +868,12 @@ function rtwPhotoList(folder,tok){return rtwJSON('/storage/v1/object/list/photos
 async function rtwPhotoURL(path,tok){const r=await rtwFetch('/storage/v1/object/authenticated/photos/'+path,{},tok);return URL.createObjectURL(await r.blob())}
 function rtwClientId(){let id=rtwLS(()=>localStorage.getItem('rtw_cid'));if(!id){id=(crypto.randomUUID?crypto.randomUUID():('c'+Date.now().toString(36)+Math.random().toString(36).slice(2,10)));rtwLS(()=>localStorage.setItem('rtw_cid',id))}return id}
 function rtwUUID(){if(crypto.randomUUID)return crypto.randomUUID();const b=crypto.getRandomValues(new Uint8Array(16));b[6]=(b[6]&15)|64;b[8]=(b[8]&63)|128;const h=[...b].map(x=>x.toString(16).padStart(2,'0')).join('');return `${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20)}`}
-// shrink a photo to a JPEG no wider than max px (also strips EXIF, including any GPS tag)
+// A photo is uploaded only after successful canvas re-encoding. Never fall back to
+// the original file: it may still contain camera metadata, including GPS tags.
 function rtwShrink(file,max){return new Promise(res=>{const img=new Image();const u=URL.createObjectURL(file);
- img.onload=()=>{try{const k=Math.min(1,(max||1600)/Math.max(img.naturalWidth,img.naturalHeight));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.naturalWidth*k));c.height=Math.max(1,Math.round(img.naturalHeight*k));c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>res(b),'image/jpeg',.82)}catch(e){URL.revokeObjectURL(u);res(null)}};
+ img.onload=()=>{try{const k=Math.min(1,(max||1600)/Math.max(img.naturalWidth,img.naturalHeight));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.naturalWidth*k));c.height=Math.max(1,Math.round(img.naturalHeight*k));const ctx=c.getContext('2d');if(!ctx)throw new Error('canvas unavailable');ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);ctx.drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>res(b&&b.type==='image/jpeg'&&b.size<=3145728?b:null),'image/jpeg',.82)}catch(e){URL.revokeObjectURL(u);res(null)}};
  img.onerror=()=>{URL.revokeObjectURL(u);res(null)};img.src=u})}
-async function rtwUpload(path,blob){return rtwFetch('/storage/v1/object/photos/'+path,{method:'POST',headers:{'Content-Type':blob.type||'image/jpeg','x-upsert':'false','Cache-Control':'3600'},body:blob})}
+async function rtwUpload(path,blob){if(!/^pending\/[0-9a-f-]{36}\/[a-zA-Z0-9_-]{1,64}\.jpg$/.test(path)||!blob||blob.type!=='image/jpeg'||blob.size>3145728)throw new Error('Only re-encoded JPEG photos can be uploaded');return rtwFetch('/storage/v1/object/photos/'+path,{method:'POST',headers:{'Content-Type':'image/jpeg','x-upsert':'false','Cache-Control':'3600'},body:blob})}
 // ---------- formatting shared by the map, the report and the moderation page ----------
 const RTW_OWNER_SHORT={gmda:'GMDA',mcg:'MCG',hsvp:'HSVP',dtcp:'DTCP / coloniser',nhai:'NHAI',pwd:'PWD (B&R)',unknown:'Not sure'};
 function rtwEsc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
@@ -860,40 +886,39 @@ function rtwPct(a,b){return b?Math.round(a/b*100):null}
 function rtwOSM(r){return `https://www.openstreetmap.org/?mlat=${r.lat}&mlon=${r.lon}#map=18/${r.lat}/${r.lon}`}
 function rtwShort(id){return String(id||'').slice(0,8).toUpperCase()}
 
-// ---------- the sampling frame: Haryana's own road list (src/roads.json, inlined as ROADS) matched to published checks ----------
-// A check belongs to a road when its start point is within RTW_ROAD_RADIUS metres of the road's line (nearest road wins).
-// Everything here runs in the browser on data already loaded; no new host is called.
+// Haryana's road list is a planning frame. A nearby pin does not establish coverage of a road.
 const RTW_ROAD_RADIUS=60;
 const RTW_ROAD_KIND={master:'master road',iconic:'iconic road'};
 function rtwRoadAgency(a){return RTW_OWNER_SHORT[a]||'Not stated'}
 function rtwRoadSeg(p,a,b){const ky=111132,kx=111132*Math.cos(p[0]*Math.PI/180);const px=(p[1]-a[1])*kx,py=(p[0]-a[0])*ky,bx=(b[1]-a[1])*kx,by=(b[0]-a[0])*ky;const l2=bx*bx+by*by;const t=l2?Math.max(0,Math.min(1,(px*bx+py*by)/l2)):0;const dx=px-t*bx,dy=py-t*by;return Math.sqrt(dx*dx+dy*dy)}
 function rtwRoadDist(p,pts){let m=Infinity;for(let i=0;i<pts.length-1;i++){const d=rtwRoadSeg(p,pts[i],pts[i+1]);if(d<m)m=d}return m}
-// -> one entry per road: {road, checks, tested, pass, fail, state} with state none | walked | pass | fail
-function rtwRoadsMatch(rows){const res=ROADS.roads.map(r=>({road:r,checks:[],tested:0,pass:0,fail:0,state:'none'}));
+// A check is associated with its nearest approximate road line when its start is within 60 m.
+// These are *nearby observations*, never road-wide pass/fail or measured segment coverage.
+function rtwRoadsMatch(rows){const res=ROADS.roads.map(r=>({road:r,checks:[],fullTested:0,fullPassed:0,fullFailed:0,spotReports:0,state:'none'}));
  for(const row of rows||[]){if(row.lat==null||row.lon==null)continue;const p=[+row.lat,+row.lon];let best=null,bd=RTW_ROAD_RADIUS;
   for(const s of res){if(!s.road.pts||s.road.pts.length<2)continue;const d=rtwRoadDist(p,s.road.pts);if(d<bd){bd=d;best=s}}
-  if(best){best.checks.push(row);if(row.gate==='no')best.fail++;else if(row.gate==='yes')best.pass++;if(row.gate==='no'||row.gate==='yes')best.tested++}}
- for(const s of res)s.state=s.fail?'fail':(s.pass?'pass':(s.checks.length?'walked':'none'));
+  if(best){best.checks.push(row);if(row.mode==='full'&&row.gate==='no'){best.fullTested++;best.fullFailed++}else if(row.mode==='full'&&row.gate==='yes'){best.fullTested++;best.fullPassed++}if(row.mode==='quick')best.spotReports++}}
+ for(const s of res)s.state=s.checks.length?'nearby':'none';
  return res}
-function rtwRoadsSummary(res){return {total:ROADS.frame.total,listed:res.length,walked:res.filter(s=>s.checks.length).length,tested:res.filter(s=>s.tested).length,pass:res.filter(s=>s.state==='pass').length,fail:res.filter(s=>s.fail).length,checks:res.reduce((a,s)=>a+s.checks.length,0),nolines:res.filter(s=>!s.road.pts||s.road.pts.length<2).length}}
-function rtwRoadStateText(st){return st==='fail'?'Fails the 100 m test':(st==='pass'?'Passes the 100 m test':(st==='walked'?'Walked, test not answered':'Not yet walked'))}
-function rtwRoadLine(sm){return `Of the ${sm.total} roads on Haryana's own audit list, ${sm.walked} ${sm.walked===1?'has':'have'} been walked and ${sm.fail} fail${sm.fail===1?'s':''} the 100 m test.`}
+function rtwRoadsSummary(res){return {total:ROADS.frame.total,listed:res.length,roadsWithNearby:res.filter(s=>s.checks.length).length,fullTested:res.reduce((a,s)=>a+s.fullTested,0),fullFailed:res.reduce((a,s)=>a+s.fullFailed,0),spotReports:res.reduce((a,s)=>a+s.spotReports,0),checks:res.reduce((a,s)=>a+s.checks.length,0),nolines:res.filter(s=>!s.road.pts||s.road.pts.length<2).length}}
+function rtwRoadStateText(s){return s.checks.length?`${s.checks.length} nearby ${s.checks.length===1?'observation':'observations'}`:'No nearby observation'}
+function rtwRoadLine(sm){return `${sm.roadsWithNearby} of the ${sm.listed} listed roads have at least one nearby published observation. This does not measure coverage of either side of a road.`}
 function rtwRoadKm(r){return r.length_m?`about ${(r.length_m/1000).toFixed(1)} km`:'length not known'}
 function rtwRoadStretches(r){return r.length_m?Math.max(1,Math.ceil(r.length_m/500)):null}
-// sort for tables: failing first, then passing, walked, not yet walked; list order within each
-function rtwRoadsSorted(res){const o={fail:0,pass:1,walked:2,none:3};return res.map((s,i)=>[s,i]).sort((a,b)=>(o[a[0].state]-o[b[0].state])||(a[1]-b[1])).map(x=>x[0])}
+// Put observed roads first without sorting by a purported road-wide result.
+function rtwRoadsSorted(res){return res.map((s,i)=>[s,i]).sort((a,b)=>(b[0].checks.length-a[0].checks.length)||(a[1]-b[1])).map(x=>x[0])}
 
 // ---------- deaths on record: pedestrians killed in Gurugram where a public record states what the road lacked ----------
 // Data: src/deaths.json, inlined as DEATHS at build time. Every case carries its sources; nothing here infers a cause.
-// A case is "walked" when a published check starts within RTW_DEATH_RADIUS m of it, and "on a failing stretch" when
-// one of those checks failed the Court's 100 m test. All matching runs in the browser on data already loaded.
+// A case has a nearby observation when a published check starts within RTW_DEATH_RADIUS m of it. This proximity
+// does not establish conditions at the incident's place or time. Only a full check can report our 100 m result.
 const RTW_DEATH_RADIUS=60;
 const RTW_AGE={child:'a child',teen:'a teenager',adult:'an adult',elderly:'an elderly person',unknown:'a pedestrian'};
 function rtwDistM(a,b){const R=6371000,r=x=>x*Math.PI/180;const dLat=r(b[0]-a[0]),dLon=r(b[1]-a[1]);const s=Math.sin(dLat/2)**2+Math.cos(r(a[0]))*Math.cos(r(b[0]))*Math.sin(dLon/2)**2;return 2*R*Math.asin(Math.sqrt(s))}
 function rtwDeaths(){return (typeof DEATHS!=='undefined'&&DEATHS&&DEATHS.cases)?DEATHS.cases.slice():[]}
 function rtwDeathPlaced(c){return c.lat!=null&&c.lon!=null}
 // -> one entry per case: {c, checks, fail, pass}
-function rtwDeathsMatch(rows){return rtwDeaths().map(c=>{const near=rtwDeathPlaced(c)?(rows||[]).filter(r=>r.lat!=null&&rtwDistM([+c.lat,+c.lon],[+r.lat,+r.lon])<=RTW_DEATH_RADIUS):[];return {c,checks:near,fail:near.filter(r=>r.gate==='no').length,pass:near.filter(r=>r.gate==='yes').length}})}
+function rtwDeathsMatch(rows){return rtwDeaths().map(c=>{const near=rtwDeathPlaced(c)?(rows||[]).filter(r=>r.lat!=null&&rtwDistM([+c.lat,+c.lon],[+r.lat,+r.lon])<=RTW_DEATH_RADIUS):[];return {c,checks:near,fail:near.filter(r=>r.mode==='full'&&r.gate==='no').length,pass:near.filter(r=>r.mode==='full'&&r.gate==='yes').length}})}
 function rtwDeathCount(c){return Math.max(1,+(c.count||1))}
 function rtwDeathsSummary(res){const dates=res.map(x=>x.c.date).filter(Boolean).sort();const n=xs=>xs.reduce((a,x)=>a+rtwDeathCount(x.c),0);return {total:n(res),incidents:res.length,walked:res.filter(x=>x.checks.length).length,failing:res.filter(x=>x.fail).length,first:dates[0]||null,last:dates[dates.length-1]||null,children:res.reduce((a,x)=>a+rtwDeathAges(x.c,['child','teen']),0),elderly:res.reduce((a,x)=>a+rtwDeathAges(x.c,['elderly']),0)}}
 // ages in an entry: a breakdown when one incident killed people of different ages, else the entry's own age band
@@ -903,10 +928,13 @@ function rtwDeathLine(c){return `${rtwDeathWho(c)} ${c.how||'was killed'}`}
 function rtwDeathDate(c){return c.date?rtwDate(c.date):(c.date_text||'date not on record')}
 function rtwDeathSource(c,i){const s=(c.sources||[])[i==null?(c.fact_source||0):i];return s?`<a href="${rtwEsc(s.url)}" target="_blank" rel="noopener">${rtwEsc(s.outlet)}${s.date?', '+rtwDate(s.date):''}</a>`:''}
 function rtwDeathWalkURL(c){if(!rtwDeathPlaced(c))return '';return `index.html?at=${(+c.lat).toFixed(4)},${(+c.lon).toFixed(4)}&road=${encodeURIComponent(c.place||'')}#check`}
-function rtwDeathsLine(sm){if(!sm.total)return 'No death is on this record yet.';const y=sm.first?new Date(sm.first).getFullYear():'';return `${sm.total} pedestrian ${sm.total===1?'death':'deaths'} on the public record${y?` since ${y}`:''}: ${sm.children} ${sm.children===1?'child or teenager':'children or teenagers'}, ${sm.elderly} elderly. ${sm.walked} of the ${sm.incidents} ${sm.walked===1?'stretch has':'stretches have'} been walked since; ${sm.failing} ${sm.failing===1?'fails':'fail'} the 100 m test today.`}
+function rtwDeathsLine(sm){if(!sm.total)return 'No death is on this record yet.';const y=sm.first?new Date(sm.first).getFullYear():'';return `${sm.total} pedestrian ${sm.total===1?'death':'deaths'} on the public record${y?` since ${y}`:''}: ${sm.children} ${sm.children===1?'child or teenager':'children or teenagers'}, ${sm.elderly} elderly. ${sm.walked} of ${sm.incidents} incident locations have a later published observation starting within ${RTW_DEATH_RADIUS} m; ${sm.failing} have a nearby full check reporting a failure of our 100 m continuity check. Proximity does not establish conditions at the incident's place or time.`}
 
 // ---------- Gurugram report, rendered live from the public views ----------
 const $=id=>document.getElementById(id);
+let lang=rtwLS(()=>localStorage.getItem('rtw_lang'))==='hi'?'hi':'en';
+const tr=(en,hi)=>lang==='hi'?hi:en;
+function applyLang(){document.documentElement.lang=lang;document.querySelectorAll('[data-hi]').forEach(el=>{if(!el.dataset.en)el.dataset.en=el.textContent;el.textContent=lang==='hi'?el.dataset.hi:el.dataset.en});$('r-lang').textContent=lang==='hi'?'English':'हिन्दी'}
 function pctCell(a,b){const p=rtwPct(a,b);return p==null?'<td class="pctcell">—</td>':`<td class="pctcell ${p>=50?'r':(p===0?'g':'')}">${p}%</td>`}
 function table(head,rows){return `<div class="tbl"><table><thead><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`}
 function empty(msg){return `<div class="empty">${rtwEsc(msg)}</div>`}
@@ -915,36 +943,39 @@ function deathsTable(rows){const res=rtwDeathsMatch(rows),sm=rtwDeathsSummary(re
  const pend=(typeof DEATHS!=='undefined'&&DEATHS.pending)||[];const pb=$('r-deaths-pending');if(pb)pb.innerHTML=pend.length?`<p class="small" style="margin-top:8px"><b>Known to us, not entered:</b></p><ul class="small">${pend.map(q=>`<li>${rtwEsc(q)}</li>`).join('')}</ul>`:'';
  if(!res.length){$('r-deaths').innerHTML=empty('No death is on this record yet. The first entries are being verified against the rules below.');return}
  const sorted=res.slice().sort((a,b)=>String(b.c.date||'').localeCompare(String(a.c.date||'')));
- $('r-deaths').innerHTML=table(['When','Where','Who','What the road lacked, as recorded','On record','Since then'],sorted.map(x=>{const c=x.c;const n=x.checks.length;return `<tr><td class="fg" style="white-space:nowrap">${rtwEsc(rtwDeathDate(c))}</td><td>${rtwDeathPlaced(c)?`<a href="map.html#d=${rtwEsc(c.id)}">${rtwEsc(c.place||'—')}</a>`:`${rtwEsc(c.place||'—')}<br><span class="small">place not yet resolved on the map</span>`}${c.sector?`<br><span class="small">${rtwEsc(c.sector)}</span>`:''}</td><td>${rtwEsc(rtwDeathLine(c))}</td><td class="q">“${rtwEsc(c.fact)}” <span class="small">${rtwDeathSource(c)}</span></td><td class="small">${c.record?(c.record_url?`<a href="${rtwEsc(c.record_url)}" target="_blank" rel="noopener">${rtwEsc(c.record)}</a>`:rtwEsc(c.record)):'Press reports'}${c.status==='live case'?'<br>before a court or tribunal':''}</td><td class="small">${n?`${n} ${n===1?'check':'checks'} within 60 m${x.fail?`, ${x.fail} ${x.fail===1?'fails':'fail'} the 100 m test`:''}`:'not walked yet'}${rtwDeathPlaced(c)?`<br><a href="${rtwDeathWalkURL(c)}">walk it</a>`:''}</td></tr>`}))}
+ $('r-deaths').innerHTML=table(['When','Where','Who','What the road lacked, as recorded','On record','Nearby observations'],sorted.map(x=>{const c=x.c;const n=x.checks.length;return `<tr><td class="fg" style="white-space:nowrap">${rtwEsc(rtwDeathDate(c))}</td><td>${rtwDeathPlaced(c)?`<a href="map.html#d=${rtwEsc(c.id)}">${rtwEsc(c.place||'—')}</a>`:`${rtwEsc(c.place||'—')}<br><span class="small">place not yet resolved on the map</span>`}${c.sector?`<br><span class="small">${rtwEsc(c.sector)}</span>`:''}</td><td>${rtwEsc(rtwDeathLine(c))}</td><td class="q">“${rtwEsc(c.fact)}” <span class="small">${rtwDeathSource(c)}</span></td><td class="small">${c.record?(c.record_url?`<a href="${rtwEsc(c.record_url)}" target="_blank" rel="noopener">${rtwEsc(c.record)}</a>`:rtwEsc(c.record)):'Press reports'}${c.status==='live case'?'<br>before a court or tribunal':''}</td><td class="small">${n?`${n} published ${n===1?'observation starts':'observations start'} within 60 m${x.fail?`; ${x.fail} full 100 m ${x.fail===1?'check failed':'checks failed'}`:''}. This does not audit the incident location.`:'No nearby observation published.'}${rtwDeathPlaced(c)?`<br><a href="${rtwDeathWalkURL(c)}">check nearby</a>`:''}</td></tr>`}))}
 async function init(){
+ applyLang();
  const now=new Date();$('r-cite-date').textContent=now.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
- if(!RTW_ON()){$('r-when').textContent='not connected';$('r-lead').textContent='The record is not connected yet. This page fills from the public dataset once Phase 1 is switched on.';['r-sectors','r-owners','r-obs','r-worst'].forEach(id=>$(id).innerHTML=empty('No data yet.'));deathsTable([]);const r0=rtwRoadsMatch([]);$('r-roads-line').firstChild.textContent=rtwRoadLine(rtwRoadsSummary(r0));$('r-roads').innerHTML=table(['Road','Agency','Type','Checks','Result'],r0.map(s=>`<tr><td class="fg">${rtwEsc(s.road.name)}</td><td>${rtwEsc(rtwRoadAgency(s.road.agency))}</td><td>${rtwEsc(RTW_ROAD_KIND[s.road.kind]||s.road.kind)}</td><td>0</td><td>${rtwEsc(rtwRoadStateText('none'))}</td></tr>`));return}
+ if(!RTW_ON()){$('r-when').textContent=tr('not connected','जुड़ा नहीं');$('r-lead').textContent=tr('The public record is not connected yet.','सार्वजनिक रिकॉर्ड अभी जुड़ा नहीं है।');['r-sectors','r-owners','r-obs','r-worst'].forEach(id=>$(id).innerHTML=empty(tr('No data yet.','अभी डेटा नहीं।')));deathsTable([]);const r0=rtwRoadsMatch([]);$('r-roads-line').firstChild.textContent=rtwRoadLine(rtwRoadsSummary(r0));$('r-roads').innerHTML=table(['Road','Agency','Nearby checks','Observed results'],r0.map(s=>`<tr><td class="fg">${rtwEsc(s.road.name)}</td><td>${rtwEsc(rtwRoadAgency(s.road.agency))}</td><td>0</td><td>—</td></tr>`));return}
  let stats,sectors,owners,rows;
  try{[stats,sectors,owners,rows]=await Promise.all([rtwStats(),rtwSectorStats(),rtwOwnerStats(),rtwPublished()])}catch(e){$('r-lead').textContent='Could not load the record right now. Try again in a minute.';return}
  rows=rows||[];sectors=sectors||[];owners=owners||[];
- $('r-when').textContent=now.toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+ $('r-when').textContent=now.toLocaleString(lang==='hi'?'hi-IN':'en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
  const failed=stats.gate_tested-stats.gate_pass;const pct=rtwPct(failed,stats.gate_tested);
  $('r-pct').textContent=pct==null?'—':pct+'%';
- if(pct==null){$('r-pct').textContent='—';$('r-pct-l').textContent='No stretch on the record has answered the 100 m test yet. The number appears with the first published check.'}
- $('r-lead').textContent=stats.published?`${stats.published} footpath ${stats.published===1?'check':'checks'} from ${stats.people||'—'} ${stats.people===1?'person':'people'} are on the public record${stats.first?`, the first on ${rtwDate(stats.first)}`:''}. Of the ${stats.gate_tested} that answered the Court's 100 m test, ${failed} failed it.`:'Nothing is on the public record yet. Be the first: check a street on the main page and add it to the record.';
- $('r-tiles').innerHTML=[[stats.published,'checks on the public record'],[stats.submitted-stats.published,'sent in, waiting for a moderator'],[stats.people||0,'people who walked'],[rtwPct(stats.with_footpath,stats.full)==null?'—':rtwPct(stats.with_footpath,stats.full)+'%','of full stretches have a footpath at all'],[stats.full,'full 500 m stretches'],[rtwPct(stats.verified,stats.published)==null?'—':rtwPct(stats.verified,stats.published)+'%','of the record re-walked and verified']].map(([n,l])=>`<div class="stattile"><span class="n">${n}</span><span class="l">${l}</span></div>`).join('');
+ $('r-pct-l').firstChild.textContent=tr('of eligible full checks failed Right to Walk’s 100 m continuity question. Quick spot reports are excluded. ','योग्य पूरी जाँचों में Right to Walk की 100 मीटर निरंतरता जाँच असफल रही। एक जगह की जाँचें इसमें शामिल नहीं हैं। ');
+ $('r-denom').textContent=tr(`(${failed} of ${stats.gate_tested} eligible full checks)`,`(${stats.gate_tested} योग्य पूरी जाँचों में ${failed})`);
+ if(pct==null){$('r-pct-l').firstChild.textContent=tr('No eligible full 100 m answer has been published yet. Quick spot reports do not enter this percentage. ','अभी 100 मीटर का कोई योग्य पूरा जवाब प्रकाशित नहीं हुआ। एक जगह की जाँचें इस प्रतिशत में नहीं हैं। ')}
+ $('r-lead').textContent=stats.published?tr(`${stats.published} published observations from about ${stats.people||0} contributor browsers${stats.first?`, starting ${rtwDate(stats.first)}`:''}. ${failed} of ${stats.gate_tested} eligible full 100 m checks failed Right to Walk's continuity question.`,`${stats.published} प्रकाशित जाँचें लगभग ${stats.people||0} ब्राउज़र से आईं। ${stats.gate_tested} योग्य पूरी 100 मीटर जाँचों में ${failed} असफल रहीं।`):tr('Nothing is on the public record yet. Check a spot and add it to the record.','सार्वजनिक रिकॉर्ड में अभी कुछ नहीं है। एक जगह जाँचें और रिकॉर्ड में जोड़ें।');
+ $('r-tiles').innerHTML=[[stats.published,tr('published observations','प्रकाशित जाँचें')],[stats.pending??Math.max(0,stats.submitted-stats.published),tr('awaiting moderator review','मॉडरेटर की जाँच बाकी')],[stats.people||0,tr('contributor browsers, approximate','योगदान देने वाले ब्राउज़र, अनुमान')],[stats.spot_tested||0,tr('spot passability answers','एक जगह के जवाब')],[stats.full,tr('full checks, distance may be unknown','पूरी जाँचें, दूरी अज्ञात हो सकती है')],[stats.verified,tr('linked re-walk verifications','जुड़ी हुई पुनः जाँचें')]].map(([n,l])=>`<div class="stattile"><span class="n">${n}</span><span class="l">${l}</span></div>`).join('');
  // Haryana's own list: the sampling frame under the self-selected pins
  const rres=rtwRoadsMatch(rows),rsm=rtwRoadsSummary(rres);
- $('r-roads-line').firstChild.textContent=rtwRoadLine(rsm);$('r-roads-note').textContent=`${rsm.listed} of the ${rsm.total} are public so far; ${rsm.checks} published ${rsm.checks===1?'check falls':'checks fall'} on them.`;
- $('r-roads').innerHTML=table(['Road','Agency','Type','Checks','Result'],rtwRoadsSorted(rres).map(s=>`<tr><td class="fg"><a href="roads.html#${rtwEsc(s.road.id)}">${rtwEsc(s.road.name)}</a></td><td>${rtwEsc(rtwRoadAgency(s.road.agency))}</td><td>${rtwEsc(RTW_ROAD_KIND[s.road.kind]||s.road.kind)}</td><td>${s.checks.length}</td><td class="pctcell ${s.state==='fail'?'r':(s.state==='pass'?'g':'')}" style="font-size:15px">${rtwEsc(rtwRoadStateText(s.state))}</td></tr>`));
+ $('r-roads-line').firstChild.textContent=rtwRoadLine(rsm);$('r-roads-note').textContent=tr(`${rsm.checks} published observations start within 60 m of approximate listed road lines; ${rsm.listed} of the ${rsm.total} named roads are public in this source.`,`${rsm.checks} जाँचें अनुमानित सड़क रेखाओं से 60 मीटर के भीतर शुरू हुईं; ${rsm.total} में से ${rsm.listed} सड़कें इस स्रोत में सार्वजनिक हैं।`);
+ $('r-roads').innerHTML=table([tr('Road','सड़क'),tr('Agency','एजेंसी'),tr('Nearby observations','पास की जाँचें'),tr('Full 100 m outcomes','पूरे 100 मीटर नतीजे')],rtwRoadsSorted(rres).map(s=>`<tr><td class="fg"><a href="roads.html#${rtwEsc(s.road.id)}">${rtwEsc(s.road.name)}</a></td><td>${rtwEsc(rtwRoadAgency(s.road.agency))}</td><td>${s.checks.length}</td><td>${s.fullTested?`${s.fullFailed} ${tr('failed of','असफल, कुल')} ${s.fullTested}`:'—'}</td></tr>`));
  deathsTable(rows);
  // by sector
- $('r-sectors').innerHTML=sectors.length?table(['Sector or area','Checks','Tested','Fail 100 m','Share failing','Full checks with a footpath'],sectors.map(s=>`<tr><td class="fg">${rtwEsc(s.sector)}</td><td>${s.checks}</td><td>${s.gate_tested}</td><td>${s.gate_tested-s.gate_pass}</td>${pctCell(s.gate_tested-s.gate_pass,s.gate_tested)}<td>${rtwPct(s.with_footpath,s.full_checks)==null?'—':rtwPct(s.with_footpath,s.full_checks)+'%'}</td></tr>`)):empty('No published checks yet.');
+ $('r-sectors').innerHTML=sectors.length?table([tr('Sector or area','सेक्टर या इलाक़ा'),tr('All checks','सभी जाँचें'),tr('Eligible full checks','योग्य पूरी जाँचें'),tr('100 m failed','100 मीटर असफल'),tr('Share of eligible full checks','योग्य पूरी जाँचों में हिस्सा'),tr('Full checks with a footpath','फुटपाथ वाली पूरी जाँचें')],sectors.map(s=>`<tr><td class="fg">${rtwEsc(s.sector)}</td><td>${s.checks}</td><td>${s.gate_tested}</td><td>${s.gate_tested-s.gate_pass}</td>${pctCell(s.gate_tested-s.gate_pass,s.gate_tested)}<td>${rtwPct(s.with_footpath,s.full_checks)==null?'—':rtwPct(s.with_footpath,s.full_checks)+'%'}</td></tr>`)):empty(tr('No published checks yet.','अभी कोई प्रकाशित जाँच नहीं।'));
  // by owner
- $('r-owners').innerHTML=owners.length?table(['Reported owner','Checks','Tested','Fail 100 m','Share failing'],owners.map(o=>`<tr><td class="fg">${rtwEsc(RTW_OWNER_SHORT[o.owner]||o.owner)}</td><td>${o.checks}</td><td>${o.gate_tested}</td><td>${o.gate_tested-o.gate_pass}</td>${pctCell(o.gate_tested-o.gate_pass,o.gate_tested)}</tr>`)):empty('No published checks yet.');
+ $('r-owners').innerHTML=owners.length?table([tr('Reported owner','बताया गया स्वामी'),tr('All checks','सभी जाँचें'),tr('Eligible full checks','योग्य पूरी जाँचें'),tr('100 m failed','100 मीटर असफल'),tr('Share of eligible full checks','योग्य पूरी जाँचों में हिस्सा')],owners.map(o=>`<tr><td class="fg">${rtwEsc(RTW_OWNER_SHORT[o.owner]||o.owner)}</td><td>${o.checks}</td><td>${o.gate_tested}</td><td>${o.gate_tested-o.gate_pass}</td>${pctCell(o.gate_tested-o.gate_pass,o.gate_tested)}</tr>`)):empty(tr('No published checks yet.','अभी कोई प्रकाशित जाँच नहीं।'));
  // obstacles
  const tot={};for(const r of rows)for(const [id,n] of rtwObsEntries(r.obs))tot[id]=(tot[id]||0)+n;const ents=Object.entries(tot).sort((a,b)=>b[1]-a[1]);const mx=ents.length?ents[0][1]:1;
- $('r-obs').innerHTML=ents.length?`<div class="bars">${ents.map(([id,n])=>`<div class="bar"><span class="t">${rtwEsc(OBS_BY[id].en)}</span><span class="b"><i class="${OBS_BY[id].sev==='off'||OBS_BY[id].sev==='fall'?'r':''}" style="width:${Math.max(2,Math.round(n/mx*100))}%"></i></span><span class="n">${n}</span></div>`).join('')}</div><p class="small" style="margin-top:8px">Red bars are problems that force a walker onto the road or can injure; grey ones narrow the path.</p>`:empty('Nothing tapped on a published check yet.');
+ $('r-obs').innerHTML=ents.length?`<div class="bars">${ents.map(([id,n])=>`<div class="bar"><span class="t">${rtwEsc(lang==='hi'?OBS_BY[id].hi:OBS_BY[id].en)}</span><span class="b"><i class="${OBS_BY[id].sev==='off'||OBS_BY[id].sev==='fall'?'r':''}" style="width:${Math.max(2,Math.round(n/mx*100))}%"></i></span><span class="n">${n}</span></div>`).join('')}</div><p class="small" style="margin-top:8px">${tr('Red bars are problems that force a walker onto the road or can injure; grey ones narrow the path.','लाल पट्टियाँ सड़क पर उतरने या चोट लगने के जोखिम वाली बाधाएँ हैं; धूसर पट्टियाँ रास्ता संकरा करती हैं।')}</p>`:empty(tr('Nothing tapped on a published check yet.','अभी प्रकाशित जाँच में कोई बाधा दर्ज नहीं।'));
  // worst ten
  const worst=rows.filter(r=>r.mode==='full'&&r.score!=null).sort((a,b)=>(a.score-b.score)||(a.gate==='no'?-1:1)).slice(0,10);
- $('r-worst').innerHTML=worst.length?`<div class="worst">${worst.map((r,i)=>`<div class="row"><span class="k">${i+1}</span><span class="t">${rtwEsc(rtwPlace(r))}${r.sector?`, ${rtwEsc(r.sector)}`:''}<span class="small">${rtwDate(r.created_at)}${r.side?` · ${r.side}-hand side`:''}${r.length_m?` · about ${r.length_m} m`:''}${r.owner&&r.owner!=='unknown'?` · ${rtwEsc(RTW_OWNER_SHORT[r.owner])}`:''} · <a href="${rtwOSM(r)}" target="_blank" rel="noopener">map</a></span></span><span class="scorepill ${r.band||''}">${r.score}${r.gate==='no'?' · fails 100 m':''}</span></div>`).join('')}</div>`:empty('No full stretch has been published yet. Quick checks make pins; full checks make this list.');
+ $('r-worst').innerHTML=worst.length?`<div class="worst">${worst.map((r,i)=>`<div class="row"><span class="k">${i+1}</span><span class="t">${rtwEsc(rtwPlace(r))}${r.sector?`, ${rtwEsc(r.sector)}`:''}<span class="small">${rtwDate(r.created_at)}${r.side?` · ${rtwEsc(r.side)} ${tr('side','तरफ़')}`:''} · ${r.length_m!=null?`${tr('straight-line start/end','शुरुआत/अंत की सीधी दूरी')} ${Math.round(r.length_m)} m`:tr('distance not measured','दूरी नहीं मापी गई')}${r.owner&&r.owner!=='unknown'?` · ${rtwEsc(RTW_OWNER_SHORT[r.owner])}`:''}${r.lat!=null&&r.lon!=null?` · <a href="${rtwOSM(r)}" target="_blank" rel="noopener">${tr('map','नक्शा')}</a>`:''}</span></span><span class="scorepill ${r.band||''}">${r.score}${r.gate==='no'?` · ${tr('100 m failed','100 मीटर असफल')}`:''}</span></div>`).join('')}</div>`:empty(tr('No full check has been published yet. Spot reports appear on the map, not in this ranking.','अभी कोई पूरी जाँच प्रकाशित नहीं हुई। एक जगह की जाँचें नक्शे पर दिखती हैं, इस सूची में नहीं।'));
 }
-document.addEventListener('click',e=>{if(e.target.id==='r-print')window.print()});
+document.addEventListener('click',e=>{if(e.target.id==='r-print')window.print();if(e.target.id==='r-lang'){lang=lang==='hi'?'en':'hi';rtwLS(()=>localStorage.setItem('rtw_lang',lang));init()}});
 init();
 
 })();

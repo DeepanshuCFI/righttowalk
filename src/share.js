@@ -1,8 +1,8 @@
 // ---------- share card: a 1080×1350 picture of one check for WhatsApp, drawn on a canvas ----------
 // Uses the street strip (SVG rendered to an image with the daylight palette and the self-hosted fonts embedded) plus canvas text.
 const SHARE_S={
- en:{kick:'RIGHT TO WALK · GURUGRAM',l1_fail:'THIS FOOTPATH',l2_fail:'FAILS THE 100 M TEST',l1_pass:'THIS FOOTPATH',l2_pass:'CAN BE WALKED',l1_prob:'PROBLEMS',l2_prob:'ON ONE FOOTPATH',l1_score:'SCORE',found:'Found here:',quote:'“If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers.”',cite:'Supreme Court of India, Maniyar Iliyaz v. P. Ayyappan, 19 June 2026',cta:'Check your street in two minutes',walk:'100 m on this side without stepping onto the road:',yes:'yes',no:'no'},
- hi:{kick:'राइट टू वॉक · गुरुग्राम',l1_fail:'यह फुटपाथ',l2_fail:'100 मीटर की कसौटी पर फ़ेल',l1_pass:'इस फुटपाथ पर',l2_pass:'चला जा सकता है',l1_prob:'समस्याएँ',l2_prob:'एक ही फुटपाथ पर',l1_score:'स्कोर',found:'यहाँ मिला:',quote:'“अगर सड़क है, तो चलने वालों के लिए चिह्नित और सँभाले हुए फुटपाथ सुनिश्चित करना एक कर्तव्य है।”',cite:'सुप्रीम कोर्ट, मनियार इलियाज़ बनाम पी. अय्यप्पन, 19 जून 2026',cta:'दो मिनट में अपनी सड़क जाँचें',walk:'इस तरफ़ 100 मीटर सड़क पर उतरे बिना:',yes:'हाँ',no:'नहीं'}
+ en:{kick:'RIGHT TO WALK · GURUGRAM',l1_fail:'THIS SPOT',l2_fail:'FORCES A STEP ONTO THE ROAD',l1_pass:'THIS SPOT',l2_pass:'IS PASSABLE',l1_prob:'PROBLEMS',l2_prob:'AT ONE SPOT',l1_score:'PROJECT SCORE',found:'Found here:',quote:'“If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers.”',cite:'Supreme Court of India, Maniyar Iliyaz v. P. Ayyappan, 19 June 2026',cta:'Check your street in two minutes',walk:'Right to Walk 100 m continuity check:',yes:'yes',no:'no'},
+ hi:{kick:'राइट टू वॉक · गुरुग्राम',l1_fail:'इस जगह',l2_fail:'सड़क पर उतरना पड़ता है',l1_pass:'इस जगह से',l2_pass:'निकला जा सकता है',l1_prob:'समस्याएँ',l2_prob:'एक जगह पर',l1_score:'परियोजना स्कोर',found:'यहाँ मिला:',quote:'“अगर सड़क है, तो चलने वालों के लिए चिह्नित और सँभाले हुए फुटपाथ सुनिश्चित करना एक कर्तव्य है।”',cite:'सुप्रीम कोर्ट, मनियार इलियाज़ बनाम पी. अय्यप्पन, 19 जून 2026',cta:'दो मिनट में अपनी सड़क जाँचें',walk:'राइट टू वॉक की 100 मीटर निरंतरता जाँच:',yes:'हाँ',no:'नहीं'}
 };
 const SHARE_TOK={paver:'#E6E1D6',line:'#CFC9BC',ink:'#1C1E21',ink2:'#5B5A54',plot:'#F6F3EC',plot2:'#CFC7B8',asphalt:'#2B2E33',chalk:'#FFFFFF',dirt:'#C9B08A',dirt2:'#B39A74',tree:'#6E8B3D',glow:'#FFD24D',water:'#8DB9DA',yellow:'#FFC72C','yellow-ink':'#1C1E21',red:'#DE3A2F',amber:'#EE8B22',green:'#1FAE5A',bg:'#EFEBE3'};
 const shareFontCSS={};
@@ -23,7 +23,7 @@ async function renderShareCard(stt,lang,opts){opts=opts||{};const L=SHARE_S[lang
  ctx.fillStyle=SHARE_TOK.bg;ctx.fillRect(0,0,W,H);
  // kerb stripe
  ctx.save();ctx.beginPath();ctx.rect(0,0,W,26);ctx.clip();for(let x=-40;x<W+40;x+=52){ctx.fillStyle=SHARE_TOK.yellow;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x+26,0);ctx.lineTo(x+26+26,26);ctx.lineTo(x+26,26);ctx.closePath();ctx.fill();ctx.fillStyle=SHARE_TOK.ink;ctx.beginPath();ctx.moveTo(x+26,0);ctx.lineTo(x+52,0);ctx.lineTo(x+78,26);ctx.lineTo(x+52,26);ctx.closePath();ctx.fill()}ctx.restore();
- const q=stt.mode==='quick';const a=stt.answers||{};const gate=q?stt.quick.gate:a.gate;const obsC=obsCounts(stt.obs||[]);const nObs=(stt.obs||[]).length;
+ const q=stt.mode==='quick';const a=stt.answers||{};const gate=q?(stt.quick.spot_passable??stt.quick.gate):a.gate;const obsC=obsCounts(stt.obs||[]);const nObs=(stt.obs||[]).length;
  const d=new Date(stt.meta.date);const dateTxt=d.toLocaleDateString(hi?'hi-IN':'en-IN',{day:'numeric',month:'long',year:'numeric'});
  // kicker
  ctx.fillStyle=SHARE_TOK.ink2;ctx.font=`600 32px ${HEAD}`;if('letterSpacing' in ctx)ctx.letterSpacing='4px';ctx.textBaseline='alphabetic';ctx.fillText(`${L.kick} · ${dateTxt.toUpperCase()}`,60,96);if('letterSpacing' in ctx)ctx.letterSpacing='0px';

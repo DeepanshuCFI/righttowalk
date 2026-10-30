@@ -3,10 +3,10 @@
   <div class="wrap">
     <a class="mark" href="index.html">Right to Walk</a>
     <nav>
-      <a href="index.html#check">Check a street</a>
-      <a href="map.html">Map</a>
-      <a href="law.html">The law</a>
-      <a href="report.html">Report</a>
+      <a href="index.html#check" data-hi="सड़क जाँचें">Check a street</a>
+      <a href="map.html" data-hi="नक्शा">Map</a>
+      <a href="law.html" data-hi="क़ानून">The law</a>
+      <a href="report.html" data-hi="रिपोर्ट">Report</a>
     </nav>
   </div>
   <div class="kerb"></div>
@@ -18,14 +18,15 @@
       <span class="kicker"><b>Roads to walk</b> · Haryana's own list · assignment sheet</span>
       <h1>Walk the government's <span class="y">100 roads</span> before 7 November</h1>
       <p class="lead">On 8 October 2026 the Haryana government gave GMDA, MCG and HSVP thirty days to upgrade 100 Gurugram roads, footpaths included, with a QR-coded board on each road naming the officer responsible. This sheet lists every road on that list that has been made public, so that residents' associations and Rakshak students can divide the work and walk each one with the Footpath Check.</p>
+      <button type="button" class="chip" id="rd-lang" aria-label="Switch language">हिन्दी</button>
     </div>
 
     <div class="paper" id="rd-status">
       <div class="tiles4">
         <div class="stattile"><span class="n" id="rd-listed">—</span><span class="l">roads on the public list (of <span id="rd-total">100</span>)</span></div>
-        <div class="stattile"><span class="n" id="rd-walked">—</span><span class="l">walked at least once</span></div>
-        <div class="stattile"><span class="n r" id="rd-fail">—</span><span class="l">fail the Court's 100 m test</span></div>
-        <div class="stattile"><span class="n" id="rd-stretches">—</span><span class="l">500 m stretches to cover</span></div>
+        <div class="stattile"><span class="n" id="rd-walked">—</span><span class="l" data-hi="कम से कम एक पास की प्रकाशित जाँच">roads with a nearby observation</span></div>
+        <div class="stattile"><span class="n r" id="rd-fail">—</span><span class="l" data-hi="इन सड़कों के पास पूरी 100 मीटर जाँचें असफल">nearby full 100 m checks failed</span></div>
+        <div class="stattile"><span class="n" id="rd-stretches">—</span><span class="l" data-hi="अनुमानित 500 मीटर योजना हिस्से">approximate 500 m planning blocks</span></div>
       </div>
       <p class="small" id="rd-live">Loading the record…</p>
     </div>
@@ -34,7 +35,7 @@
       <h3>How to use this sheet</h3>
       <ul class="plain">
         <li><strong>Two people per road.</strong> Write both names against the road; one walks the left-hand footpath, the other the right-hand one, so each stretch is checked on both sides.</li>
-        <li><strong>One Full stretch check per 500 m.</strong> Start the check at the beginning of the stretch, walk, tap "End here" at 500 m, then start the next one. A short road is one stretch.</li>
+        <li><strong>Plan one full check per roughly 500 m.</strong> Mark a start and end on the ground, record both sides separately, and note any unmeasured part. GPS start-to-end distance is a straight line, not the route walked.</li>
         <li><strong>Add every check to the record.</strong> A check that is added lands on the map within a day and counts towards the number on the report. Photos help a moderator read it.</li>
         <li><strong>Note the board.</strong> If the road has its QR-coded board up, photograph it; the officer named on it is who the notice goes to.</li>
       </ul>
@@ -43,13 +44,13 @@
 
     <div class="block">
       <h2>The roads</h2>
-      <p class="muted">Each road as the agency named it. Lengths are read from OpenStreetMap and are approximate; the ends of several stretches were not stated by the source, so walk the road as it is signed on the ground. Status is live from the public record.</p>
+      <p class="muted">Each road as the agency named it. Lengths and lines are approximate. Nearby checks are matched from their start points within 60 m of those lines; this does not prove coverage or a pass/fail result for the whole road. Record the side and exact segment during fieldwork.</p>
       <div id="rd-roads"></div>
     </div>
 
     <div class="block" id="rd-sheet-block">
       <h2>Stretch sheet</h2>
-      <p class="muted">One line per 500 m stretch, with room to write who walks it. Print this part and divide it at a meeting; tick the last column when both checks are in the record.</p>
+      <p class="muted">Planning blocks of about 500 m, estimated from approximate road length. Write the actual from/to landmarks and check both sides. Tick only after the specific segment's two observations have been published.</p>
       <div id="rd-sheet"></div>
     </div>
 
@@ -63,4 +64,4 @@
 </section>
 </main>
 <div class="kerb thin"></div>
-<footer><div class="wrap"><p>Right to Walk (righttowalk.life) is a Crashfree India prototype: the Footpath Check, Gurugram, method v1.0.</p></div></footer>
+<footer><div class="wrap"><p>Right to Walk · a citizen project by Crashfree India.</p></div></footer>

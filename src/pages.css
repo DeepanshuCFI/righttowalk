@@ -29,6 +29,24 @@
 .mapempty{position:absolute;inset:0;display:grid;place-items:center;z-index:400;pointer-events:none}
 .mapempty div{pointer-events:auto;background:var(--paper);border:2px solid var(--ink);border-radius:14px;padding:16px 20px;max-width:360px;text-align:center;font-size:15px;color:var(--ink-2)}
 .leaflet-marker-pane .pin{transition:transform .2s}
+.recordlist{padding-block:28px 36px}
+.recordlist-head{display:flex;flex-wrap:wrap;align-items:end;gap:10px 16px}
+.recordlist-head>div{flex:1 1 240px}
+.recordlist-head h2{margin:0}
+.recordlist-head label{font-size:14px;font-weight:700}
+.recordlist-head input{flex:1 1 220px;min-height:44px;border:2px solid var(--ink);border-radius:8px;background:var(--paper);color:var(--ink);padding:8px 12px;font:inherit}
+.recordcards{list-style:none;padding:0;margin:16px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.recordcard{border:2px solid var(--line);border-radius:12px;background:var(--paper);padding:14px;display:grid;gap:8px}
+.recordcard h3{font-size:22px;margin:0}
+.recordcard p{margin:0}
+.recordcard summary{font-weight:700;cursor:pointer;min-height:44px;display:flex;align-items:center}
+.recordanswers{display:grid;gap:4px;margin:8px 0}
+.recordanswers div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:4px 0}
+.recordanswers dt{flex:1}
+.recordanswers dd{margin:0;font-weight:700;text-align:right}
+.recordactions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.recordcards .empty{grid-column:1/-1}
+@media(max-width:600px){.recordlist-head label{width:100%}.recordlist-head input{flex-basis:100%}}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .map .leaflet-layer{filter:brightness(.82) contrast(1.05)}}
 /* report */
 .tiles4{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}

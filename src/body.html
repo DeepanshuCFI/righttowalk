@@ -30,7 +30,7 @@
     <div class="block">
       <div class="demo-cap"><span class="kicker" id="demo-cap"><b>A typical sector road</b> · as found</span><div class="toggle" id="demo-toggle"><button type="button" data-m="found" aria-pressed="true" data-s="found">As found</button><button type="button" data-m="standard" aria-pressed="false" data-s="standard">To standard</button></div></div>
       <div class="street" id="demo-street"></div>
-      <p class="small" data-s="demo_p">A side view of one street: footpath on top, the black-and-yellow kerb, then the road. Grey objects are what was found on it; the red figure marks where a walker had to step onto the road. Tap "To standard" to see the same stretch as IRC:103 asks for. Every answer you give on a check draws onto a strip like this.</p>
+      <p class="small" data-s="demo_p">A side view of one street: footpath on top, the black-and-yellow kerb, then the road. Grey objects are what was found on it; the red figure marks where a walker had to step onto the road. Tap “Illustrative redesign” to see one possible improvement. It is an illustration, not a measured design or compliance finding.</p>
       <div class="legend"><span><i style="background:#E6E1D6"></i><span data-s="lg_fp">footpath</span></span><span><i style="background:repeating-linear-gradient(135deg,#FFC72C 0 4px,#1C1E21 4px 8px)"></i><span data-s="lg_kerb">kerb</span></span><span><i style="background:#2B2E33"></i><span data-s="lg_road">road</span></span><span><i style="background:#DE3A2F;border-color:#DE3A2F"></i><span data-s="lg_forced">forced onto the road</span></span></div>
     </div>
 
@@ -39,10 +39,10 @@
       <h2 data-s="tm_h">Two minutes, three steps</h2>
       <div class="steps3">
         <div class="step3"><span class="k">1</span><b data-s="tm_1h">Where</b><p data-s="tm_1p">One tap takes your location. Say which side of the road you are on.</p></div>
-        <div class="step3"><span class="k">2</span><b data-s="tm_2h">Tap what you see</b><p data-s="tm_2p">Parked cars, a vendor cart, an open manhole, a dug-up stretch. Add one photo.</p></div>
-        <div class="step3"><span class="k">3</span><b data-s="tm_3h">The Court's test</b><p data-s="tm_3p">Could you walk 100 m without stepping onto the road? You get the answer in the Court's words. You get a notice for the road's owner. Your check becomes a pin on the map.</p></div>
+        <div class="step3"><span class="k">2</span><b data-s="tm_2h">Tap what you see</b><p data-s="tm_2p">Parked cars, a vendor cart, an open manhole, a dug-up stretch. A photo is optional.</p></div>
+        <div class="step3"><span class="k">3</span><b data-s="tm_3h">Add your observation</b><p data-s="tm_3p">A quick check records one spot. The full check asks about 100 m on one side. You can add either observation to the moderated public record.</p></div>
       </div>
-      <p class="small" data-sh="tm_more">There is a full check too: fifteen minutes, ten questions, a score. <a href="#problems">What each tile means</a> · <a href="law.html">The law behind this</a> · <a href="report.html">The Gurugram report</a></p>
+      <p class="small" data-sh="tm_more">There is a full check too: eleven questions, including Right to Walk's 100 m continuity check, and a project score. <a href="#problems">What each tile means</a> · <a href="law.html">The law behind this</a> · <a href="report.html">The Gurugram report</a></p>
     </div>
 
     <div class="block" id="share-right">
@@ -78,7 +78,7 @@
     <div id="s-locate" class="block" style="gap:16px">
       <div id="resume" class="note" hidden></div>
       <div id="locate-body" class="block" style="gap:16px"></div>
-      <p class="err" id="loc-err" hidden></p>
+      <p class="err" id="loc-err" role="alert" hidden></p>
       <div class="btnrow"><button class="btn yellow" id="to-audit" type="button" data-s="next"></button></div>
     </div>
 
@@ -86,20 +86,24 @@
       <div class="livebar"><div class="meta"><span data-s="aud_live"></span><span id="aud-count"></span></div><div class="street" id="live-street"></div></div>
       <h2 data-s="aud_h"></h2>
       <p class="muted" data-s="aud_p"></p>
+      <p class="note" data-s="safe_note">Stop in a safe place to answer or take photos. Never step into traffic to finish a check. If the route is blocked, record the blockage and stop.</p>
+      <p class="small" data-s="photo_note">Photos are optional. Review each image before submitting. A check saved in this browser does not save its photos.</p>
       <div id="items" class="block" style="gap:12px"></div>
-      <p class="err" id="aud-err" hidden></p>
+      <p class="err" id="aud-err" role="alert" hidden></p>
       <div class="bottombar"><button class="btn" id="back-locate" type="button" data-s="back"></button><span id="endwrap"></span><button class="btn yellow" id="to-card" type="button" data-s="see"></button></div>
     </div>
 
     <div id="s-quick" class="block" style="gap:14px" hidden>
+      <p class="note" data-s="safe_note">Stop in a safe place to answer or take photos. Never step into traffic to finish a check. If the route is blocked, record the blockage and stop.</p>
       <div id="quick-body" class="block" style="gap:12px"></div>
-      <p class="err" id="quick-err" hidden></p>
+      <p class="err" id="quick-err" role="alert" hidden></p>
       <div class="bottombar"><button class="btn" id="back-locate-q" type="button" data-s="back"></button><button class="btn yellow" id="to-card-q" type="button" data-s="see"></button></div>
     </div>
 
     <div id="s-card" class="block" style="gap:18px" hidden>
       <h2 id="card-h"></h2>
       <div class="paper" id="cardbox"></div>
+      <div class="block" id="submitout" hidden></div>
       <div class="block" id="res-block">
         <div class="demo-cap"><span class="kicker" id="res-cap"></span><div class="toggle" id="res-toggle"><button type="button" data-m="found" aria-pressed="true" data-s="found"></button><button type="button" data-m="standard" aria-pressed="false" data-s="standard"></button></div></div>
         <div class="street" id="res-street"></div>
@@ -107,9 +111,8 @@
       <div class="block"><h3 id="asks-h"></h3><div class="asks" id="asks"></div></div>
       <div class="block" id="anchorout"></div>
       <div class="block" id="photosout" hidden><h3 data-s="card_photos"></h3><div class="thumbs" id="thumbs"></div></div>
-      <div class="block" id="submitout" hidden></div>
       <div class="block" id="shareout" hidden></div>
-      <div class="btnrow"><button class="btn" id="back-audit" type="button" data-s="back"></button><button class="btn yellow" id="to-notice" type="button" data-s="notice"></button><button class="btn" id="save-check" type="button" data-s="save"></button><button class="btn" id="copy-json" type="button" data-s="copyrec"></button></div>
+      <div class="btnrow"><button class="btn" id="back-audit" type="button" data-s="back"></button><button class="btn" id="to-notice" type="button" data-s="notice"></button><button class="btn" id="save-check" type="button" data-s="save"></button><button class="btn" id="copy-json" type="button" data-s="copyrec"></button></div>
       <div class="small" id="card-note"></div>
     </div>
 
@@ -122,7 +125,7 @@
         <label class="f"><span data-s="not_org"></span><input type="text" id="f-org" placeholder="optional"></label>
       </div>
       <label class="f" style="grid-template-columns:auto 1fr;align-items:center;gap:10px"><input type="checkbox" id="f-hhrc" checked style="width:22px;height:22px;accent-color:var(--ink)"><span data-s="not_hhrc"></span></label>
-      <label class="f"><span data-s="not_text"></span><textarea id="f-notice" readonly></textarea></label>
+      <label class="f"><span data-s="not_text"></span><textarea id="f-notice"></textarea></label>
       <div class="btnrow"><button class="btn yellow" id="copy-notice" type="button" data-s="copy"></button><button class="btn" id="back-card" type="button" data-s="back"></button></div>
       <div class="block"><h3 data-s="not_where"></h3><div class="channels" id="channels"></div></div>
       <div class="note" data-s="not_note"></div>
@@ -143,7 +146,7 @@
 
 <div class="kerb thin"></div>
 <footer><div class="wrap">
-  <p data-s="foot_1">Right to Walk (righttowalk.life) is a Crashfree India prototype: the Footpath Check, Phase 0, Gurugram, method v1.0, 23 October 2026. Weights: footpath 20, clear 15, crossing 15, speed 12, width 8, ramps 8, surface 7, lighting 7, kerb and continuity 4, buffer 4. The score is taken at the weakest point of the stretch.</p>
+  <p data-s="foot_1">Right to Walk is a citizen footpath check by Crashfree India. Quick checks describe one spot; the full check asks eleven questions, including a 100 m continuity check. Its weighted score is a project method, not a legal compliance finding.</p>
   <p data-sh="foot_2">Legal lines are quoted from the signed judgment and orders; IRC figures carry their edition. This page files nothing on your behalf. A check is stored outside your browser only when you add it to the record, and then only after you tick the consent box. <a href="map.html">Map</a> · <a href="report.html">Gurugram report</a> · <a href="dataset.html">Open data</a></p>
 </div></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>

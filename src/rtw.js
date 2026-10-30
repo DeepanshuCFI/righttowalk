@@ -14,11 +14,12 @@ function rtwPhotoList(folder,tok){return rtwJSON('/storage/v1/object/list/photos
 async function rtwPhotoURL(path,tok){const r=await rtwFetch('/storage/v1/object/authenticated/photos/'+path,{},tok);return URL.createObjectURL(await r.blob())}
 function rtwClientId(){let id=rtwLS(()=>localStorage.getItem('rtw_cid'));if(!id){id=(crypto.randomUUID?crypto.randomUUID():('c'+Date.now().toString(36)+Math.random().toString(36).slice(2,10)));rtwLS(()=>localStorage.setItem('rtw_cid',id))}return id}
 function rtwUUID(){if(crypto.randomUUID)return crypto.randomUUID();const b=crypto.getRandomValues(new Uint8Array(16));b[6]=(b[6]&15)|64;b[8]=(b[8]&63)|128;const h=[...b].map(x=>x.toString(16).padStart(2,'0')).join('');return `${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20)}`}
-// shrink a photo to a JPEG no wider than max px (also strips EXIF, including any GPS tag)
+// A photo is uploaded only after successful canvas re-encoding. Never fall back to
+// the original file: it may still contain camera metadata, including GPS tags.
 function rtwShrink(file,max){return new Promise(res=>{const img=new Image();const u=URL.createObjectURL(file);
- img.onload=()=>{try{const k=Math.min(1,(max||1600)/Math.max(img.naturalWidth,img.naturalHeight));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.naturalWidth*k));c.height=Math.max(1,Math.round(img.naturalHeight*k));c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>res(b),'image/jpeg',.82)}catch(e){URL.revokeObjectURL(u);res(null)}};
+ img.onload=()=>{try{const k=Math.min(1,(max||1600)/Math.max(img.naturalWidth,img.naturalHeight));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.naturalWidth*k));c.height=Math.max(1,Math.round(img.naturalHeight*k));const ctx=c.getContext('2d');if(!ctx)throw new Error('canvas unavailable');ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);ctx.drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>res(b&&b.type==='image/jpeg'&&b.size<=3145728?b:null),'image/jpeg',.82)}catch(e){URL.revokeObjectURL(u);res(null)}};
  img.onerror=()=>{URL.revokeObjectURL(u);res(null)};img.src=u})}
-async function rtwUpload(path,blob){return rtwFetch('/storage/v1/object/photos/'+path,{method:'POST',headers:{'Content-Type':blob.type||'image/jpeg','x-upsert':'false','Cache-Control':'3600'},body:blob})}
+async function rtwUpload(path,blob){if(!/^pending\/[0-9a-f-]{36}\/[a-zA-Z0-9_-]{1,64}\.jpg$/.test(path)||!blob||blob.type!=='image/jpeg'||blob.size>3145728)throw new Error('Only re-encoded JPEG photos can be uploaded');return rtwFetch('/storage/v1/object/photos/'+path,{method:'POST',headers:{'Content-Type':'image/jpeg','x-upsert':'false','Cache-Control':'3600'},body:blob})}
 // ---------- formatting shared by the map, the report and the moderation page ----------
 const RTW_OWNER_SHORT={gmda:'GMDA',mcg:'MCG',hsvp:'HSVP',dtcp:'DTCP / coloniser',nhai:'NHAI',pwd:'PWD (B&R)',unknown:'Not sure'};
 function rtwEsc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
