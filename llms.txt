@@ -1,0 +1,25 @@
+# Right to Walk
+
+> A citizen project by Crashfree India (crashfreeindia.org) for Gurugram, Haryana, India. Residents check a footpath on their phone in about two minutes; moderated checks go on a public map and into open data (CC BY 4.0). The site also explains, with sources, what Indian law says about the right to walk.
+
+Key facts, each sourced on the law page:
+- On 19 June 2026 the Supreme Court of India held that the right to walk, including the right to demarcated footpaths, is a fundamental right under Article 19(1)(d) read with Articles 19(1)(a) to (c) and 21 (Maniyar Iliyaz v. P. Ayyappan, 2026 INSC 647).
+- No Act titled "Right to Walk" has been identified. The Court has declared a right and duties.
+- The duty to build and maintain footpaths lies with the road's owner. In Gurugram that is GMDA, MCG, HSVP, DTCP and the coloniser, NHAI or PWD (B&R), depending on the road.
+- The Footpath Check's score and its 100 m continuity check are Right to Walk's own methods, not legal compliance findings or Court thresholds.
+
+## Pages
+
+- [The law behind the right to walk](https://righttowalk.life/law.html): Supreme Court judgments and orders, who must provide footpaths in Gurugram, IRC standards, what the check cannot claim, and common questions.
+- [Footpath Check](https://righttowalk.life/): the check itself (quick one-spot check or full 100 m check), in English and Hindi.
+- [Gurugram report](https://righttowalk.life/report.html): published checks summarised by area and road owner, with caveats.
+- [Map](https://righttowalk.life/map.html): published checks, the government's 100-road list, and pedestrian deaths on record.
+- [Roads to walk](https://righttowalk.life/roads.html): Haryana's own list of Gurugram roads and where citizen checks exist.
+- [The footpath game](https://righttowalk.life/game.html): a short game about walking a Gurugram road.
+- [Privacy](https://righttowalk.life/privacy.html): what is stored and what is public.
+
+## Data
+
+- [Open data field guide](https://righttowalk.life/dataset.html): column definitions, licence (CC BY 4.0) and citation.
+- [checks.csv](https://righttowalk.life/data/checks.csv) and [checks.json](https://righttowalk.life/data/checks.json): every published check, updated nightly. Locations rounded to about 10 m; no names.
+- [deaths.json](https://righttowalk.life/data/deaths.json): pedestrian deaths on record, with entry rules.

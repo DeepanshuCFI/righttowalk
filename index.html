@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Right to Walk</title>
+<title>Right to Walk: check a footpath in Gurugram</title>
 <meta name="description" content="Record a footpath observation in Gurugram, learn what the Supreme Court has said about walking, and add your check to a moderated public record. By Crashfree India.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://tile.openstreetmap.org; connect-src 'self' https://qeiqfkzugpipcvolvhjw.supabase.co; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -15,16 +15,18 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Right to Walk">
-<meta property="og:title" content="Right to Walk">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Right to Walk: check a footpath in Gurugram">
 <meta property="og:description" content="Record a footpath observation in Gurugram, learn what the Supreme Court has said about walking, and add your check to a moderated public record. By Crashfree India.">
 <meta property="og:url" content="https://righttowalk.life/">
 <meta property="og:image" content="https://righttowalk.life/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Right to Walk">
+<meta name="twitter:title" content="Right to Walk: check a footpath in Gurugram">
 <meta name="twitter:description" content="Record a footpath observation in Gurugram, learn what the Supreme Court has said about walking, and add your check to a moderated public record. By Crashfree India.">
 <meta name="twitter:image" content="https://righttowalk.life/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NGO","@id":"https://crashfreeindia.org/#org","name":"Crashfree India","url":"https://crashfreeindia.org/"},{"@type":"WebSite","@id":"https://righttowalk.life/#site","url":"https://righttowalk.life/","name":"Right to Walk","alternateName":"राइट टू वॉक","description":"Record a footpath observation in Gurugram, learn what the Supreme Court has said about walking, and add your check to a moderated public record. By Crashfree India.","inLanguage":["en","hi"],"publisher":{"@id":"https://crashfreeindia.org/#org"}},{"@type":"WebApplication","name":"Footpath Check","url":"https://righttowalk.life/#check","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"description":"A two-minute check of a footpath in Gurugram: record one spot, or walk 100 m and answer eleven questions.","publisher":{"@id":"https://crashfreeindia.org/#org"}}]}</script>
 <style>
 @font-face{font-family:'Khand';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/khand-500-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF4, U+1CF7-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B0A}
 @font-face{font-family:'Khand';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/khand-500-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
@@ -398,6 +400,7 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
 
 /* 44 px tap targets on the card buttons; skip link for keyboard and screen-reader users */
 #cards button{min-height:44px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .skip{position:absolute;left:8px;top:-80px;z-index:60;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:10px;font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
 .skip:focus,.skip:focus-visible{top:8px;outline:3px solid var(--yellow);outline-offset:2px}
 
@@ -556,7 +559,7 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
 <div class="kerb thin"></div>
 <footer><div class="wrap">
   <p data-s="foot_1">Right to Walk is a citizen footpath check by Crashfree India. Quick checks describe one spot; the full check asks eleven questions, including a 100 m continuity check. Its weighted score is a project method, not a legal compliance finding.</p>
-  <p data-sh="foot_2">Legal lines are quoted from the signed judgment and orders; IRC figures carry their edition. This page files nothing on your behalf. A check is stored outside your browser only when you add it to the record, and then only after you tick the consent box. <a href="map.html">Map</a> · <a href="report.html">Gurugram report</a> · <a href="dataset.html">Open data</a></p>
+  <p data-sh="foot_2">Legal lines are quoted from the signed judgment and orders; IRC figures carry their edition. This page files nothing on your behalf. A check is stored outside your browser only when you add it to the record, and then only after you tick the consent box. <a href="map.html">Map</a> · <a href="report.html">Gurugram report</a> · <a href="dataset.html">Open data</a> · <a href="privacy.html">Privacy</a></p>
 </div></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -860,7 +863,7 @@ Object.assign(S.hi,{
 
  // footer (shown under every view)
  foot_1:'राइट टू वॉक, Crashfree India की नागरिक फुटपाथ जाँच है। झटपट जाँच एक जगह बताती है; पूरी जाँच में ग्यारह सवाल हैं, जिनमें 100 मीटर निरंतरता जाँच शामिल है। वज़न वाला स्कोर परियोजना का तरीक़ा है, क़ानूनी अनुपालन का निष्कर्ष नहीं।',
- foot_2:'क़ानूनी पंक्तियाँ हस्ताक्षरित फ़ैसले और आदेशों से ली गई हैं; IRC के आँकड़ों के साथ उनका संस्करण है। यह पेज आपकी ओर से कुछ दर्ज नहीं करता। जाँच आपके ब्राउज़र से बाहर तभी जाती है जब आप उसे रिकॉर्ड में जोड़ें, और वह भी सहमति के बॉक्स पर टिक करने के बाद। <a href="map.html">नक़्शा</a> · <a href="report.html">गुरुग्राम रिपोर्ट</a> · <a href="dataset.html">खुला डेटा</a>'
+ foot_2:'क़ानूनी पंक्तियाँ हस्ताक्षरित फ़ैसले और आदेशों से ली गई हैं; IRC के आँकड़ों के साथ उनका संस्करण है। यह पेज आपकी ओर से कुछ दर्ज नहीं करता। जाँच आपके ब्राउज़र से बाहर तभी जाती है जब आप उसे रिकॉर्ड में जोड़ें, और वह भी सहमति के बॉक्स पर टिक करने के बाद। <a href="map.html">नक़्शा</a> · <a href="report.html">गुरुग्राम रिपोर्ट</a> · <a href="dataset.html">खुला डेटा</a> · <a href="privacy.html">निजता</a>'
 });
 
 // ---------- Phase 1 connection (public values; the anon key is meant to ship to browsers) ----------
@@ -1181,7 +1184,7 @@ Object.assign(S.en,{
  photo_remove:'Remove photo',photo_preview:'Photo preview',photo_note:'Photos are optional. Review each image before submitting. A check saved in this browser does not save its photos.',
  safe_note:'Stop in a safe place to answer or take photos. Never step into traffic to finish a check. If the route is blocked, record the blockage and stop.',
  err_first:'First unanswered question',sub_h:'Add this observation to the record',
- sub_p:'After review, the public record may show the road, area, approximate location, answers and approved photos. Your optional first name is private. We also store submitted start/end coordinates, GPS accuracy and a browser identifier privately for review and counting. You can ask for a record to be removed using the contact on the dataset page.',
+ sub_p:'After review, the public record may show the road, area, approximate location, answers and approved photos. Your optional first name is private. We also store submitted start/end coordinates, GPS accuracy and a browser identifier privately for review and counting. You can ask for a record to be removed.',sub_priv:'How we handle your data',
  sub_consent:'I observed this location myself and agree that this observation may be published under the CC BY 4.0 licence.',
  sub_done:'Sent for review',sub_done_h:'Sent for review',sub_done_p:'Your observation is pending moderation. It is not public yet. Keep this reference for any follow-up.',
  sub_photofail:'Observation sent; some photos could not be uploaded. The moderator will see only the photos that arrived.',
@@ -1197,7 +1200,7 @@ Object.assign(S.hi,{
  photo_remove:'फ़ोटो हटाएँ',photo_preview:'फ़ोटो का पूर्वावलोकन',photo_note:'फ़ोटो वैकल्पिक हैं। भेजने से पहले हर फ़ोटो देखें। ब्राउज़र में सहेजी जाँच अपनी फ़ोटो नहीं सहेजती।',
  safe_note:'जवाब देने या फ़ोटो लेने के लिए सुरक्षित जगह रुकें। जाँच पूरी करने के लिए ट्रैफ़िक में न उतरें। रास्ता बंद हो तो रुकावट दर्ज करके वहीं रुक जाएँ।',
  err_first:'पहला छूटा सवाल',sub_h:'यह देखी बात रिकॉर्ड में जोड़ें',
- sub_p:'जाँच के बाद सार्वजनिक रिकॉर्ड में सड़क, इलाका, अनुमानित जगह, जवाब और स्वीकृत फ़ोटो दिख सकते हैं। आपका वैकल्पिक पहला नाम निजी रहता है। समीक्षा और गिनती के लिए शुरू/अंत के निर्देशांक, GPS सटीकता और ब्राउज़र पहचान संख्या निजी रूप से रखी जाती है। रिकॉर्ड हटवाने के लिए डेटासेट पेज पर दिए संपर्क का उपयोग करें।',
+ sub_p:'जाँच के बाद सार्वजनिक रिकॉर्ड में सड़क, इलाका, अनुमानित जगह, जवाब और स्वीकृत फ़ोटो दिख सकते हैं। आपका वैकल्पिक पहला नाम निजी रहता है। समीक्षा और गिनती के लिए शुरू/अंत के निर्देशांक, GPS सटीकता और ब्राउज़र पहचान संख्या निजी रूप से रखी जाती है। आप रिकॉर्ड हटवाने के लिए कह सकते हैं।',sub_priv:'हम आपका डेटा कैसे रखते हैं (अंग्रेज़ी में)',
  sub_consent:'मैंने यह जगह खुद देखी है और इस अवलोकन को CC BY 4.0 लाइसेंस पर प्रकाशित करने की सहमति देता/देती हूँ।',
  sub_done:'जाँच के लिए भेजा गया',sub_done_h:'जाँच के लिए भेजा गया',sub_done_p:'आपकी देखी बात मॉडरेशन की प्रतीक्षा में है। यह अभी सार्वजनिक नहीं है। आगे बात करने के लिए यह संदर्भ रखें।',
  sub_photofail:'देखी बात भेजी गई; कुछ फ़ोटो नहीं पहुँच सकीं। मॉडरेटर को सिर्फ़ पहुँची फ़ोटो दिखेंगी।',
@@ -1405,7 +1408,7 @@ function submitRow(id){const l=st.locate,a=st.answers,q=isQuick();const s=st.loc
  return {id,mode:q?'quick':'full',method:'footpath-check-v1.3',lat:s?s.lat:null,lon:s?s.lon:null,acc_m:s&&s.acc?Math.min(5000,Math.round(s.acc)):null,end_lat:(!q&&e)?e.lat:null,end_lon:(!q&&e)?e.lon:null,length_m:q?null:stretchLen(),side:l.side||null,road:(l.road||'').trim().slice(0,160)||null,sector:(l.area||'').slice(0,60)||null,land:q?null:l.land,road_class:c,owner:st.owner||'unknown',gate:q?null:(a.gate||null),spot_passable:q?(st.quick.spot_passable||null):null,answers:q?{}:a,obs:obsCounts(st.obs),score:r?r.s:null,band:r?r.band:null,anchor:(!q&&a.anchor!=null)?a.anchor:null,ped_count:(!q&&l.count!=='')?Math.min(10000,Math.max(0,parseInt(l.count,10)||0)):null,lang,first_name:(st.meta.first||'').trim().slice(0,40)||null,consent:true,client_id:rtwClientId(),photo_count:0,status:'pending'}}
 function renderSubmit(){const box=$('submitout');if(!box)return;if(typeof RTW_ON!=='function'||!RTW_ON()){box.hidden=true;box.innerHTML='';return}box.hidden=false;const sub=st.meta.sub;
  if(sub){box.innerHTML=`<div class="paper submit done"><span class="kicker"><b>${esc(T('sub_done_h'))}</b></span><p>${esc(T('sub_done_p'))}</p><p class="small">${esc(T('sub_ref'))} <b>${esc(rtwShort(sub.id))}</b> · ${esc(fmt(new Date(sub.at)))}${sub.photos?` · ${sub.photos} ${esc(sub.photos===1?T('sub_photo'):T('sub_photos'))}`:''}</p><div class="btnrow"><a class="btn small" href="map.html">${esc(T('cnt_map'))}</a></div></div>`;return}
- box.innerHTML=`<div class="paper submit"><span class="kicker"><b>${esc(T('sub_h'))}</b></span><p class="small">${esc(T('sub_p'))}</p>
+ box.innerHTML=`<div class="paper submit"><span class="kicker"><b>${esc(T('sub_h'))}</b></span><p class="small">${esc(T('sub_p'))} <a href="privacy.html">${esc(T('sub_priv'))}</a></p>
  <div class="grid2"><label class="f"><span>${esc(T('sub_sector'))}</span><select id="sub-sector"><option value="">${esc(T('sub_sector_none'))}</option>${SECTORS.map(s=>`<option value="${esc(s)}"${s===st.locate.area?' selected':''}>${esc(s)}</option>`).join('')}</select></label>
  <label class="f"><span>${esc(T('not_owner'))}</span><select id="sub-owner">${OWNERS.map(o=>`<option value="${o.id}"${o.id===st.owner?' selected':''}>${esc(o.name)}</option>`).join('')}</select></label></div>
  <label class="f"><span>${esc(T('sub_name'))}</span><input type="text" id="sub-name" maxlength="40" autocomplete="given-name" value="${esc(st.meta.first||'')}" placeholder="${esc(T('sub_name_ph'))}"></label>

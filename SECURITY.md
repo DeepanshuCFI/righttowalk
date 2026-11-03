@@ -19,7 +19,9 @@ A static site on GitHub Pages sends consented submissions to a Supabase project.
 
 - GitHub Pages: custom domain `righttowalk.life` (CNAME file), **Enforce HTTPS on** (certificate issued 23 Oct 2026). GitHub sends HSTS on enforced custom domains.
 - GitHub Pages cannot set `X-Frame-Options` or `X-Content-Type-Options`; the frame-buster covers the first, the second is accepted as low risk for a site that serves only its own HTML, SVG, PNG, JSON and WOFF2.
-- DNS at GoDaddy (account: Deepanshu): four A records to GitHub Pages, `www` CNAME to `deepanshucfi.github.io`. Optional hardening not yet done: a CAA record limiting certificate issuance to Let's Encrypt (`0 issue "letsencrypt.org"`).
+- DNS at GoDaddy (account: Deepanshu): four A records to GitHub Pages, `www` CNAME to `deepanshucfi.github.io`, CAA `0 issue "letsencrypt.org"` (added 23 Oct 2026). Not yet done (3 Nov 2026): the domain sends no mail, so it should publish `v=spf1 -all` and a DMARC policy of `p=reject` (GoDaddy's default `p=quarantine` is in place) to stop others sending mail as `@righttowalk.life`.
+- `/.well-known/security.txt` names the contact for vulnerability reports; renew its `Expires` date before 3 Nov 2027.
+- `privacy.html` states what is stored, what is public and how removal works. Change it in the same commit as any change to the fields collected, the providers used or the retention rules.
 - GitHub account `DeepanshuCFI` owns the repo; every push to `main` deploys with no review gate. Keep 2FA on that account.
 
 ## Risks knowingly accepted
