@@ -546,6 +546,17 @@ code{overflow-wrap:anywhere}
 .gstats .n{font-family:Khand,sans-serif;font-weight:700;font-size:1.5em;line-height:1}
 .gover h2{font-size:clamp(26px,6vw,40px)}
 
+/* law page: questions people ask (an accordion; answers stay in the HTML for search engines) */
+.faq{border-top:1.5px solid var(--line)}
+.faq details{border-bottom:1.5px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;padding:14px 2px;font-weight:700;font-size:17px;line-height:1.35;color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:9px;height:9px;margin-right:6px;border-right:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg);transition:transform .15s}
+.faq details[open] summary::after{transform:rotate(-135deg)}
+.faq summary:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.faq details p{margin:0 0 16px;color:var(--ink-2);max-width:65ch}
+@media (prefers-reduced-motion:reduce){.faq summary::after{transition:none}}
+
 </style>
 </head>
 <body>
@@ -638,8 +649,6 @@ code{overflow-wrap:anywhere}
       </ul>
     </div>
 
-    </div>
-
     <div class="block">
       <h2 data-s="cant_h">What this check cannot say</h2>
       <ul class="plain">
@@ -652,20 +661,15 @@ code{overflow-wrap:anywhere}
 
 <div class="block" id="questions">
       <h2>Questions people ask</h2>
-      <h3>Is walking a fundamental right in India?</h3>
-      <p>Yes. On 19 June 2026, in Maniyar Iliyaz v. P. Ayyappan (2026 INSC 647), the Supreme Court held that the right to walk is a fundamental right under Article 19(1)(d), read with Articles 19(1)(a) to (c) and 21. It includes the right to demarcated footpaths, and these rights "are primary and shall have priority over movement by motorised vehicles". Earlier, in S. Rajaseekaran v. Union of India (14 May 2025), the Court held that footpaths in good condition are part of Article 21.</p>
-      <h3>Is there a Right to Walk Act?</h3>
-      <p>No Act titled "Right to Walk" has been identified. The right comes from the Constitution as interpreted by the Supreme Court. Sections 138(1A) and 210D of the Motor Vehicles Act let States make rules on pedestrian access and on the design, construction and maintenance of roads; whether Haryana has notified such rules needs a current Gazette check.</p>
-      <h3>Who must build and maintain footpaths?</h3>
-      <p>The Supreme Court named the duty bearers as "the urban development authorities, municipal corporations, municipalities and even panchayats" (Maniyar Iliyaz, para 20(b)). In practice it is the agency that owns the road. In Gurugram that is GMDA for master sector roads, MCG for transferred HSVP sectors and taken-over colonies, HSVP for sectors not yet transferred, DTCP and the coloniser inside licensed colonies until transfer, NHAI on NH-48 and NH-248A, and PWD (B&amp;R) on state roads. No public map says which road is whose.</p>
-      <h3>How wide should a footpath be in India?</h3>
-      <p>Paragraph 19 of the Supreme Court's 7 October 2025 Rajaseekaran order reproduces 2022 Indian Roads Congress guidance: a walking zone of 2.0 m in residential areas, 2.5 m in neighbourhood commercial areas and 4.0 m on city commercial streets, with a 150 mm kerb. The Court said IRC:103-2022 binds national highways; its application to State roads needs closer examination.</p>
-      <h3>Can vehicles be driven or parked on a footpath?</h3>
-      <p>No. Under the Rules of the Road Regulations 1989 (regulations 8, 11 and 15), no vehicle may be driven or parked on a footpath, drivers must slow down at pedestrian crossings, and pedestrians have right of way at uncontrolled crossings.</p>
-      <h3>Did the Supreme Court order every city to build footpaths by a deadline?</h3>
-      <p>No such order exists. The 7 October 2025 Rajaseekaran order directs footpath audits and online footpath grievance systems for fifty specified cities and the national highways, and asked States to make rules within six months. Gurugram is not on that list of cities.</p>
-      <h3>How can I record a footpath problem in Gurugram?</h3>
-      <p>Use the Footpath Check on righttowalk.life. A quick check records one spot; the full check asks eleven questions, including a 100 m continuity check. If you add it to the record and give consent, a moderator reads it before it appears on the public map and in the open data (CC BY 4.0). The score is Right to Walk's method, not a legal compliance finding.</p>
+      <div class="faq">
+      <details><summary>Is walking a fundamental right in India?</summary><p>Yes. On 19 June 2026, in Maniyar Iliyaz v. P. Ayyappan (2026 INSC 647), the Supreme Court held that the right to walk is a fundamental right under Article 19(1)(d), read with Articles 19(1)(a) to (c) and 21. It includes the right to demarcated footpaths, and these rights "are primary and shall have priority over movement by motorised vehicles". Earlier, in S. Rajaseekaran v. Union of India (14 May 2025), the Court held that footpaths in good condition are part of Article 21.</p></details>
+      <details><summary>Is there a Right to Walk Act?</summary><p>No Act titled "Right to Walk" has been identified. The right comes from the Constitution as interpreted by the Supreme Court. Sections 138(1A) and 210D of the Motor Vehicles Act let States make rules on pedestrian access and on the design, construction and maintenance of roads; whether Haryana has notified such rules needs a current Gazette check.</p></details>
+      <details><summary>Who must build and maintain footpaths?</summary><p>The Supreme Court named the duty bearers as "the urban development authorities, municipal corporations, municipalities and even panchayats" (Maniyar Iliyaz, para 20(b)). In practice it is the agency that owns the road. In Gurugram that is GMDA for master sector roads, MCG for transferred HSVP sectors and taken-over colonies, HSVP for sectors not yet transferred, DTCP and the coloniser inside licensed colonies until transfer, NHAI on NH-48 and NH-248A, and PWD (B&amp;R) on state roads. No public map says which road is whose.</p></details>
+      <details><summary>How wide should a footpath be in India?</summary><p>Paragraph 19 of the Supreme Court's 7 October 2025 Rajaseekaran order reproduces 2022 Indian Roads Congress guidance: a walking zone of 2.0 m in residential areas, 2.5 m in neighbourhood commercial areas and 4.0 m on city commercial streets, with a 150 mm kerb. The Court said IRC:103-2022 binds national highways; its application to State roads needs closer examination.</p></details>
+      <details><summary>Can vehicles be driven or parked on a footpath?</summary><p>No. Under the Rules of the Road Regulations 1989 (regulations 8, 11 and 15), no vehicle may be driven or parked on a footpath, drivers must slow down at pedestrian crossings, and pedestrians have right of way at uncontrolled crossings.</p></details>
+      <details><summary>Did the Supreme Court order every city to build footpaths by a deadline?</summary><p>No such order exists. The 7 October 2025 Rajaseekaran order directs footpath audits and online footpath grievance systems for fifty specified cities and the national highways, and asked States to make rules within six months. Gurugram is not on that list of cities.</p></details>
+      <details><summary>How can I record a footpath problem in Gurugram?</summary><p>Use the Footpath Check on righttowalk.life. A quick check records one spot; the full check asks eleven questions, including a 100 m continuity check. If you add it to the record and give consent, a moderator reads it before it appears on the public map and in the open data (CC BY 4.0). The score is Right to Walk's method, not a legal compliance finding.</p></details>
+      </div>
     </div>
 
     <div class="note" data-s="law_note">Court quotations are from signed judgments and orders. The 100 m continuity check and score are Right to Walk's methods, not Court thresholds. Statutory and engineering claims should be checked against the current official text before formal use. This page files nothing for you.</div>

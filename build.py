@@ -165,8 +165,9 @@ FAQ = [
      "open data (CC BY 4.0). The score is Right to Walk's method, not a legal compliance finding."),
 ]
 esc_html = lambda t: t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-FAQ_HTML = ('<div class="block" id="questions">\n      <h2>Questions people ask</h2>\n'
-            + "".join(f'      <h3>{esc_html(q)}</h3>\n      <p>{esc_html(a)}</p>\n' for q, a in FAQ) + "    </div>\n")
+FAQ_HTML = ('<div class="block" id="questions">\n      <h2>Questions people ask</h2>\n      <div class="faq">\n'
+            + "".join(f'      <details><summary>{esc_html(q)}</summary><p>{esc_html(a)}</p></details>\n' for q, a in FAQ)
+            + "      </div>\n    </div>\n")
 LD_FAQ = {"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "en", "publisher": ORG,
           "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]}
 LD_LAW = {"@context": "https://schema.org", "@type": "Article", "headline": "The law behind the right to walk", "inLanguage": "en",

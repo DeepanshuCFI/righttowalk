@@ -138,3 +138,14 @@ code{overflow-wrap:anywhere}
 @media (min-width:900px){.gctrl{max-width:560px}}
 .gstats .n{font-family:Khand,sans-serif;font-weight:700;font-size:1.5em;line-height:1}
 .gover h2{font-size:clamp(26px,6vw,40px)}
+
+/* law page: questions people ask (an accordion; answers stay in the HTML for search engines) */
+.faq{border-top:1.5px solid var(--line)}
+.faq details{border-bottom:1.5px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;padding:14px 2px;font-weight:700;font-size:17px;line-height:1.35;color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:9px;height:9px;margin-right:6px;border-right:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg);transition:transform .15s}
+.faq details[open] summary::after{transform:rotate(-135deg)}
+.faq summary:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.faq details p{margin:0 0 16px;color:var(--ink-2);max-width:65ch}
+@media (prefers-reduced-motion:reduce){.faq summary::after{transition:none}}
