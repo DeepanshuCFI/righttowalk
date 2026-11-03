@@ -1,0 +1,31 @@
+name: IndexNow ping
+# After each GitHub Pages build, tells Bing and the other IndexNow engines which pages changed.
+# Data-only snapshot commits change no HTML, so they send nothing. Run by hand with "all" to send every page.
+on:
+  page_build:
+  workflow_dispatch:
+    inputs:
+      all:
+        description: 'Send every page in sitemap.xml'
+        type: boolean
+        default: true
+permissions:
+  contents: read
+jobs:
+  ping:
+    if: github.event_name == 'workflow_dispatch' || github.event.build.status == 'built'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.build.commit || github.sha }}
+          fetch-depth: 2
+      - name: Give the CDN a minute to serve the new pages
+        run: sleep 60
+      - name: Send changed pages
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.all }}" = "true" ]; then
+            python3 tools/indexnow.py --all
+          else
+            python3 tools/indexnow.py --base HEAD^ --head HEAD
+          fi
