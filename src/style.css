@@ -35,9 +35,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg)}
 .top .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 14px;padding-block:10px 8px}
 .mark{font-family:var(--head);font-weight:700;font-size:26px;line-height:1;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:8px;min-height:44px}
+.markicon{width:34px;height:34px;flex:none;margin-right:10px;border-radius:8px}
 .mark small{font-family:var(--body);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
 .top nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto}
-@media (max-width:640px){.top .wrap{justify-content:flex-start;gap:2px 10px;padding-block:6px 4px}.mark{font-size:22px}.top .lang{margin-left:auto;order:2}.top nav{order:3;flex-basis:100%;margin-left:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:2px;margin-inline:-6px;padding-inline:6px}.top nav::-webkit-scrollbar{display:none}.top nav a{font-size:15px;padding:8px 10px}}
+@media (max-width:640px){.markicon{width:28px;height:28px;margin-right:8px}.top .wrap{justify-content:flex-start;gap:2px 10px;padding-block:6px 4px}.mark{font-size:22px}.top .lang{margin-left:auto;order:2}.top nav{order:3;flex-basis:100%;margin-left:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:2px;margin-inline:-6px;padding-inline:6px}.top nav::-webkit-scrollbar{display:none}.top nav a{font-size:15px;padding:8px 10px}}
 .top nav a{white-space:nowrap;font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.04em;text-transform:uppercase;padding:8px 12px;border-radius:999px;border:2px solid transparent;color:var(--ink-2);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
 .top nav a[aria-current="page"]{border-color:var(--ink);color:var(--ink)}
 .lang{border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:4px 12px;font-family:var(--head);font-weight:600;font-size:16px;cursor:pointer;min-height:44px}
@@ -354,3 +355,11 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .skip{position:absolute;left:8px;top:-80px;z-index:60;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:10px;font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
 .skip:focus,.skip:focus-visible{top:8px;outline:3px solid var(--yellow);outline-offset:2px}
+
+/* header and footer follow the width of the page beneath them on wide screens */
+@media (min-width:1100px){
+  body:has(#v-learn:not([hidden])) :is(.top,footer) .wrap,
+  body:has(main .wrap.wide) :is(.top,footer) .wrap{max-width:1080px}
+  body:has(.doc) :is(.top,footer) .wrap{max-width:1160px}
+}
+.savedlink{margin:-6px 0 0}

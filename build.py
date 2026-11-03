@@ -54,6 +54,8 @@ fonts_css = (ROOT / "fonts" / "fonts.css").read_text(encoding="utf-8")
 style = read("style.css")
 pages_css = read("pages.css")
 roads_css = read("roads.css")
+# the walker mark beside the wordmark: icon.svg inlined, so it also works inside the artifact
+MARK_SVG = (ROOT / "icon.svg").read_text(encoding="utf-8").strip().replace("<svg ", '<svg class="markicon" aria-hidden="true" focusable="false" ', 1)
 FRAME_BUSTER = "<script>if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.hidden=true}}</script>"
 
 def wrap_script(files, config):
@@ -118,7 +120,7 @@ def document(fname, title, desc, body, scripts, extra_head="", extra_css="", pre
 <noscript><p style="margin:16px;font:17px/1.5 system-ui">Right to Walk needs JavaScript for this page. Please enable it, or open the page in another browser.</p></noscript>
 {FRAME_BUSTER}
 """
-    html = head + body + pre_script + wrap_script(scripts, config or cfg) + "</body>\n</html>\n"
+    html = head + body.replace("<!--MARK-->", MARK_SVG) + pre_script + wrap_script(scripts, config or cfg) + "</body>\n</html>\n"
     (ROOT / fname).write_text(html, encoding="utf-8")
     print(f"built {fname:14s} {len(html.encode('utf-8')):7d} bytes")
 
@@ -228,7 +230,7 @@ print(f"built {'sitemap.xml':14s} {len(SITEMAP)} pages")
 art_body = re.sub(r'\s*<a href="map\.html" id="nav-map"[^>]*>Map</a>', "", body)
 for f in ("map.html", "report.html", "dataset.html", "law.html", "game.html", "privacy.html"):
     art_body = art_body.replace(f'href="{f}"', f'href="{SITE}{f}"')
-artifact = read("head.html") + "<style>\n" + style + "\n</style>\n" + art_body + wrap_script(["data.js", "obs.js", "learn.js", "config.js", "rtw.js", "share.js", "cards.js", "app.js"], cfg_off)
+artifact = read("head.html") + "<style>\n" + style + "\n</style>\n" + art_body.replace("<!--MARK-->", MARK_SVG) + wrap_script(["data.js", "obs.js", "learn.js", "config.js", "rtw.js", "share.js", "cards.js", "app.js"], cfg_off)
 for f in ("map.html", "report.html", "dataset.html", "law.html", "game.html", "privacy.html"):  # the Hindi strings link to these pages too
     artifact = artifact.replace(f'href="{f}"', f'href="{SITE}{f}"')
 (ROOT / "artifact.html").write_text(artifact, encoding="utf-8")
