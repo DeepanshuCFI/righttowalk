@@ -228,6 +228,7 @@ print(f"built {'sitemap.xml':14s} {len(SITEMAP)} pages")
 
 # ---- artifact: head.html as written (title, metas, Google Fonts link); record switched off; site links made absolute ----
 art_body = re.sub(r'\s*<a href="map\.html" id="nav-map"[^>]*>Map</a>', "", body)
+art_body = art_body.replace('href="/"', 'href="#learn"')  # inside the artifact the home view is a hash route, not the site root
 for f in ("map.html", "report.html", "dataset.html", "law.html", "game.html", "privacy.html"):
     art_body = art_body.replace(f'href="{f}"', f'href="{SITE}{f}"')
 artifact = read("head.html") + "<style>\n" + style + "\n</style>\n" + art_body.replace("<!--MARK-->", MARK_SVG) + wrap_script(["data.js", "obs.js", "learn.js", "config.js", "rtw.js", "share.js", "cards.js", "app.js"], cfg_off)

@@ -422,7 +422,7 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
 <a class="skip" href="#main" data-s="skip">Skip to content</a>
 <header class="top">
   <div class="wrap">
-    <a class="mark" href="#learn"><svg class="markicon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="96" fill="#FFC72C"/><g fill="#1C1E21"><path d="M0 392h512v120H0z"/><circle cx="268" cy="120" r="44"/><path d="M268 170v120M268 182l-62 70M268 182l62 62M268 290l-56 92M268 290l56 92" stroke="#1C1E21" stroke-width="36" stroke-linecap="round" fill="none"/></g><g fill="#FFC72C"><path d="M40 392l80 120H40zM200 392l80 120h-80zM360 392l80 120h-80z" opacity=".9"/></g></svg><span data-s="mark">Right to Walk</span></a>
+    <a class="mark" href="/"><svg class="markicon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="96" fill="#FFC72C"/><g fill="#1C1E21"><path d="M0 392h512v120H0z"/><circle cx="268" cy="120" r="44"/><path d="M268 170v120M268 182l-62 70M268 182l62 62M268 290l-56 92M268 290l56 92" stroke="#1C1E21" stroke-width="36" stroke-linecap="round" fill="none"/></g><g fill="#FFC72C"><path d="M40 392l80 120H40zM200 392l80 120h-80zM360 392l80 120h-80z" opacity=".9"/></g></svg><span data-s="mark">Right to Walk</span></a>
     <nav>
       <a href="#check" id="nav-check" data-s="nav_check">Check a street</a>
       <a href="map.html" id="nav-map" data-s="nav_map">Map</a>
@@ -487,7 +487,7 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
       <div class="paper" id="gloss-detail"></div>
     </div>
 
-    <div class="btnrow"><a class="btn yellow" href="#check" data-s="start">Check a street</a><a class="btn" href="#learn" data-s="back_home">Back</a></div>
+    <div class="btnrow"><a class="btn yellow" href="#check" data-s="start">Check a street</a><a class="btn" href="/" data-s="back_home">Back</a></div>
   </div>
 </section>
 
@@ -944,7 +944,7 @@ function rtwDeathWho(c){const who=c.age_text?c.age_text:(RTW_AGE[c.age]||RTW_AGE
 function rtwDeathLine(c){return `${rtwDeathWho(c)} ${c.how||'was killed'}`}
 function rtwDeathDate(c){return c.date?rtwDate(c.date):(c.date_text||'date not on record')}
 function rtwDeathSource(c,i){const s=(c.sources||[])[i==null?(c.fact_source||0):i];return s?`<a href="${rtwEsc(s.url)}" target="_blank" rel="noopener">${rtwEsc(s.outlet)}${s.date?', '+rtwDate(s.date):''}</a>`:''}
-function rtwDeathWalkURL(c){if(!rtwDeathPlaced(c))return '';return `index.html?at=${(+c.lat).toFixed(4)},${(+c.lon).toFixed(4)}&road=${encodeURIComponent(c.place||'')}#check`}
+function rtwDeathWalkURL(c){if(!rtwDeathPlaced(c))return '';return `/?at=${(+c.lat).toFixed(4)},${(+c.lon).toFixed(4)}&road=${encodeURIComponent(c.place||'')}#check`}
 function rtwDeathsLine(sm){if(!sm.total)return 'No death is on this record yet.';const y=sm.first?new Date(sm.first).getFullYear():'';return `${sm.total} pedestrian ${sm.total===1?'death':'deaths'} on the public record${y?` since ${y}`:''}: ${sm.children} ${sm.children===1?'child or teenager':'children or teenagers'}, ${sm.elderly} elderly. ${sm.walked} of ${sm.incidents} incident locations have a later published observation starting within ${RTW_DEATH_RADIUS} m; ${sm.failing} have a nearby full check reporting a failure of our 100 m continuity check. Proximity does not establish conditions at the incident's place or time.`}
 
 // ---------- share card: a 1080×1350 picture of one check for WhatsApp, drawn on a canvas ----------
