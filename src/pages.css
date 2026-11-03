@@ -150,23 +150,30 @@ code{overflow-wrap:anywhere}
 .faq details p{margin:0 0 16px;color:var(--ink-2);max-width:65ch}
 @media (prefers-reduced-motion:reduce){.faq summary::after{transition:none}}
 
-/* law page on wide screens: headings in a left rail, reading column on the right (about 70 characters a line) */
+/* reading pages (law, report, open data, privacy) on wide screens: headings in a left rail, one reading column (about 70 characters a line) */
 @media (min-width:1100px){
-  #v-law .wrap{max-width:1160px;gap:56px}
-  #v-law .pagehead{grid-template-columns:280px minmax(0,1fr);column-gap:56px;align-items:end}
-  #v-law .pagehead>*{grid-column:2}
-  #v-law .pagehead h1{font-size:clamp(52px,4.6vw,72px)}
-  #v-law .pagehead .lead{max-width:62ch;font-size:19px}
-  #v-law .block{grid-template-columns:280px minmax(0,1fr);column-gap:56px;row-gap:0;align-items:start}
-  #v-law .block>h2{grid-column:1;grid-row:1 / span 12;position:sticky;top:96px;font-size:34px;line-height:1.02;padding-top:4px}
-  #v-law .block>*:not(h2){grid-column:2;margin-bottom:16px}
-  #v-law .block>*:last-child{margin-bottom:0}
-  #v-law .two-up{grid-template-columns:1fr;gap:22px}
-  #v-law .quote{padding:22px 26px}
-  #v-law .quote p{font-size:24px;line-height:1.28}
-  #v-law ul.plain{gap:14px}
-  #v-law ul.plain li,#v-law .ladder li,#v-law .faq details p{font-size:17px;line-height:1.55}
-  #v-law .faq summary{font-size:18px}
-  #v-law .block>p,#v-law ul.plain li,#v-law .ladder li{max-width:72ch}
-  #v-law .wrap>.note{margin-left:336px}
+  .doc .wrap{max-width:1160px;gap:56px}
+  .doc .pagehead{grid-template-columns:280px minmax(0,1fr);column-gap:56px;align-items:end}
+  .doc .pagehead>*{grid-column:2}
+  .doc .pagehead h1{font-size:clamp(52px,4.6vw,72px)}
+  .doc .pagehead .lead{max-width:62ch;font-size:19px}
+  .doc .block{grid-template-columns:280px minmax(0,1fr);column-gap:56px;row-gap:0;align-items:start}
+  .doc .block>h2{grid-column:1;grid-row:1 / span 12;position:sticky;top:96px;font-size:34px;line-height:1.02;padding-top:4px}
+  .doc .block>*:not(h2){grid-column:2;margin-bottom:16px}
+  .doc .block>*:last-child{margin-bottom:0}
+  .doc .two-up{grid-template-columns:1fr;gap:22px}
+  .doc .quote{padding:22px 26px}
+  .doc .quote p{font-size:24px;line-height:1.28}
+  .doc ul.plain{gap:14px}
+  .doc ul.plain li,.doc .ladder li,.doc .faq details p{font-size:17px;line-height:1.55}
+  .doc .faq summary{font-size:18px}
+  .doc .block>p,.doc ul.plain li,.doc .ladder li{max-width:72ch}
+  /* everything outside a section sits in the reading column */
+  .doc .wrap>:not(.block):not(.pagehead){margin-left:336px}
+  /* a section holding a data table stacks instead, so the table gets the full width */
+  .doc .block:has(.tbl){grid-template-columns:minmax(0,1fr);row-gap:0}
+  .doc .block:has(.tbl)>h2{grid-column:1;grid-row:auto;position:static;margin-bottom:14px}
+  .doc .block:has(.tbl)>*:not(h2){grid-column:1}
+  .doc .block:has(.tbl)>p{max-width:72ch}
+  .doc .tiles4{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
