@@ -94,6 +94,8 @@ def document(fname, title, desc, body, scripts, extra_head="", extra_css="", pre
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#FFC72C">
 {robots}<link rel="canonical" href="{url}">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="icon-96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="manifest" href="manifest.webmanifest">
