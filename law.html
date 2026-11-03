@@ -557,6 +557,27 @@ code{overflow-wrap:anywhere}
 .faq details p{margin:0 0 16px;color:var(--ink-2);max-width:65ch}
 @media (prefers-reduced-motion:reduce){.faq summary::after{transition:none}}
 
+/* law page on wide screens: headings in a left rail, reading column on the right (about 70 characters a line) */
+@media (min-width:1100px){
+  #v-law .wrap{max-width:1160px;gap:56px}
+  #v-law .pagehead{grid-template-columns:280px minmax(0,1fr);column-gap:56px;align-items:end}
+  #v-law .pagehead>*{grid-column:2}
+  #v-law .pagehead h1{font-size:clamp(52px,4.6vw,72px)}
+  #v-law .pagehead .lead{max-width:62ch;font-size:19px}
+  #v-law .block{grid-template-columns:280px minmax(0,1fr);column-gap:56px;row-gap:0;align-items:start}
+  #v-law .block>h2{grid-column:1;grid-row:1 / span 12;position:sticky;top:96px;font-size:34px;line-height:1.02;padding-top:4px}
+  #v-law .block>*:not(h2){grid-column:2;margin-bottom:16px}
+  #v-law .block>*:last-child{margin-bottom:0}
+  #v-law .two-up{grid-template-columns:1fr;gap:22px}
+  #v-law .quote{padding:22px 26px}
+  #v-law .quote p{font-size:24px;line-height:1.28}
+  #v-law ul.plain{gap:14px}
+  #v-law ul.plain li,#v-law .ladder li,#v-law .faq details p{font-size:17px;line-height:1.55}
+  #v-law .faq summary{font-size:18px}
+  #v-law .block>p,#v-law ul.plain li,#v-law .ladder li{max-width:72ch}
+  #v-law .wrap>.note{margin-left:336px}
+}
+
 </style>
 </head>
 <body>
