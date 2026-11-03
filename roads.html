@@ -594,6 +594,12 @@ code{overflow-wrap:anywhere}
   .doc .tiles4{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 
+/* complaint guide: a fill-in template inside a quote panel reads as body text, not a pull quote */
+.quote p.plainquote{font-family:var(--body);font-weight:400;font-size:17px;line-height:1.55}
+.owners li .ch{display:block;margin-top:4px;font-size:15px}
+.quote.long p{font-family:var(--body);font-weight:500;font-size:18px;line-height:1.5}
+@media (min-width:1100px){.doc .quote.long p{font-size:19px;line-height:1.5}}
+
 /* the assignment sheet prints landscape, with ruled blank cells */
 @media print{
   @page{size:A4 landscape;margin:12mm}

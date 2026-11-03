@@ -178,6 +178,14 @@ LD_LAW = {"@context": "https://schema.org", "@type": "Article", "headline": "The
           "url": SITE + "law.html", "publisher": ORG, "author": ORG,
           "about": [{"@type": "Thing", "name": "Maniyar Iliyaz v. P. Ayyappan, 2026 INSC 647 (Supreme Court of India, 19 June 2026)"},
                     {"@type": "Thing", "name": "S. Rajaseekaran v. Union of India (Supreme Court of India, orders of 14 May 2025 and 7 October 2025)"}]}
+LD_JUDGMENT = {"@context": "https://schema.org", "@type": "Article", "headline": "The right to walk judgment, explained", "inLanguage": "en",
+               "url": SITE + "judgment.html", "publisher": ORG, "author": ORG, "datePublished": "2026-11-03",
+               "about": {"@type": "Thing", "name": "Maniyar Iliyaz @ Shaik Riyaz v. P. Ayyappan, 2026 INSC 647 (Supreme Court of India, 19 June 2026)",
+                         "sameAs": "https://api.sci.gov.in/supremecourt/2024/42514/42514_2024_3_1501_71888_Judgement_19-Jun-2026.pdf"}}
+LD_COMPLAIN = {"@context": "https://schema.org", "@type": "HowTo", "name": "How to complain about a footpath in Gurugram", "inLanguage": "en",
+               "url": SITE + "complain.html", "publisher": ORG,
+               "step": [{"@type": "HowToStep", "position": i + 1, "name": n} for i, n in enumerate(
+                   ["Record it", "Find who owns the road", "File it", "Write what is wrong, what you want and why it is their duty", "Follow up and escalate if nothing happens"])]}
 LD_DATASET = {"@context": "https://schema.org", "@type": "Dataset",
               "name": "Right to Walk: Gurugram footpath record",
               "description": ("Citizen observations of footpaths in Gurugram, Haryana, India: every published spot report and 100 m continuity "
@@ -190,6 +198,18 @@ LD_DATASET = {"@context": "https://schema.org", "@type": "Dataset",
               "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": SITE + "data/checks.csv"},
                                {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": SITE + "data/checks.json"},
                                {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": SITE + "data/deaths.json"}]}
+
+# the complaint guide lists the same owners and channels as the check (OWNERS in src/data.js), read through node
+def owners_html():
+    js = "const fs=require('fs');const f=new Function(fs.readFileSync(process.argv[1],'utf8')+';return OWNERS');process.stdout.write(JSON.stringify(f()))"
+    owners = json.loads(subprocess.run(["node", "-e", js, str(SRC / "data.js")], capture_output=True, text=True, check=True).stdout)
+    li = []
+    for o in owners:
+        if o["id"] == "unknown":
+            continue
+        ch = " · ".join(f'<a href="{esc_html(c[1])}" rel="noopener">{esc_html(c[0])}</a>' if len(c) > 1 else esc_html(c[0]) for c in o["ch"])
+        li.append(f'        <li><strong>{esc_html(o["name"])}</strong>: {esc_html(o["hint"])} <span class="ch">Write to {esc_html(o["addr"])}. File: {ch}</span></li>\n')
+    return '      <ul class="plain owners">\n' + "".join(li) + "      </ul>\n"
 
 body = read("body.html")
 document("index.html", HOME_TITLE, DESC, body, ["data.js", "obs.js", "learn.js", "config.js", "rtw.js", "deaths.js", "share.js", "cards.js", "app.js"], config=cfg_index,
@@ -219,6 +239,12 @@ document("dataset.html", "Open data · Right to Walk",
 document("privacy.html", "Privacy · Right to Walk",
          "What Right to Walk stores when you check a footpath, what becomes public, who can see the rest, and how to have your record removed.",
          read("privacy.html"), [], extra_css=pages_css)
+document("judgment.html", "The right to walk judgment, explained · Right to Walk",
+         "Maniyar Iliyaz v. P. Ayyappan (2026 INSC 647, 19 June 2026) explained: the Supreme Court's three declarations quoted in full, each key paragraph in plain words, and what the judgment does not say.",
+         read("judgment.html"), [], extra_css=pages_css, jsonld=[LD_JUDGMENT])
+document("complain.html", "How to complain about a footpath in Gurugram · Right to Walk",
+         "Who owns your road in Gurugram, where to file a footpath complaint (GMDA portal, myGurugram, WhatsApp, CM Window, CPGRAMS), what to write, and what to do if nothing happens.",
+         read("complain.html").replace("<!--OWNERS-->", owners_html()), [], extra_css=pages_css, jsonld=[LD_COMPLAIN])
 document("moderate.html", "Moderation · Right to Walk", "Moderation of citizen footpath checks before publication.",
          read("moderate.html"), ["data.js", "obs.js", "config.js", "rtw.js", "moderate.js"], extra_css=pages_css, noindex=True)
 
@@ -231,10 +257,10 @@ print(f"built {'sitemap.xml':14s} {len(SITEMAP)} pages")
 # ---- artifact: head.html as written (title, metas, Google Fonts link); record switched off; site links made absolute ----
 art_body = re.sub(r'\s*<a href="map\.html" id="nav-map"[^>]*>Map</a>', "", body)
 art_body = art_body.replace('href="/"', 'href="#learn"')  # inside the artifact the home view is a hash route, not the site root
-for f in ("map.html", "report.html", "dataset.html", "law.html", "game.html", "privacy.html"):
+for f in ("map.html", "report.html", "dataset.html", "law.html", "game.html", "privacy.html", "judgment.html", "complain.html"):
     art_body = art_body.replace(f'href="{f}"', f'href="{SITE}{f}"')
 artifact = read("head.html") + "<style>\n" + style + "\n</style>\n" + art_body.replace("<!--MARK-->", MARK_SVG) + wrap_script(["data.js", "obs.js", "learn.js", "config.js", "rtw.js", "share.js", "cards.js", "app.js"], cfg_off)
-for f in ("map.html", "report.html", "dataset.html", "law.html", "game.html", "privacy.html"):  # the Hindi strings link to these pages too
+for f in ("map.html", "report.html", "dataset.html", "law.html", "game.html", "privacy.html", "judgment.html", "complain.html"):  # the Hindi strings link to these pages too
     artifact = artifact.replace(f'href="{f}"', f'href="{SITE}{f}"')
 (ROOT / "artifact.html").write_text(artifact, encoding="utf-8")
 print(f"built {'artifact.html':14s} {len(artifact.encode('utf-8')):7d} bytes (record off)")
