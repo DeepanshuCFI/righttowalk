@@ -22,8 +22,8 @@ read = lambda p: (SRC / p).read_text(encoding="utf-8")
 SITE = "https://righttowalk.life/"
 TITLE = "Right to Walk"
 HOME_TITLE = "Right to Walk: check a footpath in Gurugram"
-DESC = ("Record a footpath observation in Gurugram, learn what the Supreme Court has said about walking, "
-        "and add your check to a moderated public record. By Crashfree India.")
+DESC = ("Walking on a safe footpath is your fundamental right, the Supreme Court held in June 2026. "
+        "Check a Gurugram street in 2 minutes and see who must fix it.")
 
 # ---- connection (public values) ----
 cfg = read("config.js")
