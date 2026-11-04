@@ -56,6 +56,9 @@ pages_css = read("pages.css")
 roads_css = read("roads.css")
 # the walker mark beside the wordmark: icon.svg inlined, so it also works inside the artifact
 MARK_SVG = (ROOT / "icon.svg").read_text(encoding="utf-8").strip().replace("<svg ", '<svg class="markicon" aria-hidden="true" focusable="false" ', 1)
+# Google "preferred source" link: a plain link, so no Google script loads until someone clicks it
+PREFSRC_URL = "https://www.google.com/preferences/source?q=righttowalk.life"
+PREFSRC = f'<p class="prefsrc"><a class="btn small" href="{PREFSRC_URL}" rel="noopener" data-s="prefsrc">Add Right to Walk as a preferred source on Google</a></p>'
 FRAME_BUSTER = "<script>if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.hidden=true}}</script>"
 
 def wrap_script(files, config):
@@ -82,6 +85,8 @@ def document(fname, title, desc, body, scripts, extra_head="", extra_css="", pre
         SITEMAP.append((url, [src or fname] + [f for f in scripts if f != "config.js"]))
     if jsonld:
         extra_head = "".join(ld(o) for o in jsonld) + extra_head
+    if not noindex:
+        body = body.replace("</div></footer>", PREFSRC + "</div></footer>", 1)
     head = f"""<!doctype html>
 <html lang="en">
 <head>
