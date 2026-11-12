@@ -1516,7 +1516,7 @@ let _rz;window.addEventListener('resize',()=>{setTop();clearTimeout(_rz);_rz=set
 
 // ---------- boot ----------
 document.querySelectorAll('[data-s],[data-sh]').forEach(el=>{const k=el.dataset.s||el.dataset.sh;if(S.en[k]==null)S.en[k]=el.dataset.sh?el.innerHTML:el.textContent.trim()});
-lang=ls(()=>localStorage.getItem('fc_lang'))||'en';if(!S[lang])lang='en';
+lang=ls(()=>localStorage.getItem('fc_lang'))||'en';try{const hl=new URLSearchParams(location.search).get('hl');if(hl&&S[hl]){lang=hl;ls(()=>localStorage.setItem('fc_lang',lang));history.replaceState(null,'',location.pathname+location.hash)}}catch(e){}if(!S[lang])lang='en';
 const d=loadDraft();if(d&&d.locate&&d.answers){st=normalise(d);if(st.meta&&st.meta.sub)step=2;else{$('resume').hidden=false;$('resume').textContent=T('resume')}}
 // a link from a death on the map or the report pre-fills the spot: index.html?at=lat,lon&road=…#check
 try{const q=new URLSearchParams(location.search);const at=parseCoords(q.get('at')||'');if(at){st.loc.start=at;if(q.get('road'))st.locate.road=String(q.get('road')).slice(0,160);saveDraft();history.replaceState(null,'',location.pathname+(location.hash||'#check'))}}catch(e){}

@@ -59,6 +59,7 @@ MARK_SVG = (ROOT / "icon.svg").read_text(encoding="utf-8").strip().replace("<svg
 # Google "preferred source" link: a plain link, so no Google script loads until someone clicks it
 PREFSRC_URL = "https://www.google.com/preferences/source?q=righttowalk.life"
 PREFSRC = f'<p class="prefsrc"><a class="btn small" href="{PREFSRC_URL}" rel="noopener" data-s="prefsrc">Add Right to Walk as a preferred source on Google</a></p>'
+PREFSRC_HI = f'<p class="prefsrc"><a class="btn small" href="{PREFSRC_URL}" rel="noopener">Google पर राइट टू वॉक को पसंदीदा स्रोत बनाएँ</a></p>'
 FRAME_BUSTER = "<script>if(window.top!==window.self){try{window.top.location.replace(location.href)}catch(e){document.documentElement.hidden=true}}</script>"
 
 def wrap_script(files, config):
@@ -78,17 +79,19 @@ def lastmod(files):
 def ld(obj):
     return '<script type="application/ld+json">' + json.dumps(obj, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/") + "</script>\n"
 
-def document(fname, title, desc, body, scripts, extra_head="", extra_css="", pre_script="", noindex=False, config=None, jsonld=None, src=None):
+def document(fname, title, desc, body, scripts, extra_head="", extra_css="", pre_script="", noindex=False, config=None, jsonld=None, src=None, lang="en", alt=None):
     url = SITE + ("" if fname == "index.html" else fname)
     robots = '<meta name="robots" content="noindex, nofollow">\n' if noindex else ""
     if not noindex:
         SITEMAP.append((url, [src or fname] + [f for f in scripts if f != "config.js"]))
     if jsonld:
         extra_head = "".join(ld(o) for o in jsonld) + extra_head
+    if alt:  # language versions of the same page point at each other
+        extra_head = "".join(f'<link rel="alternate" hreflang="{h}" href="{SITE}{f}">\n' for h, f in alt) + extra_head
     if not noindex:
-        body = body.replace("</div></footer>", PREFSRC + "</div></footer>", 1)
+        body = body.replace("</div></footer>", (PREFSRC_HI if lang == "hi" else PREFSRC) + "</div></footer>", 1)
     head = f"""<!doctype html>
-<html lang="en">
+<html lang="{lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -106,7 +109,7 @@ def document(fname, title, desc, body, scripts, extra_head="", extra_css="", pre
 <link rel="manifest" href="manifest.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{TITLE}">
-<meta property="og:locale" content="en_IN">
+<meta property="og:locale" content="{lang}_IN">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{url}">
@@ -205,7 +208,13 @@ LD_DATASET = {"@context": "https://schema.org", "@type": "Dataset",
                                {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": SITE + "data/deaths.json"}]}
 
 # the complaint guide lists the same owners and channels as the check (OWNERS in src/data.js), read through node
-def owners_html():
+OWNER_HINT_HI = {"gmda": "सेक्टरों को बाँटने वाली मास्टर सड़कें और उनकी सर्विस रोड।",
+                 "mcg": "2017 में सौंपे गए HSVP सेक्टरों की अंदरूनी सड़कें और मई 2022 में ली गई नौ निजी कॉलोनियाँ।",
+                 "hsvp": "वे सेक्टर जो अभी MCG को नहीं सौंपे गए।",
+                 "dtcp": "DLF, सुशांत लोक, साउथ सिटी, पालम विहार और दूसरी लाइसेंसी कॉलोनियों के अंदर, MCG को सौंपे जाने तक।",
+                 "nhai": "NH-48 (दिल्ली–जयपुर) और NH-248A (सोहना रोड) और उनकी सर्विस लेन।",
+                 "pwd": "राज्य की सड़कें।"}
+def owners_html(hi=False):
     js = "const fs=require('fs');const f=new Function(fs.readFileSync(process.argv[1],'utf8')+';return OWNERS');process.stdout.write(JSON.stringify(f()))"
     owners = json.loads(subprocess.run(["node", "-e", js, str(SRC / "data.js")], capture_output=True, text=True, check=True).stdout)
     li = []
@@ -213,8 +222,65 @@ def owners_html():
         if o["id"] == "unknown":
             continue
         ch = " · ".join(f'<a href="{esc_html(c[1])}" rel="noopener">{esc_html(c[0])}</a>' if len(c) > 1 else esc_html(c[0]) for c in o["ch"])
+        if hi:
+            li.append(f'        <li><strong lang="en">{esc_html(o["name"])}</strong>: {esc_html(OWNER_HINT_HI[o["id"]])} <span class="ch">पता: <span lang="en">{esc_html(o["addr"])}</span>। शिकायत यहाँ करें: <span lang="en">{ch}</span></span></li>\n')
+            continue
         li.append(f'        <li><strong>{esc_html(o["name"])}</strong>: {esc_html(o["hint"])} <span class="ch">Write to {esc_html(o["addr"])}. File: {ch}</span></li>\n')
     return '      <ul class="plain owners">\n' + "".join(li) + "      </ul>\n"
+
+# ---- static Hindi pages: the law page pre-rendered from the Hindi strings the language button uses, and the complaint guide ----
+def hi_strings():
+    js = ("const fs=require('fs');const f=new Function(fs.readFileSync(process.argv[1],'utf8')+';'+fs.readFileSync(process.argv[2],'utf8')+';return S.hi');"
+          "process.stdout.write(JSON.stringify(f()))")
+    return json.loads(subprocess.run(["node", "-e", js, str(SRC / "data.js"), str(SRC / "learn.js")], capture_output=True, text=True, check=True).stdout)
+
+def fill(html, attr, strings, as_html, unhide=False):
+    """Replace the content of every element carrying data-<attr>="key" with strings[key] (what the page script does in the browser)."""
+    pat = re.compile(r'<(\w+)([^>]*\bdata-' + attr + r'="([a-z_0-9]+)"[^>]*)>')
+    out, pos = [], 0
+    for m in pat.finditer(html):
+        if m.start() < pos:
+            continue
+        tag, val = m.group(1), strings.get(m.group(3))
+        depth, end = 1, None
+        for t in re.finditer(r'<(/?)' + tag + r'\b[^>]*>', html[m.end():]):
+            depth += -1 if t.group(1) else 1
+            if depth == 0:
+                end = m.end() + t.start()
+                break
+        if val is None or end is None:
+            continue
+        open_tag = m.group(0).replace(" hidden", "") if unhide else m.group(0)
+        out.append(html[pos:m.start()] + open_tag + (val if as_html else esc_html(val)))
+        pos = end
+    return "".join(out) + html[pos:]
+
+def law_hi():
+    hi = hi_strings()
+    hi.setdefault("mark", "राइट टू वॉक"); hi.setdefault("nav_map", "नक्शा")
+    h = read("law.html").replace("<!--FAQ-->", "")
+    h = fill(fill(fill(h, "sh", hi, True), "s", hi, False), "hi", hi, False, unhide=True)
+    swaps = [
+        ('<button class="lang" id="langbtn" type="button" aria-label="Switch language">हिंदी</button>', '<a class="lang" href="law.html" lang="en" hreflang="en">English</a>'),
+        ('<a href="judgment.html">The judgment explained, paragraph by paragraph</a>', '<a href="judgment.html">फ़ैसले की व्याख्या, पैरा दर पैरा (अंग्रेज़ी में)</a>'),
+        ('<a href="complain.html">How to complain about a footpath in Gurugram</a>', '<a href="complain-hi.html">गुरुग्राम में फुटपाथ की शिकायत कैसे करें</a>'),
+        ('<h2>Follow it on Google</h2>', '<h2>Google पर साथ रहें</h2>'),
+        ('<p>Add Right to Walk as a preferred source, and Google will show it to you more often in Top Stories and AI answers.</p>', '<p>राइट टू वॉक को पसंदीदा स्रोत बनाएँ; तब Google इसे आपको Top Stories और AI जवाबों में ज़्यादा दिखाएगा।</p>'),
+        ('rel="noopener">Add as a preferred source on Google</a>', 'rel="noopener">Google पर पसंदीदा स्रोत बनाएँ</a>'),
+        ('<a href="privacy.html">Privacy</a> · <a href="dataset.html">Open data</a>', '<a href="privacy.html">निजता (अंग्रेज़ी में)</a> · <a href="dataset.html">खुला डेटा (अंग्रेज़ी में)</a> · <a href="law.html" lang="en" hreflang="en">This page in English</a>'),
+    ]
+    for a, b in swaps:
+        assert h.count(a) == 1, a
+        h = h.replace(a, b)
+    h = h.replace('href="law.html" aria-current', 'href="law-hi.html" aria-current').replace('href="/#check"', 'href="/?hl=hi#check"').replace('href="/"', 'href="/?hl=hi"')
+    return h
+
+LD_LAW_HI = dict(LD_LAW, headline="चलने के हक़ के पीछे का क़ानून", inLanguage="hi", url=SITE + "law-hi.html")
+LD_COMPLAIN_HI = dict(LD_COMPLAIN, name="गुरुग्राम में फुटपाथ की शिकायत कैसे करें", inLanguage="hi", url=SITE + "complain-hi.html",
+                      step=[{"@type": "HowToStep", "position": i + 1, "name": n} for i, n in enumerate(
+                          ["दर्ज करें", "पता करें कि सड़क किसकी है", "शिकायत करें", "लिखें कि दिक़्क़त क्या है, क्या चाहिए और यह उनकी ज़िम्मेदारी क्यों है", "कुछ न हो तो पूछते रहें और आगे बढ़ाएँ"])])
+ALT_LAW = [("en", "law.html"), ("hi", "law-hi.html"), ("x-default", "law.html")]
+ALT_COMPLAIN = [("en", "complain.html"), ("hi", "complain-hi.html"), ("x-default", "complain.html")]
 
 body = read("body.html")
 document("index.html", HOME_TITLE, DESC, body, ["data.js", "obs.js", "learn.js", "config.js", "rtw.js", "deaths.js", "share.js", "cards.js", "app.js"], config=cfg_index,
@@ -233,7 +299,10 @@ document("roads.html", "Roads to walk · Right to Walk",
 document("law.html", "The law · Right to Walk",
          "The law behind the right to walk: what the Supreme Court has said, who can make the law and who has, what a footpath should be, who must provide it in Gurugram.",
          read("law.html").replace("<!--FAQ-->", FAQ_HTML), ["data.js", "obs.js", "learn.js", "config.js", "rtw.js", "lawpage.js"], extra_css=pages_css,
-         jsonld=[LD_LAW, LD_FAQ])
+         jsonld=[LD_LAW, LD_FAQ], alt=ALT_LAW)
+document("law-hi.html", "क़ानून: पैदल चलने का अधिकार · राइट टू वॉक",
+         "पैदल चलने के अधिकार के पीछे का क़ानून: सुप्रीम कोर्ट ने क्या कहा, फुटपाथ कैसा होना चाहिए, और गुरुग्राम में फुटपाथ देना किसकी ज़िम्मेदारी है।",
+         law_hi(), [], extra_css=pages_css, jsonld=[LD_LAW_HI], src="law.html", lang="hi", alt=ALT_LAW)
 document("game.html", "The footpath game · Right to Walk",
          "Walk 500 m of a Gurugram road as a working adult, a schoolchild, an older person or a wheelchair user: by day, after dark and in the rain. The footpath blocks you; the only way past is the road, where the traffic is. A small game about what walking here is like.",
          read("game.html"), ["game.js"], extra_css=pages_css)
@@ -249,7 +318,10 @@ document("judgment.html", "The right to walk judgment, explained · Right to Wal
          read("judgment.html"), [], extra_css=pages_css, jsonld=[LD_JUDGMENT])
 document("complain.html", "How to complain about a footpath in Gurugram · Right to Walk",
          "Who owns your road in Gurugram, where to file a footpath complaint (GMDA portal, myGurugram, WhatsApp, CM Window, CPGRAMS), what to write, and what to do if nothing happens.",
-         read("complain.html").replace("<!--OWNERS-->", owners_html()), [], extra_css=pages_css, jsonld=[LD_COMPLAIN])
+         read("complain.html").replace("<!--OWNERS-->", owners_html()), [], extra_css=pages_css, jsonld=[LD_COMPLAIN], alt=ALT_COMPLAIN)
+document("complain-hi.html", "गुरुग्राम में फुटपाथ की शिकायत कैसे करें · राइट टू वॉक",
+         "गुरुग्राम में आपकी सड़क किसकी है, फुटपाथ की शिकायत कहाँ करें (GMDA पोर्टल, myGurugram, WhatsApp, CM विंडो, CPGRAMS), क्या लिखें, और कुछ न हो तो क्या करें।",
+         read("complain-hi.html").replace("<!--OWNERS-->", owners_html(hi=True)), [], extra_css=pages_css, jsonld=[LD_COMPLAIN_HI], lang="hi", alt=ALT_COMPLAIN)
 document("moderate.html", "Moderation · Right to Walk", "Moderation of citizen footpath checks before publication.",
          read("moderate.html"), ["data.js", "obs.js", "config.js", "rtw.js", "moderate.js"], extra_css=pages_css, noindex=True)
 
