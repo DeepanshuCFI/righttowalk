@@ -417,6 +417,15 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
 .savedlink{margin:-6px 0 0}
 .prefsrc{margin-top:4px}
 
+/* tap-your-street: the home page palette and the quick check's live street */
+.trywrap{border-style:solid;border-color:var(--ink)}
+.trysum{font-size:17px;min-height:1.5em}
+.trysum b{font-weight:600}
+#s-quick .livebar{margin-bottom:2px}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.16s;animation-timing-function:ease-out}
+@media (prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+#demo-street{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--toph,58px) + 6px);z-index:5;box-shadow:0 0 0 6px var(--bg)}
+
 /* ---------- secondary pages: map, report, moderation ---------- */
 .pagehead{display:grid;gap:8px}
 .pagehead h1{font-size:clamp(36px,8vw,64px)}
