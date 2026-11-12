@@ -426,6 +426,24 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
 @media (prefers-reduced-motion:reduce){#main.fadein{animation:none}}
 #demo-street{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--toph,58px) + 6px);z-index:5;box-shadow:0 0 0 6px var(--bg)}
 
+/* after-submit moment */
+.submit.done{gap:14px}
+.donetop{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center}
+.donetop h3{font-size:clamp(22px,5vw,28px);line-height:1.1}
+.pinscene{width:120px;height:auto;border:2px solid var(--ink);border-radius:12px;background:var(--s-paver)}
+.submit.done.fresh .pin{animation:pindrop .7s cubic-bezier(.2,.8,.3,1) both}
+.submit.done .ripple{opacity:0}
+.submit.done.fresh .ripple{transform-box:fill-box;transform-origin:50% 50%;animation:ripple .9s .55s ease-out both}
+@keyframes pindrop{0%{transform:translateY(-90px);opacity:0}60%{transform:translateY(4px);opacity:1}80%{transform:translateY(-3px)}100%{transform:translateY(0)}}
+@keyframes ripple{0%{transform:scale(.3);opacity:.9}100%{transform:scale(2.2);opacity:0}}
+.tl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;counter-reset:tl}
+.tl li{counter-increment:tl;border-top:5px solid var(--ink-3,var(--ink-2));opacity:.55;padding-top:6px;font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;line-height:1.2}
+.tl li::before{content:counter(tl) ". "}
+.tl li.on{border-color:var(--ink);opacity:1}
+.tl li.now{border-color:var(--yellow);opacity:1}
+@media (prefers-reduced-motion:reduce){.submit.done.fresh .pin,.submit.done.fresh .ripple{animation:none}}
+.submit.done .cnt{grid-template-columns:1fr 1fr}
+
 
 </style>
 </head>
@@ -1243,6 +1261,9 @@ Object.assign(S.en,{try_cap:'Your footpath · as you tapped it',try_h:'What is o
  try_sum:(n,off,fall)=>`${n} ${n===1?'thing':'things'} on this footpath.`+(off?` ${off} would push a walker onto the road.`:'')+(fall?` ${fall} could cause a fall.`:'')});
 Object.assign(S.hi,{try_cap:'आपका फुटपाथ · जैसा आपने बताया',try_h:'आपके पास के फुटपाथ पर क्या है?',try_p:'घर या दफ़्तर के बाहर जो मिलता है, उसे दबाएँ। वह ऊपर की सड़क पर आ जाएगा।',try_go:'यह असली जगह है: इसे दर्ज करें',try_reset:'फिर से शुरू करें',try_note:'आपके चुने टाइल साथ जाएँगे। जगह आख़िर में पूछी जाएगी।',try_carry:'आपके चुने टाइल आ गए हैं। नीचे का सवाल भरें, फिर जगह बताएँ।',quick_live:'यह जगह अब तक',
  try_sum:(n,off,fall)=>`इस फुटपाथ पर ${n} रुकावट${n>1?'ें':''}।`+(off?` ${off} की वजह से पैदल चलने वाले को सड़क पर उतरना पड़ेगा।`:'')+(fall?` ${fall} से गिरने का ख़तरा है।`:'')});
+Object.assign(S.en,{sub_hd:'Thank you. Your observation is in.',sub_tl1:'Sent',sub_tl2:'A moderator reads it',sub_tl3:'On the public map',sub_total:'sent to the Gurugram record so far',sub_mine:'sent from this phone',sub_wait:'Waiting for review',sub_share:'Share your card',sub_again:'Check another spot'});
+Object.assign(S.hi,{sub_hd:'धन्यवाद। आपकी बात हम तक पहुँच गई।',sub_tl1:'भेजा गया',sub_tl2:'मॉडरेटर पढ़ेगा',sub_tl3:'सार्वजनिक नक्शे पर',sub_total:'अब तक गुरुग्राम रिकॉर्ड को भेजी गईं',sub_mine:'इस फ़ोन से भेजी गईं',sub_wait:'समीक्षा का इंतज़ार',sub_share:'अपना कार्ड साझा करें',sub_again:'एक और जगह जाँचें'});
+function pinSVG(){return `<svg class="pinscene" viewBox="0 0 240 120" aria-hidden="true"><rect x="0" y="92" width="240" height="10" style="fill:var(--s-yellow)"/><path d="M0 92h30v10H0zM60 92h30v10H60zM120 92h30v10h-30zM180 92h30v10h-30z" style="fill:var(--s-ink)"/><rect x="0" y="102" width="240" height="18" style="fill:var(--s-asphalt)"/><ellipse class="ripple" cx="120" cy="92" rx="26" ry="6" style="fill:none;stroke:var(--ink);stroke-width:2"/><g class="pin"><path d="M120 90c-14-20-24-30-24-44a24 24 0 0 1 48 0c0 14-10 24-24 44z" style="fill:var(--yellow);stroke:var(--ink);stroke-width:3;stroke-linejoin:round"/><circle cx="120" cy="46" r="9" style="fill:var(--ink)"/></g></svg>`}
 function buzz(){try{if(navigator.vibrate)navigator.vibrate(8)}catch(e){}}
 // step and view changes fade in; the DOM change itself is always synchronous
 function vt(fn){fn();if(!booted||reduced)return;const m=$('main');if(!m)return;m.classList.remove('fadein');void m.offsetWidth;m.classList.add('fadein')}
@@ -1441,7 +1462,7 @@ function renderCard(){const l=st.locate;const d=new Date(st.meta.date);const q=i
 function submitRow(id){const l=st.locate,a=st.answers,q=isQuick();const s=st.loc.start,e=st.loc.end;const r=q?null:scoreOf(a);const c=q?null:roadClass(l);
  return {id,mode:q?'quick':'full',method:'footpath-check-v1.3',lat:s?s.lat:null,lon:s?s.lon:null,acc_m:s&&s.acc?Math.min(5000,Math.round(s.acc)):null,end_lat:(!q&&e)?e.lat:null,end_lon:(!q&&e)?e.lon:null,length_m:q?null:stretchLen(),side:l.side||null,road:(l.road||'').trim().slice(0,160)||null,sector:(l.area||'').slice(0,60)||null,land:q?null:l.land,road_class:c,owner:st.owner||'unknown',gate:q?null:(a.gate||null),spot_passable:q?(st.quick.spot_passable||null):null,answers:q?{}:a,obs:obsCounts(st.obs),score:r?r.s:null,band:r?r.band:null,anchor:(!q&&a.anchor!=null)?a.anchor:null,ped_count:(!q&&l.count!=='')?Math.min(10000,Math.max(0,parseInt(l.count,10)||0)):null,lang,first_name:(st.meta.first||'').trim().slice(0,40)||null,consent:true,client_id:rtwClientId(),photo_count:0,status:'pending'}}
 function renderSubmit(){const box=$('submitout');if(!box)return;if(typeof RTW_ON!=='function'||!RTW_ON()){box.hidden=true;box.innerHTML='';return}box.hidden=false;const sub=st.meta.sub;
- if(sub){box.innerHTML=`<div class="paper submit done"><span class="kicker"><b>${esc(T('sub_done_h'))}</b></span><p>${esc(T('sub_done_p'))}</p><p class="small">${esc(T('sub_ref'))} <b>${esc(rtwShort(sub.id))}</b> · ${esc(fmt(new Date(sub.at)))}${sub.photos?` · ${sub.photos} ${esc(sub.photos===1?T('sub_photo'):T('sub_photos'))}`:''}</p><div class="btnrow"><a class="btn small" href="map.html">${esc(T('cnt_map'))}</a></div></div>`;return}
+ if(sub){const fresh=!!sub.fresh;delete sub.fresh;box.innerHTML=`<div class="paper submit done${fresh?' fresh':''}"><div class="donetop">${pinSVG()}<div class="block" style="gap:6px"><span class="kicker"><b>${esc(T('sub_wait'))}</b></span><h3>${esc(T('sub_hd'))}</h3></div></div><ol class="tl"><li class="on">${esc(T('sub_tl1'))}</li><li class="now">${esc(T('sub_tl2'))}</li><li>${esc(T('sub_tl3'))}</li></ol>${(sub.total||sub.mine)?`<div class="cnt">${sub.total?`<div class="cntn"><span class="n" id="sub-total">${sub.total}</span><span class="l">${esc(T('sub_total'))}</span></div>`:''}${sub.mine?`<div class="cntn"><span class="n">${sub.mine}</span><span class="l">${esc(T('sub_mine'))}</span></div>`:''}</div>`:''}<p class="small">${esc(T('sub_done_p'))}</p><div class="btnrow"><button type="button" class="btn yellow" id="sub-share">${esc(T('sub_share'))}</button><button type="button" class="btn" id="sub-again">${esc(T('sub_again'))}</button></div><p class="small">${esc(T('sub_ref'))} <b>${esc(rtwShort(sub.id))}</b> · ${esc(fmt(new Date(sub.at)))}${sub.photos?` · ${sub.photos} ${esc(sub.photos===1?T('sub_photo'):T('sub_photos'))}`:''}</p><div class="btnrow"><a class="btn small" href="map.html">${esc(T('cnt_map'))}</a></div></div>`;return}
  box.innerHTML=`<div class="paper submit"><span class="kicker"><b>${esc(T('sub_h'))}</b></span><p class="small">${esc(T('sub_p'))} <a href="privacy.html">${esc(T('sub_priv'))}</a></p>
  <div class="grid2"><label class="f"><span>${esc(T('sub_sector'))}</span><select id="sub-sector"><option value="">${esc(T('sub_sector_none'))}</option>${SECTORS.map(s=>`<option value="${esc(s)}"${s===st.locate.area?' selected':''}>${esc(s)}</option>`).join('')}</select></label>
  <label class="f"><span>${esc(T('not_owner'))}</span><select id="sub-owner">${OWNERS.map(o=>`<option value="${o.id}"${o.id===st.owner?' selected':''}>${esc(o.name)}</option>`).join('')}</select></label></div>
@@ -1454,7 +1475,8 @@ async function doSubmit(){const err=$('sub-err');err.hidden=true;if(!$('sub-cons
  catch(e){b.disabled=false;b.textContent=T('sub_btn');err.hidden=false;err.textContent=T('sub_err')+(e.message?` (${e.message})`:'');return}
  let ok=0,fail=0;for(const k of Object.keys(photos)){const p=photos[k];if(!p.file)continue;const blob=await rtwShrink(p.file,1600);if(!blob){fail++;continue}
   const ext={'image/png':'png','image/webp':'webp','image/heic':'heic','image/heif':'heif'}[blob.type]||'jpg';try{await rtwUpload(`pending/${id}/${k}.${ext}`,blob);ok++}catch(e){fail++}}
- st.meta.sub={id,at:new Date().toISOString(),photos:ok};saveDraft();renderSubmit();toast(fail?T('sub_photofail'):T('sub_done'))}
+ const mine=(parseInt(ls(()=>localStorage.getItem('fc_sent'))||'0',10)||0)+1;ls(()=>localStorage.setItem('fc_sent',String(mine)));let total=null;try{statsCache=await rtwStats();statsAt=Date.now();total=statsCache&&statsCache.submitted||null}catch(e){}
+ st.meta.sub={id,at:new Date().toISOString(),photos:ok,mine,total};saveDraft();st.meta.sub.fresh=true;renderSubmit();const el=$('sub-total');if(el&&total)countUp(el,total);$('submitout').scrollIntoView({block:'center',behavior:reduced?'auto':'smooth'});try{if(navigator.vibrate)navigator.vibrate([10,60,20])}catch(e){}toast(fail?T('sub_photofail'):T('sub_done'))}
 function shareText(){const q=isQuick();const g=q?st.quick.spot_passable:st.answers.gate;const place=placeText()||'Gurugram';let v;if(!q){const r=scoreOf(st.answers);v=`${r.s==null?'':r.s+' / 100, '}${bandText(r.band).toLowerCase()}`}else v=g==='no'?T('quick_fail').toLowerCase():(g==='yes'?T('quick_pass').toLowerCase():`${(st.obs||[]).length} ${lang==='hi'?'समस्याएँ':'problems'}`);return `${lang==='hi'?'फुटपाथ':'Footpath'}, ${place}: ${v}. ${T('share_cta')} https://righttowalk.life`}
 function renderShare(){const box=$('shareout');if(!box)return;if(typeof renderShareCard!=='function'||!document.createElement('canvas').getContext){box.hidden=true;return}box.hidden=false;
  box.innerHTML=`<h3>${esc(T('share_h'))}</h3><p class="small">${esc(T('share_p'))}</p><div class="sharecard"><img id="share-img" alt="" hidden><div class="sharewait" id="share-wait">${esc(T('share_busy'))}</div></div><div class="btnrow"><button type="button" class="btn yellow" id="share-btn" disabled>${esc(T('share_btn'))}</button><button type="button" class="btn" id="share-dl" disabled>${esc(T('share_dl'))}</button></div>`;makeShare()}
@@ -1548,6 +1570,8 @@ document.addEventListener('click',e=>{
  if(b.id==='copy-json'){const rec=JSON.parse(JSON.stringify(st));rec.meta.photos=Object.keys(photos).length;if(!isQuick()){rec.result=scoreOf(st.answers);delete rec.result.fails}rec.obstructions=obsCounts(st.obs);rec.length_m=isQuick()?null:stretchLen();rec.method='footpath-check-v1.3';copyText(JSON.stringify(rec,null,1));return}
  if(b.id==='copy-notice'){copyText($('f-notice').value);return}
  if(b.id==='sub-btn'){doSubmit();return}
+ if(b.id==='sub-share'){const s=$('shareout');if(s&&!s.hidden){s.scrollIntoView({block:'center',behavior:reduced?'auto':'smooth'});($('share-btn')||s).focus({preventScroll:true})}return}
+ if(b.id==='sub-again'){carried=false;st=blank();st.mode='quick';photos={};locFail=false;shareBlob=null;saveDraft();showStep(0);return}
  if(b.id==='share-btn'){doShare();return}
  if(b.id==='share-dl'){downloadShare();return}
  if(b.dataset.cardShare){cardShare(b.dataset.cardShare);return}
@@ -1567,7 +1591,7 @@ let _rz;window.addEventListener('resize',()=>{setTop();clearTimeout(_rz);_rz=set
 // ---------- boot ----------
 document.querySelectorAll('[data-s],[data-sh]').forEach(el=>{const k=el.dataset.s||el.dataset.sh;if(S.en[k]==null)S.en[k]=el.dataset.sh?el.innerHTML:el.textContent.trim()});
 lang=ls(()=>localStorage.getItem('fc_lang'))||'en';if(!S[lang])lang='en';
-const d=loadDraft();if(d&&d.locate&&d.answers){st=normalise(d);$('resume').hidden=false;$('resume').textContent=T('resume')}
+const d=loadDraft();if(d&&d.locate&&d.answers){st=normalise(d);if(st.meta&&st.meta.sub)step=2;else{$('resume').hidden=false;$('resume').textContent=T('resume')}}
 // a link from a death on the map or the report pre-fills the spot: index.html?at=lat,lon&road=…#check
 try{const q=new URLSearchParams(location.search);const at=parseCoords(q.get('at')||'');if(at){st.loc.start=at;if(q.get('road'))st.locate.road=String(q.get('road')).slice(0,160);saveDraft();history.replaceState(null,'',location.pathname+(location.hash||'#check'))}}catch(e){}
 applyStrings();route();startDemo();setTop();booted=true;
