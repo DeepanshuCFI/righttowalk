@@ -629,6 +629,23 @@ code{overflow-wrap:anywhere}
 .quote.long p{font-family:var(--body);font-weight:500;font-size:18px;line-height:1.5}
 @media (min-width:1100px){.doc .quote.long p{font-size:19px;line-height:1.5}}
 
+/* phone map: stats in one row, chips in one-line scrolling rows, map fills the rest of the first screen */
+.maptools{display:contents}
+@media (max-width:640px){
+ .mapbar .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:6px 10px;padding-block:8px}
+ .mapstat{min-width:0}
+ .mapstat .n{font-size:28px}
+ .mapstat .l{font-size:12px;max-width:none}
+ .mapstat .small{font-size:11px;line-height:1.2}
+ .mapbar #m-filters,.maptools{grid-column:1/-1;display:flex;flex-wrap:nowrap;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-inline:-16px;padding-inline:16px}
+ .mapbar #m-filters::-webkit-scrollbar,.maptools::-webkit-scrollbar{display:none}
+ .maptools #m-layers{flex-wrap:nowrap;flex:none}
+ .mapbar .chip{flex:none;white-space:nowrap}
+ .maptools .btn{display:none}
+ .map{height:calc(100dvh - 300px);min-height:340px}
+}
+.mapempty{place-items:end center;padding:0 12px 30px}
+
 /* the assignment sheet prints landscape, with ruled blank cells */
 @media print{
   @page{size:A4 landscape;margin:12mm}
