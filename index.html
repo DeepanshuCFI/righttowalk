@@ -421,8 +421,9 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
 .trysum{font-size:17px;min-height:1.5em}
 .trysum b{font-weight:600}
 #s-quick .livebar{margin-bottom:2px}
-::view-transition-old(root),::view-transition-new(root){animation-duration:.16s;animation-timing-function:ease-out}
-@media (prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+#main.fadein{animation:fadein .18s ease-out}
+@keyframes fadein{from{opacity:.35}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){#main.fadein{animation:none}}
 #demo-street{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--toph,58px) + 6px);z-index:5;box-shadow:0 0 0 6px var(--bg)}
 
 
@@ -472,8 +473,8 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
     <div class="block" id="two-min">
       <h2 data-s="tm_h">Two minutes, three steps</h2>
       <div class="steps3">
-        <div class="step3"><span class="k">1</span><b data-s="tm_1h">Where</b><p data-s="tm_1p">One tap takes your location. Say which side of the road you are on.</p></div>
-        <div class="step3"><span class="k">2</span><b data-s="tm_2h">Tap what you see</b><p data-s="tm_2p">Parked cars, a vendor cart, an open manhole, a dug-up stretch. A photo is optional.</p></div>
+        <div class="step3"><span class="k">1</span><b data-s="tm_2h">Tap what you see</b><p data-s="tm_2p">Parked cars, a vendor cart, an open manhole, a dug-up stretch. A photo is optional.</p></div>
+        <div class="step3"><span class="k">2</span><b data-s="tm_1h">Where</b><p data-s="tm_1p">One tap takes your location. Say which side of the road you are on.</p></div>
         <div class="step3"><span class="k">3</span><b data-s="tm_3h">Add your observation</b><p data-s="tm_3p">A quick check records one spot. The full check asks about 100 m on one side. You can add either observation to the moderated public record.</p></div>
       </div>
       <p class="small" data-sh="tm_more">There is a full check too: eleven questions, including Right to Walk's 100 m continuity check, and a project score. <a href="#problems">What each tile means</a> · <a href="law.html">The law behind this</a> · <a href="report.html">The Gurugram report</a></p>
@@ -514,7 +515,7 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
       <div id="resume" class="note" hidden></div>
       <div id="locate-body" class="block" style="gap:16px"></div>
       <p class="err" id="loc-err" role="alert" hidden></p>
-      <div class="btnrow"><button class="btn yellow" id="to-audit" type="button" data-s="next"></button></div>
+      <div class="btnrow"><button class="btn" id="back-spot" type="button" data-s="back" hidden></button><button class="btn yellow" id="to-audit" type="button" data-s="next"></button></div>
     </div>
 
     <div id="s-audit" class="block" style="gap:14px" hidden>
@@ -1237,14 +1238,14 @@ let photos={};
 let step=0;
 let resMode='found', demoMode='found', demoTimer=null, glossSel='parked';
 let palMore=false, locBusy=false, locFail=false;
-let tryObs=[], tryLast=-1, booted=false, _vt=false;
-Object.assign(S.en,{try_cap:'Your footpath · as you tapped it',try_h:'What is on the footpath near you?',try_p:'Tap what you would find outside your home or office. It lands on the street above.',try_go:'This is a real place: record it',try_reset:'Start over',try_note:'Your taps carry over. You only add where it is.',try_carry:'Your taps are carried over. Now say where this is.',quick_live:'This spot so far',
+let carried=false, tryObs=[], tryLast=-1, booted=false;
+Object.assign(S.en,{try_cap:'Your footpath · as you tapped it',try_h:'What is on the footpath near you?',try_p:'Tap what you would find outside your home or office. It lands on the street above.',try_go:'This is a real place: record it',try_reset:'Start over',try_note:'Your taps carry over. Location comes last.',try_carry:'Your taps are carried over. Answer the question below, then say where this is.',quick_live:'This spot so far',
  try_sum:(n,off,fall)=>`${n} ${n===1?'thing':'things'} on this footpath.`+(off?` ${off} would push a walker onto the road.`:'')+(fall?` ${fall} could cause a fall.`:'')});
-Object.assign(S.hi,{try_cap:'आपका फुटपाथ · जैसा आपने बताया',try_h:'आपके पास के फुटपाथ पर क्या है?',try_p:'घर या दफ़्तर के बाहर जो मिलता है, उसे दबाएँ। वह ऊपर की सड़क पर आ जाएगा।',try_go:'यह असली जगह है: इसे दर्ज करें',try_reset:'फिर से शुरू करें',try_note:'आपके चुने टाइल साथ जाएँगे। बस जगह बतानी होगी।',try_carry:'आपके चुने टाइल आ गए हैं। अब बताइए यह जगह कहाँ है।',quick_live:'यह जगह अब तक',
+Object.assign(S.hi,{try_cap:'आपका फुटपाथ · जैसा आपने बताया',try_h:'आपके पास के फुटपाथ पर क्या है?',try_p:'घर या दफ़्तर के बाहर जो मिलता है, उसे दबाएँ। वह ऊपर की सड़क पर आ जाएगा।',try_go:'यह असली जगह है: इसे दर्ज करें',try_reset:'फिर से शुरू करें',try_note:'आपके चुने टाइल साथ जाएँगे। जगह आख़िर में पूछी जाएगी।',try_carry:'आपके चुने टाइल आ गए हैं। नीचे का सवाल भरें, फिर जगह बताएँ।',quick_live:'यह जगह अब तक',
  try_sum:(n,off,fall)=>`इस फुटपाथ पर ${n} रुकावट${n>1?'ें':''}।`+(off?` ${off} की वजह से पैदल चलने वाले को सड़क पर उतरना पड़ेगा।`:'')+(fall?` ${fall} से गिरने का ख़तरा है।`:'')});
 function buzz(){try{if(navigator.vibrate)navigator.vibrate(8)}catch(e){}}
-// step and view changes cross-fade where the browser supports it; never during boot, never nested
-function vt(fn){if(_vt||!booted||reduced||!document.startViewTransition){fn();return}_vt=true;try{document.startViewTransition(fn).finished.finally(()=>{_vt=false})}catch(e){_vt=false;fn()}}
+// step and view changes fade in; the DOM change itself is always synchronous
+function vt(fn){fn();if(!booted||reduced)return;const m=$('main');if(!m)return;m.classList.remove('fadein');void m.offsetWidth;m.classList.add('fadein')}
 function sevCount(list,sev){return (list||[]).filter(id=>OBS_BY[id]&&OBS_BY[id].sev===sev).length}
 let shareBlob=null, shareURL=null, shareBusy=false, statsCache=null, statsAt=0;
 const DEMO={gate:'no',i1:'yes',i2:'partly',i3:'no',i4:'no',i5:'yes',i6:'no',i7:'partly',i8:'no',i9:'no',i10:'yes'};
@@ -1364,7 +1365,7 @@ function signalSVG(band){const lit=(b)=>band===b;const lamp=(cy,color,on,fig)=>`
 
 // ---------- render: shared ----------
 function applyStrings(){document.querySelectorAll('[data-s]').forEach(el=>{const v=T(el.dataset.s);if(v!=null)el.textContent=v});document.querySelectorAll('[data-sh]').forEach(el=>{const v=T(el.dataset.sh);if(v!=null)el.innerHTML=v});document.querySelectorAll('[data-hi]').forEach(el=>{const v=S.hi[el.dataset.hi];el.hidden=lang!=='hi'||v==null;if(v!=null)el.textContent=v});$('langbtn').textContent=lang==='en'?'हिंदी':'English';document.documentElement.lang=lang==='hi'?'hi':'en'}
-function renderSteps(cur){const names=isQuick()?[T('st1'),T('st2q'),T('st3q'),T('st4')]:[T('st1'),T('st2'),T('st3'),T('st4')];$('steps').innerHTML=names.map((n,i)=>`<div class="${i===cur?'on':(i<cur?'done':'')}">${esc(n)}</div>`).join('')}
+function renderSteps(cur){const names=isQuick()?[T('st2q'),T('st1'),T('st3q'),T('st4')]:[T('st1'),T('st2'),T('st3'),T('st4')];$('steps').innerHTML=names.map((n,i)=>`<div class="${i===cur?'on':(i<cur?'done':'')}">${esc(n)}</div>`).join('')}
 function tileHTML(v,label,pressed,attr){const ic=ICON[v]||'';return `<button type="button" class="tile" ${attr} aria-pressed="${String(pressed)}">${ic}<span>${esc(label)}</span></button>`}
 function segHTML(field,opts,val,labels){return `<div class="tiles" data-field="${field}">${opts.map(o=>tileHTML(field==='side'?o:(field==='lanes'?'':o),labels?labels[o]:segLabel(field,o),val===o,`data-v="${o}"`)).join('')}</div>`}
 function segLabel(f,o){if(f==='lanes')return o==='3'?(lang==='hi'?'3 या ज़्यादा':'3 or more'):o;if(f==='side')return o==='left'?T('side_left'):T('side_right');return T(o)}
@@ -1373,7 +1374,7 @@ function photoHTML(key,label){return `<div class="photo"><label><input type="fil
 
 // ---------- render: where ----------
 function fixCard(f,label){return `<div class="fix"><div class="fixl"><span class="kicker"><b>${esc(label)}</b></span><div class="fixc">${esc(fixText(f))}</div><div class="small">${f.acc?`${esc(T('loc_acc'))} ${f.acc} m · `:''}<a href="${mapUrl(f)}" target="_blank" rel="noopener">${esc(T('loc_map'))}</a></div></div></div>`}
-function renderLocate(){const l=st.locate;const body=$('locate-body');$('to-audit').hidden=!st.mode;
+function renderLocate(){const l=st.locate;const body=$('locate-body');$('to-audit').hidden=!st.mode;$('to-audit').textContent=isQuick()?T('see'):T('next');$('back-spot').hidden=!isQuick();
  if(!st.mode){body.innerHTML=`<h2>${esc(T('mode_h'))}</h2><div class="modes"><button type="button" class="modecard" data-mode="quick"><span class="mk">2 min</span><b>${esc(T('mode_quick'))}</b><p>${esc(T('mode_quick_p'))}</p></button><button type="button" class="modecard" data-mode="full"><span class="mk">15 min</span><b>${esc(T('mode_full'))}</b><p>${esc(T('mode_full_p'))}</p></button></div>`;return}
  const q=isQuick();
  let h=`<div class="modeline"><span class="kicker"><b>${esc(q?T('mode_quick'):T('mode_full'))}</b> · ${q?'2':'15'} min</span><button type="button" class="btn small" data-mode-reset>${esc(T('change'))}</button></div>`;
@@ -1407,7 +1408,7 @@ function renderLive(full,opts){opts=opts||{};const box=$('live-street');if(!box|
  const g=box.querySelector('.walker');if(g){g.style.transform=`translate(${30+Math.round(frac*930)}px,${walkerY()}px)`;if(!reduced){g.classList.add('moving');clearTimeout(g._m);g._m=setTimeout(()=>g.classList.remove('moving'),650)}}}
 
 // ---------- render: quick spot ----------
-function renderQuick(){const g=st.quick.spot_passable;$('quick-body').innerHTML=`<div class="livebar"><div class="meta"><span>${esc(T('quick_live'))}</span><span>${(st.obs||[]).length||''}</span></div><div class="street" id="quick-street"></div></div><h2>${esc(T('quick_h'))}</h2>${paletteHTML()}<div class="item gate" role="group" aria-labelledby="q-spot"><div class="num"><span>${esc(T('quick_gate_lbl'))}</span></div><div class="q" id="q-spot">${esc(T('quick_gate'))}</div><div class="tiles" data-ans="qgate">${['yes','no'].map(o=>tileHTML(o,T(o),g===o,`data-v="${o}"`)).join('')}</div></div>${photoHTML('spot',T('quick_photo'))}<p class="small">${esc(T('photo_note'))}</p>`;renderQuickStreet()}
+function renderQuick(){const g=st.quick.spot_passable;$('to-card-q').textContent=T('next');$('quick-body').innerHTML=`${carried?`<p class="note">${esc(T('try_carry'))}</p>`:''}<div class="livebar"><div class="meta"><span>${esc(T('quick_live'))}</span><span>${(st.obs||[]).length||''}</span></div><div class="street" id="quick-street"></div></div><h2>${esc(T('quick_h'))}</h2>${paletteHTML()}<div class="item gate" role="group" aria-labelledby="q-spot"><div class="num"><span>${esc(T('quick_gate_lbl'))}</span></div><div class="q" id="q-spot">${esc(T('quick_gate'))}</div><div class="tiles" data-ans="qgate">${['yes','no'].map(o=>tileHTML(o,T(o),g===o,`data-v="${o}"`)).join('')}</div></div>${photoHTML('spot',T('quick_photo'))}<p class="small">${esc(T('photo_note'))}</p>`;renderQuickStreet()}
 function renderQuickStreet(lastObs){const box=$('quick-street');if(!box)return;const g=st.quick.spot_passable;box.innerHTML=stripSVG({i1:'yes',gate:g==='no'?'no':null},'found',{id:'qk',labels:true,lblScale:lblK(box),obs:st.obs||[],lastObs,bare:true,walker:g==='yes'?.1:null});const m=box.parentElement.querySelector('.meta span:last-child');if(m)m.textContent=(st.obs||[]).length||''}
 function quickComplete(){return (st.obs&&st.obs.length>0)||st.quick.spot_passable!=null}
 
@@ -1497,7 +1498,7 @@ function renderSaved(){const list=ls(()=>JSON.parse(localStorage.getItem('fc_sav
 function lblK(box){const w=(box&&box.clientWidth)||window.innerWidth;return w<600?1.5:1}
 function renderDemo(opts){opts=opts||{};const box=$('demo-street');if(!box)return;const mine=tryObs.length>0;const forced=mine&&sevCount(tryObs,'off')>0;const a=mine?{i1:'yes',gate:forced?'no':null}:Object.assign({obs:DEMO_OBS},DEMO);const k=lblK(box);box.innerHTML=`<div class="layer ${demoMode==='standard'?'hide':''}">${mine?stripSVG(a,'found',{id:'df',labels:true,lblScale:k,obs:tryObs,lastObs:opts.lastObs,bare:true,walker:forced?null:.1}):stripSVG(a,'found',{id:'df',labels:true,lblScale:k})}</div><div class="layer ${demoMode==='found'?'hide':''}" style="position:relative">${stripSVG(a,'standard',{id:'ds',labels:true,lblScale:k})}</div>`;$('demo-toggle').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.m===demoMode)));$('demo-cap').innerHTML=esc(demoMode==='found'?(mine?T('try_cap'):T('demo_found')):T('demo_std'));renderTry()}
 function renderTry(){const box=$('try-pal');if(!box)return;const c=obsCounts(tryObs);const n=tryObs.length;box.innerHTML=`<div class="kicker"><b>${esc(T('try_h'))}</b></div><p class="help">${esc(T('try_p'))}</p><div class="palette">${OBS.filter(o=>!o.more).map(o=>`<div class="palw"><button type="button" class="pal${c[o.id]?' has':''}" data-try="${o.id}" aria-label="${esc(nm(o))}">${obsIcon(o.id)}<span>${esc(nm(o))}</span>${c[o.id]?`<b class="badge${tryObs[tryLast]===o.id?' pop':''}">${c[o.id]}</b>`:''}</button></div>`).join('')}</div><p class="palsum trysum" aria-live="polite">${n?`<b>${esc(T('try_sum')(n,sevCount(tryObs,'off'),sevCount(tryObs,'fall')))}</b>`:esc(T('pal_none'))}</p>${n?`<div class="btnrow"><button type="button" class="btn yellow" id="try-go">${esc(T('try_go'))}</button><button type="button" class="btn small" id="try-reset">${esc(T('try_reset'))}</button></div><p class="small">${esc(T('try_note'))}</p>`:''}`;tryLast=-1}
-function tryGo(){const busy=!!(st.loc.start||Object.keys(st.answers||{}).length);if(!busy){st=blank();photos={};st.mode='quick';st.obs=[]}st.obs=(st.obs||[]).concat(tryObs);if(!st.mode)st.mode='quick';suggestFromObs();saveDraft();tryObs=[];step=isQuick()?0:step;$('resume').hidden=false;$('resume').textContent=T('try_carry');location.hash='#check'}
+function tryGo(){const busy=!!(st.loc.start||Object.keys(st.answers||{}).length);if(!busy){st=blank();photos={};st.mode='quick';st.obs=[]}st.obs=(st.obs||[]).concat(tryObs);if(!st.mode)st.mode='quick';suggestFromObs();saveDraft();tryObs=[];if(isQuick()){step=0;carried=true}location.hash='#check'}
 function startDemo(){clearInterval(demoTimer);if(reduced||tryObs.length)return;demoTimer=setInterval(()=>{if(document.hidden||$('v-learn').hidden)return;demoMode=demoMode==='found'?'standard':'found';renderDemo()},5500)}
 function renderGloss(){const g=$('gloss');if(!g)return;const det=$('gloss-detail');g.innerHTML=OBS.map(o=>`<div class="palw"><button type="button" class="pal${o.id===glossSel?' sel':''}" data-gl="${o.id}" aria-pressed="${String(o.id===glossSel)}">${obsIcon(o.id)}<span>${esc(nm(o))}</span></button></div>`).join('');const o=OBS_BY[glossSel]||OBS[0];const sv=SEV_LBL[lang][o.sev]||o.sev;
  det.innerHTML=`<div class="gl"><div class="glpic"><svg viewBox="0 20 140 150" aria-hidden="true"><rect x="0" y="20" width="140" height="130" style="fill:var(--s-paver)"/><path d="M0 60H140M0 100H140M70 20V60M35 60V100M105 60V100M70 100V150" style="stroke:var(--s-line);stroke-width:1.5"/><g class="ob drop">${obsGlyph(o.id,70,150)}</g><rect x="0" y="150" width="70" height="12" style="fill:var(--s-yellow)"/><rect x="70" y="150" width="70" height="12" style="fill:var(--s-ink)"/><rect x="0" y="162" width="140" height="8" style="fill:var(--s-asphalt)"/></svg></div><div class="gltext"><h3>${esc(nm(o))}</h3><p class="small" lang="${lang==='hi'?'en':'hi'}">${esc(lang==='hi'?o.en:o.hi)}</p><p class="muted">${esc(o.desc)}</p><dl><dt>${esc(T('gl_sev'))}</dt><dd><span class="sev ${o.sev}">${esc(sv)}</span></dd><dt>${esc(T('gl_rule'))}</dt><dd>${esc(o.rule)}</dd><dt>${esc(T('gl_who'))}</dt><dd>${esc(o.who)}</dd><dt>${esc(T('gl_fix'))}</dt><dd>${esc(o.fix)}</dd></dl></div></div>`;glossPlace(g,det)}
@@ -1507,7 +1508,7 @@ function glossPlace(g,det){const cols=Math.max(1,(getComputedStyle(g).gridTempla
 // ---------- navigation ----------
 function focusHeading(scope){const h=scope&&scope.querySelector('h1,h2,h3');if(!h)return;h.tabIndex=-1;requestAnimationFrame(()=>h.focus({preventScroll:true}))}
 function showStep(i){vt(()=>showStepNow(i))}
-function showStepNow(i){step=i;const q=isQuick();$('s-locate').hidden=i!==0;$('s-audit').hidden=!(i===1&&!q);$('s-quick').hidden=!(i===1&&q);$('s-card').hidden=i!==2;$('s-notice').hidden=i!==3;renderSteps(i);if(i===0)renderLocate();if(i===1){if(q)renderQuick();else renderItems()}if(i===2)renderCard();if(i===3)renderNotice();window.scrollTo({top:0});focusHeading(i===1&&q?$('s-quick'):$(['s-locate','s-audit','s-card','s-notice'][i]))}
+function showStepNow(i){step=i;const q=isQuick();const loc=q?i===1:i===0,qk=q&&i===0,au=!q&&i===1;$('s-locate').hidden=!loc;$('s-audit').hidden=!au;$('s-quick').hidden=!qk;$('s-card').hidden=i!==2;$('s-notice').hidden=i!==3;renderSteps(i);if(loc)renderLocate();if(qk)renderQuick();if(au)renderItems();if(i===2)renderCard();if(i===3)renderNotice();window.scrollTo({top:0});focusHeading(loc?$('s-locate'):qk?$('s-quick'):au?$('s-audit'):$(i===2?'s-card':'s-notice'))}
 function route(){vt(routeNow)}
 function routeNow(){let h=(location.hash||'#learn').replace('#','');if(h==='how'){h='learn'}const VIEWS=['learn','check','saved','problems'];if(!VIEWS.includes(h))h='learn';VIEWS.forEach(v=>{$('v-'+v).hidden=v!==h;const a=$('nav-'+v);if(a){if(v===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')}});if(h==='learn'){renderDemo();renderNumbers();if(typeof renderCards==='function')renderCards()}if(h==='problems')renderGloss();if(h==='check')showStepNow(step);if(h==='saved')renderSaved();window.scrollTo({top:0});if(h!=='check'&&document.activeElement!==document.body)focusHeading($('v-'+h))}
 function afterObsChange(lastIdx){suggestFromObs();saveDraft();refreshPalette();if(isQuick())renderQuickStreet(lastIdx);else renderLive(false,{redraw:true,lastObs:lastIdx})}
@@ -1517,8 +1518,9 @@ document.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b)return;
  const seg=b.closest('.tiles');
  if(b.dataset.photoRemove){const key=b.dataset.photoRemove;if(photos[key]){URL.revokeObjectURL(photos[key].url);delete photos[key]}if(step===2){const checked=$('sub-consent')?.checked;renderCard();if(checked&&$('sub-consent'))$('sub-consent').checked=true;focusHeading($('photosout'))}else if(isQuick()){renderQuick();focusHeading($('s-quick'))}else{renderItems();document.querySelector(`[data-item="${key}"]`)?.focus()}return}
- if(b.dataset.mode){st.mode=b.dataset.mode;saveDraft();renderLocate();return}
- if(b.hasAttribute('data-mode-reset')){st.mode=null;saveDraft();renderLocate();return}
+ if(b.dataset.mode){st.mode=b.dataset.mode;saveDraft();showStep(0);return}
+ if(b.hasAttribute('data-mode-reset')||b.id==='back-locate-q'){st.mode=null;saveDraft();showStep(0);return}
+ if(b.id==='back-spot'){showStep(0);return}
  if(b.id==='loc-get'){takeFix('start');return}
  if(b.id==='end-here'){takeFix('end');return}
  if(b.id==='loc-use'){const f=parseCoords($('f-coords').value);const err=$('coord-err');if(!f){err.hidden=false;err.textContent=T('loc_badcoords');return}st.loc.start=f;locFail=false;saveDraft();renderLocate();return}
@@ -1535,10 +1537,10 @@ document.addEventListener('click',e=>{
  if(b.closest('#demo-toggle')){demoMode=b.dataset.m;renderDemo();startDemo();return}
  if(b.closest('#res-toggle')){resMode=b.dataset.m;renderResStreet();return}
  if(b.id==='langbtn'){lang=lang==='en'?'hi':'en';ls(()=>localStorage.setItem('fc_lang',lang));applyStrings();route();return}
- if(b.id==='to-audit'){const l=st.locate;const hasPlace=!!(st.loc.start||l.road);const ok=hasPlace&&l.side&&(isQuick()||roadClass(l));$('loc-err').hidden=!!ok;if(!ok){$('loc-err').textContent=isQuick()?T('err_loc_q'):T('err_loc');const f=!hasPlace?$('f-road'):(!l.side?document.querySelector('[data-field="side"] button'):document.querySelector(`[data-field="${['divider','lanes','through','gates'].find(x=>l[x]==null)}"] button`));f?.focus();return}showStep(1);return}
- if(b.id==='back-locate'||b.id==='back-locate-q'){showStep(0);return}
+ if(b.id==='to-audit'){const l=st.locate;const hasPlace=!!(st.loc.start||l.road);const ok=hasPlace&&l.side&&(isQuick()||roadClass(l));$('loc-err').hidden=!!ok;if(!ok){$('loc-err').textContent=isQuick()?T('err_loc_q'):T('err_loc');const f=!hasPlace?$('f-road'):(!l.side?document.querySelector('[data-field="side"] button'):document.querySelector(`[data-field="${['divider','lanes','through','gates'].find(x=>l[x]==null)}"] button`));f?.focus();return}showStep(isQuick()?2:1);return}
+ if(b.id==='back-locate'){showStep(0);return}
  if(b.id==='to-card'){const missing=firstMissing(st.answers);$('aud-err').hidden=!missing;if(missing){$('aud-err').textContent=`${T('err_first')}: ${lang==='hi'?missing.hi:missing.en}`;const item=document.querySelector(`[data-item="${missing.id}"]`);item?.setAttribute('aria-invalid','true');item?.focus();return}showStep(2);return}
- if(b.id==='to-card-q'){const ok=quickComplete();$('quick-err').hidden=ok;if(!ok){$('quick-err').textContent=T('err_quick');focusHeading($('s-quick'));return}showStep(2);return}
+ if(b.id==='to-card-q'){const ok=quickComplete();$('quick-err').hidden=ok;if(!ok){$('quick-err').textContent=T('err_quick');focusHeading($('s-quick'));return}showStep(1);return}
  if(b.id==='back-audit'){showStep(1);return}
  if(b.id==='to-notice'){showStep(3);return}
  if(b.id==='back-card'){showStep(2);return}
@@ -1550,7 +1552,7 @@ document.addEventListener('click',e=>{
  if(b.id==='share-dl'){downloadShare();return}
  if(b.dataset.cardShare){cardShare(b.dataset.cardShare);return}
  if(b.dataset.cardDl){cardDownload(b.dataset.cardDl);return}
- if(b.id==='new-check'){st=blank();photos={};locFail=false;shareBlob=null;ls(()=>localStorage.removeItem('fc_draft'));showStep(0);return}
+ if(b.id==='new-check'){carried=false;st=blank();photos={};locFail=false;shareBlob=null;ls(()=>localStorage.removeItem('fc_draft'));showStep(0);return}
  if(b.dataset.open!=null){const list=ls(()=>JSON.parse(localStorage.getItem('fc_saved')||'[]'))||[];st=normalise(list[+b.dataset.open]);photos={};step=2;location.hash='#check';if(location.hash==='#check')route();return}
  if(b.dataset.copy!=null){const list=ls(()=>JSON.parse(localStorage.getItem('fc_saved')||'[]'))||[];const rec=normalise(list[+b.dataset.copy]);if(rec.mode!=='quick'){rec.result=scoreOf(rec.answers);delete rec.result.fails}rec.obstructions=obsCounts(rec.obs);rec.method='footpath-check-v1.3';copyText(JSON.stringify(rec,null,1));return}
  if(b.dataset.del!=null){if(b.dataset.armed==='0'){b.dataset.armed='1';b.textContent=T('del_sure');return}const list=ls(()=>JSON.parse(localStorage.getItem('fc_saved')||'[]'))||[];list.splice(+b.dataset.del,1);ls(()=>localStorage.setItem('fc_saved',JSON.stringify(list)));renderSaved();return}

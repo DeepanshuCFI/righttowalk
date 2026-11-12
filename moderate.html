@@ -421,8 +421,9 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
 .trysum{font-size:17px;min-height:1.5em}
 .trysum b{font-weight:600}
 #s-quick .livebar{margin-bottom:2px}
-::view-transition-old(root),::view-transition-new(root){animation-duration:.16s;animation-timing-function:ease-out}
-@media (prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+#main.fadein{animation:fadein .18s ease-out}
+@keyframes fadein{from{opacity:.35}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){#main.fadein{animation:none}}
 #demo-street{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--toph,58px) + 6px);z-index:5;box-shadow:0 0 0 6px var(--bg)}
 
 /* ---------- secondary pages: map, report, moderation ---------- */
