@@ -17,24 +17,24 @@
 <!-- ============ LEARN ============ -->
 <section class="v hero" id="v-learn">
   <div class="wrap">
-    <div class="block">
+    <div class="block herotop">
       <span class="kicker" data-sh="hero_kick"><b>Footpath Check</b> · Gurugram</span>
       <h1 data-sh="hero_h1">Walking on a footpath is <span class="y">your right.</span></h1>
+    </div>
+
+    <div class="block herostreet">
+      <div class="streetwrap" id="demo-wrap"><div class="street" id="demo-street"></div></div>
+      <div class="palwrap trywrap" id="try-pal"></div>
+      <div class="demo-cap"><span class="kicker" id="demo-cap"><b>A typical sector road</b> · as found</span><div class="toggle" id="demo-toggle"><button type="button" data-m="found" aria-pressed="true" data-s="found">As found</button><button type="button" data-m="standard" aria-pressed="false" data-s="standard">To standard</button></div></div>
+    </div>
+
+    <div class="block heroact">
       <p class="lead" data-s="hero_lead">The Supreme Court held it a fundamental right on 19 June 2026. Check a Gurugram street in 2 minutes, see who must fix it, and put it on the record.</p>
       <div class="btnrow"><a class="btn yellow" href="#check" data-s="nav_check">Check a street</a><a class="btn" href="map.html" data-s="see_map">See the map</a></div>
       <p class="small" data-sh="hero_law">"If the road exists, there is a duty to ensure that there are demarcated and well-maintained footpaths for walkers." Supreme Court of India, 19 June 2026. <a href="law.html">Read the law behind this</a></p>
     </div>
 
-    <div class="paper numbers" id="numbers"></div>
-
-    <div class="block">
-      <div class="demo-cap"><span class="kicker" id="demo-cap"><b>A typical sector road</b> · as found</span><div class="toggle" id="demo-toggle"><button type="button" data-m="found" aria-pressed="true" data-s="found">As found</button><button type="button" data-m="standard" aria-pressed="false" data-s="standard">To standard</button></div></div>
-      <div class="street" id="demo-street"></div>
-      <div class="palwrap trywrap" id="try-pal"></div>
-      <p class="small" data-s="demo_p">A side view of one street: footpath on top, the black-and-yellow kerb, then the road. Grey objects are what was found on it; the red figure marks where a walker had to step onto the road. Tap “Illustrative redesign” to see one possible improvement. It is an illustration, not a measured design or compliance finding.</p>
-      <div class="legend"><span><i style="background:#E6E1D6"></i><span data-s="lg_fp">footpath</span></span><span><i style="background:repeating-linear-gradient(135deg,#FFC72C 0 4px,#1C1E21 4px 8px)"></i><span data-s="lg_kerb">kerb</span></span><span><i style="background:#2B2E33"></i><span data-s="lg_road">road</span></span><span><i style="background:#DE3A2F;border-color:#DE3A2F"></i><span data-s="lg_forced">forced onto the road</span></span></div>
-    </div>
-
+    <div class="band dark numbers" id="numbers"></div>
 
     <div class="block" id="two-min">
       <h2 data-s="tm_h">Two minutes, three steps</h2>
@@ -44,15 +44,19 @@
         <div class="step3"><span class="k">3</span><b data-s="tm_3h">Add your observation</b><p data-s="tm_3p">A quick check records one spot. The full check asks about 100 m on one side. You can add either observation to the moderated public record.</p></div>
       </div>
       <p class="small" data-sh="tm_more">There is a full check too: eleven questions, including Right to Walk's 100 m continuity check, and a project score. <a href="#problems">What each tile means</a> · <a href="law.html">The law behind this</a> · <a href="report.html">The Gurugram report</a></p>
+      <details class="readdraw"><summary data-s="read_h">How to read the street drawing</summary>
+        <p class="small" data-s="demo_p">A side view of one street: footpath on top, the black-and-yellow kerb, then the road. Grey objects are what was found on it; the red figure marks where a walker had to step onto the road. Tap “Illustrative redesign” to see one possible improvement. It is an illustration, not a measured design or compliance finding.</p>
+        <div class="legend"><span><i style="background:#E6E1D6"></i><span data-s="lg_fp">footpath</span></span><span><i style="background:repeating-linear-gradient(135deg,#FFC72C 0 4px,#1C1E21 4px 8px)"></i><span data-s="lg_kerb">kerb</span></span><span><i style="background:#2B2E33"></i><span data-s="lg_road">road</span></span><span><i style="background:#DE3A2F;border-color:#DE3A2F"></i><span data-s="lg_forced">forced onto the road</span></span></div>
+      </details>
     </div>
 
-    <div class="block" id="share-right">
+    <div class="band plot block" id="share-right">
       <h2 data-s="sr_h">Share the right</h2>
       <p class="muted" data-s="sr_p">Four cards for WhatsApp and Instagram, drawn on your phone in the language of this page. Nothing is uploaded; the picture is made here and shared from here.</p>
       <div class="cards" id="cards"></div>
     </div>
 
-    <div class="paper soft gameteaser"><span class="kicker"><b data-s="gt_k">A small game</b></span><p data-s="gt_p">Walk 500 m of a Gurugram road. The footpath blocks you; the only way past is the road, where the traffic is. Ninety seconds of what walking here is like.</p><div class="btnrow"><a class="btn small" href="game.html" data-s="gt_btn">Play the footpath game</a></div></div>
+    <div class="band yellow gameteaser"><span class="kicker"><b data-s="gt_k">A small game</b></span><p data-s="gt_p">Walk 500 m of a Gurugram road. The footpath blocks you; the only way past is the road, where the traffic is. Ninety seconds of what walking here is like.</p><div class="btnrow"><a class="btn ink" href="game.html" data-s="gt_btn">Play the footpath game</a></div></div>
     <div class="note" data-s="learn_note">Nothing leaves your phone unless you add a check to the record. A moderator reads every entry before it goes public. Your name is never published.</div>
   </div>
 </section>

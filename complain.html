@@ -330,10 +330,6 @@ button,.btn,.tile,.pal,.modecard,a{touch-action:manipulation;-webkit-tap-highlig
 .two-up{display:grid;gap:18px}
 @media (min-width:1100px){
   #v-learn .wrap{max-width:1080px}
-  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px 56px;align-items:start}
-  .hero .wrap>.block:first-child{grid-column:1;grid-row:1}
-  .hero .wrap>.paper:nth-child(2){grid-column:2;grid-row:1;align-self:center}
-  .hero .wrap>*:nth-child(n+3){grid-column:1 / -1}
   h1{font-size:clamp(44px,6vw,78px)}
   .two-up{grid-template-columns:1fr 1fr;gap:28px;align-items:start}
   .two-up>*{min-width:0}
@@ -427,7 +423,6 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
 #main.fadein{animation:fadein .18s ease-out}
 @keyframes fadein{from{opacity:.35}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){#main.fadein{animation:none}}
-#demo-street{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--toph,58px) + 6px);z-index:5;box-shadow:0 0 0 6px var(--bg)}
 
 /* after-submit moment */
 .submit.done{gap:14px}
@@ -446,6 +441,47 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
 .tl li.now{border-color:var(--yellow);opacity:1}
 @media (prefers-reduced-motion:reduce){.submit.done.fresh .pin,.submit.done.fresh .ripple{animation:none}}
 .submit.done .cnt{grid-template-columns:1fr 1fr}
+
+/* ---------- street-hero: the street is the first thing on the page; full-width colour bands below ---------- */
+.hero .wrap{gap:18px}
+.herostreet{gap:10px}
+.streetwrap{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--toph,58px));z-index:5;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;background:var(--s-asphalt);border-block:2px solid var(--ink)}
+.streetwrap::-webkit-scrollbar{display:none}
+.streetwrap .street{width:200%;border:0;border-radius:0}
+.trywrap{border:0;background:transparent;padding:0}
+.trywrap .palette{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding:10px 16px 4px;scroll-snap-type:x proximity;scroll-padding-inline:16px}
+.trywrap .palette::-webkit-scrollbar{display:none}
+.trywrap .palw{flex:0 0 96px;scroll-snap-align:start}
+.trywrap .pal{height:100%}
+.street.intro .ob{animation:drop .6s cubic-bezier(.2,.8,.3,1) both;animation-delay:calc(var(--i,0)*.22s + .25s)}
+.street.intro .forced{animation:fadein .5s 1.5s both}
+.readdraw summary{cursor:pointer;font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);min-height:44px;display:flex;align-items:center}
+.readdraw[open]{display:grid;gap:8px}
+.band{--bc:var(--plot);background:var(--bc);box-shadow:0 0 0 100vmax var(--bc);clip-path:inset(0 -100vmax);padding-block:30px;display:grid;gap:12px}
+.band.dark{--bc:var(--s-asphalt);color:var(--s-chalk)}
+.band.dark .kicker,.band.dark .kicker b{color:var(--s-yellow)}
+.band.dark .cntn .n{color:var(--s-chalk)}
+.band.dark .cntn .n.r{color:#FF6B5E}
+.band.dark .cntn .l,.band.dark .small{color:#CFCAC0}
+.band.dark .btn{background:transparent;color:var(--s-chalk);border-color:var(--s-chalk)}
+.band.dark .cntn .n{font-size:clamp(52px,12vw,84px)}
+.band.yellow{--bc:var(--yellow);color:var(--yellow-ink)}
+.band.yellow .kicker,.band.yellow .kicker b{color:var(--yellow-ink)}
+.band.yellow p{font-size:19px;max-width:60ch}
+@media (prefers-reduced-motion:reduce){.street.intro .ob,.street.intro .forced{animation:none}}
+@media (min-width:700px){
+  .streetwrap{position:static;margin-inline:0;border:2px solid var(--ink);border-radius:14px;overflow:hidden}
+  .streetwrap .street{width:100%}
+  .trywrap .palette{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));overflow:visible;margin-inline:0;padding:8px 0 0}
+  .trywrap .palw{flex:none}
+}
+@media (min-width:1100px){
+  .hero .wrap{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:26px 56px;align-items:end}
+  .hero .wrap>*{grid-column:1 / -1}
+  .hero .wrap>.herotop{grid-column:1;grid-row:1}
+  .hero .wrap>.heroact{grid-column:2;grid-row:1}
+  .band{padding-block:44px}
+}
 
 /* ---------- secondary pages: map, report, moderation ---------- */
 .pagehead{display:grid;gap:8px}
