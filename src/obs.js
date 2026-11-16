@@ -9,7 +9,7 @@ const OBS=[
   rule:'Rules of the Road Regulations 1989, reg. 15(2)(ii): a driver shall not park on a footpath; IRC:103-2012 cl. 6.12: bollards with a clear gap of 1,200 mm',
   fix:'Enforce regulation 15 (challan and tow) and fit kerb-edge bollards with a 1.2 m clear gap so vehicles cannot mount the footpath while wheelchairs pass',
   desc:'Cars and two-wheelers parked on the footpath, usually at shops and markets. In ITDP’s Chennai audit parking was 40% of all obstructions counted, the largest single type.'},
- {id:'vendor',en:'Vendor cart, kiosk or tin shed',hi:'रेहड़ी-पटरी, ठेला, खोखा, टीन शेड',sev:'off',
+ {id:'vendor',en:'Vendor cart, stall or tin shed',hi:'रेहड़ी-पटरी, ठेला, खोखा, टीन शेड',sev:'off',
   who:'MCG street-vending team and Town Vending Committee on MCG roads and markets; GMDA Enforcement on master roads; HSVP Estate Office in sector markets',
   rule:'Street Vendors Act 2014 s.3(3) (no eviction before the survey), s.18 (30 days’ notice), s.28 (penalty up to ₹2,000); Haryana Municipal Street Vendors Act 2014 s.16; IRC:103-2012 cl. 6.11 (vending managed so it does not hinder pedestrians); Haryana Municipal Corporation Act 1994 s.408',
   fix:'Mark a vending zone in the multi-utility strip and certify vendors through the Town Vending Committee; remove un-certified fixed structures after notice; keep the walking zone clear',

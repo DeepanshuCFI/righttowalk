@@ -45,8 +45,8 @@
       </div>
       <p class="small" data-sh="tm_more">There is a full check too: eleven questions, including Right to Walk's 100 m continuity check, and a project score. <a href="#problems">What each tile means</a> · <a href="law.html">The law behind this</a> · <a href="report.html">The Gurugram report</a></p>
       <details class="readdraw"><summary data-s="read_h">How to read the street drawing</summary>
-        <p class="small" data-s="demo_p">A side view of one street: footpath on top, the black-and-yellow kerb, then the road. Grey objects are what was found on it; the red figure marks where a walker had to step onto the road. Tap “Illustrative redesign” to see one possible improvement. It is an illustration, not a measured design or compliance finding.</p>
-        <div class="legend"><span><i style="background:#E6E1D6"></i><span data-s="lg_fp">footpath</span></span><span><i style="background:repeating-linear-gradient(135deg,#FFC72C 0 4px,#1C1E21 4px 8px)"></i><span data-s="lg_kerb">kerb</span></span><span><i style="background:#2B2E33"></i><span data-s="lg_road">road</span></span><span><i style="background:#DE3A2F;border-color:#DE3A2F"></i><span data-s="lg_forced">forced onto the road</span></span></div>
+        <p class="small" data-s="demo_p">A side view of one street: footpath on top, its black-and-yellow edge, then the road. Grey objects are what was found on it; the red figure marks where a walker had to step onto the road. Tap “Illustrative redesign” to see one possible improvement. It is an illustration, not a measured design or compliance finding.</p>
+        <div class="legend"><span><i style="background:#E6E1D6"></i><span data-s="lg_fp">footpath</span></span><span><i style="background:repeating-linear-gradient(135deg,#FFC72C 0 4px,#1C1E21 4px 8px)"></i><span data-s="lg_kerb">footpath edge</span></span><span><i style="background:#2B2E33"></i><span data-s="lg_road">road</span></span><span><i style="background:#DE3A2F;border-color:#DE3A2F"></i><span data-s="lg_forced">forced onto the road</span></span></div>
       </details>
     </div>
 
@@ -90,11 +90,10 @@
 
     <div id="s-audit" class="block" style="gap:14px" hidden>
       <div class="livebar"><div class="meta"><span data-s="aud_live"></span><span id="aud-count"></span></div><div class="street" id="live-street"></div></div>
-      <h2 data-s="aud_h"></h2>
-      <p class="muted" data-s="aud_p"></p>
+      <h2 class="vh" data-s="aud_h"></h2>
       <p class="note" data-s="safe_note">Stop in a safe place to answer or take photos. Never step into traffic to finish a check. If the route is blocked, record the blockage and stop.</p>
-      <p class="small" data-s="photo_note">Photos are optional. Review each image before submitting. A check saved in this browser does not save its photos.</p>
       <div id="items" class="block" style="gap:12px"></div>
+      <p class="small" data-s="photo_note">Photos are optional. Review each image before submitting. A check saved in this browser does not save its photos.</p>
       <p class="err" id="aud-err" role="alert" hidden></p>
       <div class="bottombar"><button class="btn" id="back-locate" type="button" data-s="back"></button><span id="endwrap"></span><button class="btn yellow" id="to-card" type="button" data-s="see"></button></div>
     </div>
@@ -118,7 +117,7 @@
       <div class="block" id="anchorout"></div>
       <div class="block" id="photosout" hidden><h3 data-s="card_photos"></h3><div class="thumbs" id="thumbs"></div></div>
       <div class="block" id="shareout" hidden></div>
-      <div class="btnrow"><button class="btn" id="back-audit" type="button" data-s="back"></button><button class="btn" id="to-notice" type="button" data-s="notice"></button><button class="btn" id="save-check" type="button" data-s="save"></button><button class="btn" id="copy-json" type="button" data-s="copyrec"></button></div>
+      <div class="btnrow"><button class="btn" id="back-audit" type="button" data-s="back"></button><button class="btn" id="to-notice" type="button" data-s="notice"></button><button class="btn" id="save-check" type="button" data-s="save"></button><button class="btn" id="copy-json" type="button" data-s="copyrec"></button><button class="btn" id="new-check-card" type="button" data-s="new"></button></div>
       <div class="small" id="card-note"></div>
     </div>
 

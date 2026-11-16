@@ -428,3 +428,17 @@ details.rung p{margin-top:8px;padding:10px 12px;border-left:3px solid var(--yell
   .hero .wrap>.heroact{grid-column:2;grid-row:1}
   .band{padding-block:44px}
 }
+
+/* tester feedback (Ishita, Krishna): less text and less scrolling on the phone check */
+.item{scroll-margin-top:calc(env(safe-area-inset-top,0px) + var(--toph,58px) + var(--liveh,0px) + 8px)}
+details.why p+p{margin-top:6px}
+@media (max-width:699px){
+  .item{padding:14px;gap:8px}
+  .item .q{font-size:21px}
+  .item .palwrap,#s-quick .palwrap{border:0;background:transparent;padding:0}
+  .item .palette,#s-quick .palette{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-inline:-14px;padding:10px 14px 4px;scroll-snap-type:x proximity;scroll-padding-inline:14px}
+  #s-quick .palette{margin-inline:-16px;padding-inline:16px;scroll-padding-inline:16px}
+  .item .palette::-webkit-scrollbar,#s-quick .palette::-webkit-scrollbar{display:none}
+  .item .palw,#s-quick .palw{flex:0 0 96px;scroll-snap-align:start}
+  .item .pal,#s-quick .pal{height:100%}
+}
